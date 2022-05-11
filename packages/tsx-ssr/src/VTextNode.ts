@@ -1,14 +1,14 @@
-import { VNode } from "./VNode";
+import { VNode } from './VNode';
 
 export class VTextNode extends VNode {
-    protected text: string;
+  protected text: string;
 
-    public constructor(text: string) {
-        super();
-        this.text = text;
-    }
+  public constructor(text: string) {
+    super();
+    this.text = text;
+  }
 
-    public override toDom(document: Document) {
-        return document.createTextNode(this.text);
-    }
+  public override toDom(document: Document) {
+    return document.createTextNode(this.text);
+  }
 }

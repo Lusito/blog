@@ -2,7 +2,10 @@
   "name": "nx-test",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "lint": "nx run-many --all --target=lint",
+    "format": "nx format:write --all"
+  },
   "private": true,
   "devDependencies": {
     "@nrwl/cli": "14.1.4",

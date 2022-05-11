@@ -4,7 +4,7 @@
   "include": [],
   "compilerOptions": {
     "jsx": "react",
-    "jsxFactory": "h",
+    "jsxFactory": "h"
   },
   "references": [
     {
