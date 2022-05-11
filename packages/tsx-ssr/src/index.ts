@@ -26,7 +26,7 @@ declare global {
         type Element = ComponentChildren;
 
         interface ElementAttributesProperty {
-            props: any; // specify the property name to use
+            props: unknown; // specify the property name to use
         }
 
         interface ElementChildrenAttribute {
