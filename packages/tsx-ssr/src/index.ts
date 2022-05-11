@@ -1,7 +1,7 @@
 import { ElementAttributes, VElementNode } from "./VElementNode";
 import { VComponentNode } from "./VComponentNode";
-import { BaseProps, Component, ComponentChildren, ComponentThis, HTMLComponentProps, InternalComponent } from "./types";
-import { HTMLAttributes } from "./HTMLAttributes";
+import type { BaseProps, Component, ComponentChildren, ComponentThis, HTMLComponentProps, InternalComponent } from "./types";
+import type { HTMLAttributes } from "./HTMLAttributes";
 
 export * from "./createContext";
 export * from "./ErrorBoundary";
@@ -21,6 +21,7 @@ export function h(tag: string | Component, attrs: Record<string, unknown> | null
 }
 
 declare global {
+    // eslint-disable-next-line @typescript-eslint/no-namespace
     namespace JSX {
         type Element = ComponentChildren;
 
@@ -34,6 +35,7 @@ declare global {
 
         type IntrinsicElementsHTML = { [K in keyof HTMLElementTagNameMap]?: HTMLAttributes & HTMLComponentProps };
 
+        // eslint-disable-next-line @typescript-eslint/no-empty-interface
         interface IntrinsicElements extends IntrinsicElementsHTML { }
     }
 }

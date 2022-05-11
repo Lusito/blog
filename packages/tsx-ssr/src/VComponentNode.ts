@@ -12,8 +12,8 @@ export class VComponentNode extends VNodeParent {
         this.props = { ...props, children };
     }
 
-    protected override async resolveSelf(self: ComponentThis) {
-        const children = await this.tag.call(self, this.props);
+    protected override async resolveSelf(thisArg: ComponentThis) {
+        const children = await this.tag.call(thisArg, this.props);
         this.children = flattenChildren(children);
     }
 }

@@ -20,14 +20,14 @@ class VErrorBoundaryNode extends VNodeParent {
         this.children = flattenChildren(children);
     }
 
-    public override async resolve(self: ComponentThis) {
+    public override async resolve(thisArg: ComponentThis) {
         try {
-            await super.resolve(self);
+            await super.resolve(thisArg);
         } catch (error) {
             this.status = 'init';
             this.children.length = 0;
             this.error = error;
-            await super.resolve(self);
+            await super.resolve(thisArg);
         }
     }
 }

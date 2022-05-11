@@ -1,5 +1,5 @@
 import { VNode } from "./VNode";
-import type { ComponentThis, TsxDocument } from "./types";
+import type { ComponentThis } from "./types";
 
 export abstract class VNodeParent extends VNode {
     protected children: VNode[];
@@ -10,22 +10,22 @@ export abstract class VNodeParent extends VNode {
         this.children = children;
     }
 
-    protected async resolveSelf(self: ComponentThis) {
-    }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
+    protected async resolveSelf(thisArg: ComponentThis) {}
 
-    public override async resolve(self: ComponentThis) {
+    public override async resolve(thisArg: ComponentThis) {
         if (this.status !== 'init') throw new Error("Called resolve twice on node");
 
         this.status = 'resolvingSelf';
-        await this.resolveSelf(self);
+        await this.resolveSelf(thisArg);
 
         this.status = 'resolvingChildren';
-        await Promise.all(this.children.map(child => child.resolve(self)));
+        await Promise.all(this.children.map(child => child.resolve(thisArg)));
 
         this.status = 'resolved';
     }
 
-    public override toDom(document: TsxDocument): HTMLElement | DocumentFragment | Text {
+    public override toDom(document: Document): HTMLElement | DocumentFragment | Text {
         if (this.status !== "resolved") throw new Error("You need to resolve first!");
 
         const el = document.createDocumentFragment();

@@ -1,7 +1,8 @@
-import type { ComponentThis, TsxDocument } from "./types";
+import type { ComponentThis } from "./types";
 
 export abstract class VNode {
-    public async resolve(self: ComponentThis) { }
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
+    public async resolve(thisArg: ComponentThis) { }
 
-    public abstract toDom(document: TsxDocument): HTMLElement | DocumentFragment | Text;
+    public abstract toDom(document: Document): HTMLElement | DocumentFragment | Text;
 }

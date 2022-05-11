@@ -1,6 +1,5 @@
 import type { ComponentChildren } from ".";
-import { StyleAttributes } from "./HTMLAttributes";
-import { TsxDocument } from "./types";
+import type { StyleAttributes } from "./HTMLAttributes";
 import { flattenChildren } from "./utils";
 import { VNodeParent } from "./VNodeParent";
 
@@ -42,7 +41,7 @@ export class VElementNode extends VNodeParent {
         this.attrs = attrs;
     }
 
-    public override toDom(document: TsxDocument) {
+    public override toDom(document: Document) {
         if (this.status !== "resolved") throw new Error("You need to resolve first!");
 
         const el = document.createElement(this.tag);

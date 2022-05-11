@@ -6,7 +6,7 @@ export type ContextProviderProps<T = unknown> = BaseProps & { value: T };
 export type ContextProvider<T = unknown> = InternalComponent<ContextProviderProps<T>>;
 export type Context<T = unknown> = {
     Provider: ContextProvider<T>;
-    for(self: ComponentThis): T;
+    for(componentThis: ComponentThis): T;
 }
 
 export function createContext<T>(fallback: T): Context<T> {
@@ -16,9 +16,9 @@ export function createContext<T>(fallback: T): Context<T> {
         Provider: Object.assign((props: ContextProviderProps<T>) => new VContextNode(type, props), {
             __tsxInternal: true
         }),
-        for(self) {
-            if (type in self) {
-                return self[type] as T;
+        for(componentThis) {
+            if (type in componentThis) {
+                return componentThis[type] as T;
             }
             return fallback;
         }
@@ -35,7 +35,7 @@ class VContextNode extends VNodeParent {
         this.value = value;
     }
 
-    public override async resolve(self: ComponentThis) {
-        return super.resolve({ ...self, [this.type]: this.value });
+    public override async resolve(thisArg: ComponentThis) {
+        return super.resolve({ ...thisArg, [this.type]: this.value });
     }
 }

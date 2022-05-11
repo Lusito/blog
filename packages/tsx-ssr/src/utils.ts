@@ -1,4 +1,4 @@
-import { ComponentChildren, ComponentThis, TsxDocument } from "./types";
+import type { ComponentChildren, ComponentThis } from "./types";
 import { VNode } from "./VNode";
 import { VPromiseNode } from "./VPromiseNode";
 import { VTextNode } from "./VTextNode";
@@ -20,10 +20,10 @@ export function flattenChildren(children: ComponentChildren, result: VNode[] = [
     return result;
 }
 
-export async function toDom(document: TsxDocument, children: ComponentChildren, self: ComponentThis): Promise<HTMLElement | DocumentFragment | Text> {
+export async function toDom(document: Document, children: ComponentChildren, thisArg: ComponentThis): Promise<HTMLElement | DocumentFragment | Text> {
     const flattened = flattenChildren(children);
 
-    await Promise.all(flattened.map(child => child.resolve(self)));
+    await Promise.all(flattened.map(child => child.resolve(thisArg)));
     const el = document.createDocumentFragment();
     for (const child of flattened) {
         el.appendChild(child.toDom(document));
@@ -32,8 +32,8 @@ export async function toDom(document: TsxDocument, children: ComponentChildren, 
     return el;
 }
 
-export async function renderToString(document: TsxDocument, children: ComponentChildren, self: ComponentThis) {
-    const domChildren = await toDom(document, children, self);
+export async function renderToString(document: Document, children: ComponentChildren, thisArg: ComponentThis) {
+    const domChildren = await toDom(document, children, thisArg);
     const wrapper = document.createElement("div");
     wrapper.appendChild(domChildren);
     return wrapper.innerHTML;
