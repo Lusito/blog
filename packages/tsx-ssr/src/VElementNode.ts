@@ -12,7 +12,7 @@ function setAttributes(element: HTMLElement, attrs: ElementAttributes) {
         const style = attrs.style as StyleAttributes;
         const target = element.style as StyleAttributes;
         for (const key in style) {
-            if (target.hasOwnProperty(key))
+            if (key in target)
                 target[key] = style[key];
         }
         delete attrs.style;

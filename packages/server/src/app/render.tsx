@@ -1,8 +1,8 @@
-import { h, toDom, TsxDocument } from 'tsx-ssr';
+import { h, toDom } from 'tsx-ssr';
 import { Window } from 'happy-dom';
 
 const window = new Window();
-const document = window.document as unknown as TsxDocument; // fixme
+const document = window.document as unknown as Document;
 
 export async function renderExample() {
   const Draggable = () => {
