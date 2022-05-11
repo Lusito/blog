@@ -18,3 +18,4 @@ export type Component<T = BaseProps> = (this: ComponentThis, props: T) => Compon
 export type InternalComponent<T = BaseProps> = Component<T> & { __tsxInternal: boolean };
 export type ComponentChild = VNode | string | number | false | undefined | null;
 export type ComponentChildren = ComponentChild | ComponentChildren[] | Promise<ComponentChild | ComponentChildren[]>;
+export type TsxDocument = Pick<Document, "createElement" | "createDocumentFragment" | "createTextNode">;

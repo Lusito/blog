@@ -1,5 +1,5 @@
 import { VNode } from "./VNode";
-import type { ComponentThis, ComponentChildren } from "./types";
+import type { ComponentThis, TsxDocument } from "./types";
 
 export abstract class VNodeParent extends VNode {
     protected children: VNode[];
@@ -25,12 +25,12 @@ export abstract class VNodeParent extends VNode {
         this.status = 'resolved';
     }
 
-    public override toDom(): HTMLElement | DocumentFragment | Text {
+    public override toDom(document: TsxDocument): HTMLElement | DocumentFragment | Text {
         if (this.status !== "resolved") throw new Error("You need to resolve first!");
 
         const el = document.createDocumentFragment();
         for (const child of this.children) {
-            el.appendChild(child.toDom());
+            el.appendChild(child.toDom(document));
         }
 
         return el;

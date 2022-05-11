@@ -1,7 +1,7 @@
-import type { ComponentThis } from "./types";
+import type { ComponentThis, TsxDocument } from "./types";
 
 export abstract class VNode {
     public async resolve(self: ComponentThis) { }
 
-    public abstract toDom(): HTMLElement | DocumentFragment | Text;
+    public abstract toDom(document: TsxDocument): HTMLElement | DocumentFragment | Text;
 }

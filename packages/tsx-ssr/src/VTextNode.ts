@@ -1,3 +1,4 @@
+import { TsxDocument } from "./types";
 import { VNode } from "./VNode";
 
 export class VTextNode extends VNode {
@@ -8,7 +9,7 @@ export class VTextNode extends VNode {
         this.text = text;
     }
 
-    public override toDom() {
+    public override toDom(document: TsxDocument) {
         return document.createTextNode(this.text);
     }
 }
