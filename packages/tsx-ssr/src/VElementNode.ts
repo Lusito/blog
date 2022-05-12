@@ -1,6 +1,6 @@
 import type { BaseProps } from './types';
 import type { StyleAttributes } from './HTMLAttributes';
-import { flattenChildren } from './utils';
+import { flattenChildren } from './internal';
 import { VNodeParent } from './VNodeParent';
 
 export type ElementAttributes = {

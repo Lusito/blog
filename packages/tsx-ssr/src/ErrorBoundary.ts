@@ -1,5 +1,5 @@
 import type { ComponentThis, ComponentChildren } from './types';
-import { internalComponent, flattenChildren } from './utils';
+import { internalComponent, flattenChildren } from './internal';
 import { VNodeParent } from './VNodeParent';
 
 class VErrorBoundaryNode extends VNodeParent {

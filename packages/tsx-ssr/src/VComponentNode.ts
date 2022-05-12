@@ -1,6 +1,6 @@
 import { VNodeParent } from './VNodeParent';
 import type { ComponentThis, BaseProps, Component } from './types';
-import { flattenChildren } from './utils';
+import { flattenChildren } from './internal';
 
 export class VComponentNode extends VNodeParent {
   protected tag: Component;

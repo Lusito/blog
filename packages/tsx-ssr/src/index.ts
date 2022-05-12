@@ -3,11 +3,12 @@ import type { HTMLAttributes } from './HTMLAttributes';
 
 export * from './createContext';
 export * from './createElement';
+export * from './jsx-runtime';
 export * from './ErrorBoundary';
 export * from './Fragment';
 export * from './HTMLAttributes';
 export * from './types';
-export { toDom, renderToString } from './utils';
+export * from './utils';
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace

@@ -1,5 +1,5 @@
 import type { BaseProps, Component, ComponentChildren } from './types';
-import type { InternalComponent } from './utils';
+import type { InternalComponent } from './internal';
 import { VComponentNode } from './VComponentNode';
 import { VElementNode } from './VElementNode';
 

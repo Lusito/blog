@@ -1,5 +1,9 @@
 import type { ComponentThis, BaseProps } from './types';
-import { internalComponent, InternalComponent, flattenChildren } from './utils';
+import {
+  internalComponent,
+  InternalComponent,
+  flattenChildren,
+} from './internal';
 import { VNodeParent } from './VNodeParent';
 
 export type ContextProviderProps<T = unknown> = BaseProps & { value: T };

@@ -1,6 +1,6 @@
 import { VNodeParent } from './VNodeParent';
 import type { ComponentChildren } from './types';
-import { flattenChildren } from './utils';
+import { flattenChildren } from './internal';
 
 export class VPromiseNode extends VNodeParent {
   protected promise: ComponentChildren;
