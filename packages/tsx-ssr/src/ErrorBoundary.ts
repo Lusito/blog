@@ -9,12 +9,14 @@ import { VNodeParent } from './VNodeParent';
 class VErrorBoundaryNode extends VNodeParent {
   protected render: ErrorBoundaryProps['render'];
   protected fallback: ErrorBoundaryProps['fallback'];
+  protected accept: ErrorBoundaryProps['accept'];
   protected error: unknown;
 
-  public constructor({ render, fallback }: ErrorBoundaryProps) {
+  public constructor({ render, fallback, accept }: ErrorBoundaryProps) {
     super();
     this.render = render;
     this.fallback = fallback;
+    this.accept = accept;
   }
 
   protected override async resolveSelf() {
@@ -28,6 +30,9 @@ class VErrorBoundaryNode extends VNodeParent {
     try {
       await super.resolve(thisArg);
     } catch (error) {
+      if (this.accept && !this.accept(error)) {
+        throw error;
+      }
       this.status = 'init';
       this.children.length = 0;
       this.error = error;

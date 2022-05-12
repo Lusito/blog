@@ -8,8 +8,10 @@ type Todo = {
 };
 
 export async function Todos() {
-  const promise = await fetch('https://jsonplaceholder.typicode.com/todos');
-  const todos: Todo[] = await promise.json();
+  const response = await fetch('https://jsonplaceholder.typicode.com/todos');
+  if (response.status > 300) throw new Error('Failed loading todos');
+
+  const todos: Todo[] = await response.json();
 
   return (
     <ul>
