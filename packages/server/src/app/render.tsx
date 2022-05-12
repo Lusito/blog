@@ -1,4 +1,4 @@
-import { ErrorBoundary, h, toDom } from 'tsx-ssr';
+import { ErrorBoundary, toDom } from 'tsx-ssr';
 import { Window } from 'happy-dom';
 import { LazyImage } from '../components/LazyImage/LazyImage';
 import { SomeNumber } from '../SomeNumber';

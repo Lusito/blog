@@ -1,4 +1,4 @@
-import { ComponentThis, h } from 'tsx-ssr';
+import { ComponentThis } from 'tsx-ssr';
 import { SomeNumber } from '../../SomeNumber';
 
 import classes from './LazyImage.module.css';

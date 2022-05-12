@@ -3,8 +3,8 @@
   "files": [],
   "include": [],
   "compilerOptions": {
-    "jsx": "react",
-    "jsxFactory": "h",
+    "jsx": "react-jsx",
+    "jsxImportSource": "tsx-ssr",
     "esModuleInterop": true
   },
   "references": [

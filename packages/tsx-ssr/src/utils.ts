@@ -55,7 +55,9 @@ export async function renderToString(
   return wrapper.innerHTML;
 }
 
-export type InternalComponent<T = BaseProps> = Component<T> & {
+export type InternalComponent<T = BaseProps> = ((
+  props: T
+) => ComponentChildren) & {
   __tsxInternal: boolean;
 };
 

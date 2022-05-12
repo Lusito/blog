@@ -1,5 +1,3 @@
-import { h } from 'tsx-ssr';
-
 type Todo = {
   userId: number;
   id: number;

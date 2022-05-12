@@ -1,24 +1,15 @@
 import { VNodeParent } from './VNodeParent';
-import type {
-  ComponentThis,
-  BaseProps,
-  ComponentChildren,
-  Component,
-} from './types';
+import type { ComponentThis, BaseProps, Component } from './types';
 import { flattenChildren } from './utils';
 
 export class VComponentNode extends VNodeParent {
   protected tag: Component;
   protected props: BaseProps;
 
-  public constructor(
-    tag: Component,
-    props: BaseProps,
-    children: ComponentChildren
-  ) {
+  public constructor(tag: Component, props: BaseProps) {
     super();
     this.tag = tag;
-    this.props = { ...props, children };
+    this.props = props;
   }
 
   protected override async resolveSelf(thisArg: ComponentThis) {

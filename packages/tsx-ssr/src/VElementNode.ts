@@ -1,4 +1,4 @@
-import type { ComponentChildren } from './types';
+import type { BaseProps } from './types';
 import type { StyleAttributes } from './HTMLAttributes';
 import { flattenChildren } from './utils';
 import { VNodeParent } from './VNodeParent';
@@ -39,14 +39,11 @@ export class VElementNode extends VNodeParent {
   protected tag: string;
   protected attrs: ElementAttributes;
 
-  public constructor(
-    tag: string,
-    attrs: ElementAttributes,
-    children: ComponentChildren
-  ) {
+  public constructor(tag: string, { children, ...props }: BaseProps) {
     super(flattenChildren(children));
+
     this.tag = tag;
-    this.attrs = attrs;
+    this.attrs = props as ElementAttributes;
   }
 
   public override toDom(document: Document) {

@@ -1,5 +1,16 @@
 {
   "name": "tsx-ssr",
   "version": "0.0.1",
-  "type": "commonjs"
+  "type": "commonjs",
+  "exports": {
+    ".": "./src/index.js",
+    "./jsx-runtime": "./src/jsx-runtime.js"
+  },
+  "typesVersions": {
+    "*": {
+      "jsx-runtime": [
+        "src/jsx-runtime"
+      ]
+    }
+  }
 }
