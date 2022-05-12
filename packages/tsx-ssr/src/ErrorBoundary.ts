@@ -1,9 +1,5 @@
-import type {
-  ComponentThis,
-  ComponentChildren,
-  InternalComponent,
-} from './types';
-import { flattenChildren } from './utils';
+import type { ComponentThis, ComponentChildren } from './types';
+import { internalComponent, flattenChildren } from './utils';
 import { VNodeParent } from './VNodeParent';
 
 class VErrorBoundaryNode extends VNodeParent {
@@ -47,6 +43,6 @@ export type ErrorBoundaryProps = {
   accept?: (error: unknown) => boolean; // if this boundary accepts the error or lets the next boundary handle it
 };
 
-export const ErrorBoundary: InternalComponent<ErrorBoundaryProps> = (props) =>
-  new VErrorBoundaryNode(props);
-ErrorBoundary.__tsxInternal = true;
+export const ErrorBoundary = internalComponent(
+  (props: ErrorBoundaryProps) => new VErrorBoundaryNode(props)
+);

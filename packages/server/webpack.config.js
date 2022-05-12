@@ -13,8 +13,8 @@ module.exports = (config) => {
               options: {
                 esModule: false,
                 modules: {
-                  localIdentName: "[local]--[hash:base64]",
-                  exportLocalsConvention: "camelCaseOnly",
+                  localIdentName: '[local]--[hash:base64]',
+                  exportLocalsConvention: 'camelCaseOnly',
                 },
                 sourceMap: false,
                 importLoaders: 1,

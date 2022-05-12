@@ -1,5 +1,5 @@
-import type { ComponentThis, BaseProps, InternalComponent } from './types';
-import { flattenChildren } from './utils';
+import type { ComponentThis, BaseProps } from './types';
+import { internalComponent, InternalComponent, flattenChildren } from './utils';
 import { VNodeParent } from './VNodeParent';
 
 export type ContextProviderProps<T = unknown> = BaseProps & { value: T };
@@ -15,11 +15,8 @@ export function createContext<T>(fallback: T): Context<T> {
   const type = Symbol();
 
   return {
-    Provider: Object.assign(
-      (props: ContextProviderProps<T>) => new VContextNode(type, props),
-      {
-        __tsxInternal: true,
-      }
+    Provider: internalComponent(
+      (props: ContextProviderProps<T>) => new VContextNode(type, props)
     ),
     for(componentThis) {
       if (type in componentThis) {

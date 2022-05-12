@@ -1,4 +1,4 @@
-import type { InternalComponent } from './types';
+import type { BaseProps } from './types';
+import { internalComponent } from './utils';
 
-export const Fragment: InternalComponent = (props) => props.children;
-Fragment.__tsxInternal = true;
+export const Fragment = internalComponent((props: BaseProps) => props.children);

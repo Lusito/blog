@@ -17,9 +17,6 @@ export type Component<T = BaseProps> = (
   this: ComponentThis,
   props: T
 ) => ComponentChildren;
-export type InternalComponent<T = BaseProps> = Component<T> & {
-  __tsxInternal: boolean;
-};
 export type ComponentChild = VNode | string | number | false | undefined | null;
 export type ComponentChildren =
   | ComponentChild

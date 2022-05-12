@@ -1,4 +1,4 @@
-import type { ComponentChildren } from '.';
+import type { ComponentChildren } from './types';
 import type { StyleAttributes } from './HTMLAttributes';
 import { flattenChildren } from './utils';
 import { VNodeParent } from './VNodeParent';

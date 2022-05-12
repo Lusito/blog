@@ -1,4 +1,9 @@
-import type { ComponentChildren, ComponentThis } from './types';
+import type {
+  BaseProps,
+  Component,
+  ComponentChildren,
+  ComponentThis,
+} from './types';
 import { VNode } from './VNode';
 import { VPromiseNode } from './VPromiseNode';
 import { VTextNode } from './VTextNode';
@@ -47,4 +52,12 @@ export async function renderToString(
   const wrapper = document.createElement('div');
   wrapper.appendChild(domChildren);
   return wrapper.innerHTML;
+}
+
+export type InternalComponent<T = BaseProps> = Component<T> & {
+  __tsxInternal: boolean;
+};
+
+export function internalComponent<T>(comp: Component<T>): InternalComponent<T> {
+  return Object.assign(comp, { __tsxInternal: true });
 }
