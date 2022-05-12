@@ -22,6 +22,7 @@ export function createContext<T>(fallback: T): Context<T> {
       if (type in componentThis) {
         return componentThis[type] as T;
       }
+
       return fallback;
     },
   };

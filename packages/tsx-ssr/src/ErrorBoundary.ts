@@ -29,6 +29,7 @@ class VErrorBoundaryNode extends VNodeParent {
       if (this.accept && !this.accept(error)) {
         throw error;
       }
+
       this.status = 'init';
       this.children.length = 0;
       this.error = error;

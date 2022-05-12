@@ -16,12 +16,14 @@ export function createElement(
   if (typeof tag === 'string') {
     return new VElementNode(tag, (attrs ?? {}) as ElementAttributes, children);
   }
+
   if ((tag as InternalComponent).__tsxInternal === true) {
     return tag.call({} as ComponentThis, {
       ...attrs,
       children,
     }) as unknown as ComponentChildren;
   }
+
   return new VComponentNode(tag, (attrs ?? {}) as BaseProps, children);
 }
 

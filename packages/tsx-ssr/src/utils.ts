@@ -51,6 +51,7 @@ export async function renderToString(
   const domChildren = await toDom(document, children, thisArg);
   const wrapper = document.createElement('div');
   wrapper.appendChild(domChildren);
+
   return wrapper.innerHTML;
 }
 

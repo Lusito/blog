@@ -32,8 +32,9 @@ export abstract class VNodeParent extends VNode {
   public override toDom(
     document: Document
   ): HTMLElement | DocumentFragment | Text {
-    if (this.status !== 'resolved')
+    if (this.status !== 'resolved') {
       throw new Error('You need to resolve first!');
+    }
 
     const el = document.createDocumentFragment();
     for (const child of this.children) {
