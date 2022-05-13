@@ -5,6 +5,8 @@ import { CharactersPage } from './pages/CharactersPage';
 import { CharacterPage } from './pages/CharacterPage';
 import { LocationsPage } from './pages/LocationsPage';
 import { LocationPage } from './pages/LocationPage';
+import { EpisodesPage } from './pages/EpisodesPage';
+import { EpisodePage } from './pages/EpisodePage';
 
 const app = express();
 const port = 3000;
@@ -40,13 +42,13 @@ app.get('/location/:id', async (req, res) => {
 
 app.get('/episodes', async (req, res) => {
   const html = await renderChildren(
-    <CharactersPage currentPage={parseInt((req.query.page as string) || '1')} />
+    <EpisodesPage currentPage={parseInt((req.query.page as string) || '1')} />
   );
   res.send(html);
 });
 
 app.get('/episode/:id', async (req, res) => {
-  const html = await renderChildren(<CharacterPage id={req.params.id} />);
+  const html = await renderChildren(<EpisodePage id={req.params.id} />);
   res.send(html);
 });
 

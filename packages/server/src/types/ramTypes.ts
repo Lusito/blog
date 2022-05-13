@@ -28,6 +28,16 @@ export type RamLocation = {
   created: string;
 };
 
+export type RamEpisode = {
+  id: number;
+  name: string;
+  air_date: string;
+  episode: string;
+  characters: string[];
+  url: string;
+  created: string;
+};
+
 export type RamPageInfo = {
   count: number;
   pages: number;
