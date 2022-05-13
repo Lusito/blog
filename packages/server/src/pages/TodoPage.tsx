@@ -1,4 +1,5 @@
 import { DefaultLayout } from '../layouts/DefaultLayout';
+import { fetchJson } from '../utils/fetchUtils';
 
 type TodoItem = {
   userId: number;
@@ -12,12 +13,9 @@ export type TodoPageProps = {
 };
 
 export async function TodoPage({ id }: TodoPageProps) {
-  const response = await fetch(
+  const todo = await fetchJson<TodoItem>(
     `https://jsonplaceholder.typicode.com/todos/${id}`
   );
-  if (response.status > 300) throw new Error('Failed loading todos');
-
-  const todo: TodoItem = await response.json();
 
   return (
     <DefaultLayout>
