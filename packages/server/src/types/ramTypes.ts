@@ -18,12 +18,14 @@ export type RamCharacter = {
   created: string;
 };
 
+export type RamPageInfo = {
+  count: number;
+  pages: number;
+  next: string | null;
+  prev: string | null;
+};
+
 export type RamPage<T> = {
-  info: {
-    count: number;
-    pages: number;
-    next: string | null;
-    prev: string | null;
-  };
+  info: RamPageInfo;
   results: T[];
 };
