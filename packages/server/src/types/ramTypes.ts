@@ -1,0 +1,29 @@
+export type RamNameAndUrl = {
+  name: string;
+  url: string;
+};
+
+export type RamCharacter = {
+  id: number;
+  name: string;
+  status: 'Alive' | 'Dead' | 'unknown';
+  species: string;
+  type: string;
+  gender: 'Female' | 'Male' | 'Genderless' | 'unknown';
+  origin: RamNameAndUrl;
+  location: RamNameAndUrl;
+  image: string;
+  episode: string[];
+  url: string;
+  created: string;
+};
+
+export type RamPage<T> = {
+  info: {
+    count: number;
+    pages: number;
+    next: string | null;
+    prev: string | null;
+  };
+  results: T[];
+};

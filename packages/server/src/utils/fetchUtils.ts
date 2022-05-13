@@ -4,3 +4,7 @@ export async function fetchJson<T>(url: string): Promise<T> {
 
   return response.json();
 }
+
+export function fetchRAM<T>(path: string) {
+  return fetchJson<T>(`https://rickandmortyapi.com/api${path}`);
+}
