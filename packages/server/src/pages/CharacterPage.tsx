@@ -1,3 +1,4 @@
+import { BackLink } from '../components/BackLink/BackLink';
 import { Character } from '../components/Character/Character';
 import { DefaultLayout } from '../layouts/DefaultLayout';
 import { RamCharacter } from '../types/ramTypes';
@@ -15,6 +16,7 @@ export async function CharacterPage({ id }: CharacterPageProps) {
       <head>
         <title>Character: {character.name}</title>
       </head>
+      <BackLink url="/characters" label="All Characters" />
       <Character character={character} />
     </DefaultLayout>
   );

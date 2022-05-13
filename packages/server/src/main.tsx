@@ -1,26 +1,16 @@
 import { renderChildren } from './utils/renderChildren';
 import express from 'express';
 import { DemoPage } from './pages/DemoPage';
-import { TodosPage } from './pages/TodosPage';
-import { TodoPage } from './pages/TodoPage';
 import { CharactersPage } from './pages/CharactersPage';
 import { CharacterPage } from './pages/CharacterPage';
+import { LocationsPage } from './pages/LocationsPage';
+import { LocationPage } from './pages/LocationPage';
 
 const app = express();
 const port = 3000;
 
 app.get('/', async (req, res) => {
   const html = await renderChildren(<DemoPage />);
-  res.send(html);
-});
-
-app.get('/todos', async (req, res) => {
-  const html = await renderChildren(<TodosPage />);
-  res.send(html);
-});
-
-app.get('/todos/:id', async (req, res) => {
-  const html = await renderChildren(<TodoPage id={req.params.id} />);
   res.send(html);
 });
 
@@ -31,7 +21,31 @@ app.get('/characters', async (req, res) => {
   res.send(html);
 });
 
-app.get('/characters/:id', async (req, res) => {
+app.get('/character/:id', async (req, res) => {
+  const html = await renderChildren(<CharacterPage id={req.params.id} />);
+  res.send(html);
+});
+
+app.get('/locations', async (req, res) => {
+  const html = await renderChildren(
+    <LocationsPage currentPage={parseInt((req.query.page as string) || '1')} />
+  );
+  res.send(html);
+});
+
+app.get('/location/:id', async (req, res) => {
+  const html = await renderChildren(<LocationPage id={req.params.id} />);
+  res.send(html);
+});
+
+app.get('/episodes', async (req, res) => {
+  const html = await renderChildren(
+    <CharactersPage currentPage={parseInt((req.query.page as string) || '1')} />
+  );
+  res.send(html);
+});
+
+app.get('/episode/:id', async (req, res) => {
   const html = await renderChildren(<CharacterPage id={req.params.id} />);
   res.send(html);
 });

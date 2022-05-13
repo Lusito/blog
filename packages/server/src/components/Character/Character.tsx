@@ -18,13 +18,13 @@ export function Character({ character }: CharacterProps) {
   return (
     <div class={classes.character}>
       <Css style={classes} />
-      <a href={`/characters/${character.id}`}>
+      <a href={`/character/${character.id}`}>
         <img src={character.image} class={classes.characterImage} alt="Profile Picture" />
       </a>
       <div>
         <InfoTable>
           <InfoRow label="Name">
-            <a href={`/characters/${character.id}`}>
+            <a href={`/character/${character.id}`}>
               {genderSymbols[character.gender] ?? '?'} {character.name}
             </a>
           </InfoRow>
