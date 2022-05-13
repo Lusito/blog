@@ -1,5 +1,5 @@
 import { ComponentThis } from 'tsx-ssr';
-import { SomeNumber } from '../../SomeNumber';
+import { SomeNumber } from '../../contexts/SomeNumber';
 
 import classes from './LazyImage.module.css';
 
