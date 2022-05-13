@@ -7,7 +7,7 @@ export type EpisodeProps = {
 export const Episode = ({ episode }: EpisodeProps) => {
   return (
     <div>
-      <a href={`/episode/${episode.id}`}>{episode.name}</a>
+      {episode.episode}: <a href={`/episode/${episode.id}`}>{episode.name}</a>
     </div>
   );
 };
