@@ -1,14 +1,17 @@
 import { Character } from '../components/Character/Character';
+import { Pagination } from '../components/Pagination/Pagination';
 import { DefaultLayout } from '../layouts/DefaultLayout';
 import { RamCharacter, RamPage } from '../types/ramTypes';
 import { fetchRAM } from '../utils/fetchUtils';
 
 type CharactersPageProps = {
-  page: number;
+  currentPage: number;
 };
 
-export async function CharactersPage({ page }: CharactersPageProps) {
-  const data = await fetchRAM<RamPage<RamCharacter>>(`/character?page=${page}`);
+export async function CharactersPage({ currentPage }: CharactersPageProps) {
+  const page = await fetchRAM<RamPage<RamCharacter>>(
+    `/character?page=${currentPage}`
+  );
 
   return (
     <DefaultLayout>
@@ -16,34 +19,15 @@ export async function CharactersPage({ page }: CharactersPageProps) {
         <title>Characters</title>
       </head>
       <div>
-        {data.results.map((character) => (
+        {page.results.map((character) => (
           <Character character={character} />
         ))}
       </div>
-      <Pagination active={page} count={data.info.pages} />
+      <Pagination
+        currentPage={currentPage}
+        totalPages={page.info.pages}
+        url={(page) => `/characters?page=${page}`}
+      />
     </DefaultLayout>
   );
 }
-
-// fixme: move elsewhere and style
-type PaginationProps = {
-  active: number;
-  count: number;
-};
-
-const Pagination = ({ active, count }: PaginationProps) => (
-  <ul>
-    {Array.from({ length: count }, (_, index) => {
-      const page = index + 1;
-      return (
-        <li>
-          {page === active ? (
-            page
-          ) : (
-            <a href={`/characters?page=${page}`}>{page}</a>
-          )}
-        </li>
-      );
-    })}
-  </ul>
-);

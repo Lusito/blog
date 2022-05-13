@@ -26,7 +26,7 @@ app.get('/todos/:id', async (req, res) => {
 
 app.get('/characters', async (req, res) => {
   const html = await renderChildren(
-    <CharactersPage page={parseInt((req.query.page as string) || '1')} />
+    <CharactersPage currentPage={parseInt((req.query.page as string) || '1')} />
   );
   res.send(html);
 });
