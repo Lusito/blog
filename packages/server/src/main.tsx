@@ -1,4 +1,4 @@
-import { renderChildren } from './app/renderChildren';
+import { renderChildren } from './utils/renderChildren';
 import express from 'express';
 import { DemoPage } from './pages/DemoPage';
 import { TodosPage } from './pages/TodosPage';
