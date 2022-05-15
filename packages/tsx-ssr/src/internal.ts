@@ -1,7 +1,28 @@
-import type { BaseProps, Component, ComponentChildren, ComponentThis } from './types';
-import { VNode } from './VNode';
-import { VPromiseNode } from './VPromiseNode';
-import { VTextNode } from './VTextNode';
+import type {
+  BaseProps,
+  Component,
+  ComponentChildren,
+  ComponentThis,
+  VNode,
+} from './types';
+
+const createTextNode =
+  (text: string): VNode =>
+  async (document) =>
+    document.createTextNode(text);
+
+const createPromiseNode =
+  (promise: ComponentChildren): VNode =>
+  async (document, thisArg) => {
+    const children = await Promise.resolve(promise);
+
+    return appendChildren(
+      document,
+      document.createDocumentFragment(),
+      flattenChildren(children),
+      thisArg
+    );
+  };
 
 export function flattenChildren(
   children: ComponentChildren,
@@ -10,13 +31,13 @@ export function flattenChildren(
   if (Array.isArray(children)) {
     for (const child of children) flattenChildren(child, result);
   } else if (typeof children === 'string') {
-    if (children) result.push(new VTextNode(children));
+    if (children) result.push(createTextNode(children));
   } else if (typeof children === 'number') {
-    result.push(new VTextNode(children.toString()));
-  } else if (children instanceof VNode) {
+    result.push(createTextNode(children.toString()));
+  } else if (children && typeof children === "function") {
     result.push(children);
   } else if (children) {
-    result.push(new VPromiseNode(children));
+    result.push(createPromiseNode(children));
   }
 
   return result;
@@ -27,9 +48,9 @@ export async function appendChildren(
   target: HTMLElement | DocumentFragment,
   nodes: VNode[],
   thisArg: ComponentThis
-): Promise<HTMLElement | DocumentFragment | Text> {
+) {
   const domChildren = await Promise.all(
-    nodes.map((child) => child.toDom(document, thisArg))
+    nodes.map((child) => child(document, thisArg))
   );
   for (const child of domChildren) {
     target.appendChild(child);

@@ -1,4 +1,7 @@
-import type { VNode } from './VNode';
+export type VNode = (
+  document: Document,
+  thisArg: ComponentThis
+) => Promise<HTMLElement | DocumentFragment | Text>;
 
 export interface BaseProps {
   children?: ComponentChildren;

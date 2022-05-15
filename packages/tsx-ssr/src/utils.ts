@@ -5,7 +5,7 @@ export async function toDom(
   document: Document,
   children: ComponentChildren,
   thisArg: ComponentThis
-): Promise<HTMLElement | DocumentFragment | Text> {
+) {
   return appendChildren(
     document,
     document.createDocumentFragment(),
