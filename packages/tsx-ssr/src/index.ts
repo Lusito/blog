@@ -1,12 +1,11 @@
 import type { ComponentChildren, HTMLComponentProps } from './types';
-import type { HTMLAttributes } from './HTMLAttributes';
+import type { HTMLAttributes } from 'tsx-types';
 
 export * from './createContext';
 export * from './createElement';
 export * from './jsx-runtime';
 export * from './ErrorBoundary';
 export * from './Fragment';
-export * from './HTMLAttributes';
 export * from './types';
 export * from './utils';
 

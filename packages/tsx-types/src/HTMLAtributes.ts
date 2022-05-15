@@ -22,7 +22,6 @@ export interface HTMLAttributes {
   challenge?: string;
   checked?: boolean;
   class?: string;
-  // className?: string;
   cols?: number;
   colSpan?: number;
   content?: string;

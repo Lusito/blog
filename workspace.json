@@ -2,6 +2,7 @@
   "version": 2,
   "projects": {
     "server": "packages/server",
-    "tsx-ssr": "packages/tsx-ssr"
+    "tsx-ssr": "packages/tsx-ssr",
+    "tsx-types": "packages/tsx-types"
   }
 }

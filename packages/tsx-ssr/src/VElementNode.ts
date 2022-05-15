@@ -1,5 +1,5 @@
 import type { BaseProps } from './types';
-import type { StyleAttributes } from './HTMLAttributes';
+import type { StyleAttributes } from 'tsx-types';
 import { flattenChildren } from './internal';
 import { VNodeParent } from './VNodeParent';
 

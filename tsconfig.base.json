@@ -16,7 +16,8 @@
     "baseUrl": ".",
     "paths": {
       "tsx-ssr": ["packages/tsx-ssr/src/index.ts"],
-      "tsx-ssr/jsx-runtime": ["packages/tsx-ssr/src/jsx-runtime.ts"]
+      "tsx-ssr/jsx-runtime": ["packages/tsx-ssr/src/jsx-runtime.ts"],
+      "tsx-types": ["packages/tsx-types/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
