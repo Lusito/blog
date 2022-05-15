@@ -1,7 +1,7 @@
-import type { BaseProps } from './types';
+import type { BaseProps, ComponentThis } from './types';
 import type { StyleAttributes } from 'tsx-types';
-import { flattenChildren } from './internal';
-import { VNodeParent } from './VNodeParent';
+import { appendChildren, flattenChildren } from './internal';
+import { VNode } from './VNode';
 
 export type ElementAttributes = {
   [s: string]: string | number | boolean | StyleAttributes;
@@ -35,23 +35,26 @@ function setAttributes(element: HTMLElement, attrs: ElementAttributes) {
   }
 }
 
-export class VElementNode extends VNodeParent {
-  protected tag: string;
-  protected attrs: ElementAttributes;
+export class VElementNode extends VNode {
+  private tag: string;
+  private attrs: ElementAttributes;
+  private children: VNode[];
 
   public constructor(tag: string, { children, ...props }: BaseProps) {
-    super(flattenChildren(children));
+    super();
 
+    this.children = flattenChildren(children);
     this.tag = tag;
     this.attrs = props as ElementAttributes;
   }
 
-  public override toDom(document: Document) {
-    if (this.status !== 'resolved')
-      throw new Error('You need to resolve first!');
-
+  public override async toDom(
+    document: Document,
+    thisArg: ComponentThis
+  ): Promise<HTMLElement | DocumentFragment | Text> {
     const el = document.createElement(this.tag);
     setAttributes(el, this.attrs);
+
     if (el.innerHTML) {
       if (this.children.length) {
         console.error(
@@ -59,9 +62,7 @@ export class VElementNode extends VNodeParent {
         );
       }
     } else {
-      for (const child of this.children) {
-        el.appendChild(child.toDom(document));
-      }
+      appendChildren(document, el, this.children, thisArg);
     }
 
     return el;

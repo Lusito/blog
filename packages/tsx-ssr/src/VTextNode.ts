@@ -8,7 +8,9 @@ export class VTextNode extends VNode {
     this.text = text;
   }
 
-  public override toDom(document: Document) {
+  public override async toDom(
+    document: Document
+  ): Promise<HTMLElement | DocumentFragment | Text> {
     return document.createTextNode(this.text);
   }
 }

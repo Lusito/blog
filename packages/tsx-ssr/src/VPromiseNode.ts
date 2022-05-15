@@ -1,17 +1,26 @@
-import { VNodeParent } from './VNodeParent';
-import type { ComponentChildren } from './types';
-import { flattenChildren } from './internal';
+import { VNode } from './VNode';
+import type { ComponentChildren, ComponentThis } from './types';
+import { appendChildren, flattenChildren } from './internal';
 
-export class VPromiseNode extends VNodeParent {
-  protected promise: ComponentChildren;
+export class VPromiseNode extends VNode {
+  private promise: ComponentChildren;
 
   public constructor(promise: ComponentChildren) {
     super();
     this.promise = promise;
   }
 
-  protected override async resolveSelf() {
+  public override async toDom(
+    document: Document,
+    thisArg: ComponentThis
+  ): Promise<HTMLElement | DocumentFragment | Text> {
     const children = await Promise.resolve(this.promise);
-    this.children = flattenChildren(children);
+
+    return appendChildren(
+      document,
+      document.createDocumentFragment(),
+      flattenChildren(children),
+      thisArg
+    );
   }
 }

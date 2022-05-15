@@ -1,4 +1,4 @@
-import { flattenChildren } from './internal';
+import { appendChildren, flattenChildren } from './internal';
 import type { ComponentChildren, ComponentThis } from './types';
 
 export async function toDom(
@@ -6,15 +6,12 @@ export async function toDom(
   children: ComponentChildren,
   thisArg: ComponentThis
 ): Promise<HTMLElement | DocumentFragment | Text> {
-  const flattened = flattenChildren(children);
-
-  await Promise.all(flattened.map((child) => child.resolve(thisArg)));
-  const el = document.createDocumentFragment();
-  for (const child of flattened) {
-    el.appendChild(child.toDom(document));
-  }
-
-  return el;
+  return appendChildren(
+    document,
+    document.createDocumentFragment(),
+    flattenChildren(children),
+    thisArg
+  );
 }
 
 export async function renderToString(

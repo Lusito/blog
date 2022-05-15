@@ -3,8 +3,9 @@ import {
   internalComponent,
   InternalComponent,
   flattenChildren,
+  appendChildren,
 } from './internal';
-import { VNodeParent } from './VNodeParent';
+import { VNode } from './VNode';
 
 export type ContextProviderProps<T = unknown> = BaseProps & { value: T };
 export type ContextProvider<T = unknown> = InternalComponent<
@@ -32,17 +33,27 @@ export function createContext<T>(fallback: T): Context<T> {
   };
 }
 
-class VContextNode extends VNodeParent {
-  protected type: symbol;
-  protected value: unknown;
+class VContextNode extends VNode {
+  private type: symbol;
+  private value: unknown;
+  private children: VNode[];
 
   public constructor(type: symbol, { value, children }: ContextProviderProps) {
-    super(flattenChildren(children));
+    super();
+    this.children = flattenChildren(children);
     this.type = type;
     this.value = value;
   }
 
-  public override async resolve(thisArg: ComponentThis) {
-    return super.resolve({ ...thisArg, [this.type]: this.value });
+  public override toDom(
+    document: Document,
+    thisArg: ComponentThis
+  ): Promise<HTMLElement | DocumentFragment | Text> {
+    return appendChildren(
+      document,
+      document.createDocumentFragment(),
+      this.children,
+      { ...thisArg, [this.type]: this.value }
+    );
   }
 }

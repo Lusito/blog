@@ -1,12 +1,11 @@
 import type { ComponentThis, ComponentChildren } from './types';
-import { internalComponent, flattenChildren } from './internal';
-import { VNodeParent } from './VNodeParent';
+import { internalComponent, flattenChildren, appendChildren } from './internal';
+import { VNode } from './VNode';
 
-class VErrorBoundaryNode extends VNodeParent {
-  protected render: ErrorBoundaryProps['render'];
-  protected fallback: ErrorBoundaryProps['fallback'];
-  protected accept: ErrorBoundaryProps['accept'];
-  protected error: unknown;
+class VErrorBoundaryNode extends VNode {
+  private render: ErrorBoundaryProps['render'];
+  private fallback: ErrorBoundaryProps['fallback'];
+  private accept: ErrorBoundaryProps['accept'];
 
   public constructor({ render, fallback, accept }: ErrorBoundaryProps) {
     super();
@@ -15,25 +14,31 @@ class VErrorBoundaryNode extends VNodeParent {
     this.accept = accept;
   }
 
-  protected override async resolveSelf() {
-    const { error } = this;
-
-    const children = await (error ? this.fallback({ error }) : this.render());
-    this.children = flattenChildren(children);
-  }
-
-  public override async resolve(thisArg: ComponentThis) {
+  public override async toDom(
+    document: Document,
+    thisArg: ComponentThis
+  ): Promise<HTMLElement | DocumentFragment | Text> {
     try {
-      await super.resolve(thisArg);
+      const children = await this.render();
+
+      return appendChildren(
+        document,
+        document.createDocumentFragment(),
+        flattenChildren(children),
+        thisArg
+      );
     } catch (error) {
       if (this.accept && !this.accept(error)) {
         throw error;
       }
 
-      this.status = 'init';
-      this.children.length = 0;
-      this.error = error;
-      await super.resolve(thisArg);
+      const children = await this.fallback({ error });
+      return appendChildren(
+        document,
+        document.createDocumentFragment(),
+        flattenChildren(children),
+        thisArg
+      );
     }
   }
 }
