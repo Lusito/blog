@@ -1,5 +1,5 @@
 module.exports = {
-  displayName: 'server',
+  displayName: 'tsx-dom-ssr-demo',
   preset: '../../jest.preset.ts',
   globals: {
     'ts-jest': {
@@ -11,5 +11,5 @@ module.exports = {
     '^.+\\.[tj]s$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
-  coverageDirectory: '../../coverage/packages/server',
+  coverageDirectory: '../../coverage/packages/tsx-dom-ssr-demo',
 };

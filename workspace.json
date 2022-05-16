@@ -1,8 +1,8 @@
 {
   "version": 2,
   "projects": {
-    "server": "packages/server",
     "tsx-dom-ssr": "packages/tsx-dom-ssr",
+    "tsx-dom-ssr-demo": "packages/tsx-dom-ssr-demo",
     "tsx-dom-types": "packages/tsx-dom-types"
   }
 }
