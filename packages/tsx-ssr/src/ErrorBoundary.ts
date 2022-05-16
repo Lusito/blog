@@ -1,5 +1,6 @@
 import type { ComponentChildren } from './types';
-import { internalComponent, toDom } from './internal';
+import { internalComponent } from './internal';
+import { toDom } from './domUtils';
 
 export type ErrorBoundaryProps = {
   render: () => ComponentChildren;

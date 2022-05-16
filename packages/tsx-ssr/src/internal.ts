@@ -1,23 +1,6 @@
 import { ElementAttributes, setAttributes } from './setAttributes';
-import type {
-  BaseProps,
-  Component,
-  ComponentChildren,
-  ComponentThis,
-  VNode,
-} from './types';
-
-function createTextNode(text: string): VNode {
-  return async (document) => document.createTextNode(text);
-}
-
-function createPromiseNode(promise: ComponentChildren): VNode {
-  return async (document, thisArg) => {
-    const children = await Promise.resolve(promise);
-
-    return toDom(document, children, thisArg);
-  };
-}
+import { toDom } from './domUtils';
+import type { BaseProps, Component, ComponentChildren, VNode } from './types';
 
 function hasChildrenSet(children: ComponentChildren) {
   if (Array.isArray(children)) {
@@ -59,39 +42,6 @@ export function createComponentNode(
 
     return toDom(document, children, thisArg);
   };
-}
-
-function flattenChildren(children: ComponentChildren, result: VNode[]) {
-  if (Array.isArray(children)) {
-    for (const child of children) flattenChildren(child, result);
-  } else if (typeof children === 'string') {
-    if (children) result.push(createTextNode(children));
-  } else if (typeof children === 'number') {
-    result.push(createTextNode(children.toString()));
-  } else if (children && typeof children === 'function') {
-    result.push(children);
-  } else if (children) {
-    result.push(createPromiseNode(children));
-  }
-
-  return result;
-}
-
-export async function toDom(
-  document: Document,
-  children: ComponentChildren,
-  thisArg: ComponentThis
-) {
-  const target = document.createDocumentFragment();
-
-  const domChildren = await Promise.all(
-    flattenChildren(children, []).map((child) => child(document, thisArg))
-  );
-  for (const child of domChildren) {
-    target.appendChild(child);
-  }
-
-  return target;
 }
 
 export type InternalComponent<T = BaseProps> = ((
