@@ -1,10 +1,5 @@
 import type { ComponentThis, BaseProps } from './types';
-import {
-  internalComponent,
-  InternalComponent,
-  flattenChildren,
-  appendChildren,
-} from './internal';
+import { internalComponent, InternalComponent, toDom } from './internal';
 
 export type ContextProviderProps<T = unknown> = BaseProps & { value: T };
 export type ContextProvider<T = unknown> = InternalComponent<
@@ -24,12 +19,10 @@ export function createContext<T>(
   return {
     Provider: internalComponent((props: ContextProviderProps<T>) => {
       return (document, thisArg) =>
-        appendChildren(
-          document,
-          document.createDocumentFragment(),
-          flattenChildren(props.children),
-          { ...thisArg, [type]: props.value }
-        );
+        toDom(document, props.children, {
+          ...thisArg,
+          [type]: props.value,
+        });
     }),
     for(componentThis) {
       if (type in componentThis) {

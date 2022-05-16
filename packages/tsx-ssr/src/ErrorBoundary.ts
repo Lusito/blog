@@ -1,5 +1,5 @@
 import type { ComponentChildren } from './types';
-import { internalComponent, flattenChildren, appendChildren } from './internal';
+import { internalComponent, toDom } from './internal';
 
 export type ErrorBoundaryProps = {
   render: () => ComponentChildren;
@@ -13,12 +13,7 @@ export const ErrorBoundary = internalComponent((props: ErrorBoundaryProps) => {
     try {
       const children = await props.render();
 
-      return appendChildren(
-        document,
-        document.createDocumentFragment(),
-        flattenChildren(children),
-        thisArg
-      );
+      return toDom(document, children, thisArg);
     } catch (error) {
       if (props.accept && !props.accept(error)) {
         throw error;
@@ -26,12 +21,7 @@ export const ErrorBoundary = internalComponent((props: ErrorBoundaryProps) => {
 
       const children = await props.fallback({ error });
 
-      return appendChildren(
-        document,
-        document.createDocumentFragment(),
-        flattenChildren(children),
-        thisArg
-      );
+      return toDom(document, children, thisArg);
     }
   };
 });

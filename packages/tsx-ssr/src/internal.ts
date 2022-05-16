@@ -1,3 +1,4 @@
+import { ElementAttributes, setAttributes } from './setAttributes';
 import type {
   BaseProps,
   Component,
@@ -14,19 +15,53 @@ function createPromiseNode(promise: ComponentChildren): VNode {
   return async (document, thisArg) => {
     const children = await Promise.resolve(promise);
 
-    return appendChildren(
-      document,
-      document.createDocumentFragment(),
-      flattenChildren(children),
-      thisArg
-    );
+    return toDom(document, children, thisArg);
   };
 }
 
-export function flattenChildren(
-  children: ComponentChildren,
-  result: VNode[] = []
-) {
+function hasChildrenSet(children: ComponentChildren) {
+  if (Array.isArray(children)) {
+    return children.length > 0;
+  }
+
+  return children !== undefined;
+}
+
+export function createHtmlElementNode(
+  tag: string,
+  { children, ...attrs }: BaseProps
+): VNode {
+  return async (document, thisArg) => {
+    const el = document.createElement(tag);
+    setAttributes(el, attrs as ElementAttributes);
+
+    if (el.innerHTML) {
+      if (hasChildrenSet(children)) {
+        console.error(
+          'Received both dangerouslySetInnerHTML and children. Children will be ignored!'
+        );
+      }
+    } else {
+      const fragment = await toDom(document, children, thisArg);
+      el.appendChild(fragment);
+    }
+
+    return el;
+  };
+}
+
+export function createComponentNode(
+  tag: Component<BaseProps>,
+  props: BaseProps
+): ComponentChildren {
+  return async (document, thisArg) => {
+    const children = await tag.call(thisArg, props);
+
+    return toDom(document, children, thisArg);
+  };
+}
+
+function flattenChildren(children: ComponentChildren, result: VNode[]) {
   if (Array.isArray(children)) {
     for (const child of children) flattenChildren(child, result);
   } else if (typeof children === 'string') {
@@ -42,14 +77,15 @@ export function flattenChildren(
   return result;
 }
 
-export async function appendChildren(
+export async function toDom(
   document: Document,
-  target: HTMLElement | DocumentFragment,
-  nodes: VNode[],
+  children: ComponentChildren,
   thisArg: ComponentThis
 ) {
+  const target = document.createDocumentFragment();
+
   const domChildren = await Promise.all(
-    nodes.map((child) => child(document, thisArg))
+    flattenChildren(children, []).map((child) => child(document, thisArg))
   );
   for (const child of domChildren) {
     target.appendChild(child);
