@@ -14,8 +14,6 @@ export type HelmetOptions = {
  * - Transfers attributes from false html and body tags to their real counterparts
  *   - Classes and styles will be appended, other attributes will be replaced.
  *
- * @todo Create tsx-dom-helmet library?
- *
  * @param elements An object containing the elements required.
  */
 export function domHelmet({ html, head, body }: HelmetOptions) {
