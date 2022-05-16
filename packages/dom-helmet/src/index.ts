@@ -42,7 +42,7 @@ export function domHelmet({ html, head, body }: HelmetOptions) {
     }
 
     // Move all children of head elements in the body to the main head
-    falseHead.childNodes.forEach((node) => head.appendChild(node));
+    Array.from(falseHead.childNodes).forEach((node) => head.appendChild(node));
 
     // Then remove the false head
     falseHead.remove();

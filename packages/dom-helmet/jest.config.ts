@@ -11,4 +11,5 @@ module.exports = {
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
   coverageDirectory: '../../coverage/packages/dom-helmet',
+  testPathIgnorePatterns: ["/node_modules/", "/utils.test.ts"]
 };
