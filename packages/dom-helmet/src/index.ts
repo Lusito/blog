@@ -101,5 +101,7 @@ function transferAttributes(
         original.setAttribute(attribute, newValue);
       }
     }
+
+    element.remove();
   });
 }
