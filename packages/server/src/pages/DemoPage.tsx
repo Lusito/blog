@@ -1,4 +1,4 @@
-import { ErrorBoundary } from 'tsx-ssr';
+import { ErrorBoundary } from 'tsx-dom-ssr';
 import { LazyImage } from '../components/LazyImage/LazyImage';
 import { SomeNumber } from '../contexts/SomeNumber';
 import { CustomError } from '../CustomError';

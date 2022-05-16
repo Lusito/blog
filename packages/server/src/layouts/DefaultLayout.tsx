@@ -1,4 +1,4 @@
-import { BaseProps } from 'tsx-ssr';
+import { BaseProps } from 'tsx-dom-ssr';
 
 export function DefaultLayout({ children }: BaseProps) {
   return (

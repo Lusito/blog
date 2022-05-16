@@ -1,4 +1,4 @@
-import { ComponentThis } from 'tsx-ssr';
+import { ComponentThis } from 'tsx-dom-ssr';
 import { SomeNumber } from '../../contexts/SomeNumber';
 import { Css } from '../Css';
 

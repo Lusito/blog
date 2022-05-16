@@ -1,5 +1,5 @@
 import type { ComponentChildren, HTMLComponentProps } from './types';
-import type { HTMLAttributes } from 'tsx-types';
+import type { HTMLAttributes } from 'tsx-dom-types';
 
 export * from './createContext';
 export * from './createElement';

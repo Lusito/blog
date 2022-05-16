@@ -1,4 +1,4 @@
-import { ComponentChildren, toDom } from 'tsx-ssr';
+import { ComponentChildren, toDom } from 'tsx-dom-ssr';
 import { Window } from 'happy-dom';
 
 const window = new Window();

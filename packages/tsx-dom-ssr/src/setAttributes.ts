@@ -1,4 +1,4 @@
-import type { StyleAttributes } from 'tsx-types';
+import type { StyleAttributes } from 'tsx-dom-types';
 
 export type ElementAttributes = {
   [s: string]: string | number | boolean | StyleAttributes;

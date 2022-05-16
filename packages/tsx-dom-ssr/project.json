@@ -1,21 +1,21 @@
 {
-  "sourceRoot": "packages/tsx-ssr/src",
+  "sourceRoot": "packages/tsx-dom-ssr/src",
   "projectType": "library",
   "targets": {
     "build": {
       "executor": "@nrwl/js:tsc",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/packages/tsx-ssr",
-        "main": "packages/tsx-ssr/src/index.ts",
-        "tsConfig": "packages/tsx-ssr/tsconfig.lib.json",
-        "assets": ["packages/tsx-ssr/*.md"]
+        "outputPath": "dist/packages/tsx-dom-ssr",
+        "main": "packages/tsx-dom-ssr/src/index.ts",
+        "tsConfig": "packages/tsx-dom-ssr/tsconfig.lib.json",
+        "assets": ["packages/tsx-dom-ssr/*.md"]
       }
     },
     "publish": {
       "executor": "@nrwl/workspace:run-commands",
       "options": {
-        "command": "node tools/scripts/publish.mjs tsx-ssr {args.ver} {args.tag}"
+        "command": "node tools/scripts/publish.mjs tsx-dom-ssr {args.ver} {args.tag}"
       },
       "dependsOn": [
         {
@@ -28,14 +28,14 @@
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["packages/tsx-ssr/**/*.ts"]
+        "lintFilePatterns": ["packages/tsx-dom-ssr/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/packages/tsx-ssr"],
+      "outputs": ["coverage/packages/tsx-dom-ssr"],
       "options": {
-        "jestConfig": "packages/tsx-ssr/jest.config.ts",
+        "jestConfig": "packages/tsx-dom-ssr/jest.config.ts",
         "passWithNoTests": true
       }
     }

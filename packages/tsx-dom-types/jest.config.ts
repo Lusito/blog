@@ -1,5 +1,5 @@
 module.exports = {
-  displayName: 'tsx-types',
+  displayName: 'tsx-dom-types',
   preset: '../../jest.preset.ts',
   globals: {
     'ts-jest': {
@@ -10,5 +10,5 @@ module.exports = {
     '^.+\\.[tj]s$': 'ts-jest',
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
-  coverageDirectory: '../../coverage/packages/tsx-types',
+  coverageDirectory: '../../coverage/packages/tsx-dom-types',
 };

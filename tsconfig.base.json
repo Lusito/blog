@@ -15,9 +15,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "tsx-ssr": ["packages/tsx-ssr/src/index.ts"],
-      "tsx-ssr/jsx-runtime": ["packages/tsx-ssr/src/jsx-runtime.ts"],
-      "tsx-types": ["packages/tsx-types/src/index.ts"]
+      "tsx-dom-ssr": ["packages/tsx-dom-ssr/src/index.ts"],
+      "tsx-dom-ssr/jsx-runtime": ["packages/tsx-dom-ssr/src/jsx-runtime.ts"],
+      "tsx-dom-types": ["packages/tsx-dom-types/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

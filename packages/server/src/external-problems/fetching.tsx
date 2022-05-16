@@ -1,4 +1,4 @@
-import { ComponentThis } from 'tsx-ssr';
+import { ComponentThis } from 'tsx-dom-ssr';
 
 // Fetching Data during SSR:
 // provide a custom fetch method to this, so that we can add an abortcontroller for timeouts, etc?

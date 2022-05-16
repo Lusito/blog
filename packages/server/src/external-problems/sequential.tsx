@@ -1,4 +1,4 @@
-import { ComponentThis, createContext } from 'tsx-ssr';
+import { ComponentThis, createContext } from 'tsx-dom-ssr';
 
 // How to solve duplicate filtering problematic?
 
