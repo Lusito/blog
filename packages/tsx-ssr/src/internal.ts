@@ -6,14 +6,12 @@ import type {
   VNode,
 } from './types';
 
-const createTextNode =
-  (text: string): VNode =>
-  async (document) =>
-    document.createTextNode(text);
+function createTextNode(text: string): VNode {
+  return async (document) => document.createTextNode(text);
+}
 
-const createPromiseNode =
-  (promise: ComponentChildren): VNode =>
-  async (document, thisArg) => {
+function createPromiseNode(promise: ComponentChildren): VNode {
+  return async (document, thisArg) => {
     const children = await Promise.resolve(promise);
 
     return appendChildren(
@@ -23,6 +21,7 @@ const createPromiseNode =
       thisArg
     );
   };
+}
 
 export function flattenChildren(
   children: ComponentChildren,
@@ -34,7 +33,7 @@ export function flattenChildren(
     if (children) result.push(createTextNode(children));
   } else if (typeof children === 'number') {
     result.push(createTextNode(children.toString()));
-  } else if (children && typeof children === "function") {
+  } else if (children && typeof children === 'function') {
     result.push(children);
   } else if (children) {
     result.push(createPromiseNode(children));

@@ -23,7 +23,9 @@ export async function EpisodePage({ id }: EpisodePageProps) {
       <Episode episode={episode} />
       <ul>
         {characters.map((character) => (
-          <li><a href={`/character/${character.id}`}>{character.name}</a></li>
+          <li>
+            <a href={`/character/${character.id}`}>{character.name}</a>
+          </li>
         ))}
       </ul>
     </DefaultLayout>

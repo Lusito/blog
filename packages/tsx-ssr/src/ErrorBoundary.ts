@@ -4,7 +4,8 @@ import { internalComponent, flattenChildren, appendChildren } from './internal';
 export type ErrorBoundaryProps = {
   render: () => ComponentChildren;
   fallback: (props: { error: unknown }) => ComponentChildren;
-  accept?: (error: unknown) => boolean; // if this boundary accepts the error or lets the next boundary handle it
+  /** @returns false if this boundary should skip the error and let the next boundary handle it */
+  accept?: (error: unknown) => boolean;
 };
 
 export const ErrorBoundary = internalComponent((props: ErrorBoundaryProps) => {
@@ -24,6 +25,7 @@ export const ErrorBoundary = internalComponent((props: ErrorBoundaryProps) => {
       }
 
       const children = await props.fallback({ error });
+
       return appendChildren(
         document,
         document.createDocumentFragment(),

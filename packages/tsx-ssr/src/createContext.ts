@@ -15,8 +15,11 @@ export type Context<T = unknown> = {
   for(componentThis: ComponentThis): T;
 };
 
-export function createContext<T>(fallback: T): Context<T> {
-  const type = Symbol();
+export function createContext<T>(
+  fallback: T,
+  description?: string
+): Context<T> {
+  const type = Symbol(description);
 
   return {
     Provider: internalComponent((props: ContextProviderProps<T>) => {

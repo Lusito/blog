@@ -20,17 +20,13 @@ export const Pagination = ({
     {Array.from({ length: totalPages }, (_, index) => {
       const page = index + 1;
       return (
-        <li>
-          {page === currentPage ? (
-            page
-          ) : (
-            <a href={url(page)}>{page}</a>
-          )}
-        </li>
+        <li>{page === currentPage ? page : <a href={url(page)}>{page}</a>}</li>
       );
     })}
     <li>
-      <a href={currentPage < totalPages ? url(currentPage + 1) : undefined}>Next</a>
+      <a href={currentPage < totalPages ? url(currentPage + 1) : undefined}>
+        Next
+      </a>
     </li>
   </ul>
 );

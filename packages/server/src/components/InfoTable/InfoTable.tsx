@@ -1,4 +1,4 @@
-import { BaseProps } from "tsx-ssr";
+import { BaseProps } from 'tsx-ssr';
 
 export const InfoTable = ({ children }: BaseProps) => <table>{children}</table>;
 

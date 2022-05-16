@@ -19,7 +19,11 @@ export function Character({ character }: CharacterProps) {
     <div class={classes.character}>
       <Css style={classes} />
       <a href={`/character/${character.id}`}>
-        <img src={character.image} class={classes.characterImage} alt="Profile Picture" />
+        <img
+          src={character.image}
+          class={classes.characterImage}
+          alt="Profile Picture"
+        />
       </a>
       <div>
         <InfoTable>
