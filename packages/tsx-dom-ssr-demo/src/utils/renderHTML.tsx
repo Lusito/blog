@@ -1,6 +1,6 @@
 import { ComponentChildren, toDom } from 'tsx-dom-ssr';
+import { domHelmet } from 'dom-helmet';
 import { Window } from 'happy-dom';
-import { helmet } from './helmet';
 import { Response } from 'express';
 
 const window = new Window();
@@ -21,7 +21,11 @@ export async function renderHTML(children: ComponentChildren) {
     throw new Error('Expected one html node at the root level');
   }
 
-  helmet(wrapper);
+  domHelmet({
+    html: wrapper.querySelector('html'),
+    head: wrapper.querySelector('html > head'),
+    body: wrapper.querySelector('html > body'),
+  });
 
   return `<!DOCTYPE html>${wrapper.innerHTML}`;
 }
