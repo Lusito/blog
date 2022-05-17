@@ -1,6 +1,6 @@
 declare namespace JSX {
     interface IntrinsicElements {
-        "word-count": import("tsx-dom-types").HTMLAttributes;
+        "word-count": IntrinsicElements["div"];
     }
 }
 

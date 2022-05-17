@@ -15,7 +15,7 @@ export type TransitionEventHandler = EventHandler<TransitionEvent>;
 export type GenericEventHandler = EventHandler<Event>;
 export type PointerEventHandler = EventHandler<PointerEvent>;
 
-export interface HTMLEvents {
+export interface EventAttributes {
     // Image Events
     onLoad?: GenericEventHandler;
     onLoadCapture?: GenericEventHandler;

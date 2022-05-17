@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { IntrinsicElementsHTML, IntrinsicElementsSVG } from "./types";
+import { IntrinsicElementsHTMLAndSVG } from "./types";
 
 export * from "./createElement";
 export * from "./jsx-runtime";
@@ -22,6 +21,7 @@ declare global {
         }
 
         // The available string tags
-        type IntrinsicElements = IntrinsicElementsHTML & IntrinsicElementsSVG;
+        // eslint-disable-next-line @typescript-eslint/no-empty-interface
+        interface IntrinsicElements extends IntrinsicElementsHTMLAndSVG {}
     }
 }

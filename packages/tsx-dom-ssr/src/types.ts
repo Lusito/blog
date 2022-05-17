@@ -1,6 +1,9 @@
-import type { StyleAttributes } from "tsx-dom-types";
+import type { StyleAttributes, SVGAttributes } from "tsx-dom-types";
 
-export type VNode = (document: Document, thisArg: ComponentThis) => Promise<HTMLElement | SVGElement | DocumentFragment | Text>;
+export type VNode = (
+    document: Document,
+    thisArg: ComponentThis
+) => Promise<HTMLElement | SVGElement | DocumentFragment | Text>;
 
 export interface BaseProps {
     children?: ComponentChildren;
@@ -21,3 +24,7 @@ export type ComponentAttributes = {
 
 export type ComponentChild = VNode | string | number | false | undefined | null;
 export type ComponentChildren = ComponentChild | ComponentChildren[] | Promise<ComponentChild | ComponentChildren[]>;
+
+export type IntrinsicElementsHTMLAndSVG = {
+    [TKey in keyof HTMLElementTagNameMap | keyof SVGElementTagNameMap]?: SVGAttributes & HTMLComponentProps;
+};

@@ -9,8 +9,8 @@ function transferKnownProperties(source: any, target: any) {
 
 export function setAttributes(element: JSX.Element, attrs: ComponentAttributes) {
     for (const name of Object.keys(attrs)) {
-        // Ignore some debug props that might be added by bundlers or are set differently
-        if (name === "__source" || name === "__self" || name === "is" || name === "xmlns") continue;
+        // Ignore some debug props that might be added by bundlers
+        if (name === "__source" || name === "__self") continue;
 
         const value = attrs[name];
         if (name.startsWith("on")) {
