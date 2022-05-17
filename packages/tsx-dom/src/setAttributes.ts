@@ -7,20 +7,22 @@ function transferKnownProperties(source: any, target: any) {
     }
 }
 
-export function setAttributes(element: HTMLElement | SVGElement, attrs: ComponentAttributes) {
+export function setAttributes(element: JSX.Element, attrs: ComponentAttributes) {
     for (const name of Object.keys(attrs)) {
         // Ignore some debug props that might be added by bundlers or are set differently
         if (name === "__source" || name === "__self" || name === "is" || name === "xmlns") continue;
 
         const value = attrs[name];
-        if (name === "style" && typeof value !== "string") {
+        if (name.startsWith("on")) {
+            const finalName = name.replace(/Capture$/, "");
+            const useCapture = name !== finalName;
+            const eventName = finalName.toLowerCase().substring(2);
+            element.addEventListener(eventName, value as EventListenerOrEventListenerObject, useCapture);
+        } else if (name === "style" && typeof value !== "string") {
             // Special handler for style with a value of type CSSStyleDeclaration
             transferKnownProperties(value, element.style);
         } else if (name === "dangerouslySetInnerHTML") element.innerHTML = value as string;
-        else if (value === true) {
-            element.setAttribute(name, name);
-        } else if (value || value === 0) {
-            element.setAttribute(name, value.toString());
-        }
+        else if (value === true) element.setAttribute(name, name);
+        else if (value || value === 0) element.setAttribute(name, value.toString());
     }
 }

@@ -1,4 +1,4 @@
-import { prepareHelmetTest } from "../utils.test";
+import { prepareHelmetTest } from "../testUtils";
 
 test("base be inserted from the body if none in the head exists", () => {
     const el = prepareHelmetTest(`

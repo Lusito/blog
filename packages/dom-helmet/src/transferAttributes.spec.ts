@@ -1,4 +1,4 @@
-import { prepareDom, document } from "../utils.test";
+import { prepareDom, document } from "../testUtils";
 import { transferAttributes } from "./transferAttributes";
 
 test("all attributes should be applied to the original", () => {

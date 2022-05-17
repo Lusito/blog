@@ -7,7 +7,6 @@
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "importHelpers": true,
     "target": "es2019",
     "module": "esnext",
     "lib": ["es2019", "dom"],
@@ -16,6 +15,7 @@
     "baseUrl": ".",
     "paths": {
       "dom-helmet": ["packages/dom-helmet/src/index.ts"],
+      "tsx-dom": ["packages/tsx-dom/src/index.ts"],
       "tsx-dom-ssr": ["packages/tsx-dom-ssr/src/index.ts"],
       "tsx-dom-ssr/jsx-runtime": ["packages/tsx-dom-ssr/src/jsx-runtime.ts"],
       "tsx-dom-types": ["packages/tsx-dom-types/src/index.ts"]

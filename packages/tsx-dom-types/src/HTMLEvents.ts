@@ -1,4 +1,5 @@
-export type EventHandler<T extends Event> = (event: T) => void;
+// fixme: correct this type
+export type EventHandler<TEvent extends Event> = (this: HTMLElement, ev: TEvent) => void;
 
 export type ClipboardEventHandler = EventHandler<ClipboardEvent>;
 export type CompositionEventHandler = EventHandler<CompositionEvent>;
@@ -18,6 +19,8 @@ export interface HTMLEvents {
     // Image Events
     onLoad?: GenericEventHandler;
     onLoadCapture?: GenericEventHandler;
+    onError?: GenericEventHandler;
+    onErrorCapture?: GenericEventHandler;
 
     // Clipboard Events
     onCopy?: ClipboardEventHandler;
@@ -35,6 +38,9 @@ export interface HTMLEvents {
     onCompositionUpdate?: CompositionEventHandler;
     onCompositionUpdateCapture?: CompositionEventHandler;
 
+    // Details Events
+    onToggle?: GenericEventHandler;
+
     // Focus Events
     onFocus?: FocusEventHandler;
     onFocusCapture?: FocusEventHandler;
@@ -50,6 +56,12 @@ export interface HTMLEvents {
     onSearchCapture?: GenericEventHandler;
     onSubmit?: GenericEventHandler;
     onSubmitCapture?: GenericEventHandler;
+    onInvalid?: GenericEventHandler;
+    onInvalidCapture?: GenericEventHandler;
+    onReset?: GenericEventHandler;
+    onResetCapture?: GenericEventHandler;
+    onFormData?: GenericEventHandler;
+    onFormDataCapture?: GenericEventHandler;
 
     // Keyboard Events
     onKeyDown?: KeyboardEventHandler;

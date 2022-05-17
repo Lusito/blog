@@ -8,6 +8,7 @@ export function LazyImage(this: ComponentThis, { src }: { src: string }) {
     const num = SomeNumber.for(this);
     return [
         <Css style={classes} />,
+        // fixme: happy-dom doesn't render "is" attribute
         <img class={classes.lazyImage} is="lazy-image" data-src={src} />,
         <div>{num}</div>,
     ];

@@ -2,6 +2,7 @@
   "version": 2,
   "projects": {
     "dom-helmet": "packages/dom-helmet",
+    "tsx-dom": "packages/tsx-dom",
     "tsx-dom-ssr": "packages/tsx-dom-ssr",
     "tsx-dom-ssr-demo": "packages/tsx-dom-ssr-demo",
     "tsx-dom-types": "packages/tsx-dom-types"

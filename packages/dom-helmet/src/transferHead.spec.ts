@@ -1,4 +1,4 @@
-import { prepareHelmetTest } from "../utils.test";
+import { prepareHelmetTest } from "../testUtils";
 
 test("all heads should be removed after completion", () => {
     const el = prepareHelmetTest(`

@@ -1,14 +1,12 @@
 {
-  "name": "tsx-dom-ssr",
-  "version": "0.8.0",
-  "description": "A simple way to use tsx syntax to do async server-side-rendering.",
+  "name": "tsx-dom",
+  "version": "1.3.0",
+  "description": "A simple way to use tsx syntax to create native dom elements using document.createElement.",
   "keywords": [
     "TypeScript",
     "tsx",
     "jsx",
-    "create-element",
-    "SSR",
-    "async"
+    "create-element"
   ],
   "homepage": "https://github.com/Lusito/tsx-dom",
   "bugs": {
@@ -20,7 +18,6 @@
   },
   "license": "MIT",
   "author": "Santo Pfingsten",
-  "type": "commonjs",
   "exports": {
     ".": "./src/index.js",
     "./jsx-runtime": "./src/jsx-runtime.js"

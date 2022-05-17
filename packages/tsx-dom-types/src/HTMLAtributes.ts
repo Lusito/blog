@@ -1,6 +1,9 @@
-export type StyleAttributes = {
-    [K in keyof CSSStyleDeclaration]?: CSSStyleDeclaration[K];
+export type RemoveIndex<T> = {
+    [K in keyof T as string extends K ? never : number extends K ? never : K]: T[K];
 };
+// eslint-disable-next-line @typescript-eslint/ban-types
+export type ExcludeMethods<T> = Pick<T, { [K in keyof T]: T[K] extends Function ? never : K }[keyof T]>;
+export type StyleAttributes = Partial<ExcludeMethods<RemoveIndex<Omit<CSSStyleDeclaration, "length" | "parentRules">>>>;
 
 export interface HTMLAttributes {
     // Standard HTML Attributes
@@ -11,11 +14,16 @@ export interface HTMLAttributes {
     allowFullScreen?: boolean;
     allowTransparency?: boolean;
     alt?: string;
+    as?: string;
     async?: boolean;
     autocomplete?: string;
+    autoComplete?: string;
+    autocorrect?: string;
+    autoCorrect?: string;
     autofocus?: boolean;
+    autoFocus?: boolean;
     autoPlay?: boolean;
-    capture?: boolean;
+    capture?: boolean | string;
     cellPadding?: number | string;
     cellSpacing?: number | string;
     charSet?: string;
@@ -35,8 +43,9 @@ export interface HTMLAttributes {
     dateTime?: string;
     default?: boolean;
     defer?: boolean;
-    dir?: string;
+    dir?: "auto" | "rtl" | "ltr";
     disabled?: boolean;
+    disableRemotePlayback?: boolean;
     download?: string;
     draggable?: boolean;
     encType?: string;
@@ -54,6 +63,7 @@ export interface HTMLAttributes {
     href?: string;
     hrefLang?: string;
     for?: string;
+    htmlFor?: string;
     httpEquiv?: string;
     icon?: string;
     id?: string;
@@ -66,6 +76,7 @@ export interface HTMLAttributes {
     label?: string;
     lang?: string;
     list?: string;
+    loading?: "eager" | "lazy";
     loop?: boolean;
     low?: number;
     manifest?: string;
@@ -81,6 +92,7 @@ export interface HTMLAttributes {
     multiple?: boolean;
     muted?: boolean;
     name?: string;
+    nonce?: string;
     noValidate?: boolean;
     open?: boolean;
     optimum?: number;
@@ -115,7 +127,7 @@ export interface HTMLAttributes {
     srcSet?: string;
     start?: number;
     step?: number | string;
-    style?: string | StyleAttributes;
+    style?: string | Partial<CSSStyleDeclaration>;
     summary?: string;
     tabIndex?: number;
     target?: string;
@@ -123,6 +135,7 @@ export interface HTMLAttributes {
     type?: string;
     useMap?: string;
     value?: string | string[] | number;
+    volume?: string | number;
     width?: number | string;
     wmode?: string;
     wrap?: string;
@@ -136,4 +149,11 @@ export interface HTMLAttributes {
     resource?: string;
     typeof?: string;
     vocab?: string;
+
+    // Microdata Attributes
+    itemProp?: string;
+    itemScope?: boolean;
+    itemType?: string;
+    itemID?: string;
+    itemRef?: string;
 }

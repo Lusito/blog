@@ -1,6 +1,6 @@
-import { ElementAttributes, setAttributes } from "./setAttributes";
+import { setAttributes } from "./setAttributes";
 import { toDom } from "./domUtils";
-import type { BaseProps, Component, ComponentChildren, VNode } from "./types";
+import type { BaseProps, Component, ComponentAttributes, ComponentChildren, VNode } from "./types";
 
 function hasChildrenSet(children: ComponentChildren) {
     if (Array.isArray(children)) {
@@ -10,10 +10,18 @@ function hasChildrenSet(children: ComponentChildren) {
     return children !== undefined;
 }
 
+export function createDomElement(document: Document, tag: string, attrs: ComponentAttributes | null) {
+    const options = attrs?.is ? { is: attrs.is as string } : undefined;
+
+    if (attrs?.xmlns) return document.createElementNS(attrs.xmlns as string, tag, options) as SVGElement;
+
+    return document.createElement(tag, options);
+}
+
 export function createHtmlElementNode(tag: string, { children, ...attrs }: BaseProps): VNode {
     return async (document, thisArg) => {
-        const el = document.createElement(tag);
-        setAttributes(el, attrs as ElementAttributes);
+        const el = createDomElement(document, tag, attrs as ComponentAttributes);
+        setAttributes(el, attrs as ComponentAttributes);
 
         if (el.innerHTML) {
             if (hasChildrenSet(children)) {

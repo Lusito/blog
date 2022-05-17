@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { prepareDom } from "../utils.test";
+import { prepareDom } from "../testUtils";
 import { removeDuplicatesBySelector, removeDuplicatesBySelectorAndAttribute } from "./removeDuplicates";
 
 test("removeDuplicatesBySelector removes elements if they exist in the false head", () => {
