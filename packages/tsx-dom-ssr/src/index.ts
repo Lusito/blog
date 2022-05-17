@@ -1,32 +1,32 @@
-import type { ComponentChildren, HTMLComponentProps } from './types';
-import type { HTMLAttributes } from 'tsx-dom-types';
+import type { HTMLAttributes } from "tsx-dom-types";
 
-export * from './createContext';
-export * from './createElement';
-export * from './domUtils';
-export * from './jsx-runtime';
-export * from './ErrorBoundary';
-export * from './Fragment';
-export * from './types';
+import type { ComponentChildren, HTMLComponentProps } from "./types";
+
+export * from "./createContext";
+export * from "./createElement";
+export * from "./domUtils";
+export * from "./jsx-runtime";
+export * from "./ErrorBoundary";
+export * from "./types";
 
 declare global {
-  // eslint-disable-next-line @typescript-eslint/no-namespace
-  namespace JSX {
-    type Element = ComponentChildren;
+    // eslint-disable-next-line @typescript-eslint/no-namespace
+    namespace JSX {
+        type Element = ComponentChildren;
 
-    interface ElementAttributesProperty {
-      props: unknown; // specify the property name to use
+        interface ElementAttributesProperty {
+            props: unknown; // specify the property name to use
+        }
+
+        interface ElementChildrenAttribute {
+            children: ComponentChildren;
+        }
+
+        type IntrinsicElementsHTML = {
+            [K in keyof HTMLElementTagNameMap]?: HTMLAttributes & HTMLComponentProps;
+        };
+
+        // eslint-disable-next-line @typescript-eslint/no-empty-interface
+        interface IntrinsicElements extends IntrinsicElementsHTML {}
     }
-
-    interface ElementChildrenAttribute {
-      children: ComponentChildren;
-    }
-
-    type IntrinsicElementsHTML = {
-      [K in keyof HTMLElementTagNameMap]?: HTMLAttributes & HTMLComponentProps;
-    };
-
-    // eslint-disable-next-line @typescript-eslint/no-empty-interface
-    interface IntrinsicElements extends IntrinsicElementsHTML {}
-  }
 }

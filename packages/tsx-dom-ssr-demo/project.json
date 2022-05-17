@@ -36,7 +36,7 @@
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["packages/tsx-dom-ssr-demo/**/*.ts"]
+        "lintFilePatterns": ["packages/tsx-dom-ssr-demo/**/*.{ts,tsx}"]
       }
     },
     "test": {

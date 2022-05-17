@@ -1,13 +1,11 @@
-import { RamLocation } from '../../types/ramTypes';
+import { RamLocation } from "../../types/ramTypes";
 
 export type LocationProps = {
-  location: RamLocation;
+    location: RamLocation;
 };
 
-export const Location = ({ location }: LocationProps) => {
-  return (
+export const Location = ({ location }: LocationProps) => (
     <div>
-      <a href={`/location/${location.id}`}>{location.name}</a>
+        <a href={`/location/${location.id}`}>{location.name}</a>
     </div>
-  );
-};
+);

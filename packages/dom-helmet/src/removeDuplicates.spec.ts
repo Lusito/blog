@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { prepareDom } from "../utils.test";
-import { removeDuplicatesBySelector, removeDuplicatesBySelectorAndAttribute } from './removeDuplicates';
+import { removeDuplicatesBySelector, removeDuplicatesBySelectorAndAttribute } from "./removeDuplicates";
 
-test('removeDuplicatesBySelector removes elements if they exist in the false head', () => {
-  const el = prepareDom(`
+test("removeDuplicatesBySelector removes elements if they exist in the false head", () => {
+    const el = prepareDom(`
       <html>
         <head><title>hello</title></head>
         <body>
@@ -12,16 +13,16 @@ test('removeDuplicatesBySelector removes elements if they exist in the false hea
         </body>
       </html>
       `);
-  const head = el.querySelector("html > head")!;
-  const falseHead = el.querySelector("body > head")!;
-  removeDuplicatesBySelector(head, falseHead, "title");
+    const head = el.querySelector("html > head")!;
+    const falseHead = el.querySelector("body > head")!;
+    removeDuplicatesBySelector(head, falseHead, "title");
 
-  expect(head.querySelector('title')).toBeFalsy();
-  expect(falseHead.querySelector('title')).toBeTruthy();
+    expect(head.querySelector("title")).toBeFalsy();
+    expect(falseHead.querySelector("title")).toBeTruthy();
 });
 
-test('removeDuplicatesBySelector does not removes elements if they do not exist in the false head', () => {
-  const el = prepareDom(`
+test("removeDuplicatesBySelector does not removes elements if they do not exist in the false head", () => {
+    const el = prepareDom(`
       <html>
         <head><title>hello</title></head>
         <body>
@@ -29,15 +30,15 @@ test('removeDuplicatesBySelector does not removes elements if they do not exist 
         </body>
       </html>
       `);
-  const head = el.querySelector("html > head")!;
-  const falseHead = el.querySelector("body > head")!;
-  removeDuplicatesBySelector(head, falseHead, "title");
+    const head = el.querySelector("html > head")!;
+    const falseHead = el.querySelector("body > head")!;
+    removeDuplicatesBySelector(head, falseHead, "title");
 
-  expect(head.querySelector('title')).toBeTruthy();
+    expect(head.querySelector("title")).toBeTruthy();
 });
 
-test('removeDuplicatesBySelectorAndAttribute removes elements if they exist in the false head with the same attribute value', () => {
-  const el = prepareDom(`
+test("removeDuplicatesBySelectorAndAttribute removes elements if they exist in the false head with the same attribute value", () => {
+    const el = prepareDom(`
       <html>
         <head><meta name="description" content="Initial"></head>
         <body>
@@ -47,17 +48,16 @@ test('removeDuplicatesBySelectorAndAttribute removes elements if they exist in t
         </body>
       </html>
       `);
-  const head = el.querySelector("html > head")!;
-  const falseHead = el.querySelector("body > head")!;
-  removeDuplicatesBySelectorAndAttribute(head, falseHead, "meta", "name");
-  
+    const head = el.querySelector("html > head")!;
+    const falseHead = el.querySelector("body > head")!;
+    removeDuplicatesBySelectorAndAttribute(head, falseHead, "meta", "name");
 
-  expect(head.querySelector('meta')).toBeFalsy();
-  expect(falseHead.querySelector('meta')).toBeTruthy();
+    expect(head.querySelector("meta")).toBeFalsy();
+    expect(falseHead.querySelector("meta")).toBeTruthy();
 });
 
-test('removeDuplicatesBySelectorAndAttribute does not remove elements if they do not exist in the false head', () => {
-  const el = prepareDom(`
+test("removeDuplicatesBySelectorAndAttribute does not remove elements if they do not exist in the false head", () => {
+    const el = prepareDom(`
       <html>
         <head><meta name="description" content="Initial"></head>
         <body>
@@ -65,15 +65,15 @@ test('removeDuplicatesBySelectorAndAttribute does not remove elements if they do
         </body>
       </html>
       `);
-  const head = el.querySelector("html > head")!;
-  const falseHead = el.querySelector("body > head")!;
-  removeDuplicatesBySelectorAndAttribute(head, falseHead, "meta", "name");
+    const head = el.querySelector("html > head")!;
+    const falseHead = el.querySelector("body > head")!;
+    removeDuplicatesBySelectorAndAttribute(head, falseHead, "meta", "name");
 
-  expect(head.querySelector('meta')).toBeTruthy();
+    expect(head.querySelector("meta")).toBeTruthy();
 });
 
-test('removeDuplicatesBySelectorAndAttribute does not remove elements if they exist in the false head with a different attribute value', () => {
-  const el = prepareDom(`
+test("removeDuplicatesBySelectorAndAttribute does not remove elements if they exist in the false head with a different attribute value", () => {
+    const el = prepareDom(`
       <html>
         <head><meta name="description" content="Initial"></head>
         <body>
@@ -83,9 +83,9 @@ test('removeDuplicatesBySelectorAndAttribute does not remove elements if they ex
         </body>
       </html>
       `);
-  const head = el.querySelector("html > head")!;
-  const falseHead = el.querySelector("body > head")!;
-  removeDuplicatesBySelectorAndAttribute(head, falseHead, "meta", "name");
-  
-  expect(head.querySelector('meta')).toBeTruthy();
+    const head = el.querySelector("html > head")!;
+    const falseHead = el.querySelector("body > head")!;
+    removeDuplicatesBySelectorAndAttribute(head, falseHead, "meta", "name");
+
+    expect(head.querySelector("meta")).toBeTruthy();
 });

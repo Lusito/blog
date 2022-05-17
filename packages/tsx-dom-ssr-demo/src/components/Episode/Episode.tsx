@@ -1,13 +1,11 @@
-import { RamEpisode } from '../../types/ramTypes';
+import { RamEpisode } from "../../types/ramTypes";
 
 export type EpisodeProps = {
-  episode: RamEpisode;
+    episode: RamEpisode;
 };
 
-export const Episode = ({ episode }: EpisodeProps) => {
-  return (
+export const Episode = ({ episode }: EpisodeProps) => (
     <div>
-      {episode.episode}: <a href={`/episode/${episode.id}`}>{episode.name}</a>
+        {episode.episode}: <a href={`/episode/${episode.id}`}>{episode.name}</a>
     </div>
-  );
-};
+);

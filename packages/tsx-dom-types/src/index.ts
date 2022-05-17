@@ -1,2 +1,2 @@
-export * from './HTMLAtributes';
-export * from './HTMLEvents';
+export * from "./HTMLAtributes";
+export * from "./HTMLEvents";

@@ -1,4 +1,4 @@
-import type { BaseProps } from './types';
-import { internalComponent } from './internal';
+import type { BaseProps } from "./types";
+import { internalComponent } from "./internal";
 
 export const Fragment = internalComponent((props: BaseProps) => props.children);

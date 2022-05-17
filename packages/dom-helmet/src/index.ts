@@ -1,10 +1,10 @@
-import { transferAttributes } from './transferAttributes';
-import { transferHead } from './transferHead';
+import { transferAttributes } from "./transferAttributes";
+import { transferHead } from "./transferHead";
 
 export type HelmetOptions = {
-  html: HTMLElement;
-  head: HTMLElement;
-  body: HTMLElement;
+    html: HTMLElement;
+    head: HTMLElement;
+    body: HTMLElement;
 };
 
 /**
@@ -20,8 +20,8 @@ export type HelmetOptions = {
  * @param elements An object containing the elements required.
  */
 export function domHelmet({ html, head, body }: HelmetOptions) {
-  transferAttributes(html, html.querySelectorAll('html'));
-  transferAttributes(body, html.querySelectorAll('body'));
+    transferAttributes(html, html.querySelectorAll("html"));
+    transferAttributes(body, html.querySelectorAll("body"));
 
-  body.querySelectorAll('head').forEach((falseHead) => transferHead(head, falseHead));
+    body.querySelectorAll("head").forEach((falseHead) => transferHead(head, falseHead));
 }

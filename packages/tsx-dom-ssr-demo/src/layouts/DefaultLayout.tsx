@@ -1,10 +1,10 @@
-import { BaseProps } from 'tsx-dom-ssr';
+import { BaseProps } from "tsx-dom-ssr";
 
 export function DefaultLayout({ children }: BaseProps) {
-  return (
-    <html>
-      <head></head>
-      <body>{children}</body>
-    </html>
-  );
+    return (
+        <html>
+            <head></head>
+            <body>{children}</body>
+        </html>
+    );
 }

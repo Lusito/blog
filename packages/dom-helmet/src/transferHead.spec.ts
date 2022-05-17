@@ -1,7 +1,7 @@
-import { prepareHelmetTest } from '../utils.test';
+import { prepareHelmetTest } from "../utils.test";
 
-test('all heads should be removed after completion', () => {
-  const el = prepareHelmetTest(`
+test("all heads should be removed after completion", () => {
+    const el = prepareHelmetTest(`
       <html>
           <head>
               <title>Initial</title>
@@ -15,5 +15,5 @@ test('all heads should be removed after completion', () => {
       </html>
       `);
 
-  expect(el.querySelectorAll('head')).toHaveLength(1);
+    expect(el.querySelectorAll("head")).toHaveLength(1);
 });

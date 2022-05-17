@@ -1,7 +1,7 @@
 import { prepareHelmetTest } from "../utils.test";
 
-test('title be inserted from the body if none in the head exists', () => {
-  const el = prepareHelmetTest(`
+test("title be inserted from the body if none in the head exists", () => {
+    const el = prepareHelmetTest(`
       <html>
           <head></head>
           <body>
@@ -12,13 +12,11 @@ test('title be inserted from the body if none in the head exists', () => {
       </html>
       `);
 
-  expect(el.querySelector('html > head > title')?.textContent).toBe(
-    'Overwrite'
-  );
+    expect(el.querySelector("html > head > title")?.textContent).toBe("Overwrite");
 });
 
-test('title should be replaced with the one in body', () => {
-  const el = prepareHelmetTest(`
+test("title should be replaced with the one in body", () => {
+    const el = prepareHelmetTest(`
     <html>
         <head>
             <title>Initial</title>
@@ -31,13 +29,11 @@ test('title should be replaced with the one in body', () => {
     </html>
     `);
 
-  expect(el.querySelector('html > head > title')?.textContent).toBe(
-    'Overwrite'
-  );
+    expect(el.querySelector("html > head > title")?.textContent).toBe("Overwrite");
 });
 
-test('title should be replaced with the last one in body', () => {
-  const el = prepareHelmetTest(`
+test("title should be replaced with the last one in body", () => {
+    const el = prepareHelmetTest(`
       <html>
           <head>
               <title>Initial</title>
@@ -55,7 +51,5 @@ test('title should be replaced with the last one in body', () => {
       </html>
       `);
 
-  expect(el.querySelector('html > head > title')?.textContent).toBe(
-    'Overwrite 2'
-  );
+    expect(el.querySelector("html > head > title")?.textContent).toBe("Overwrite 2");
 });

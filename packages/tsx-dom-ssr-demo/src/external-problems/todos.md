@@ -18,7 +18,7 @@ It's not a huge problem, since extra requests shouldn't do anything on finished 
 Idea 1: AbortController, which triggers an error in a call like this?
 
 ```ts
-await this.withBailout(this.fetch('...'));
+await this.withBailout(this.fetch("..."));
 ```
 
 Problem: this will throw for all fetches.. we probably only want them limited to an error-boundary.
