@@ -20,9 +20,9 @@ export type HelmetOptions = {
  * @param elements An object containing the elements required.
  */
 export function domHelmet({ html, head, body }: HelmetOptions) {
-    transferAttributes(html, html.querySelectorAll("html"));
+    transferAttributes(html, html.querySelectorAll("html html"));
     // fixme: should body children also be transferred?
-    transferAttributes(body, html.querySelectorAll("body"));
+    transferAttributes(body, html.querySelectorAll("body body"));
 
     body.querySelectorAll("head").forEach((falseHead) => transferHead(head, falseHead));
 }
