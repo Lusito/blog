@@ -21,6 +21,7 @@ export type HelmetOptions = {
  */
 export function domHelmet({ html, head, body }: HelmetOptions) {
     transferAttributes(html, html.querySelectorAll("html"));
+    // fixme: should body children also be transferred?
     transferAttributes(body, html.querySelectorAll("body"));
 
     body.querySelectorAll("head").forEach((falseHead) => transferHead(head, falseHead));

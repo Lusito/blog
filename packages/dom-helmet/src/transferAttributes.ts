@@ -1,7 +1,5 @@
-export function transferAttributes(original: Element, allElements: NodeListOf<Element>) {
-    allElements.forEach((element) => {
-        if (original === element) return;
-
+export function transferAttributes(original: Element, fakeElements: NodeListOf<Element>) {
+    fakeElements.forEach((element) => {
         const attributes = element.getAttributeNames();
         for (const attribute of attributes) {
             const newValue = element.getAttribute(attribute) ?? "";
