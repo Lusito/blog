@@ -1,10 +1,11 @@
-import { removeDuplicatesBySelector, removeDuplicatesBySelectorAndAttribute, removeElement } from "./removeDuplicates";
+import { removeDuplicatesBySelector, removeDuplicatesBySelectorAndAttribute, removeDuplicatesBySelectorAndTextContent, removeElement } from "./removeDuplicates";
 
 export function transferHead(head: HTMLHeadElement, falseHead: HTMLHeadElement) {
     // If title or base are present, they will replace old instances completely.
     removeDuplicatesBySelector(head, falseHead, "title");
     removeDuplicatesBySelector(head, falseHead, "base");
 
+    removeDuplicatesBySelectorAndTextContent(head, falseHead, "style");
     removeDuplicatesBySelectorAndAttribute(head, falseHead, "link", "href");
     removeDuplicatesBySelectorAndAttribute(head, falseHead, "script", "src");
     removeDuplicatesBySelectorAndAttribute(head, falseHead, "*", "id");

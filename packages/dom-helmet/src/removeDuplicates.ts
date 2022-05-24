@@ -22,3 +22,15 @@ export function removeDuplicatesBySelectorAndAttribute(
         }
     });
 }
+
+export function removeDuplicatesBySelectorAndTextContent(head: Element, falseHead: Element, selector: string) {
+    const originalElements = head.querySelectorAll(selector);
+    falseHead.querySelectorAll(selector).forEach((newElement) => {
+        const newValue = newElement.textContent;
+        if (newValue) {
+            originalElements.forEach((oldLink) => {
+                if (oldLink.textContent === newValue) oldLink.remove();
+            });
+        }
+    });
+}
