@@ -1,7 +1,8 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 const { merge } = require("webpack-merge");
 
-module.exports = (config) => {
-    return merge(config, {
+module.exports = (config) =>
+    merge(config, {
         module: {
             rules: [
                 {
@@ -25,4 +26,3 @@ module.exports = (config) => {
             ],
         },
     });
-};

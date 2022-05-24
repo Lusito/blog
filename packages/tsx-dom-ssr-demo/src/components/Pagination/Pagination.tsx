@@ -13,10 +13,15 @@ export const Pagination = ({ currentPage, totalPages, url }: PaginationProps) =>
         <li>
             <a href={currentPage > 1 ? url(currentPage - 1) : undefined}>Prev</a>
         </li>
-        {Array.from({ length: totalPages }, (_, index) => {
-            const page = index + 1;
-            return <li>{page === currentPage ? page : <a href={url(page)}>{page}</a>}</li>;
-        })}
+        <li>
+            <page-picker url="/characters?page={{VALUE}}" tsxTag="select" autocomplete="off">
+                {Array.from({ length: totalPages }, (_, index) => (
+                    <option value={index + 1} selected={index + 1 === currentPage}>
+                        {index + 1}
+                    </option>
+                ))}
+            </page-picker>
+        </li>
         <li>
             <a href={currentPage < totalPages ? url(currentPage + 1) : undefined}>Next</a>
         </li>

@@ -1,8 +1,4 @@
-declare namespace JSX {
-    interface IntrinsicElements {
-        "word-count": IntrinsicElements["div"];
-    }
-}
+import("tsx-dom-ssr-demo-elements");
 
 declare module "*.module.css" {
     const content: {

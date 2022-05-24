@@ -5,6 +5,7 @@
   "license": "MIT",
   "author": "Santo Pfingsten",
   "scripts": {
+    "build": "nx build --all",
     "lint": "npm run lint:es && npm run lint:css && npm run lint:package && npm run lint:style",
     "lint:css": "stylelint --ignore-path .prettierignore \"packages/*/src/**/*.css\"",
     "lint:css:fix": "npm run lint:css --fix",
@@ -35,6 +36,7 @@
     "@nrwl/js": "14.1.4",
     "@nrwl/linter": "14.1.4",
     "@nrwl/node": "^14.1.4",
+    "@nrwl/web": "^14.1.8",
     "@nrwl/workspace": "14.1.4",
     "@types/jest": "27.4.1",
     "@types/node": "16.11.7",

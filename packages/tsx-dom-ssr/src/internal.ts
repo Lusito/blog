@@ -10,18 +10,26 @@ function hasChildrenSet(children: ComponentChildren) {
     return children !== undefined;
 }
 
-export function createDomElement(document: Document, tag: string, attrs: ComponentAttributes | null) {
-    const options = attrs?.is ? { is: attrs.is as string } : undefined;
+function createDomElement(document: Document, tag: string, attrs: ComponentAttributes) {
+    const options = attrs.is ? { is: attrs.is as string } : undefined;
 
-    if (attrs?.xmlns) return document.createElementNS(attrs.xmlns as string, tag, options) as SVGElement;
+    if (attrs.xmlns) return document.createElementNS(attrs.xmlns as string, tag, options) as SVGElement;
 
     return document.createElement(tag, options);
 }
 
 export function createHtmlElementNode(tag: string, { children, ...attrs }: BaseProps): VNode {
     return async (document, thisArg) => {
-        const el = createDomElement(document, tag, attrs as ComponentAttributes);
-        setAttributes(el, attrs as ComponentAttributes);
+        let finalTag = tag;
+        let finalAttrs = attrs as ComponentAttributes;
+        if ("tsxTag" in finalAttrs) {
+            finalTag = finalAttrs.tsxTag as string;
+            if (!finalAttrs.is && tag.includes("-")) {
+                finalAttrs = { ...finalAttrs, is: tag };
+            }
+        }
+        const el = createDomElement(document, finalTag, finalAttrs);
+        setAttributes(el, finalAttrs);
 
         if (el.innerHTML) {
             if (hasChildrenSet(children)) {

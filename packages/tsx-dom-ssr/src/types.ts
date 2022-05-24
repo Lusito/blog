@@ -11,6 +11,7 @@ export interface BaseProps {
 
 export interface HTMLComponentProps extends BaseProps {
     dangerouslySetInnerHTML?: string;
+    tsxTag?: keyof HTMLElementTagNameMap | keyof SVGElementTagNameMap;
 }
 
 export interface ComponentThis {
@@ -24,6 +25,9 @@ export type ComponentAttributes = {
 
 export type ComponentChild = VNode | string | number | false | undefined | null;
 export type ComponentChildren = ComponentChild | ComponentChildren[] | Promise<ComponentChild | ComponentChildren[]>;
+
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+export interface CustomElementsHTML {}
 
 export type IntrinsicElementsHTMLAndSVG = {
     [TKey in keyof HTMLElementTagNameMap | keyof SVGElementTagNameMap]?: SVGAttributes & HTMLComponentProps;

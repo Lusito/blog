@@ -1,4 +1,4 @@
-import type { ComponentChildren, IntrinsicElementsHTMLAndSVG } from "./types";
+import type { ComponentChildren, CustomElementsHTML, IntrinsicElementsHTMLAndSVG } from "./types";
 
 export * from "./createContext";
 export * from "./createElement";
@@ -25,6 +25,6 @@ declare global {
 
         // The available string tags
         // eslint-disable-next-line @typescript-eslint/no-empty-interface
-        interface IntrinsicElements extends IntrinsicElementsHTMLAndSVG {}
+        interface IntrinsicElements extends IntrinsicElementsHTMLAndSVG, CustomElementsHTML {}
     }
 }
