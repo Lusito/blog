@@ -4,6 +4,8 @@ import { domHelmet } from "dom-helmet";
 import { Window } from "happy-dom";
 import { Response } from "express";
 
+import { DefaultLayout } from "../layouts/DefaultLayout";
+
 const window = new Window();
 const document = window.document as unknown as Document;
 
@@ -36,7 +38,16 @@ export async function respondHTML(res: Response, children: ComponentChildren) {
         const html = await renderHTML(children);
         res.send(html);
     } catch (e) {
-        console.error("Uncaught exception", e);
-        res.status(500).send(`Unknown Error ${String(e)}`);
+        try {
+            // Try to render an error page
+            // Fixme: ErrorLayout
+            const html = await renderHTML(
+                <DefaultLayout title="Unknown Error">Unknown Error {String(e)}</DefaultLayout>
+            );
+            res.status(500).send(html);
+        } catch (e2) {
+            console.error("Uncaught exception", e2);
+            res.status(500).send(`Unknown Error ${String(e2)}`);
+        }
     }
 }
