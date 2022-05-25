@@ -7,6 +7,7 @@ const genderSymbols = {
     Female: "♀",
     Male: "♂",
     Genderless: "⚲",
+    unknown: undefined,
 };
 
 export type CharacterProps = {

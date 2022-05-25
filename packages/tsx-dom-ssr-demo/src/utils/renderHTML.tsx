@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { ComponentChildren, toDom } from "tsx-dom-ssr";
 import { domHelmet } from "dom-helmet";
 import { Window } from "happy-dom";
@@ -22,9 +23,9 @@ export async function renderHTML(children: ComponentChildren) {
     }
 
     domHelmet({
-        html: wrapper.querySelector("html"),
-        head: wrapper.querySelector("html > head"),
-        body: wrapper.querySelector("html > body"),
+        html: wrapper.querySelector("html")!,
+        head: wrapper.querySelector("html > head")!,
+        body: wrapper.querySelector("html > body")!,
     });
 
     return `<!DOCTYPE html>${wrapper.innerHTML}`;

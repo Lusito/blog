@@ -9,9 +9,11 @@
     "experimentalDecorators": true,
     "target": "es2019",
     "module": "esnext",
-    "lib": ["es2019", "dom"],
+    "lib": ["ESNext", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
+    "strict": true,
+    "noImplicitOverride": true,
     "baseUrl": ".",
     "paths": {
       "dom-helmet": ["packages/dom-helmet/src/index.ts"],
