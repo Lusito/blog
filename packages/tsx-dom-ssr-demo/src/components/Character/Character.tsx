@@ -31,14 +31,10 @@ export function Character({ character }: CharacterProps) {
                     <InfoRow label="Species">{character.species}</InfoRow>
                     {character.type && <InfoRow label="Type">{character.type}</InfoRow>}
                     <InfoRow label="Origin">
-                        <a href={character.origin.url.replace("https://rickandmortyapi.com/api/", "")}>
-                            {character.origin.name}
-                        </a>
+                        <a href={`/location/${character.origin.url.split("/").pop()}`}>{character.origin.name}</a>
                     </InfoRow>
                     <InfoRow label="Location">
-                        <a href={character.location.url.replace("https://rickandmortyapi.com/api/", "")}>
-                            {character.location.name}
-                        </a>
+                        <a href={`/location/${character.location.url.split("/").pop()}`}>{character.location.name}</a>
                     </InfoRow>
                 </InfoTable>
             </div>

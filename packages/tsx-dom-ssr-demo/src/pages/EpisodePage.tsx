@@ -2,7 +2,7 @@ import { BackLink } from "../components/BackLink/BackLink";
 import { Episode } from "../components/Episode/Episode";
 import { DefaultLayout } from "../layouts/DefaultLayout";
 import { RamCharacter, RamEpisode } from "../types/ramTypes";
-import { fetchJson, fetchRAM } from "../utils/fetchUtils";
+import { fetchRAM } from "../utils/fetchUtils";
 
 export type EpisodePageProps = {
     id: string;
@@ -10,12 +10,15 @@ export type EpisodePageProps = {
 
 export async function EpisodePage({ id }: EpisodePageProps) {
     const episode = await fetchRAM<RamEpisode>(`/episode/${id}`);
-    const characters = await Promise.all(episode.characters.map((character) => fetchJson<RamCharacter>(character)));
+    const characterIds = episode.characters.map((character) => character.split("/").pop());
+    const characters = await fetchRAM<RamCharacter[]>(`/character/${characterIds}`);
 
     return (
         <DefaultLayout title={`Episode: ${episode.name}`}>
             <BackLink url="/episodes" label="All Episodes" />
             <Episode episode={episode} />
+
+            <h2>Characters:</h2>
             <ul>
                 {characters.map((character) => (
                     <li>

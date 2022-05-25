@@ -1,7 +1,7 @@
 import { BackLink } from "../components/BackLink/BackLink";
 import { Character } from "../components/Character/Character";
 import { DefaultLayout } from "../layouts/DefaultLayout";
-import { RamCharacter } from "../types/ramTypes";
+import { RamCharacter, RamEpisode } from "../types/ramTypes";
 import { fetchRAM } from "../utils/fetchUtils";
 
 export type CharacterPageProps = {
@@ -10,11 +10,22 @@ export type CharacterPageProps = {
 
 export async function CharacterPage({ id }: CharacterPageProps) {
     const character = await fetchRAM<RamCharacter>(`/character/${id}`);
+    const episodeIds = character.episode.map((episode) => episode.split("/").pop());
+    const episodes = await fetchRAM<RamEpisode[]>(`/episode/${episodeIds}`);
 
     return (
         <DefaultLayout title={`Character: ${character.name}`}>
             <BackLink url="/characters" label="All Characters" />
             <Character character={character} />
+
+            <h2>Episodes:</h2>
+            <ul>
+                {episodes.map((episode) => (
+                    <li>
+                        <a href={`/episode/${episode.id}`}>{episode.name}</a>
+                    </li>
+                ))}
+            </ul>
         </DefaultLayout>
     );
 }
