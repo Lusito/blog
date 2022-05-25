@@ -1,9 +1,11 @@
 @import "../style/colors.scss";
+@import "../style/spacings.scss";
 
 .body {
     background: $background-color;
     color: $font-color;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: $space-lg;
 }
 
 :global a {
