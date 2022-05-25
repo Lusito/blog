@@ -1,4 +1,3 @@
-import { BackLink } from "../components/BackLink/BackLink";
 import { Character } from "../components/Character/Character";
 import { DefaultLayout } from "../layouts/DefaultLayout";
 import { RamCharacter, RamEpisode } from "../types/ramTypes";
@@ -16,7 +15,6 @@ export async function CharacterPage({ id }: CharacterPageProps) {
 
     return (
         <DefaultLayout title={`Character: ${character.name}`}>
-            <BackLink url="/characters" label="All Characters" />
             <Character character={character} />
 
             <h2>Episodes:</h2>

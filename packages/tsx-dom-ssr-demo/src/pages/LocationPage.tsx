@@ -1,4 +1,3 @@
-import { BackLink } from "../components/BackLink/BackLink";
 import { Location } from "../components/Location/Location";
 import { DefaultLayout } from "../layouts/DefaultLayout";
 import { RamCharacter, RamLocation } from "../types/ramTypes";
@@ -16,7 +15,6 @@ export async function LocationPage({ id }: LocationPageProps) {
 
     return (
         <DefaultLayout title={`Location: ${location.name}`}>
-            <BackLink url="/locations" label="All Locations" />
             <Location location={location} />
 
             <h2>Residents:</h2>
