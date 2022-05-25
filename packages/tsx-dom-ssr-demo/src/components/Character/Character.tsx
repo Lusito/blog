@@ -1,7 +1,7 @@
 import { RamCharacter } from "../../types/ramTypes";
 import { Css } from "../Css";
 import { InfoRow, InfoTable } from "../InfoTable/InfoTable";
-import classes from "./Character.module.css";
+import classes from "./Character.module.scss";
 
 const genderSymbols = {
     Female: "♀",
@@ -17,8 +17,8 @@ export function Character({ character }: CharacterProps) {
     return (
         <div class={classes.character}>
             <Css style={classes} />
-            <a href={`/character/${character.id}`}>
-                <img src={character.image} class={classes.characterImage} alt="Profile Picture" />
+            <a href={`/character/${character.id}`} class={classes.characterImageWrapper}>
+                <img src={character.image} alt="Profile Picture" class={classes.characterImage} />
             </a>
             <div>
                 <InfoTable>

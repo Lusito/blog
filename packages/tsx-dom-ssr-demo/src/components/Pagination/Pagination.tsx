@@ -1,5 +1,5 @@
 import { Css } from "../Css";
-import classes from "./Pagination.module.css";
+import classes from "./Pagination.module.scss";
 
 export type PaginationProps = {
     currentPage: number;
@@ -17,7 +17,7 @@ export const Pagination = ({ currentPage, totalPages, url }: PaginationProps) =>
             <page-picker url={url("{{PAGE}}")} tsxTag="select" autocomplete="off">
                 {Array.from({ length: totalPages }, (_, index) => (
                     <option value={index + 1} selected={index + 1 === currentPage}>
-                        {index + 1}
+                        Page {index + 1}
                     </option>
                 ))}
             </page-picker>

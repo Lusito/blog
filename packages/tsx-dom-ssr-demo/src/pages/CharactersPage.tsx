@@ -5,7 +5,7 @@ import { DefaultLayout } from "../layouts/DefaultLayout";
 import { PaginationLayout } from "../layouts/PaginationLayout";
 import { RamCharacter, RamPage } from "../types/ramTypes";
 import { fetchRAM } from "../utils/fetchUtils";
-import classes from "./CharactersPage.module.css";
+import classes from "./CharactersPage.module.scss";
 
 type CharactersPageProps = {
     currentPage: number;

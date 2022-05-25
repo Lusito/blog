@@ -1,9 +1,0 @@
-.character {
-    display: flex;
-    flex-direction: row;
-    border: 1px solid black;
-}
-
-.character-image {
-    max-height: 128px;
-}

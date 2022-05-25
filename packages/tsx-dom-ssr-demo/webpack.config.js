@@ -6,7 +6,7 @@ module.exports = (config) =>
         module: {
             rules: [
                 {
-                    test: /\.module\.css$/,
+                    test: /\.module\.s?css$/,
                     use: [
                         { loader: "isomorphic-style-loader" },
                         {
@@ -21,6 +21,7 @@ module.exports = (config) =>
                                 importLoaders: 1,
                             },
                         },
+                        "sass-loader"
                     ],
                 },
             ],

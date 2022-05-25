@@ -11,7 +11,8 @@ export type EpisodePageProps = {
 export async function EpisodePage({ id }: EpisodePageProps) {
     const episode = await fetchRAM<RamEpisode>(`/episode/${id}`);
     const characterIds = episode.characters.map((character) => character.split("/").pop());
-    const characters = await fetchRAM<RamCharacter[]>(`/character/${characterIds}`);
+    let characters = await fetchRAM<RamCharacter | RamCharacter[]>(`/character/${characterIds}`);
+    if (!Array.isArray(characters)) characters = [characters];
 
     return (
         <DefaultLayout title={`Episode: ${episode.name}`}>

@@ -1,3 +1,6 @@
+import { Css } from "../Css";
+import classes from "./BackLink.module.scss";
+
 export type BackLinkProps = {
     label: string;
     url: string;
@@ -6,9 +9,8 @@ export type BackLinkProps = {
 export async function BackLink({ label, url }: BackLinkProps) {
     return (
         <>
-            <a href={url}>{label}</a>
-            <br />
-            <br />
+            <Css style={classes} />
+            <a href={url} class={classes.backLink}>{label}</a>
         </>
     );
 }

@@ -11,7 +11,8 @@ export type LocationPageProps = {
 export async function LocationPage({ id }: LocationPageProps) {
     const location = await fetchRAM<RamLocation>(`/location/${id}`);
     const residentIds = location.residents.map((resident) => resident.split("/").pop());
-    const residents = await fetchRAM<RamCharacter[]>(`/character/${residentIds}`);
+    let residents = await fetchRAM<RamCharacter | RamCharacter[]>(`/character/${residentIds}`);
+    if (!Array.isArray(residents)) residents = [residents];
 
     return (
         <DefaultLayout title={`Location: ${location.name}`}>

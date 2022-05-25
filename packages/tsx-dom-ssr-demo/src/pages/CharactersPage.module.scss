@@ -1,0 +1,14 @@
+@import "../style/spacings.scss";
+
+.characters-page-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    > * {
+        margin-right: $space-md;
+        margin-bottom: $space-md;
+        width: calc(50% - $space-md);
+        box-sizing: border-box;
+    }
+}
