@@ -2,7 +2,7 @@ import * as Turbo from "@hotwired/turbo";
 
 class PagePicker extends HTMLSelectElement {
     onChangeHandler = () => {
-        const url = this.getAttribute("url")?.replace("{{VALUE}}", this.value);
+        const url = this.getAttribute("url")?.replace("{{PAGE}}", this.value);
         if (url) {
             Turbo.visit(url);
         }

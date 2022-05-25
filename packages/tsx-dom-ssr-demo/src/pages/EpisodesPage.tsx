@@ -1,6 +1,6 @@
 import { Episode } from "../components/Episode/Episode";
 import { Pagination } from "../components/Pagination/Pagination";
-import { DefaultLayout } from "../layouts/DefaultLayout";
+import { PaginationLayout } from "../layouts/PaginationLayout";
 import { RamEpisode, RamPage } from "../types/ramTypes";
 import { fetchRAM } from "../utils/fetchUtils";
 
@@ -10,22 +10,21 @@ type EpisodesPageProps = {
 
 export async function EpisodesPage({ currentPage }: EpisodesPageProps) {
     const page = await fetchRAM<RamPage<RamEpisode>>(`/episode?page=${currentPage}`);
+    const pagination = (
+        <Pagination
+            currentPage={currentPage}
+            totalPages={page.info.pages}
+            url={(pageNum) => `/episodes?page=${pageNum}`}
+        />
+    );
 
     return (
-        <DefaultLayout>
-            <head>
-                <title>Episodes</title>
-            </head>
+        <PaginationLayout title="Episodes" pagination={pagination}>
             <div>
                 {page.results.map((episode) => (
                     <Episode episode={episode} />
                 ))}
             </div>
-            <Pagination
-                currentPage={currentPage}
-                totalPages={page.info.pages}
-                url={(pageNum) => `/episodes?page=${pageNum}`}
-            />
-        </DefaultLayout>
+        </PaginationLayout>
     );
 }

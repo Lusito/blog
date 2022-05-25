@@ -12,10 +12,7 @@ export async function CharacterPage({ id }: CharacterPageProps) {
     const character = await fetchRAM<RamCharacter>(`/character/${id}`);
 
     return (
-        <DefaultLayout>
-            <head>
-                <title>Character: {character.name}</title>
-            </head>
+        <DefaultLayout title={`Character: ${character.name}`}>
             <BackLink url="/characters" label="All Characters" />
             <Character character={character} />
         </DefaultLayout>

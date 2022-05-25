@@ -1,10 +1,15 @@
 import { BaseProps } from "tsx-dom-ssr";
 
-export function DefaultLayout({ children }: BaseProps) {
+interface DefaultLayoutProps extends BaseProps {
+    title: string;
+}
+
+export function DefaultLayout({ children, title }: DefaultLayoutProps) {
     return (
         <html>
             <head>
                 <script src="/custom-elements.js" />
+                <title>{title}</title>
             </head>
             <body>{children}</body>
         </html>

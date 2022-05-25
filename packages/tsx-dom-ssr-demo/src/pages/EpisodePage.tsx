@@ -13,10 +13,7 @@ export async function EpisodePage({ id }: EpisodePageProps) {
     const characters = await Promise.all(episode.characters.map((character) => fetchJson<RamCharacter>(character)));
 
     return (
-        <DefaultLayout>
-            <head>
-                <title>Episode: {episode.name}</title>
-            </head>
+        <DefaultLayout title={`Episode: ${episode.name}`}>
             <BackLink url="/episodes" label="All Episodes" />
             <Episode episode={episode} />
             <ul>

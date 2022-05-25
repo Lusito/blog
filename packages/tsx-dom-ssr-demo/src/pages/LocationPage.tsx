@@ -12,10 +12,7 @@ export async function LocationPage({ id }: LocationPageProps) {
     const location = await fetchRAM<RamLocation>(`/location/${id}`);
 
     return (
-        <DefaultLayout>
-            <head>
-                <title>Location: {location.name}</title>
-            </head>
+        <DefaultLayout title={`Location: ${location.name}`}>
             <BackLink url="/locations" label="All Locations" />
             <Location location={location} />
         </DefaultLayout>

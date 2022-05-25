@@ -4,7 +4,7 @@ import classes from "./Pagination.module.css";
 export type PaginationProps = {
     currentPage: number;
     totalPages: number;
-    url: (page: number) => string;
+    url: (page: number | string) => string;
 };
 
 export const Pagination = ({ currentPage, totalPages, url }: PaginationProps) => (
@@ -14,7 +14,7 @@ export const Pagination = ({ currentPage, totalPages, url }: PaginationProps) =>
             <a href={currentPage > 1 ? url(currentPage - 1) : undefined}>Prev</a>
         </li>
         <li>
-            <page-picker url="/characters?page={{VALUE}}" tsxTag="select" autocomplete="off">
+            <page-picker url={url("{{PAGE}}")} tsxTag="select" autocomplete="off">
                 {Array.from({ length: totalPages }, (_, index) => (
                     <option value={index + 1} selected={index + 1 === currentPage}>
                         {index + 1}

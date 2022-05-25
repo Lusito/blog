@@ -7,10 +7,7 @@ import { DefaultLayout } from "../layouts/DefaultLayout";
 
 export function DemoPage() {
     return (
-        <DefaultLayout>
-            <head>
-                <title>Providers</title>
-            </head>
+        <DefaultLayout title="Providers">
             <SomeNumber.Provider value={20}>
                 <LazyImage src="hello.png" />
                 <ErrorBoundary
