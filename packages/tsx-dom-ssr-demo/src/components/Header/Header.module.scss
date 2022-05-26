@@ -1,15 +1,20 @@
 @import "../../style/colors.scss";
 @import "../../style/spacings.scss";
+@import "../../style/breakpoints.scss";
 
 .header {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
 
     > a {
         padding: $space-md;
         margin: $space-md $space-md $space-md 0;
         background: $panel-color;
         border-radius: $space-sm;
+    }
+
+    @include from("small") {
+        flex-direction: row;
     }
 }
 

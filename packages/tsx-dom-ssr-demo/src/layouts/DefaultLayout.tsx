@@ -15,6 +15,7 @@ export function DefaultLayout({ children, title }: DefaultLayoutProps) {
             <head>
                 <script src="/custom-elements.js" />
                 <title>{title}</title>
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
             </head>
             <body class={classes.body}>
                 <Css style={classes} />
