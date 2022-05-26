@@ -26,7 +26,7 @@ export function Character({ character }: CharacterProps) {
             <a href={`/character/${character.id}`} class={classes.characterImageWrapper}>
                 <img src={character.image} alt="Profile Picture" class={classes.characterImage} />
             </a>
-            <div>
+            <div class={classes.characterContent}>
                 <InfoTable>
                     <InfoRow label="Name">
                         <a href={`/character/${character.id}`}>
