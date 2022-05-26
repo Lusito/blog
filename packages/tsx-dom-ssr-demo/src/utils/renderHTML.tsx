@@ -4,7 +4,8 @@ import { domHelmet } from "dom-helmet";
 import { Window } from "happy-dom";
 import { Response } from "express";
 
-import { DefaultLayout } from "../layouts/DefaultLayout";
+import { RequestError } from "../errors/RequestError";
+import { ErrorPage } from "../pages/ErrorPage";
 
 const window = new Window();
 const document = window.document as unknown as Document;
@@ -40,11 +41,9 @@ export async function respondHTML(res: Response, children: ComponentChildren) {
     } catch (e) {
         try {
             // Try to render an error page
-            // Fixme: ErrorLayout
-            const html = await renderHTML(
-                <DefaultLayout title="Unknown Error">Unknown Error {String(e)}</DefaultLayout>
-            );
-            res.status(500).send(html);
+            const html = await renderHTML(<ErrorPage error={e} />);
+
+            res.status(e instanceof RequestError ? e.status : 500).send(html);
         } catch (e2) {
             console.error("Uncaught exception", e2);
             res.status(500).send(`Unknown Error ${String(e2)}`);

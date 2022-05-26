@@ -1,5 +1,6 @@
 import NodeCache from "node-cache";
 
+import { RequestError } from "../errors/RequestError";
 import type { RamPage } from "../types/ramTypes";
 
 type StatusListener<T> = { resolve: (value: T) => void; reject: (value: unknown) => void };
@@ -22,7 +23,7 @@ const cache = new NodeCache({
 
 async function fetchJsonUncached(url: string) {
     const response = await fetch(url);
-    if (response.status > 300) throw new Error(`Failed getting ${url}`);
+    if (response.status > 300) throw new RequestError(response.status, `Failed getting ${url}`);
 
     return response.json();
 }

@@ -2,7 +2,7 @@ import { ErrorBoundary } from "tsx-dom-ssr";
 
 import { LazyImage } from "../components/LazyImage/LazyImage";
 import { SomeNumber } from "../contexts/SomeNumber";
-import { CustomError } from "../CustomError";
+import { CustomError } from "../errors/CustomError";
 import { DefaultLayout } from "../layouts/DefaultLayout";
 
 export function DemoPage() {
