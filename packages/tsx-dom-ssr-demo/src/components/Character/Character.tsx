@@ -1,4 +1,4 @@
-import { RamCharacter } from "../../types/ramTypes";
+import { RamCharacter, RamNameAndUrl } from "../../types/ramTypes";
 import { Css } from "../Css";
 import { InfoRow, InfoTable } from "../InfoTable/InfoTable";
 import classes from "./Character.module.scss";
@@ -8,6 +8,11 @@ const genderSymbols = {
     Male: "♂",
     Genderless: "⚲",
     unknown: undefined,
+};
+
+const LocationLink = ({ url, name }: RamNameAndUrl) => {
+    if (!url) return name;
+    return <a href={`/location/${url.split("/").pop()}`}>{name}</a>;
 };
 
 export type CharacterProps = {
@@ -32,10 +37,10 @@ export function Character({ character }: CharacterProps) {
                     <InfoRow label="Species">{character.species}</InfoRow>
                     {character.type && <InfoRow label="Type">{character.type}</InfoRow>}
                     <InfoRow label="Origin">
-                        <a href={`/location/${character.origin.url.split("/").pop()}`}>{character.origin.name}</a>
+                        <LocationLink url={character.origin.url} name={character.origin.name} />
                     </InfoRow>
                     <InfoRow label="Location">
-                        <a href={`/location/${character.location.url.split("/").pop()}`}>{character.location.name}</a>
+                        <LocationLink url={character.location.url} name={character.location.name} />
                     </InfoRow>
                 </InfoTable>
             </div>
