@@ -1,10 +1,9 @@
 import { Character } from "../components/Character/Character";
 import { Css } from "../components/Css";
 import { Pagination } from "../components/Pagination/Pagination";
-import { DefaultLayout } from "../layouts/DefaultLayout";
 import { PaginationLayout } from "../layouts/PaginationLayout";
-import { RamCharacter, RamPage } from "../types/ramTypes";
-import { fetchRAM } from "../utils/fetchUtils";
+import { RamCharacter } from "../types/ramTypes";
+import { fetchRAMPage } from "../utils/fetchUtils";
 import classes from "./CharactersPage.module.scss";
 
 type CharactersPageProps = {
@@ -12,7 +11,7 @@ type CharactersPageProps = {
 };
 
 export async function CharactersPage({ currentPage }: CharactersPageProps) {
-    const page = await fetchRAM<RamPage<RamCharacter>>(`/character?page=${currentPage}`);
+    const page = await fetchRAMPage<RamCharacter>("/character", currentPage);
 
     const pagination = (
         <Pagination

@@ -1,5 +1,7 @@
 import NodeCache from "node-cache";
 
+import type { RamPage } from "../types/ramTypes";
+
 type StatusListener<T> = { resolve: (value: T) => void; reject: (value: unknown) => void };
 type StatusProgress<T> = { status: "progress"; listeners: Array<StatusListener<T>> };
 type StatusSuccess<T> = { status: "success"; value: T };
@@ -54,4 +56,8 @@ export async function fetchJson<T>(url: string): Promise<T> {
 
 export function fetchRAM<T>(path: string) {
     return fetchJson<T>(`https://rickandmortyapi.com/api${path}`);
+}
+
+export function fetchRAMPage<T>(path: string, page: number) {
+    return fetchJson<RamPage<T>>(`https://rickandmortyapi.com/api${path}?page=${page}`);
 }
