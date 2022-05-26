@@ -9,8 +9,7 @@ export const Location = ({ location }: LocationProps) => {
 
     return (
         <div>
-            <a href={`/location/${location.id}`}>{name}</a>
-            , {location.type} of {location.dimension}
+            <a href={`/location/${location.id}`}>{name}</a>, {location.type} of {location.dimension}
         </div>
     );
 };

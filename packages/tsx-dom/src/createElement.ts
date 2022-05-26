@@ -17,5 +17,4 @@ export function createElement(
     return element;
 }
 
-
 export const h = createElement;

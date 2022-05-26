@@ -21,7 +21,7 @@ module.exports = (config) =>
                                 importLoaders: 1,
                             },
                         },
-                        "sass-loader"
+                        "sass-loader",
                     ],
                 },
             ],
