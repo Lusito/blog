@@ -25,3 +25,10 @@ app.use(ramRouter);
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
 });
+
+// Extend ComponentThis
+declare module "tsx-dom-ssr" {
+    export interface ComponentThis {
+        cssModules: CssModule[];
+    }
+}

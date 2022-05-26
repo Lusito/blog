@@ -1,4 +1,4 @@
-import { Css } from "../Css";
+import { withCss } from "../../utils/withCss";
 import classes from "./Pagination.module.scss";
 
 export type PaginationProps = {
@@ -7,9 +7,8 @@ export type PaginationProps = {
     url: (page: number | string) => string;
 };
 
-export const Pagination = ({ currentPage, totalPages, url }: PaginationProps) => (
+export const Pagination = withCss(classes, ({ currentPage, totalPages, url }: PaginationProps) => (
     <ul class={classes.pagination}>
-        <Css style={classes} />
         <li>
             <a href={currentPage > 1 ? url(currentPage - 1) : undefined}>Prev</a>
         </li>
@@ -26,4 +25,4 @@ export const Pagination = ({ currentPage, totalPages, url }: PaginationProps) =>
             <a href={currentPage < totalPages ? url(currentPage + 1) : undefined}>Next</a>
         </li>
     </ul>
-);
+));

@@ -11,7 +11,8 @@ const window = new Window();
 const document = window.document as unknown as Document;
 
 export async function renderHTML(children: ComponentChildren) {
-    const dom = await toDom(document, children, {});
+    const cssModules: CssModule[] = [];
+    const dom = await toDom(document, children, { cssModules });
 
     // Since the dom might be a fragment or just a text node, we need a wrapper to render it
     const wrapper = document.createElement("div");
@@ -25,11 +26,21 @@ export async function renderHTML(children: ComponentChildren) {
         throw new Error("Expected one html node at the root level");
     }
 
+    const head = wrapper.querySelector("html > head") as HTMLHeadElement;
     domHelmet({
         html: wrapper.querySelector("html")!,
-        head: wrapper.querySelector("html > head")!,
+        head,
         body: wrapper.querySelector("html > body")!,
     });
+
+    // fixme: would be nice to only have one style tag,
+    // but @hotwired/turbo will then keep adding new style tags to the head on navigation with partially duplicate css.
+    for (const cssModule of cssModules) {
+        const style = document.createElement("style");
+        // eslint-disable-next-line no-underscore-dangle
+        style.innerHTML = cssModule._getCss();
+        head.appendChild(style);
+    }
 
     return `<!DOCTYPE html>${wrapper.innerHTML}`;
 }

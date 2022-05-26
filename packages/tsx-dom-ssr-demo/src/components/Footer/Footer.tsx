@@ -1,9 +1,8 @@
-import { Css } from "../Css";
+import { withCss } from "../../utils/withCss";
 import classes from "./Footer.module.scss";
 
-export const Footer = () => (
+export const Footer = withCss(classes, () => (
     <div class={classes.footer}>
-        <Css style={classes} />
         {"Powered by "}
         <a href="https://github.com/Lusito/tsx-dom" target="_blank" rel="noopener noreferrer">
             tsx-dom-ssr
@@ -13,4 +12,4 @@ export const Footer = () => (
             The Rick and Morty API
         </a>
     </div>
-);
+));
