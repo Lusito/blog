@@ -1,5 +1,6 @@
 import { ComponentThis } from "tsx-dom-ssr";
 
+import { CharactersList } from "../components/CharactersList/CharactersList";
 import { Location } from "../components/Location/Location";
 import { DefaultLayout } from "../layouts/DefaultLayout";
 import { RamCharacter, RamLocation } from "../types/ramTypes";
@@ -21,14 +22,7 @@ export async function LocationPage(this: ComponentThis, { id }: LocationPageProp
         <DefaultLayout title={`Location: ${location.name}`}>
             <Location location={location} />
 
-            <h2>Residents:</h2>
-            <ul>
-                {residents.map((resident) => (
-                    <li>
-                        <a href={`/character/${resident.id}`}>{resident.name}</a>
-                    </li>
-                ))}
-            </ul>
+            <CharactersList heading="Residents" urls={location.residents} />
         </DefaultLayout>
     );
 }
