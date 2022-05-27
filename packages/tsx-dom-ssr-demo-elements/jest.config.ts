@@ -1,7 +1,6 @@
 /* eslint-disable */
 export default {
     displayName: "tsx-dom-ssr-demo-elements",
-    preset: "../../jest.preset.js",
     setupFilesAfterEnv: ["<rootDir>/src/test-setup.ts"],
     transform: {
         "^.+\\.[tj]s$": "babel-jest",
