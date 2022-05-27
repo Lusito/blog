@@ -35,13 +35,25 @@
       }
     },
     "serve": {
-      "executor": "@nrwl/web:dev-server",
+      "executor": "@nrwl/web:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "tsx-dom-ssr-demo-elements:build"
+        "watch": true,
+        "outputPath": "dist/packages/tsx-dom-ssr-demo-elements",
+        "compiler": "babel",
+        "index": "packages/tsx-dom-ssr-demo-elements/src/index.html",
+        "baseHref": "/",
+        "main": "packages/tsx-dom-ssr-demo-elements/src/index.ts",
+        "tsConfig": "packages/tsx-dom-ssr-demo-elements/tsconfig.app.json",
+        "scripts": []
       },
       "configurations": {
-        "production": {
-          "buildTarget": "tsx-dom-ssr-demo-elements:build:production"
+        "development": {
+          "outputHashing": "none",
+          "namedChunks": false,
+          "vendorChunk": false,
+          "runtimeChunk": false
         }
       }
     },

@@ -14,7 +14,12 @@ app.get("/", (req, res) => respondHTML(res, <DemoPage />));
 app.get("/sequential", (req, res) => respondHTML(res, <SequentialPage />));
 
 app.get("/custom-elements.js", async (req, res) => {
-    fs.readFile("./dist/packages/tsx-dom-ssr-demo-elements/main.esm.js", { encoding: "utf-8" }, (err, content) => {
+    let filePath = "./dist/packages/tsx-dom-ssr-demo-elements/main.esm.js";
+    if (!fs.existsSync(filePath)) {
+        filePath = filePath.replace(/\.esm\.js$/, ".js");
+    }
+
+    fs.readFile(filePath, { encoding: "utf-8" }, (err, content) => {
         if (err) {
             res.status(404).send("");
         } else {

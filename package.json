@@ -17,8 +17,7 @@
     "lint:style": "npm run lint:style:base -- --check",
     "lint:style:base": "prettier \"packages/*/src/**/*.{ts,tsx,js,json,scss}\" \"packages/*/*.{ts,tsx,js,json,scss}\"",
     "lint:style:fix": "npm run lint:style:base -- --write",
-    "start": "nx serve",
-    "start:elements": "npx nx build tsx-dom-ssr-demo-elements --watch",
+    "start": "nx run-many --target=serve --projects=tsx-dom-ssr-demo,tsx-dom-ssr-demo-elements",
     "test": "nx run-many --target=test --all"
   },
   "dependencies": {
