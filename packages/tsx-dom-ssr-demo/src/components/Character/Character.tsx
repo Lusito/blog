@@ -28,7 +28,7 @@ export const Character = withCss(classes, ({ character }: CharacterProps) => (
             <InfoTable>
                 <InfoRow label="Name">
                     <a href={`/character/${character.id}`}>
-                        {genderSymbols[character.gender] ?? "?"} {character.name}
+                        {genderSymbols[character.gender] ?? ""} {character.name}
                     </a>
                 </InfoRow>
                 <InfoRow label="Status">{character.status}</InfoRow>
