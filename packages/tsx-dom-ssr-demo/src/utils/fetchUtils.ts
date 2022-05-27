@@ -29,7 +29,7 @@ async function fetchJsonUncached(url: string, init: RequestInit) {
 }
 
 export async function fetchJson<T>(url: string, init: RequestInit): Promise<T> {
-    const entry: CacheEntry<T> | undefined = cache.get(url,);
+    const entry: CacheEntry<T> | undefined = cache.get(url);
     if (entry) {
         if (entry.status === "success") return entry.value;
         if (entry.status === "error") throw entry.error;
