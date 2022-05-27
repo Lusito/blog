@@ -9,8 +9,13 @@ export type Context<T = unknown> = {
     for(componentThis: ComponentThis): T;
 };
 
-export function createContext<T>(fallback: T, description?: string): Context<T> {
-    const type = Symbol(description);
+export type CreateContextOptions<T> = {
+    fallback?: T;
+    description?: string;
+};
+
+export function createContext<T>(options: CreateContextOptions<T>): Context<T> {
+    const type = Symbol(options.description);
 
     return {
         Provider: internalComponent(
@@ -25,7 +30,11 @@ export function createContext<T>(fallback: T, description?: string): Context<T> 
                 return componentThis[type] as T;
             }
 
-            return fallback;
+            if (options.fallback === undefined) {
+                throw new Error(`Could not find Provider for "${String(type)}" and no fallback was configured!`);
+            }
+
+            return options.fallback;
         },
     };
 }
