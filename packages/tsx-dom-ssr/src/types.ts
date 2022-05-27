@@ -15,6 +15,8 @@ export interface HTMLComponentProps extends BaseProps {
 }
 
 export interface ComponentThis {
+    abortSignal: AbortSignal;
+    withAbortSignal<T>(promise: Promise<T>): Promise<T>;
     [s: symbol]: unknown;
 }
 

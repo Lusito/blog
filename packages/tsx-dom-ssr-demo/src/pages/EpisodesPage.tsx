@@ -1,3 +1,5 @@
+import { ComponentThis } from "tsx-dom-ssr";
+
 import { Episode } from "../components/Episode/Episode";
 import { Pagination } from "../components/Pagination/Pagination";
 import { PaginationLayout } from "../layouts/PaginationLayout";
@@ -8,8 +10,8 @@ type EpisodesPageProps = {
     currentPage: number;
 };
 
-export async function EpisodesPage({ currentPage }: EpisodesPageProps) {
-    const page = await fetchRAMPage<RamEpisode>("/episode", currentPage);
+export async function EpisodesPage(this: ComponentThis, { currentPage }: EpisodesPageProps) {
+    const page = await fetchRAMPage<RamEpisode>("/episode", currentPage, { signal: this.abortSignal });
     const pagination = (
         <Pagination
             currentPage={currentPage}

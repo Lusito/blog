@@ -10,8 +10,9 @@ type CharactersPageProps = {
     currentPage: number;
 };
 
-export const CharactersPage = withCss(classes, async ({ currentPage }: CharactersPageProps) => {
-    const page = await fetchRAMPage<RamCharacter>("/character", currentPage);
+// eslint-disable-next-line func-names
+export const CharactersPage = withCss(classes, async function ({ currentPage }: CharactersPageProps) {
+    const page = await fetchRAMPage<RamCharacter>("/character", currentPage, { signal: this.abortSignal });
 
     const pagination = (
         <Pagination

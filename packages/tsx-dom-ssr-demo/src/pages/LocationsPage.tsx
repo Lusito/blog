@@ -1,3 +1,5 @@
+import { ComponentThis } from "tsx-dom-ssr";
+
 import { Location } from "../components/Location/Location";
 import { Pagination } from "../components/Pagination/Pagination";
 import { PaginationLayout } from "../layouts/PaginationLayout";
@@ -8,8 +10,8 @@ type LocationsPageProps = {
     currentPage: number;
 };
 
-export async function LocationsPage({ currentPage }: LocationsPageProps) {
-    const page = await fetchRAMPage<RamLocation>("/location", currentPage);
+export async function LocationsPage(this: ComponentThis, { currentPage }: LocationsPageProps) {
+    const page = await fetchRAMPage<RamLocation>("/location", currentPage, { signal: this.abortSignal });
     const pagination = (
         <Pagination
             currentPage={currentPage}

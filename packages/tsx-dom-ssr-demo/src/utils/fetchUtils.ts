@@ -21,15 +21,15 @@ const cache = new NodeCache({
     checkperiod: 60,
 });
 
-async function fetchJsonUncached(url: string) {
-    const response = await fetch(url);
+async function fetchJsonUncached(url: string, init: RequestInit) {
+    const response = await fetch(url, init);
     if (response.status > 300) throw new RequestError(response.status, `Failed getting ${url}`);
 
     return response.json();
 }
 
-export async function fetchJson<T>(url: string): Promise<T> {
-    const entry: CacheEntry<T> | undefined = cache.get(url);
+export async function fetchJson<T>(url: string, init: RequestInit): Promise<T> {
+    const entry: CacheEntry<T> | undefined = cache.get(url,);
     if (entry) {
         if (entry.status === "success") return entry.value;
         if (entry.status === "error") throw entry.error;
@@ -43,7 +43,7 @@ export async function fetchJson<T>(url: string): Promise<T> {
     try {
         cache.set(url, statusProgress(listeners));
 
-        const value = await fetchJsonUncached(url);
+        const value = await fetchJsonUncached(url, init);
         cache.set(url, statusSuccess(value));
         listeners.forEach(({ resolve }) => resolve(value));
 
@@ -55,10 +55,10 @@ export async function fetchJson<T>(url: string): Promise<T> {
     }
 }
 
-export function fetchRAM<T>(path: string) {
-    return fetchJson<T>(`https://rickandmortyapi.com/api${path}`);
+export function fetchRAM<T>(path: string, init: RequestInit) {
+    return fetchJson<T>(`https://rickandmortyapi.com/api${path}`, init);
 }
 
-export function fetchRAMPage<T>(path: string, page: number) {
-    return fetchJson<RamPage<T>>(`https://rickandmortyapi.com/api${path}?page=${page}`);
+export function fetchRAMPage<T>(path: string, page: number, init: RequestInit) {
+    return fetchJson<RamPage<T>>(`https://rickandmortyapi.com/api${path}?page=${page}`, init);
 }

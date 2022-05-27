@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
-import { ComponentChildren, toDom } from "tsx-dom-ssr";
+import { addAbortSignal, ComponentChildren, toDom } from "tsx-dom-ssr";
 import { domHelmet } from "dom-helmet";
 import { Window } from "happy-dom";
 import { Response } from "express";
@@ -12,7 +12,15 @@ const document = window.document as unknown as Document;
 
 export async function renderHTML(children: ComponentChildren) {
     const cssModules: CssModule[] = [];
-    const dom = await toDom(document, children, { cssModules });
+    const abortController = new AbortController();
+
+    let dom: DocumentFragment;
+    try {
+        dom = await toDom(document, children, addAbortSignal({ cssModules }, abortController));
+    } catch (e) {
+        if (!abortController.signal.aborted) abortController.abort();
+        throw e;
+    }
 
     // Since the dom might be a fragment or just a text node, we need a wrapper to render it
     const wrapper = document.createElement("div");

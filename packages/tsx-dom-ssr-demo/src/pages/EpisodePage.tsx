@@ -1,3 +1,5 @@
+import { ComponentThis } from "tsx-dom-ssr";
+
 import { Episode } from "../components/Episode/Episode";
 import { DefaultLayout } from "../layouts/DefaultLayout";
 import { RamCharacter, RamEpisode } from "../types/ramTypes";
@@ -7,10 +9,12 @@ export type EpisodePageProps = {
     id: string;
 };
 
-export async function EpisodePage({ id }: EpisodePageProps) {
-    const episode = await fetchRAM<RamEpisode>(`/episode/${id}`);
+export async function EpisodePage(this: ComponentThis, { id }: EpisodePageProps) {
+    const episode = await fetchRAM<RamEpisode>(`/episode/${id}`, { signal: this.abortSignal });
     const characterIds = episode.characters.map((character) => character.split("/").pop());
-    let characters = await fetchRAM<RamCharacter | RamCharacter[]>(`/character/${characterIds}`);
+    let characters = await fetchRAM<RamCharacter | RamCharacter[]>(`/character/${characterIds}`, {
+        signal: this.abortSignal,
+    });
     if (!Array.isArray(characters)) characters = [characters];
 
     return (
