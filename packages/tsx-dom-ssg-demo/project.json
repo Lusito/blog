@@ -1,0 +1,52 @@
+{
+  "sourceRoot": "packages/tsx-dom-ssg-demo/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/node:webpack",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/packages/tsx-dom-ssg-demo",
+        "main": "packages/tsx-dom-ssg-demo/src/main.tsx",
+        "tsConfig": "packages/tsx-dom-ssg-demo/tsconfig.app.json",
+        "assets": ["packages/tsx-dom-ssg-demo/src/assets"],
+        "webpackConfig": "packages/tsx-dom-ssg-demo/webpack.config.js"
+      },
+      "configurations": {
+        "production": {
+          "optimization": true,
+          "extractLicenses": true,
+          "inspect": false,
+          "fileReplacements": [
+            {
+              "replace": "packages/tsx-dom-ssg-demo/src/environments/environment.ts",
+              "with": "packages/tsx-dom-ssg-demo/src/environments/environment.prod.ts"
+            }
+          ]
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/node:node",
+      "options": {
+        "buildTarget": "tsx-dom-ssg-demo:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["packages/tsx-dom-ssg-demo/**/*.{ts,tsx}"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/packages/tsx-dom-ssg-demo"],
+      "options": {
+        "jestConfig": "packages/tsx-dom-ssg-demo/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

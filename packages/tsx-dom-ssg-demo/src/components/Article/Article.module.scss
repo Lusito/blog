@@ -1,0 +1,28 @@
+@import "../../style/spacings.scss";
+
+.article {
+    max-width: 1400px;
+    padding: 0;
+
+    > h2 {
+        border-bottom: 1px solid #424242;
+        margin-bottom: $space-grid;
+        margin-top: 0;
+    }
+    figure,
+    p {
+        margin: 0 0 1rem 0;
+    }
+    figcaption {
+        font-style: italic;
+        color: #424242;
+        font-size: 14px;
+    }
+    figure {
+        width: 100%;
+        table-layout: fixed;
+    }
+    img {
+        max-width: 100%;
+    }
+}

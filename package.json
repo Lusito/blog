@@ -18,6 +18,7 @@
     "lint:style:base": "prettier \"packages/*/src/**/*.{ts,tsx,js,json,scss}\" \"packages/*/*.{ts,tsx,js,json,scss}\"",
     "lint:style:fix": "npm run lint:style:base -- --write",
     "start": "nx run-many --target=serve --projects=tsx-dom-ssr-demo,tsx-dom-ssr-demo-elements",
+    "start:ssg": "nx run-many --target=serve --projects=tsx-dom-ssg-demo",
     "test": "nx run-many --target=test --all"
   },
   "dependencies": {
@@ -27,7 +28,8 @@
     "express": "^4.18.1",
     "happy-dom": "^3.2.0",
     "isomorphic-style-loader": "^5.3.2",
-    "node-cache": "^5.1.2"
+    "node-cache": "^5.1.2",
+    "url-loader": "^4.1.1"
   },
   "devDependencies": {
     "@lusito/eslint-config": "^1.7.0",
