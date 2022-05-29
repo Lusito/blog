@@ -1,12 +1,9 @@
-import { Article } from "../components/Article/Article";
-import { DefaultLayout } from "../layouts/DefaultLayout";
+import { createElement } from "tsx-dom-ssr";
 
-export function DemoPage() {
-    return (
-        <DefaultLayout pageTitle="All" siteTitle="Lusitos Blog">
-            <main>
-                <Article title="Some Article">Whooo</Article>
-            </main>
-        </DefaultLayout>
-    );
+// eslint-disable-next-line @typescript-eslint/no-inferrable-types
+const s: string = "folder/test";
+
+export async function DemoPage() {
+    const bla = await import(`./${s}.page`);
+    return createElement(bla.default, {});
 }
