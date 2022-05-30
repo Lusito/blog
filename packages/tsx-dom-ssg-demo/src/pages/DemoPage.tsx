@@ -1,7 +1,7 @@
 import { createElement } from "tsx-dom-ssr";
 
 // eslint-disable-next-line @typescript-eslint/no-inferrable-types
-const s: string = "react/test";
+const s: string = "react/routing";
 
 export async function DemoPage() {
     const bla = await import(`./${s}.page`);

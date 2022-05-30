@@ -17,6 +17,15 @@ app.get("/", (req, res) => respondHTML(res, <DemoPage />));
 // example: /trink-nicht-so-viel.html
 // app.get("/:id", (req, res) => respondHTML(res, <PostPage id={req.params.id} />));
 
+if (process.env.NODE_ENV !== "production") {
+    // SSE hot reload:
+    const startupTime = Date.now();
+    app.get("/hot-sse", (req, res) => {
+        res.status(200).set({ connection: "keep-alive", "content-type": "text/event-stream" });
+        res.write(`data: ${startupTime}\n\n`);
+    });
+}
+
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
 });

@@ -6,6 +6,7 @@ import { withCss } from "../utils/withCss";
 import classes from "./DefaultLayout.module.scss";
 // fixme: not as data-uri
 import logo from "./backhat_2x.png";
+import { reloadScript } from "../utils/reloadScript";
 
 interface DefaultLayoutProps extends BaseProps {
     pageTitle: string;
@@ -33,6 +34,7 @@ export const DefaultLayout = withCss(classes, ({ children, pageTitle, siteTitle 
             <title>
                 {pageTitle} - {siteTitle}
             </title>
+            {reloadScript}
         </head>
         <body>
             <nav class={classes.menucolumn}>
