@@ -19,7 +19,7 @@ app.get("/custom-elements.js", async (req, res) => {
         filePath = filePath.replace(/\.esm\.js$/, ".js");
     }
 
-    fs.readFile(filePath, { encoding: "utf-8" }, (err, content) => {
+    fs.readFile(filePath, "utf-8", (err, content) => {
         if (err) {
             res.status(404).send("");
         } else {

@@ -4,16 +4,16 @@ import { Footer } from "../components/Footer/Footer";
 import { Header } from "../components/Header/Header";
 import { withCss } from "../utils/withCss";
 import classes from "./DefaultLayout.module.scss";
-// fixme: not as data-uri
-import logo from "./backhat_2x.png";
 import { reloadScript } from "../utils/reloadScript";
+import { Navigation } from "../components/Navigation/Navigation";
+
+const siteTitle = "Lusitos Blog";
 
 interface DefaultLayoutProps extends BaseProps {
     pageTitle: string;
-    siteTitle: string;
 }
 
-export const DefaultLayout = withCss(classes, ({ children, pageTitle, siteTitle }: DefaultLayoutProps) => (
+export const DefaultLayout = withCss(classes, ({ children, pageTitle }: DefaultLayoutProps) => (
     <html>
         <head>
             <meta charSet="utf-8" />
@@ -37,35 +37,7 @@ export const DefaultLayout = withCss(classes, ({ children, pageTitle, siteTitle 
             {reloadScript}
         </head>
         <body>
-            <nav class={classes.menucolumn}>
-                <div class={classes.menuscroller}>
-                    <div class={classes.logo}>
-                        <img src={logo} alt="logo" />
-                        <h3>{siteTitle}</h3>
-                    </div>
-                    <menu>
-                        <li>
-                            <a href="#home">Home</a>
-                        </li>
-                        <li class={classes.selected}>
-                            <a href="#about">About</a>
-                        </li>
-                        <li>
-                            <a href="#cv">My CV</a>
-                        </li>
-                        <li>
-                            <a href="#impress">Impress</a>
-                        </li>
-                    </menu>
-                </div>
-                <div class={classes.menugrip}>
-                    <div>
-                        <div />
-                        <div />
-                        <div />
-                    </div>
-                </div>
-            </nav>
+            <Navigation siteTitle={siteTitle} />
             <div class={classes.mainwrapper}>
                 <Header pageTitle={pageTitle} siteTitle={siteTitle} />
                 <div class={classes.content}>{children}</div>

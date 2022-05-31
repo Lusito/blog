@@ -1,7 +1,7 @@
 import { Article } from "../../components/Article/Article";
+import { Container } from "../../components/Container/Container";
 import { DefaultLayout } from "../../layouts/DefaultLayout";
 
-// fixme: should folder name really matter?
 export const tags = ["react", "typescript"];
 export const title = "Routing in React";
 export const description = "You know when you're doing stuff...";
@@ -11,11 +11,13 @@ export const slug = "routing-in-react"; // optional, usually generated from titl
 // eslint-disable-next-line func-names
 export default async function () {
     return (
-        <DefaultLayout pageTitle={title} siteTitle="Lusitos Blog">
+        <DefaultLayout pageTitle={title}>
             <main>
-                <Article title="Some Article">Whooo</Article>
-                <div>Tags: {tags.join(",")}</div>
-                <div>giscus</div>
+                <Container>
+                    <Article title="Some Article">Whooo</Article>
+                    <div>Tags: {tags.join(",")}</div>
+                    <div>giscus</div>
+                </Container>
             </main>
         </DefaultLayout>
     );
