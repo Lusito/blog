@@ -18,9 +18,19 @@ export default async function () {
     return (
         <DefaultLayout pageTitle={frontMatter.title}>
             <main>
-                <ArticleHead title={frontMatter.title} image={frontMatter.image} />
+                <ArticleHead
+                    title={frontMatter.title}
+                    image={frontMatter.image}
+                    description={frontMatter.description}
+                />
                 <Container>
-                    <Article>Whooo</Article>
+                    <Article>
+                        <h2>Some Article</h2>
+                        <p>Whooo</p>
+                        <pre>
+                            <code class="language-ts">const hello: string = "world";</code>
+                        </pre>
+                    </Article>
                     <div>Tags: {frontMatter.tags.join(",")}</div>
                     <div>giscus</div>
                 </Container>
