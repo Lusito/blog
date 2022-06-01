@@ -33,6 +33,8 @@ async function init() {
     // app.get("/latest.html", (req, res) => respondHTML(res, <ListPage page={1} />));
     // app.get("/latest/all.html", (req, res) => respondHTML(res, <ListPage />));
     // app.get("/latest/:page.html", (req, res) => respondHTML(res, <ListPage page={req.params.page} />));
+
+    // fixme: show a short description on the tag page.. for example: "Toilet Papers are ..."
     // example: /tag/react.html, /tag/react/2.html, /tag/react/all.html
     // app.get("/tag/:tag.html", (req, res) => respondHTML(res, <ListPage tag={req.params.tag} page={1} />));
     // app.get("/tag/:tag/all.html", (req, res) => respondHTML(res, <ListPage tag={req.params.tag} />));
@@ -54,6 +56,10 @@ async function init() {
         console.log(`Example app listening on port ${port}`);
     });
 }
+
+// fixme: required pages: legal notice, privacy policy (all linked from the footer rather than from the menu).. should they have no tags at all?
+// fixme: about page? portfolio page? Project introductions, toilet papers, etc.
+// fixme: cookie banner? (for login of giscus maybe)
 
 init();
 
