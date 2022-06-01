@@ -12,13 +12,10 @@
     flex-shrink: 0;
     position: relative;
     display: flex;
-
-    > div {
-        margin-right: 35px;
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-    }
+    transition: all 0.5s ease;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 
     @include from("small") {
         padding-left: 20px;
@@ -26,44 +23,8 @@
             margin-right: 200px;
         }
     }
-}
 
-.searchBar {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    max-width: 100%;
-
-    input {
-        margin: 4px;
-        border: 2px solid black;
-        outline: none;
-        border-radius: 11px;
-        height: calc(100% - 7px);
-        box-sizing: border-box;
-        padding: 2px 5px 2px 30px;
-        flex-grow: 1;
-        background-image: url(./search.svg);
-        background-position-x: 8px;
-        background-position-y: center;
-        background-size: 13px;
-        background-repeat: no-repeat;
-        transition: all 0.5s ease;
-        font-size: 1rem;
-        font-family: "PT Sans";
-
-        &:not(:focus) {
-            padding-right: 0;
-            max-width: 20px;
-
-            @include from("small") {
-                max-width: 200px;
-            }
-        }
-        &:focus {
-            max-width: 200px;
-            border-color: #749eea;
-        }
+    @include from("large") {
+        margin-top: -34px;
     }
 }

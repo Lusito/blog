@@ -8,7 +8,7 @@ import type { FrontMatter } from "../../utils/getPages";
 export const frontMatter: FrontMatter = {
     tags: ["react", "typescript"],
     title: "Routing in React",
-    image: "couple1.jpg",
+    image: "default.jpg",
     description: "You know when you're doing stuff...",
     date: "2022-06-01T10:44:12.865Z",
     slug: "routing-in-react",

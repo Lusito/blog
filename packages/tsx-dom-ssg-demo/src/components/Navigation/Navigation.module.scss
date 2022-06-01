@@ -9,7 +9,7 @@
     width: 260px;
     z-index: 200;
     padding-right: 25px;
-    transition: left 0.5s ease;
+    transition: all 0.5s ease;
     background: #f6f6f6;
     box-sizing: border-box;
 
@@ -46,7 +46,7 @@
             right: 0;
         }
         .menugrip > div {
-            transition: right 0.5s ease;
+            transition: all 0.5s ease;
             top: 0;
             right: -25px;
             left: auto;
@@ -55,6 +55,18 @@
 
             > div {
                 margin-left: 4px;
+            }
+        }
+    }
+    @include from("large") {
+        left: 0;
+        padding-right: 5px;
+
+        .menugrip {
+            width: 5px;
+
+            > div {
+                display: none;
             }
         }
     }
@@ -102,6 +114,9 @@
     li:hover > span {
         display: block;
         background: rgba(0, 0, 0, 0.15);
+    }
+    @include from("large") {
+        right: 5px;
     }
 }
 

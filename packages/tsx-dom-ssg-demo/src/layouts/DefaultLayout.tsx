@@ -38,9 +38,11 @@ export const DefaultLayout = withCss(classes, ({ children, pageTitle }: DefaultL
         <body>
             <Navigation siteTitle={siteTitle} />
             <div class={classes.mainwrapper}>
-                <Header pageTitle={pageTitle} siteTitle={siteTitle} />
-                <div class={classes.content}>{children}</div>
-                <Footer />
+                <Header siteTitle={siteTitle} />
+                <div class={classes.content}>
+                    {children}
+                    <Footer />
+                </div>
             </div>
         </body>
     </html>

@@ -1,7 +1,7 @@
 ---
 tags: ["JavaScript", "Hot-Module-Replacement", "Toilet Paper"]
 title: "Address Hot Module Replacement API manually"
-image: "couple1.jpg"
+image: "default.jpg"
 description: >
     HMR works automagically in almost all popular frontend frameworks.
     It is, however, possible to control HMR manually. How and why is shown in this Toilet Paper.

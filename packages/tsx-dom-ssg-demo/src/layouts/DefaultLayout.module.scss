@@ -3,24 +3,28 @@
 @import "../style/breakpoints.scss";
 @import "../style/reset.scss";
 
-nav:hover + .mainwrapper {
-    pointer-events: none;
-    transform: translateX(260px) rotateY(-30deg);
-    overflow: hidden;
+@include until("large") {
+    nav:hover + .mainwrapper {
+        pointer-events: none;
+        overflow: hidden;
+    }
 }
 
 .mainwrapper {
-    transform-origin: 50% 50%;
-    transition: transform 0.5s ease;
+    transition: all 0.5s ease;
     background: #f6f6f6;
     height: 100%;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
 
-    @include from("small") {
-        transform: translateX(25px);
+    @include fromUntil("small", "large") {
         width: calc(100% - 25px);
+        margin-left: 25px;
+    }
+    @include from("large") {
+        width: calc(100% - 260px);
+        margin-left: 260px;
     }
 }
 
