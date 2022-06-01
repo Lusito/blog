@@ -7,7 +7,7 @@
         display: inline-block;
         font-family: "Doppio One";
         padding: $space-sm $space-md;
-        background: black;
+        background: #1e1e1e;
         border-radius: 5px;
         text-decoration: none;
         color: white;
@@ -16,7 +16,7 @@
         line-height: 1;
 
         &:hover {
-            background: rgb(43, 43, 43);
+            background: #424242;
         }
     }
 }
