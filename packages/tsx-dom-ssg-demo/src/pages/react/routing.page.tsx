@@ -6,7 +6,7 @@ import { DefaultLayout } from "../../layouts/DefaultLayout";
 import type { FrontMatter } from "../../utils/getPages";
 
 export const frontMatter: FrontMatter = {
-    tags: ["react", "typescript"],
+    tags: ["React", "TypeScript", "JavaScript"],
     title: "Routing in React",
     image: "default.jpg",
     description: "You know when you're doing stuff...",

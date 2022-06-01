@@ -10,12 +10,12 @@ export const Navigation = withCss(classes, ({ siteTitle }: NavigationProps) => (
     <nav class={classes.menucolumn}>
         <div class={classes.menuscroller}>
             <div class={classes.logo}>
-                <img src={logo} alt="logo" />
+                <img src={`/${logo}`} alt="logo" />
                 <h3>{siteTitle}</h3>
             </div>
             <menu>
                 <li>
-                    <a href="#home">Home</a>
+                    <a href="/">Home</a>
                 </li>
                 <li class={classes.selected}>
                     <a href="#about">About</a>

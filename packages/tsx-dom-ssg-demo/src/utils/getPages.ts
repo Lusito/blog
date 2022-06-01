@@ -39,6 +39,8 @@ export type PageInfoMd = PageInfoBase & { type: "md"; body: string };
 export type PageInfoTsx = PageInfoBase & { type: "tsx"; component: Component };
 export type PageInfo = PageInfoMd | PageInfoTsx;
 
+export const tagLabels: Record<string, string> = {};
+
 export async function getPages() {
     const rootPath = path.join("packages", "tsx-dom-ssg-demo", "src", "pages");
     const pages = getAllFiles(rootPath, /\.page\.(md|tsx)$/, []);
@@ -49,6 +51,11 @@ export async function getPages() {
                 const data = await fs.promises.readFile(file, "utf-8");
                 const fm = frontMatter(data);
                 const page = fm.attributes as FrontMatter;
+
+                for (const tag of page.tags) {
+                    tagLabels[slugify(tag)] = tag;
+                }
+
                 return {
                     type: "md",
                     tags: page.tags,
@@ -66,6 +73,10 @@ export async function getPages() {
             if (!page?.frontMatter || !page?.default) throw new Error("Invalid page export");
 
             const fm = page.frontMatter;
+
+            for (const tag of fm.tags) {
+                tagLabels[slugify(tag)] = tag;
+            }
 
             return {
                 type: "tsx",
