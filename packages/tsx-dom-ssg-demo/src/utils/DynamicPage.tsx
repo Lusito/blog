@@ -1,10 +1,9 @@
-import { createElement } from "tsx-dom-ssr";
+import { Component, createElement } from "tsx-dom-ssr";
 
 type DynamicPageProps = {
-    path: string;
+    component: Component;
 };
 
-export async function DynamicPage({ path }: DynamicPageProps) {
-    const page = await import(`../pages/${path}.page`);
-    return createElement(page.default, {});
+export function DynamicPage({ component }: DynamicPageProps) {
+    return createElement(component, {});
 }

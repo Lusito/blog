@@ -1,8 +1,6 @@
 @import "../../style/spacings.scss";
 
 .article {
-    padding: 0;
-
     > h2 {
         border-bottom: 1px solid #424242;
         margin-bottom: $space-grid;

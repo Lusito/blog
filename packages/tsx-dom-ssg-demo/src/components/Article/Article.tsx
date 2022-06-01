@@ -6,15 +6,8 @@ import classes from "./Article.module.scss";
 
 const md = new MarkdownIt();
 
-type ArticleProps = BaseProps & {
-    title: string;
-};
-
-export const Article = withCss(classes, ({ title, children }: ArticleProps) => (
-    <article class={classes.article}>
-        <h2>{title}</h2>
-        <section class={classes.body}>{children}</section>
-    </article>
+export const Article = withCss(classes, ({ children }: BaseProps) => (
+    <article class={classes.article}>{children}</article>
 ));
 
 type MarkdownArticleProps = {

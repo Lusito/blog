@@ -6,8 +6,7 @@ import { withCss } from "../utils/withCss";
 import classes from "./DefaultLayout.module.scss";
 import { reloadScript } from "../utils/reloadScript";
 import { Navigation } from "../components/Navigation/Navigation";
-
-const siteTitle = "Lusitos Blog";
+import { siteTitle } from "../utils/config";
 
 interface DefaultLayoutProps extends BaseProps {
     pageTitle: string;

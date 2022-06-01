@@ -37,7 +37,7 @@ async function init() {
         const page = pages.find((p) => p.slug === slug);
         if (!page) return res.sendStatus(404);
         if (page.type === "md") return respondHTML(res, <MarkdownPage page={page} />);
-        return respondHTML(res, <DynamicPage path={page.path} />);
+        return respondHTML(res, <DynamicPage component={page.component} />);
     });
 
     app.listen(port, () => {
