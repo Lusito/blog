@@ -1,14 +1,15 @@
 @import "../../style/breakpoints.scss";
+@import "../../style/sizes.scss";
 
 .menucolumn {
     font-family: "Doppio One";
     position: absolute;
     top: 0;
     bottom: 0;
-    left: -260px;
-    width: 260px;
+    left: -$menu-width;
+    width: $menu-width;
     z-index: 200;
-    padding-right: 25px;
+    padding-right: $menu-grip-width;
     transition: all 0.5s ease;
     background: #f6f6f6;
     box-sizing: border-box;
@@ -22,7 +23,7 @@
         top: 0;
         bottom: 0;
         right: 0;
-        width: 25px;
+        width: $menu-grip-width;
         background: black;
         > div {
             position: absolute;
@@ -39,7 +40,7 @@
     }
 
     @include from("small") {
-        left: -235px;
+        left: -#{$menu-width - $menu-grip-width};
     }
     @include until("small") {
         &:hover > .menugrip > div {
@@ -48,9 +49,9 @@
         .menugrip > div {
             transition: all 0.5s ease;
             top: 0;
-            right: -25px;
+            right: -$menu-grip-width;
             left: auto;
-            width: 25px;
+            width: $menu-grip-width;
             padding: 1px 0;
 
             > div {
@@ -77,7 +78,7 @@
     top: 0;
     bottom: 0;
     left: 0;
-    right: 25px;
+    right: $menu-grip-width;
     overflow-y: auto;
     menu {
         width: 100%;

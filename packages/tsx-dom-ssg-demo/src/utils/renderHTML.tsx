@@ -7,13 +7,13 @@ import { Response } from "express";
 const window = new Window();
 const document = window.document as unknown as Document;
 
-export async function renderHTML(children: ComponentChildren) {
+export async function renderHTML(path: string, children: ComponentChildren) {
     const cssModules: CssModule[] = [];
     const abortController = new AbortController();
 
     let dom: DocumentFragment;
     try {
-        dom = await toDom(document, children, addAbortSignal({ cssModules }, abortController));
+        dom = await toDom(document, children, addAbortSignal({ path, cssModules }, abortController));
     } catch (e) {
         if (!abortController.signal.aborted) abortController.abort();
         throw e;
@@ -50,9 +50,9 @@ export async function renderHTML(children: ComponentChildren) {
     return `<!DOCTYPE html>${wrapper.innerHTML}`;
 }
 
-export async function respondHTML(res: Response, children: ComponentChildren) {
+export async function respondHTML(res: Response, path: string, children: ComponentChildren) {
     try {
-        const html = await renderHTML(children);
+        const html = await renderHTML(path, children);
         res.send(html);
     } catch (e) {
         console.error("Uncaught exception", e);

@@ -1,13 +1,14 @@
 @import "../../style/colors.scss";
 @import "../../style/spacings.scss";
 @import "../../style/breakpoints.scss";
+@import "../../style/sizes.scss";
 
 .header {
     font-family: "Doppio One";
     background: black;
     color: white;
     font-size: 22px;
-    padding: 6px 6px 6px 30px;
+    padding: 0 6px 0 30px;
     line-height: 100%;
     flex-shrink: 0;
     position: relative;
@@ -16,15 +17,13 @@
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+    line-height: $header-height;
 
     @include from("small") {
         padding-left: 20px;
-        > div {
-            margin-right: 200px;
-        }
     }
 
     @include from("large") {
-        margin-top: -34px;
+        margin-top: -$header-height;
     }
 }

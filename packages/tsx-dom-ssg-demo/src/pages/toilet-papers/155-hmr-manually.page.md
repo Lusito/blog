@@ -1,5 +1,5 @@
 ---
-tags: ["JavaScript", "TypeScript", "Hot Module Replacement", "Toilet Paper"]
+tags: ["JavaScript", "TypeScript", "Hot Module Replacement", "Toilet Paper", "Web Development", "Game Development"]
 title: "Address Hot Module Replacement API manually"
 image: "default.jpg"
 description: >

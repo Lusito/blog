@@ -1,5 +1,5 @@
 ---
-tags: ["React", "TypeScript", "JavaScript"]
+tags: ["React", "TypeScript", "JavaScript", "Web Development"]
 title: "Routing in React 2"
 image: "default.jpg"
 description: "You know when you're doing stuff..."

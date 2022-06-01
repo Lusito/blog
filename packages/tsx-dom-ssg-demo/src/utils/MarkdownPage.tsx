@@ -25,10 +25,14 @@ export async function MarkdownPage({ page }: MarkdownPageProps) {
                 />
                 <ArticleHead title={title} image={page.image} description={description} />
                 <Container>
-                    <TagList tags={tags} />
+                    {tags.length > 0 && <TagList tags={tags} />}
                     <MarkdownArticle markdown={body} />
-                    <TagList tags={tags} />
-                    <div>giscus</div>
+                    {tags.length > 0 && (
+                        <>
+                            <TagList tags={tags} />
+                            <div>giscus</div>
+                        </>
+                    )}
                 </Container>
             </main>
         </DefaultLayout>

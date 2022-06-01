@@ -2,6 +2,7 @@
 @import "../style/spacings.scss";
 @import "../style/breakpoints.scss";
 @import "../style/reset.scss";
+@import "../style/sizes.scss";
 
 @include until("large") {
     nav:hover + .mainwrapper {
@@ -19,12 +20,12 @@
     flex-direction: column;
 
     @include fromUntil("small", "large") {
-        width: calc(100% - 25px);
-        margin-left: 25px;
+        width: calc(100% - $menu-grip-width);
+        margin-left: $menu-grip-width;
     }
     @include from("large") {
-        width: calc(100% - 260px);
-        margin-left: 260px;
+        width: calc(100% - $menu-width);
+        margin-left: $menu-width;
     }
 }
 

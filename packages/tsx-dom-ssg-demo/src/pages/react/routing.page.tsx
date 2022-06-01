@@ -6,7 +6,7 @@ import { DefaultLayout } from "../../layouts/DefaultLayout";
 import type { FrontMatter } from "../../utils/getPages";
 
 export const frontMatter: FrontMatter = {
-    tags: ["React", "TypeScript", "JavaScript"],
+    tags: ["React", "TypeScript", "JavaScript", "Web Development"],
     title: "Routing in React",
     image: "default.jpg",
     description: "You know when you're doing stuff...",
@@ -32,8 +32,12 @@ export default async function () {
                             <code class="language-ts">const hello: string = "world";</code>
                         </pre>
                     </Article>
-                    <TagList tags={frontMatter.tags} />
-                    <div>giscus</div>
+                    {frontMatter.tags.length > 0 && (
+                        <>
+                            <TagList tags={frontMatter.tags} />
+                            <div>giscus</div>
+                        </>
+                    )}
                 </Container>
             </main>
         </DefaultLayout>

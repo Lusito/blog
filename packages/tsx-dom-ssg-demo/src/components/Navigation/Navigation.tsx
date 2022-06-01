@@ -1,11 +1,27 @@
+import { ComponentThis } from "tsx-dom-ssr";
+
 import { withCss } from "../../utils/withCss";
 import classes from "./Navigation.module.scss";
 import logo from "./logo.png";
+
+type NavItemProps = {
+    label: string;
+    path: string;
+};
+
+function NavItem(this: ComponentThis, { label, path }: NavItemProps) {
+    return (
+        <li class={path === this.path ? classes.selected : undefined}>
+            <a href={path}>{label}</a>
+        </li>
+    );
+}
 
 interface NavigationProps {
     siteTitle: string;
 }
 
+// eslint-disable-next-line func-names
 export const Navigation = withCss(classes, ({ siteTitle }: NavigationProps) => (
     <nav class={classes.menucolumn}>
         <div class={classes.menuscroller}>
@@ -14,18 +30,16 @@ export const Navigation = withCss(classes, ({ siteTitle }: NavigationProps) => (
                 <h3>{siteTitle}</h3>
             </div>
             <menu>
+                <NavItem path="/" label="Latest Posts" />
                 <li>
-                    <a href="/">Home</a>
+                    <span>Popular Categories</span>
+                    <menu>
+                        <NavItem path="/tag/web-development.html" label="Web Development" />
+                        <NavItem path="/tag/game-development.html" label="Game Development" />
+                    </menu>
                 </li>
-                <li class={classes.selected}>
-                    <a href="#about">About</a>
-                </li>
-                <li>
-                    <a href="#cv">My CV</a>
-                </li>
-                <li>
-                    <a href="#impress">Impress</a>
-                </li>
+                <NavItem path="/categories.html" label="All Categories" />
+                <NavItem path="/about.html" label="About" />
             </menu>
         </div>
         <div class={classes.menugrip}>

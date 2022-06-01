@@ -1,7 +1,7 @@
 import express from "express";
 
 import { respondHTML } from "./utils/renderHTML";
-import { IndexPage } from "./pages/IndexPage";
+import NotFoundPage from "./pages/site/404.page";
 import { DynamicPage } from "./utils/DynamicPage";
 import { getPages } from "./utils/getPages";
 import { MarkdownPage } from "./utils/MarkdownPage";
@@ -26,7 +26,7 @@ async function init() {
     const pages = await getPages();
 
     // fixme: could have a sidebar with all available tags
-    app.get("/", (req, res) => respondHTML(res, <ListPage pages={pages} start={0} />));
+    app.get("/", (req, res) => respondHTML(res, req.path, <ListPage pages={pages} start={0} />));
 
     // "all.html" pages should just show titles in order to reduce the size
     // example: /latest/2.html, /latest/all.html
@@ -34,7 +34,7 @@ async function init() {
     // app.get("/latest/:page.html", (req, res) => respondHTML(res, <ListPage page={req.params.page} />));
 
     app.get("/tag/:tag.html", (req, res) =>
-        respondHTML(res, <ListPage tag={req.params.tag} pages={pages} start={0} />)
+        respondHTML(res, req.path, <ListPage tag={req.params.tag} pages={pages} start={0} />)
     );
     // fixme: pagination, for example /tag/react/2.html, /tag/react/all.html
     // app.get("/tag/:tag/all.html", (req, res) => respondHTML(res, <ListPage tag={req.params.tag} />));
@@ -47,9 +47,12 @@ async function init() {
     app.get("/:slug.html", (req, res) => {
         const { slug } = req.params;
         const page = pages.find((p) => p.slug === slug);
-        if (!page) return res.sendStatus(404);
-        if (page.type === "md") return respondHTML(res, <MarkdownPage page={page} />);
-        return respondHTML(res, <DynamicPage component={page.component} />);
+        if (!page) {
+            res.status(404);
+            return respondHTML(res, req.path, <NotFoundPage />);
+        }
+        if (page.type === "md") return respondHTML(res, req.path, <MarkdownPage page={page} />);
+        return respondHTML(res, req.path, <DynamicPage component={page.component} />);
     });
 
     app.listen(port, () => {
@@ -66,6 +69,7 @@ init();
 // Extend ComponentThis
 declare module "tsx-dom-ssr" {
     export interface ComponentThis {
+        readonly path: string;
         cssModules: CssModule[];
     }
 }
