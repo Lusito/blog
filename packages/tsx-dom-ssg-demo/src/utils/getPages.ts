@@ -21,7 +21,7 @@ function getAllFiles(dirPath: string, pattern: RegExp, arrayOfFiles: string[]) {
 }
 
 // fixme: use library
-const slugify = (s: string) => s.replace(/[^a-z0-9]+/g, "-");
+export const slugify = (s: string) => s.replace(/[^a-z0-9]+/gi, "-").toLowerCase();
 
 export type FrontMatter = {
     tags: string[];
