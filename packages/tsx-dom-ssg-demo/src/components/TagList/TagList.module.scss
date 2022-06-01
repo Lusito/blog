@@ -1,0 +1,21 @@
+@import "../../style/spacings.scss";
+
+.tagList {
+    margin: 1rem 0;
+
+    > a {
+        display: inline-block;
+        font-family: "Doppio One";
+        padding: $space-sm $space-md;
+        background: black;
+        border-radius: 5px;
+        text-decoration: none;
+        color: white;
+        margin-right: $space-sm;
+        line-height: 1;
+
+        &:hover {
+            background: gray;
+        }
+    }
+}

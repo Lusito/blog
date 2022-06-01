@@ -2,6 +2,7 @@ import { MarkdownArticle } from "../components/Article/Article";
 import { ArticleHead } from "../components/ArticleHead/ArticleHead";
 import { Container } from "../components/Container/Container";
 import { OpenGraphArticle } from "../components/OpenGraph/OpenGraph";
+import { TagList } from "../components/TagList/TagList";
 import { DefaultLayout } from "../layouts/DefaultLayout";
 import type { PageInfoMd } from "./getPages";
 
@@ -24,9 +25,9 @@ export async function MarkdownPage({ page }: MarkdownPageProps) {
                 />
                 <ArticleHead title={title} image={page.image} description={description} />
                 <Container>
-                    <div>Tags: {tags.join(",")}</div>
+                    <TagList tags={tags} />
                     <MarkdownArticle markdown={body} />
-                    <div>Tags: {tags.join(",")}</div>
+                    <TagList tags={tags} />
                     <div>giscus</div>
                 </Container>
             </main>

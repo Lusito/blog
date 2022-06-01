@@ -1,6 +1,7 @@
 import { Article } from "../../components/Article/Article";
 import { ArticleHead } from "../../components/ArticleHead/ArticleHead";
 import { Container } from "../../components/Container/Container";
+import { TagList } from "../../components/TagList/TagList";
 import { DefaultLayout } from "../../layouts/DefaultLayout";
 import type { FrontMatter } from "../../utils/getPages";
 
@@ -31,7 +32,7 @@ export default async function () {
                             <code class="language-ts">const hello: string = "world";</code>
                         </pre>
                     </Article>
-                    <div>Tags: {frontMatter.tags.join(",")}</div>
+                    <TagList tags={frontMatter.tags} />
                     <div>giscus</div>
                 </Container>
             </main>
