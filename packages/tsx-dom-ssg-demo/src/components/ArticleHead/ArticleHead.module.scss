@@ -2,10 +2,18 @@
 
 .articleHead {
     text-align: center;
-    padding: 50px;
+    padding: 50px 0;
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
     color: white;
     text-shadow: 1px 1px #333333;
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+
+    p, h1 {
+        max-width: 900px;
+        padding: 20px;
+    }
 }

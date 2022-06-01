@@ -9,7 +9,9 @@ type ArticleHeadProps = {
 
 export const ArticleHead = withCss(classes, ({ title, image, description }: ArticleHeadProps) => (
     <div class={classes.articleHead} style={{ backgroundImage: `url(/assets/${image})` }}>
-        <h1>{title}</h1>
-        {description && <p>{description}</p>}
+        <div>
+            <h1>{title}</h1>
+            {description && <p>{description}</p>}
+        </div>
     </div>
 ));

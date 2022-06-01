@@ -24,6 +24,7 @@ export async function MarkdownPage({ page }: MarkdownPageProps) {
                 />
                 <ArticleHead title={title} image={page.image} description={description} />
                 <Container>
+                    <div>Tags: {tags.join(",")}</div>
                     <MarkdownArticle markdown={body} />
                     <div>Tags: {tags.join(",")}</div>
                     <div>giscus</div>
