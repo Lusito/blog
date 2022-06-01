@@ -1,7 +1,7 @@
 @import "../../style/spacings.scss";
 
 .tagList {
-    margin: 1rem 0;
+    margin-top: 1rem;
 
     > a {
         display: inline-block;
@@ -12,6 +12,7 @@
         text-decoration: none;
         color: white;
         margin-right: $space-sm;
+        margin-bottom: $space-sm;
         line-height: 1;
 
         &:hover {
