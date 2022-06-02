@@ -57,7 +57,7 @@ async function init() {
         const pageNumber = page ? parseInt(page) : 1;
         const filteredPages = pages.filter(pageHasTags);
 
-        if (pageNumber < 2 || (pageNumber - 1) * itemsPerPage >= filteredPages.length) {
+        if (Number.isNaN(pageNumber) || pageNumber < 2 || (pageNumber - 1) * itemsPerPage >= filteredPages.length) {
             return respond404(req, res);
         }
 
@@ -75,7 +75,12 @@ async function init() {
         const tagLabel = tagLabels[tag] ?? tag;
         const filteredPages = pages.filter((p) => p.tags.includes(tagLabel));
 
-        if (page === "1" || pageNumber < 1 || (pageNumber - 1) * itemsPerPage >= filteredPages.length) {
+        if (
+            page === "1" ||
+            Number.isNaN(pageNumber) ||
+            pageNumber < 1 ||
+            (pageNumber - 1) * itemsPerPage >= filteredPages.length
+        ) {
             return respond404(req, res);
         }
 

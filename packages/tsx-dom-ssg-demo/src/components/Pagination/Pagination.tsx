@@ -1,4 +1,3 @@
-import { siteUrl } from "../../utils/config";
 import { withCss } from "../../utils/withCss";
 import classes from "./Pagination.module.scss";
 
@@ -13,9 +12,9 @@ const Link = ({ path, label, page, disabled }: LinkProps) => {
 
     let href: string;
     if (page === 1) {
-        href = path === "/latest" ? `${siteUrl}/` : `${siteUrl}${path}.html`;
+        href = path === "/latest" ? "/" : `${path}.html`;
     } else {
-        href = `${siteUrl}${path}/${page}.html`;
+        href = `${path}/${page}.html`;
     }
     return <a href={href}>{label}</a>;
 };

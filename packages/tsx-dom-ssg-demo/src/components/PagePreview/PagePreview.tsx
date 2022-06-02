@@ -1,4 +1,3 @@
-import { siteUrl } from "../../utils/config";
 import { PageInfo } from "../../utils/pageUtils";
 import { withCss } from "../../utils/withCss";
 import { TagList } from "../TagList/TagList";
@@ -11,7 +10,7 @@ type PagePreviewProps = {
 export const PagePreview = withCss(classes, ({ page }: PagePreviewProps) => (
     <div class={classes.pagePreview}>
         <h2>
-            <a href={`${siteUrl}/${page.slug}.html`}>{page.title}</a>
+            <a href={`/${page.slug}.html`}>{page.title}</a>
             <span class={classes.date}>{page.date.toUTCString()}</span>
         </h2>
         <div>{page.description}</div>
