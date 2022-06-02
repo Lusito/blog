@@ -6,6 +6,7 @@ import { withCss } from "../../utils/withCss";
 import classes from "./Article.module.scss";
 
 const md: MarkdownIt = new MarkdownIt({
+    linkify: true,
     highlight(str, lang) {
         let code: string | undefined;
         if (lang && hljs.getLanguage(lang)) {
