@@ -1,11 +1,12 @@
-import express from "express";
+import express, { Request, Response } from "express";
 
 import { respondHTML } from "./utils/renderHTML";
 import NotFoundPage from "./pages/site/404.page";
 import { DynamicPage } from "./utils/DynamicPage";
-import { getPages } from "./utils/getPages";
+import { getPages, pagesWithTags, tagLabels } from "./utils/getPages";
 import { MarkdownPage } from "./utils/MarkdownPage";
-import { ListPage } from "./utils/ListPage";
+import { itemsPerPage, ListPage } from "./utils/ListPage";
+import { ListAllPage } from "./utils/ListAllPage";
 
 // The stuff below is purely for the dev-server
 const app = express();
@@ -22,46 +23,79 @@ if (process.env.NODE_ENV !== "production") {
 
 app.use("/assets", express.static("dist/packages/tsx-dom-ssg-demo/assets", { index: false, redirect: false }));
 
+const respond404 = (req: Request, res: Response) => {
+    res.status(404);
+    return respondHTML(res, req.path, <NotFoundPage />);
+};
+
 async function init() {
     const pages = await getPages();
 
-    // fixme: could have a sidebar with all available tags
-    app.get("/", (req, res) => respondHTML(res, req.path, <ListPage pages={pages} start={0} />));
-
-    // "all.html" pages should just show titles in order to reduce the size
-    // example: /latest/2.html, /latest/all.html
-    // app.get("/latest/all.html", (req, res) => respondHTML(res, <ListPage />));
-    // app.get("/latest/:page.html", (req, res) => respondHTML(res, <ListPage page={req.params.page} />));
-
-    app.get("/tag/:tag.html", (req, res) =>
-        respondHTML(res, req.path, <ListPage tag={req.params.tag} pages={pages} start={0} />)
+    // Pages without tags are internal (for example "about") and not supposed to be listed
+    app.get("/", (req, res) =>
+        respondHTML(
+            res,
+            req.path,
+            <ListPage path="/latest" title="Latest Posts" pages={pages.filter(pagesWithTags)} pageNumber={1} />
+        )
     );
-    // fixme: pagination, for example /tag/react/2.html, /tag/react/all.html
-    // app.get("/tag/:tag/all.html", (req, res) => respondHTML(res, <ListPage tag={req.params.tag} />));
-    // app.get("/tag/:tag/:page.html", (req, res) => respondHTML(res, <ListPage tag={req.params.tag} page={req.params.page} />));
+    app.get("/all.html", (req, res) => respondHTML(res, req.path, <ListAllPage pages={pages.filter(pagesWithTags)} />));
 
-    // search is done clientside, filter by search-text, tags (and/or) and date-range
+    app.get("/latest/:page.html", (req, res) => {
+        const { page } = req.params;
+        const pageNumber = page ? parseInt(page) : 1;
+        const filteredPages = pages.filter(pagesWithTags);
+
+        if (pageNumber < 2 || (pageNumber - 1) * itemsPerPage >= filteredPages.length) {
+            return respond404(req, res);
+        }
+
+        respondHTML(
+            res,
+            req.path,
+            <ListPage path="/latest" title="Latest Posts" pages={filteredPages} pageNumber={pageNumber} />
+        );
+    });
+
+    // fixme: implement infinite scrolling?
+    app.get("/tag/:tag/:page?.html", (req, res) => {
+        const { tag, page } = req.params;
+        const pageNumber = page ? parseInt(page) : 1;
+        const tagLabel = tag && (tagLabels[tag] ?? tag);
+        const filteredPages = pages.filter((p) => p.tags.includes(tagLabel));
+
+        if (page === "1" || pageNumber < 1 || (pageNumber - 1) * itemsPerPage >= filteredPages.length) {
+            return respond404(req, res);
+        }
+
+        respondHTML(
+            res,
+            req.path,
+            <ListPage path={`/tag/${tag}`} title={tagLabel} pages={filteredPages} pageNumber={pageNumber} />
+        );
+    });
+
+    // fixme: search is done clientside, filter by search-text, tags (and/or) and date-range
     // app.get("/search.html", (req, res) => respondHTML(res, <SearchPage />));
 
-    // example: /using-hot-module-replacement-manually.html
     app.get("/:slug.html", (req, res) => {
         const { slug } = req.params;
         const page = pages.find((p) => p.slug === slug);
         if (!page) {
-            res.status(404);
-            return respondHTML(res, req.path, <NotFoundPage />);
+            return respond404(req, res);
         }
         if (page.type === "md") return respondHTML(res, req.path, <MarkdownPage page={page} />);
         return respondHTML(res, req.path, <DynamicPage component={page.component} />);
     });
+    app.get("*", respond404);
 
     app.listen(port, () => {
         console.log(`Example app listening on port ${port}`);
     });
 }
 
-// fixme: required pages: legal notice, privacy policy (all linked from the footer rather than from the menu).. should they have no tags at all?
-// fixme: about page? portfolio page? Project introductions, toilet papers, etc.
+// fixme: required pages: legal notice?, privacy policy? (all linked from the footer rather than from the menu)
+// fixme: portfolio page? Project introductions, toilet papers, etc.
 // fixme: cookie banner? (for login of giscus maybe)
 
 init();

@@ -1,0 +1,30 @@
+@import "../../style/spacings.scss";
+
+.pagination {
+    margin: 1rem 0;
+
+    > a,
+    > span {
+        display: inline-block;
+        font-family: "Doppio One";
+        padding: $space-sm $space-md;
+        border-radius: 5px;
+        text-decoration: none;
+        color: white;
+        margin-right: $space-sm;
+        margin-bottom: $space-sm;
+        line-height: 1;
+    }
+
+    > span {
+        background: #636363;
+    }
+
+    > a {
+        background: #1e1e1e;
+
+        &:hover {
+            background: #424242;
+        }
+    }
+}
