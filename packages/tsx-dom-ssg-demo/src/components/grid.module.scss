@@ -27,7 +27,7 @@ $grid-columns: 12 !default;
     box-sizing: border-box;
 }
 @mixin screen-size-mixin($short) {
-    $basename: '.col-#{$short}';
+    $basename: ".col-#{$short}";
     #{$basename} {
         padding: $grid-spacing;
         box-sizing: border-box;
