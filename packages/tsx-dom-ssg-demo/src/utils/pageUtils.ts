@@ -2,6 +2,9 @@ import fs from "fs";
 import path from "path";
 import frontMatter from "front-matter";
 import { Component } from "tsx-dom-ssr";
+import slugify from "slugify";
+
+import { slugifyOptions } from "./config";
 
 function getAllFiles(dirPath: string, pattern: RegExp, arrayOfFiles: string[]) {
     const files = fs.readdirSync(dirPath);
@@ -19,9 +22,6 @@ function getAllFiles(dirPath: string, pattern: RegExp, arrayOfFiles: string[]) {
 
     return arrayOfFiles;
 }
-
-// fixme: use library
-export const slugify = (s: string) => s.replace(/[^a-z0-9]+/gi, "-").toLowerCase();
 
 export type FrontMatter = {
     tags: string[];
@@ -60,7 +60,7 @@ export async function getPages() {
                 const page = fm.attributes as FrontMatter;
 
                 for (const tag of page.tags) {
-                    tagLabels[slugify(tag)] = tag;
+                    tagLabels[slugify(tag, slugifyOptions)] = tag;
                 }
 
                 return {
@@ -70,7 +70,7 @@ export async function getPages() {
                     image: page.image,
                     description: page.description,
                     date: new Date(page.date),
-                    slug: page.slug ?? slugify(page.title),
+                    slug: page.slug ?? slugify(page.title, slugifyOptions),
                     body: fm.body,
                 };
             }
@@ -82,7 +82,7 @@ export async function getPages() {
             const fm = page.frontMatter;
 
             for (const tag of fm.tags) {
-                tagLabels[slugify(tag)] = tag;
+                tagLabels[slugify(tag, slugifyOptions)] = tag;
             }
 
             return {
@@ -92,7 +92,7 @@ export async function getPages() {
                 image: fm.image,
                 description: fm.description,
                 date: new Date(fm.date),
-                slug: fm.slug ?? slugify(fm.title),
+                slug: fm.slug ?? slugify(fm.title, slugifyOptions),
                 component: page.default,
             };
         })
