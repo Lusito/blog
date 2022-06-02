@@ -2,7 +2,7 @@
   "sourceRoot": "packages/tsx-dom-ssg-demo/src",
   "projectType": "application",
   "targets": {
-    "build": {
+    "core": {
       "executor": "@nrwl/node:webpack",
       "outputs": ["{options.outputPath}"],
       "options": {
@@ -12,24 +12,28 @@
         "assets": ["packages/tsx-dom-ssg-demo/src/assets"],
         "webpackConfig": "packages/tsx-dom-ssg-demo/webpack.config.js"
       },
-      "configurations": {
-        "production": {
-          "optimization": true,
-          "extractLicenses": true,
-          "inspect": false,
-          "fileReplacements": [
-            {
-              "replace": "packages/tsx-dom-ssg-demo/src/environments/environment.ts",
-              "with": "packages/tsx-dom-ssg-demo/src/environments/environment.prod.ts"
-            }
-          ]
+      "dependsOn": [
+        {
+          "target": "build",
+          "projects": "dependencies"
         }
+      ]
+    },
+    "build": {
+      "executor": "@nrwl/node:node",
+      "options": {
+        "buildTarget": "tsx-dom-ssg-demo:core",
+        "buildTargetOptions": {
+          "optimization": true,
+          "main": "packages/tsx-dom-ssg-demo/src/generate.tsx"
+        },
+        "watch": false
       }
     },
     "serve": {
       "executor": "@nrwl/node:node",
       "options": {
-        "buildTarget": "tsx-dom-ssg-demo:build"
+        "buildTarget": "tsx-dom-ssg-demo:core"
       }
     },
     "lint": {

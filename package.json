@@ -19,6 +19,7 @@
     "lint:style:fix": "npm run lint:style:base -- --write",
     "start": "nx run-many --target=serve --projects=tsx-dom-ssr-demo,tsx-dom-ssr-demo-elements",
     "start:ssg": "nx run-many --target=serve --projects=tsx-dom-ssg-demo",
+    "build:ssg": "nx build tsx-dom-ssg-demo --skip-nx-cache",
     "test": "nx run-many --target=test --all"
   },
   "dependencies": {

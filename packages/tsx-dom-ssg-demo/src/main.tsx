@@ -1,9 +1,10 @@
 import express, { Request, Response } from "express";
+import { ComponentChildren } from "tsx-dom-ssr";
 
-import { respondHTML } from "./utils/renderHTML";
+import { renderHTML } from "./utils/renderHTML";
 import NotFoundPage from "./pages/site/404.page";
 import { DynamicPage } from "./utils/DynamicPage";
-import { getPages, pagesWithTags, tagLabels } from "./utils/pageUtils";
+import { getPages, pageHasTags, tagLabels } from "./utils/pageUtils";
 import { MarkdownPage } from "./utils/MarkdownPage";
 import { itemsPerPage, ListPage } from "./utils/ListPage";
 import { ListAllPage } from "./utils/ListAllPage";
@@ -11,6 +12,16 @@ import { ListAllPage } from "./utils/ListAllPage";
 // The stuff below is purely for the dev-server
 const app = express();
 const port = 3000;
+
+async function respondHTML(res: Response, path: string, children: ComponentChildren) {
+    try {
+        const html = await renderHTML(path, children);
+        res.send(html);
+    } catch (e) {
+        console.error("Uncaught exception", e);
+        res.status(500).send(`Unknown Error ${String(e)}`);
+    }
+}
 
 if (process.env.NODE_ENV !== "production") {
     // SSE hot reload:
@@ -36,15 +47,15 @@ async function init() {
         respondHTML(
             res,
             req.path,
-            <ListPage path="/latest" title="Latest Posts" pages={pages.filter(pagesWithTags)} pageNumber={1} />
+            <ListPage path="/latest" title="Latest Posts" pages={pages.filter(pageHasTags)} pageNumber={1} />
         )
     );
-    app.get("/all.html", (req, res) => respondHTML(res, req.path, <ListAllPage pages={pages.filter(pagesWithTags)} />));
+    app.get("/all.html", (req, res) => respondHTML(res, req.path, <ListAllPage pages={pages.filter(pageHasTags)} />));
 
     app.get("/latest/:page.html", (req, res) => {
         const { page } = req.params;
         const pageNumber = page ? parseInt(page) : 1;
-        const filteredPages = pages.filter(pagesWithTags);
+        const filteredPages = pages.filter(pageHasTags);
 
         if (pageNumber < 2 || (pageNumber - 1) * itemsPerPage >= filteredPages.length) {
             return respond404(req, res);
@@ -61,7 +72,7 @@ async function init() {
     app.get("/tag/:tag/:page?.html", (req, res) => {
         const { tag, page } = req.params;
         const pageNumber = page ? parseInt(page) : 1;
-        const tagLabel = tag && (tagLabels[tag] ?? tag);
+        const tagLabel = tagLabels[tag] ?? tag;
         const filteredPages = pages.filter((p) => p.tags.includes(tagLabel));
 
         if (page === "1" || pageNumber < 1 || (pageNumber - 1) * itemsPerPage >= filteredPages.length) {

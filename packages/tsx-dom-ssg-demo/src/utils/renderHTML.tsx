@@ -2,7 +2,6 @@
 import { addAbortSignal, ComponentChildren, toDom } from "tsx-dom-ssr";
 import { domHelmet } from "dom-helmet";
 import { Window } from "happy-dom";
-import { Response } from "express";
 
 const window = new Window();
 const document = window.document as unknown as Document;
@@ -48,14 +47,4 @@ export async function renderHTML(path: string, children: ComponentChildren) {
     }
 
     return `<!DOCTYPE html>${wrapper.innerHTML}`;
-}
-
-export async function respondHTML(res: Response, path: string, children: ComponentChildren) {
-    try {
-        const html = await renderHTML(path, children);
-        res.send(html);
-    } catch (e) {
-        console.error("Uncaught exception", e);
-        res.status(500).send(`Unknown Error ${String(e)}`);
-    }
 }

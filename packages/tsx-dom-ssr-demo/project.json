@@ -24,7 +24,13 @@
             }
           ]
         }
-      }
+      },
+      "dependsOn": [
+        {
+          "target": "build",
+          "projects": "dependencies"
+        }
+      ]
     },
     "serve": {
       "executor": "@nrwl/node:node",

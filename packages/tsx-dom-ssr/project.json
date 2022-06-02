@@ -10,7 +10,13 @@
         "main": "packages/tsx-dom-ssr/src/index.ts",
         "tsConfig": "packages/tsx-dom-ssr/tsconfig.lib.json",
         "assets": ["packages/tsx-dom-ssr/*.md"]
-      }
+      },
+      "dependsOn": [
+        {
+          "target": "build",
+          "projects": "dependencies"
+        }
+      ]
     },
     "publish": {
       "executor": "@nrwl/workspace:run-commands",

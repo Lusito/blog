@@ -10,7 +10,13 @@
         "main": "packages/tsx-dom/src/index.ts",
         "tsConfig": "packages/tsx-dom/tsconfig.lib.json",
         "assets": ["packages/tsx-dom/*.md"]
-      }
+      },
+      "dependsOn": [
+        {
+          "target": "build",
+          "projects": "dependencies"
+        }
+      ]
     },
     "publish": {
       "executor": "@nrwl/workspace:run-commands",

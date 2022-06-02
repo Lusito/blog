@@ -94,6 +94,6 @@ export async function getPages() {
     return list.sort((a, b) => (a.title < b.title ? 1 : -1));
 }
 
-export function pagesWithTags(page: PageInfo) {
+export function pageHasTags(page: PageInfo) {
     return page.tags.length > 0;
 }
