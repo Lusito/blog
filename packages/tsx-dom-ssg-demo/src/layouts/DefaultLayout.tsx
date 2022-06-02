@@ -17,19 +17,6 @@ export const DefaultLayout = withCss(classes, ({ children, pageTitle }: DefaultL
         <head>
             <meta charSet="utf-8" />
             <meta name="viewport" content="width=device-width, initial-scale=1" />
-            <link
-                rel="stylesheet"
-                href="https://fonts.googleapis.com/css?family=PT+Serif"
-                type="text/css"
-                media="all"
-            />
-            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans" type="text/css" media="all" />
-            <link
-                rel="stylesheet"
-                href="https://fonts.googleapis.com/css?family=Doppio+One"
-                type="text/css"
-                media="all"
-            />
             <title>
                 {pageTitle} - {siteTitle}
             </title>

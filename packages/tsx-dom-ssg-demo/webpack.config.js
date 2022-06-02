@@ -9,7 +9,7 @@ module.exports = (config) =>
         module: {
             rules: [
                 {
-                    test: /\.(png|jpg|svg)$/,
+                    test: /\.(png|jpg|svg|woff|woff2)$/,
                     // "asset" will use data-uri for small images. "asset/resource" will always make it external, "asset/inline" will always make a data-uri
                     type: "asset",
                 },

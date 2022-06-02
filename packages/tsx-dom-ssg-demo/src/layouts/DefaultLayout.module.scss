@@ -1,8 +1,13 @@
+@use "@fontsource/doppio-one/scss/mixins" as DoppioOne;
+@use "@fontsource/pt-serif/scss/mixins" as PtSerif;
 @import "../style/colors.scss";
 @import "../style/spacings.scss";
 @import "../style/breakpoints.scss";
 @import "../style/reset.scss";
 @import "../style/sizes.scss";
+
+@include DoppioOne.fontFace();
+@include PtSerif.fontFace();
 
 @include until("large") {
     nav:hover + .mainwrapper {
