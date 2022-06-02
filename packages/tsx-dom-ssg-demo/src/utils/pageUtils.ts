@@ -97,11 +97,3 @@ export async function getPages() {
 export function pagesWithTags(page: PageInfo) {
     return page.tags.length > 0;
 }
-
-export function filterPages(pages: PageInfo[], tagLabel: string | undefined) {
-    return tagLabel
-        ? // Filter by tag label
-          pages.filter((p) => p.tags.includes(tagLabel))
-        : // Pages without tags are internal (for example "about") and not supposed to be listed
-          pages.filter(pagesWithTags);
-}

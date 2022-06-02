@@ -1,5 +1,5 @@
 import { siteUrl } from "../../utils/config";
-import { PageInfo } from "../../utils/getPages";
+import { PageInfo } from "../../utils/pageUtils";
 import { withCss } from "../../utils/withCss";
 import { TagList } from "../TagList/TagList";
 import classes from "./PagePreview.module.scss";

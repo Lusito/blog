@@ -3,7 +3,7 @@ import express, { Request, Response } from "express";
 import { respondHTML } from "./utils/renderHTML";
 import NotFoundPage from "./pages/site/404.page";
 import { DynamicPage } from "./utils/DynamicPage";
-import { getPages, pagesWithTags, tagLabels } from "./utils/getPages";
+import { getPages, pagesWithTags, tagLabels } from "./utils/pageUtils";
 import { MarkdownPage } from "./utils/MarkdownPage";
 import { itemsPerPage, ListPage } from "./utils/ListPage";
 import { ListAllPage } from "./utils/ListAllPage";

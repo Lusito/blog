@@ -1,4 +1,4 @@
-import { slugify } from "../../utils/getPages";
+import { slugify } from "../../utils/pageUtils";
 import { withCss } from "../../utils/withCss";
 import classes from "./TagList.module.scss";
 

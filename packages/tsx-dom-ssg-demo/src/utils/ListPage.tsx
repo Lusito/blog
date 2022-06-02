@@ -3,7 +3,7 @@ import { Container } from "../components/Container/Container";
 import { PagePreview } from "../components/PagePreview/PagePreview";
 import { Pagination } from "../components/Pagination/Pagination";
 import { DefaultLayout } from "../layouts/DefaultLayout";
-import { PageInfo } from "./getPages";
+import { PageInfo } from "./pageUtils";
 
 export const itemsPerPage = 10;
 

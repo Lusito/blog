@@ -4,7 +4,7 @@ import { Container } from "../components/Container/Container";
 import { OpenGraphArticle } from "../components/OpenGraph/OpenGraph";
 import { TagList } from "../components/TagList/TagList";
 import { DefaultLayout } from "../layouts/DefaultLayout";
-import type { PageInfoMd } from "./getPages";
+import type { PageInfoMd } from "./pageUtils";
 
 type MarkdownPageProps = {
     page: PageInfoMd;

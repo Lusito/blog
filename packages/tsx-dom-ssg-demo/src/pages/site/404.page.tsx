@@ -2,7 +2,7 @@ import { ArticleHead } from "../../components/ArticleHead/ArticleHead";
 import { Container } from "../../components/Container/Container";
 import { TagList } from "../../components/TagList/TagList";
 import { DefaultLayout } from "../../layouts/DefaultLayout";
-import { FrontMatter, tagLabels } from "../../utils/getPages";
+import { FrontMatter, tagLabels } from "../../utils/pageUtils";
 
 export const frontMatter: FrontMatter = {
     tags: [],

@@ -3,7 +3,7 @@ import { ArticleHead } from "../../components/ArticleHead/ArticleHead";
 import { Container } from "../../components/Container/Container";
 import { TagList } from "../../components/TagList/TagList";
 import { DefaultLayout } from "../../layouts/DefaultLayout";
-import type { FrontMatter } from "../../utils/getPages";
+import type { FrontMatter } from "../../utils/pageUtils";
 
 export const frontMatter: FrontMatter = {
     tags: ["React", "TypeScript", "JavaScript", "Web Development"],

@@ -2,7 +2,7 @@ import { ArticleHead } from "../components/ArticleHead/ArticleHead";
 import { Container } from "../components/Container/Container";
 import { DefaultLayout } from "../layouts/DefaultLayout";
 import { siteUrl } from "./config";
-import { PageInfo } from "./getPages";
+import { PageInfo } from "./pageUtils";
 
 type ListAllPageProps = {
     pages: PageInfo[];
