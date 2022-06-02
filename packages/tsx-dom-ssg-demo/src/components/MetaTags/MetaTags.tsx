@@ -2,7 +2,7 @@ import { BaseProps } from "tsx-dom-ssr";
 
 import { siteTitle, siteUrl } from "../../utils/config";
 
-type OpenGraphBaseProps = {
+type MetaTagsBaseProps = {
     title: string;
     image: string;
     description: string;
@@ -10,10 +10,12 @@ type OpenGraphBaseProps = {
     // fixme: image:type, image:width, image:height, image:alt
 };
 
-type OpenGraphProps = BaseProps & OpenGraphBaseProps;
+type MetaTagsProps = BaseProps & MetaTagsBaseProps;
 
-export const OpenGraph = ({ title, image, description, slug, children }: OpenGraphProps) => (
+// fixme: ensure it's set on all pages
+export const MetaTags = ({ title, image, description, slug, children }: MetaTagsProps) => (
     <head>
+        <meta name="description" content={description} />
         <meta property="og:site_name" content={siteTitle} />
         <meta property="og:image" content={`${siteUrl}/assets/${image}`} />
         <meta property="og:title" content={title} />
@@ -24,14 +26,16 @@ export const OpenGraph = ({ title, image, description, slug, children }: OpenGra
     </head>
 );
 
-type OpenGraphArticleProps = OpenGraphBaseProps & {
+type MetaTagsArticleProps = MetaTagsBaseProps & {
     publishedTime: Date;
     modifiedTime?: Date;
     tags: string[];
 };
 
-export const OpenGraphArticle = ({ publishedTime, modifiedTime, tags, ...rest }: OpenGraphArticleProps) => (
-    <OpenGraph {...rest}>
+export const MetaTagsArticle = ({ publishedTime, modifiedTime, tags, ...rest }: MetaTagsArticleProps) => (
+    <MetaTags {...rest}>
+        <meta name="keywords" content={tags.join(", ")} />
+        <meta name="author" content="Santo Pfingsten" />
         <meta property="og:type" content="article" />
         <meta property="og:author" content="Santo Pfingsten" />
         <meta property="og:published_time" content={publishedTime.toISOString()} />
@@ -39,22 +43,22 @@ export const OpenGraphArticle = ({ publishedTime, modifiedTime, tags, ...rest }:
         {tags.map((tag) => (
             <meta property="og:tag" content={tag} />
         ))}
-    </OpenGraph>
+    </MetaTags>
 );
 
-type OpenGraphProfileProps = OpenGraphBaseProps & {
+type MetaTagsProfileProps = MetaTagsBaseProps & {
     firstName: string;
     lastName: string;
     username: string;
     gender: "male" | "female";
 };
 
-export const OpenGraphProfile = ({ firstName, lastName, username, gender, ...rest }: OpenGraphProfileProps) => (
-    <OpenGraph {...rest}>
+export const MetaTagsProfile = ({ firstName, lastName, username, gender, ...rest }: MetaTagsProfileProps) => (
+    <MetaTags {...rest}>
         <meta property="og:type" content="profile" />
         <meta property="og:first_name" content={firstName} />
         <meta property="og:last_name" content={lastName} />
         <meta property="og:username" content={username} />
         <meta property="og:gender" content={gender} />
-    </OpenGraph>
+    </MetaTags>
 );

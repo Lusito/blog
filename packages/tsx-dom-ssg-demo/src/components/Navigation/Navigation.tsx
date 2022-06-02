@@ -29,18 +29,18 @@ export const Navigation = withCss(classes, ({ siteTitle }: NavigationProps) => (
                 <img src={`/${logo}`} alt="logo" />
                 <h3>{siteTitle}</h3>
             </div>
-            <menu>
+            <ul>
                 <NavItem path="/" label="Latest Posts" />
                 <li>
                     <span>Popular Categories</span>
-                    <menu>
+                    <ul>
                         <NavItem path="/tag/web-development.html" label="Web Development" />
                         <NavItem path="/tag/game-development.html" label="Game Development" />
-                    </menu>
+                    </ul>
                 </li>
                 <NavItem path="/categories.html" label="All Categories" />
                 <NavItem path="/about.html" label="About" />
-            </menu>
+            </ul>
         </div>
         <div class={classes.menugrip}>
             <div>

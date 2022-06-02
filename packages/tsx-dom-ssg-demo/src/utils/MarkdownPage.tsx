@@ -1,7 +1,7 @@
 import { MarkdownArticle } from "../components/Article/Article";
 import { ArticleHead } from "../components/ArticleHead/ArticleHead";
 import { Container } from "../components/Container/Container";
-import { OpenGraphArticle } from "../components/OpenGraph/OpenGraph";
+import { MetaTagsArticle } from "../components/MetaTags/MetaTags";
 import { TagList } from "../components/TagList/TagList";
 import { DefaultLayout } from "../layouts/DefaultLayout";
 import type { PageInfoMd } from "./pageUtils";
@@ -15,7 +15,7 @@ export async function MarkdownPage({ page }: MarkdownPageProps) {
     return (
         <DefaultLayout pageTitle={title}>
             <main>
-                <OpenGraphArticle
+                <MetaTagsArticle
                     title={title}
                     description={description}
                     image={page.image}

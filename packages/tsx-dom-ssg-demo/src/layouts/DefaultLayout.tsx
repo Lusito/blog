@@ -13,10 +13,10 @@ interface DefaultLayoutProps extends BaseProps {
 }
 
 export const DefaultLayout = withCss(classes, ({ children, pageTitle }: DefaultLayoutProps) => (
-    <html>
+    <html lang="en">
         <head>
             <meta charSet="utf-8" />
-            <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
             <link
                 rel="stylesheet"
                 href="https://fonts.googleapis.com/css?family=PT+Serif"
