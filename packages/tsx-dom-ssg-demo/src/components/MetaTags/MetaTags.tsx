@@ -4,7 +4,7 @@ import { siteTitle, siteUrl } from "../../utils/config";
 
 type MetaTagsBaseProps = {
     title: string;
-    image: string;
+    image?: string;
     description: string;
     slug: string;
     // fixme: image:type, image:width, image:height, image:alt
@@ -17,11 +17,11 @@ export const MetaTags = ({ title, image, description, slug, children }: MetaTags
     <head>
         <meta name="description" content={description} />
         <meta property="og:site_name" content={siteTitle} />
-        <meta property="og:image" content={`${siteUrl}/assets/${image}`} />
+        {image && <meta property="og:image" content={`${siteUrl}/assets/${image}`} />}
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
         <meta property="og:locale" content="en_US" />
-        <meta property="og:url" content={`${siteUrl}/${slug}`} />
+        <meta property="og:url" content={`${siteUrl}/${slug}.html`} />
         {children}
     </head>
 );

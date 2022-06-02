@@ -7,7 +7,7 @@ export function IndexPage() {
     return (
         <DefaultLayout pageTitle="Homepage">
             <main>
-                <ArticleHead title="Homepage" image="default.jpg" />
+                <ArticleHead title="Homepage" />
                 <Container>
                     <Article>Here be dragons</Article>
                 </Container>

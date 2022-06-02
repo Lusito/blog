@@ -1,7 +1,6 @@
 ---
 tags: []
 title: "About"
-image: "default.jpg"
 description: ""
 date: "2022-06-01T11:44:12.865Z"
 ---

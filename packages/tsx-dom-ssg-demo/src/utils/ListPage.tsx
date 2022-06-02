@@ -27,7 +27,7 @@ export async function ListPage({ path, title, pages, pageNumber }: ListPageProps
     return (
         <DefaultLayout pageTitle={title}>
             <main>
-                <ArticleHead title={title} image="default.jpg" />
+                <ArticleHead title={title} />
                 <Container>
                     {pagination}
                     {filtered.map((page) => (

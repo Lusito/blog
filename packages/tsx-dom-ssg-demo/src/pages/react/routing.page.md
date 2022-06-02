@@ -1,15 +1,14 @@
 ---
 tags: ["React", "TypeScript", "JavaScript", "Web Development"]
-title: "Routing in React 2"
-image: "default.jpg"
+title: "Routing in React"
 description: "You know when you're doing stuff..."
 date: "2022-06-01T11:44:12.865Z"
-slug: "routing-in-react-2"
+slug: "routing-in-react"
 ---
 
-## Some Article 2
+## Some Article
 
-Whooo 2
+Whooo
 
 ```ts
 const hello: string = "world";

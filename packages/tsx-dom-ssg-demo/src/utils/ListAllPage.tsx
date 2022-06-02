@@ -13,7 +13,7 @@ export async function ListAllPage({ pages }: ListAllPageProps) {
     return (
         <DefaultLayout pageTitle={title}>
             <main>
-                <ArticleHead title={title} image="default.jpg" />
+                <ArticleHead title={title} />
                 <Container>
                     <ul>
                         {pages.map((page) => (

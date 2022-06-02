@@ -26,7 +26,7 @@ export const slugify = (s: string) => s.replace(/[^a-z0-9]+/gi, "-").toLowerCase
 export type FrontMatter = {
     tags: string[];
     title: string;
-    image: string;
+    image?: string;
     description: string;
     date: string;
     /** optional, usually generated from title */
@@ -34,7 +34,14 @@ export type FrontMatter = {
 };
 export type TsxPage = { frontMatter: FrontMatter; default: Component };
 
-export type PageInfoBase = Omit<Required<FrontMatter>, "date"> & { date: Date };
+export type PageInfoBase = {
+    tags: string[];
+    title: string;
+    image?: string;
+    description: string;
+    date: Date;
+    slug: string;
+};
 export type PageInfoMd = PageInfoBase & { type: "md"; body: string };
 export type PageInfoTsx = PageInfoBase & { type: "tsx"; component: Component };
 export type PageInfo = PageInfoMd | PageInfoTsx;
