@@ -32,7 +32,7 @@ export const Navigation = withCss(classes, ({ siteTitle }: NavigationProps) => (
             <ul>
                 <NavItem path="/" label="Latest Posts" />
                 <li>
-                    <span>Popular Categories</span>
+                    <span>Top Categories</span>
                     <ul>
                         <NavItem path="/tag/web-development.html" label="Web Development" />
                         <NavItem path="/tag/game-development.html" label="Game Development" />
