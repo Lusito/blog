@@ -13,7 +13,13 @@ type ListPageProps = {
 
 export async function ListPage({ tag, pages, start, end }: ListPageProps) {
     const tagLabel = tag && (tagLabels[tag] ?? tag);
-    const filtered = (tagLabel ? pages.filter((p) => p.tags.includes(tagLabel)) : pages).slice(start, end);
+    const filtered = (
+        tagLabel
+            ? // Filter by tag label
+              pages.filter((p) => p.tags.includes(tagLabel))
+              // Pages without tags are internal (for example "about") and not supposed to be listed
+            : pages.filter((p) => p.tags.length > 0)
+    ).slice(start, end);
     const title = tagLabel ?? "Latest Posts";
 
     // fixme: show a short description on the tag page.. for example: "Toilet Papers are ..."
