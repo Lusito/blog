@@ -98,7 +98,7 @@ export async function getPages() {
         })
     );
 
-    return list.sort((a, b) => (a.title < b.title ? 1 : -1));
+    return list.sort((a, b) => (a.date < b.date ? 1 : -1));
 }
 
 export function pageHasTags(page: PageInfo) {

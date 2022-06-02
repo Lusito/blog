@@ -2,7 +2,7 @@
 tags: []
 title: "About"
 description: ""
-date: "2022-06-01T11:44:12.865Z"
+date: "2022-06-01T10:00:00.000Z"
 ---
 
 Hi, my name is Santo Pfingsten, also known as [Lusito](https://github.com/lusito/).
