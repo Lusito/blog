@@ -7,7 +7,7 @@ export const Footer = withCss(classes, () => (
         {" - "}
         Powered by <a href="https://github.com/lusito/tsx-dom">tsx-dom-ssr</a>
         {" - "}
-        <a href="https://www.vecteezy.com/free-vector/black-polygon" rel="noopener nofollow">
+        <a href="https://www.vecteezy.com/free-vector/black-polygon">
             Black Polygon Vectors by Vecteezy
         </a>
     </footer>

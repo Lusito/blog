@@ -3,8 +3,11 @@ import { addAbortSignal, ComponentChildren, toDom } from "tsx-dom-ssr";
 import { domHelmet } from "dom-helmet";
 import { Window } from "happy-dom";
 
+import { siteUrl } from "./config";
+
 const window = new Window();
 const document = window.document as unknown as Document;
+const protocolPattern = /^https?:\/\//;
 
 export async function renderHTML(path: string, children: ComponentChildren) {
     const cssModules: CssModule[] = [];
@@ -45,6 +48,15 @@ export async function renderHTML(path: string, children: ComponentChildren) {
         style.innerHTML = cssModule._getCss();
         head.appendChild(style);
     }
+
+    wrapper.querySelectorAll("a").forEach((link) => {
+        const href = link.getAttribute("href");
+        const rel = link.getAttribute("rel");
+
+        if (href && !rel && protocolPattern.test(href) && (!siteUrl || !href.startsWith(siteUrl))) {
+            link.setAttribute("rel", "noopener nofollow");
+        }
+    });
 
     return `<!DOCTYPE html>${wrapper.innerHTML}`;
 }
