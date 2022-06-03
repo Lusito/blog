@@ -3,7 +3,7 @@ import classes from "./ArticleHead.module.scss";
 
 type ArticleHeadProps = {
     title: string;
-    description?: string;
+    description: string;
     date?: Date;
 };
 

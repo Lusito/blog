@@ -47,7 +47,13 @@ async function init() {
         respondHTML(
             res,
             req.path,
-            <ListPage path="/latest" title="Latest Posts" pages={pages.filter(pageHasTags)} pageNumber={1} />
+            <ListPage
+                path="/latest"
+                title="Latest Posts"
+                description="A list of all posts on this blog"
+                pages={pages.filter(pageHasTags)}
+                pageNumber={1}
+            />
         )
     );
     app.get("/all.html", (req, res) => respondHTML(res, req.path, <ListAllPage pages={pages.filter(pageHasTags)} />));
@@ -64,7 +70,13 @@ async function init() {
         respondHTML(
             res,
             req.path,
-            <ListPage path="/latest" title="Latest Posts" pages={filteredPages} pageNumber={pageNumber} />
+            <ListPage
+                path="/latest"
+                title="Latest Posts"
+                description="A list of all posts on this blog"
+                pages={filteredPages}
+                pageNumber={pageNumber}
+            />
         );
     });
 
@@ -84,10 +96,18 @@ async function init() {
             return respond404(req, res);
         }
 
+        // fixme: customized description per Tag
+
         respondHTML(
             res,
             req.path,
-            <ListPage path={`/tag/${tag}`} title={tagLabel} pages={filteredPages} pageNumber={pageNumber} />
+            <ListPage
+                path={`/tag/${tag}`}
+                title={tagLabel}
+                description={`A list of all posts related to ${tagLabel}`}
+                pages={filteredPages}
+                pageNumber={pageNumber}
+            />
         );
     });
 

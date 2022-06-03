@@ -1,11 +1,12 @@
+@import "../../style/sizes.scss";
+
 .container {
-    margin: 20px;
-    justify-content: center;
-    display: flex;
-    flex-direction: row;
+    margin: 0 auto;
+    padding: 20px;
+    max-width: $content-width;
+    box-sizing: border-box;
 
     > * {
         flex-grow: 1;
-        max-width: 900px;
     }
 }

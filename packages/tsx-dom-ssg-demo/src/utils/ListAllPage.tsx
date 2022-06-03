@@ -12,12 +12,12 @@ export async function ListAllPage({ pages }: ListAllPageProps) {
     return (
         <DefaultLayout pageTitle={title}>
             <main>
-                <ArticleHead title={title} />
+                <ArticleHead title={title} description="A list of all posts on this blog" />
                 <Container>
                     <ul>
                         {pages.map((page) => (
                             <li>
-                                <a href={`/${page.slug}.html`}>{page.title}</a> ({page.date.toUTCString()})
+                                <a href={`/${page.slug}.html`}>{page.title}</a> ({page.date.toDateString()})
                             </li>
                         ))}
                     </ul>

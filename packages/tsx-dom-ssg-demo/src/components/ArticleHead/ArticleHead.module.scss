@@ -1,4 +1,5 @@
 @import "../../style/spacings.scss";
+@import "../../style/sizes.scss";
 
 .articleHead {
     text-align: center;
@@ -16,8 +17,9 @@
 
     p,
     h1 {
-        max-width: 900px;
+        max-width: $content-width;
         padding: 0 20px;
+        box-sizing: border-box;
         margin: 0;
     }
 

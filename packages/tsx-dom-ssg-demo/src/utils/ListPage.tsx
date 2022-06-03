@@ -10,24 +10,24 @@ export const itemsPerPage = 10;
 type ListPageProps = {
     path: string;
     title: string;
+    description: string;
     pages: PageInfo[];
     pageNumber: number;
 };
 
-export async function ListPage({ path, title, pages, pageNumber }: ListPageProps) {
+export async function ListPage({ path, title, description, pages, pageNumber }: ListPageProps) {
     const pageIndex = pageNumber - 1;
     const start = pageIndex * itemsPerPage;
     const filtered = pages.slice(start, start + itemsPerPage);
 
-    // fixme: show a short description on the tag page.. for example: "Toilet Papers are ..."
-    // fixme: could have a sidebar with all available tags
-
-    const pagination = <Pagination path={path} numPages={Math.ceil(pages.length / itemsPerPage)} activePage={pageNumber} />;
+    const pagination = (
+        <Pagination path={path} numPages={Math.ceil(pages.length / itemsPerPage)} activePage={pageNumber} />
+    );
 
     return (
         <DefaultLayout pageTitle={title}>
             <main>
-                <ArticleHead title={title} />
+                <ArticleHead title={title} description={description} />
                 <Container>
                     {pagination}
                     {filtered.map((page) => (

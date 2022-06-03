@@ -7,8 +7,8 @@ import { FrontMatter, tagLabels } from "../../utils/pageUtils";
 
 export const frontMatter: FrontMatter = {
     tags: [],
-    title: "File Not Found",
-    description: "",
+    title: "404",
+    description: "File Not Found",
     date: "2022-06-01T10:44:12.865Z",
     slug: "404",
 };
@@ -19,7 +19,7 @@ export default async function () {
         <DefaultLayout pageTitle={frontMatter.title}>
             <main>
                 <MetaTags description={frontMatter.description} slug={frontMatter.slug!} title={frontMatter.title} />
-                <ArticleHead title={frontMatter.title} />
+                <ArticleHead title={frontMatter.title} description={frontMatter.description} />
                 <Container>
                     <p>Could not find the file you were looking for! Try looking at one of these topics:</p>
                     <TagList tags={Object.values(tagLabels)} />

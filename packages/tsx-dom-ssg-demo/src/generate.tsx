@@ -19,7 +19,7 @@ async function createHTMLPath(path: string) {
     if (!fs.existsSync(fullPath)) await fs.promises.mkdir(fullPath);
 }
 
-async function writePages(path: string, title: string, pages: PageInfo[]) {
+async function writePages(path: string, title: string, description: string, pages: PageInfo[]) {
     const pageCount = Math.ceil(pages.length / itemsPerPage);
     if (pageCount <= 1) return [];
 
@@ -28,7 +28,7 @@ async function writePages(path: string, title: string, pages: PageInfo[]) {
         Array.from({ length: pageCount - 1 }, (_, index) =>
             writeHTML(
                 `${path}/${index + 2}.html`,
-                <ListPage path={path} title={title} pages={pages} pageNumber={index + 2} />
+                <ListPage path={path} title={title} description={description} pages={pages} pageNumber={index + 2} />
             )
         )
     );
@@ -43,19 +43,35 @@ async function createFiles() {
     await createHTMLPath("/tag");
     await Promise.all([
         writeHTML("/404.html", <NotFoundPage />),
-        writeHTML("/index.html", <ListPage path="/latest" title="Latest Posts" pages={pagesWithTags} pageNumber={1} />),
+        writeHTML(
+            "/index.html",
+            <ListPage
+                path="/latest"
+                title="Latest Posts"
+                description="A list of all posts on this blog"
+                pages={pagesWithTags}
+                pageNumber={1}
+            />
+        ),
         writeHTML("/all.html", <ListAllPage pages={pagesWithTags} />),
-        writePages("/latest", "Latest Posts", pagesWithTags),
+        writePages("/latest", "Latest Posts", "A list of all posts on this blog", pagesWithTags),
         ...tags
             .map((tag) => {
                 const tagLabel = tagLabels[tag] ?? tag;
                 const filteredPages = pages.filter((p) => p.tags.includes(tagLabel));
+                const description = `A list of all posts related to ${tagLabel}`;
                 return [
                     writeHTML(
                         `/tag/${tag}.html`,
-                        <ListPage path={`/tag/${tag}`} title={tagLabel} pages={filteredPages} pageNumber={1} />
+                        <ListPage
+                            path={`/tag/${tag}`}
+                            title={tagLabel}
+                            description={description}
+                            pages={filteredPages}
+                            pageNumber={1}
+                        />
                     ),
-                    writePages(`/tag/${tag}`, tagLabel, pagesWithTags),
+                    writePages(`/tag/${tag}`, tagLabel, description, pagesWithTags),
                 ];
             })
             .flat(),

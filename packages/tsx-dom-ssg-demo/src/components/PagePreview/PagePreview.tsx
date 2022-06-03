@@ -11,7 +11,7 @@ export const PagePreview = withCss(classes, ({ page }: PagePreviewProps) => (
     <div class={classes.pagePreview}>
         <h2>
             <a href={`/${page.slug}.html`}>{page.title}</a>
-            <span class={classes.date}>{page.date.toUTCString()}</span>
+            <span class={classes.date}>{page.date.toDateString()}</span>
         </h2>
         <div>{page.description}</div>
         <TagList tags={page.tags} />
