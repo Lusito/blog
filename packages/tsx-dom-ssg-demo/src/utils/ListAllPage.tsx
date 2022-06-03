@@ -12,7 +12,7 @@ export async function ListAllPage({ pages }: ListAllPageProps) {
     return (
         <DefaultLayout pageTitle={title}>
             <main>
-                <ArticleHead title={title} description="A list of all posts on this blog" />
+                <ArticleHead title={title} description="A chronological list of posts on this blog" />
                 <Container>
                     <ul>
                         {pages.map((page) => (

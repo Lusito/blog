@@ -1,7 +1,7 @@
 import { ArticleHead } from "../../components/ArticleHead/ArticleHead";
 import { Container } from "../../components/Container/Container";
 import { MetaTags } from "../../components/MetaTags/MetaTags";
-import { TagList } from "../../components/TagList/TagList";
+import { TagDetail } from "../../components/TagDetail/TagDetail";
 import { DefaultLayout } from "../../layouts/DefaultLayout";
 import { FrontMatter, tagLabels } from "../../utils/pageUtils";
 
@@ -21,8 +21,11 @@ export default async function () {
                 <MetaTags description={frontMatter.description} slug={frontMatter.slug!} title={frontMatter.title} />
                 <ArticleHead title={frontMatter.title} description={frontMatter.description} />
                 <Container>
-                    {/* fixme: nicer listing including tag descriptions? */}
-                    <TagList tags={Object.values(tagLabels)} />
+                    {Object.values(tagLabels)
+                        .sort()
+                        .map((tag) => (
+                            <TagDetail tag={tag} />
+                        ))}
                 </Container>
             </main>
         </DefaultLayout>

@@ -8,6 +8,7 @@ import { getPages, pageHasTags, tagLabels } from "./utils/pageUtils";
 import { MarkdownPage } from "./utils/MarkdownPage";
 import { itemsPerPage, ListPage } from "./utils/ListPage";
 import { ListAllPage } from "./utils/ListAllPage";
+import { tagDescriptions } from "./utils/tagDescriptions";
 
 // The stuff below is purely for the dev-server
 const app = express();
@@ -50,7 +51,7 @@ async function init() {
             <ListPage
                 path="/latest"
                 title="Latest Posts"
-                description="A list of all posts on this blog"
+                description="A chronological list of posts on this blog"
                 pages={pages.filter(pageHasTags)}
                 pageNumber={1}
             />
@@ -73,7 +74,7 @@ async function init() {
             <ListPage
                 path="/latest"
                 title="Latest Posts"
-                description="A list of all posts on this blog"
+                description="A chronological list of posts on this blog"
                 pages={filteredPages}
                 pageNumber={pageNumber}
             />
@@ -98,13 +99,15 @@ async function init() {
 
         // fixme: customized description per Tag
 
+        const description = tagDescriptions[tagLabel] ?? `Posts related to ${tagLabel}`;
+
         respondHTML(
             res,
             req.path,
             <ListPage
                 path={`/tag/${tag}`}
                 title={tagLabel}
-                description={`A list of all posts related to ${tagLabel}`}
+                description={description}
                 pages={filteredPages}
                 pageNumber={pageNumber}
             />

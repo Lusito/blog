@@ -22,7 +22,7 @@ export default async function () {
                 <ArticleHead title={frontMatter.title} description={frontMatter.description} />
                 <Container>
                     <p>Could not find the file you were looking for! Try looking at one of these topics:</p>
-                    <TagList tags={Object.values(tagLabels)} />
+                    <TagList tags={Object.values(tagLabels).sort()} />
                 </Container>
             </main>
         </DefaultLayout>

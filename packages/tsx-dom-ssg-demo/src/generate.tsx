@@ -48,18 +48,18 @@ async function createFiles() {
             <ListPage
                 path="/latest"
                 title="Latest Posts"
-                description="A list of all posts on this blog"
+                description="A chronological list of posts on this blog"
                 pages={pagesWithTags}
                 pageNumber={1}
             />
         ),
         writeHTML("/all.html", <ListAllPage pages={pagesWithTags} />),
-        writePages("/latest", "Latest Posts", "A list of all posts on this blog", pagesWithTags),
+        writePages("/latest", "Latest Posts", "A chronological list of posts on this blog", pagesWithTags),
         ...tags
             .map((tag) => {
                 const tagLabel = tagLabels[tag] ?? tag;
                 const filteredPages = pages.filter((p) => p.tags.includes(tagLabel));
-                const description = `A list of all posts related to ${tagLabel}`;
+                const description = `Posts related to ${tagLabel}`;
                 return [
                     writeHTML(
                         `/tag/${tag}.html`,
