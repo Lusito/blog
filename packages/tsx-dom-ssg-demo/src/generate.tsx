@@ -71,7 +71,7 @@ async function createFiles() {
                             pageNumber={1}
                         />
                     ),
-                    writePages(`/tag/${tag}`, tagLabel, description, pagesWithTags),
+                    writePages(`/tag/${tag}`, tagLabel, description, filteredPages),
                 ];
             })
             .flat(),
