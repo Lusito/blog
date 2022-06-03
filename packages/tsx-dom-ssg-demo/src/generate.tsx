@@ -20,7 +20,7 @@ async function createHTMLPath(path: string) {
 }
 
 async function writePages(path: string, title: string, pages: PageInfo[]) {
-    const pageCount = pages.length / itemsPerPage;
+    const pageCount = Math.ceil(pages.length / itemsPerPage);
     if (pageCount <= 1) return [];
 
     await createHTMLPath(path);

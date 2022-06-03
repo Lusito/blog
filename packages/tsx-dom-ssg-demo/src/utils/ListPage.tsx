@@ -22,7 +22,7 @@ export async function ListPage({ path, title, pages, pageNumber }: ListPageProps
     // fixme: show a short description on the tag page.. for example: "Toilet Papers are ..."
     // fixme: could have a sidebar with all available tags
 
-    const pagination = <Pagination path={path} numPages={pages.length / itemsPerPage} activePage={pageNumber} />;
+    const pagination = <Pagination path={path} numPages={Math.ceil(pages.length / itemsPerPage)} activePage={pageNumber} />;
 
     return (
         <DefaultLayout pageTitle={title}>
