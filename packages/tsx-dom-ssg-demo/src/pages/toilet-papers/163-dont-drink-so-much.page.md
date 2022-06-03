@@ -1,5 +1,5 @@
 ---
-tags: ["Toilet Paper", "React", "JavaScript", "TypeScript", "Web Development"]
+tags: ["Toilet Paper", "React", "JavaScript", "TypeScript", "Web Development", "Partial Hydration", "Progressive Enhancement"]
 title: "Don't Drink So Much: Reducing Frontend Code"
 description: >
     Some developers keep using the tools they are used to, rather than the best tool for the job.
