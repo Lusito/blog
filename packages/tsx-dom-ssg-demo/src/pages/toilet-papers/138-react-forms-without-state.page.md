@@ -1,11 +1,11 @@
 ---
 tags: ["Toilet Paper", "React", "TypeScript", "JavaScript", "Web Development"]
-title: "React forms without State"
+title: "React Forms Without State"
 description: >
     React forms are often created with State, but this can quickly get complex and confusing,
     especially with larger forms. Find out how to create React forms without State,
     which organizes your codebase in a more structured way.
-date: "2022-01-29T10:00:00.000Z"
+date: "2021-02-05T10:00:00.000Z"
 ---
 
 ## Problem
