@@ -12,12 +12,13 @@ tags:
 title: "The Last Summoner"
 description: >
     Back in 2016, I've written a game in just 48 hours with Dennis Grass, Wladimir Kröker, and Florian Oetke. Stephen Froeber made amazing music and sound effects for it. It was a very fun weekend. Now I've ported this game from Java (Desktop) to TypeScript (Web-Technologies) and you can actually play it in your browser.
-# fixme: Not sure if I want the image to be shown in the article head.. maybe just use it for og:image and show it somewhere in the article?
 image: "the-last-summoner.png"
 date: "2022-01-28T10:00:00.000Z"
 ---
 
-## Previously on GlobalGameJam
+![Menu](/assets/the-last-summoner.png)
+
+## Previously on a GlobalGameJam
 
 Back in 2016 I joined a GlobalGameJam event in Trier. In just 48 hours, we (me, [Dennis Grass](https://github.com/Kinggrass), [Wladimir Kröker](https://github.com/compix) and [Florian Oetke](https://github.com/lowkey42)) created this neat little exploration game called [The Last Summoner](https://globalgamejam.org/2016/games/last-summoner). This was written in Java back then and we used some creative-commons pixel art from [Kingel](https://forums.tigsource.com/index.php?topic=14166.0). Last, but not least, [Stephen Froeber](https://stephenfroeber.com/) created amazing music, ambience sounds and sound effects to make this world feel more alive.
 

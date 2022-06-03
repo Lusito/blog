@@ -1,4 +1,3 @@
-// fixme: only during dev-serer:
 function initSSE() {
     let lastId = "";
     function connect() {

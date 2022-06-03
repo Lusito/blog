@@ -3,7 +3,6 @@ tags: ["TypeScript", "JavaScript", "Web Development", "Game Development", "2D Ca
 title: "PixlCam, a 2D Camera Library"
 description: >
     I've just released a 2D camera library for web games, with several camera types. Most notable one, which can get influenced by cues in the world and offsets like player movement/aim. There's a demo link inside.
-# fixme: Not sure if I want the image to be shown in the article head.. maybe just use it for og:image and show it somewhere in the article?
 image: "pixlcam.png"
 date: "2022-02-04T10:00:00.000Z"
 ---

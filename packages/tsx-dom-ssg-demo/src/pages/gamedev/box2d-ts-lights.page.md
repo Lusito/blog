@@ -2,7 +2,6 @@
 tags: ["TypeScript", "JavaScript", "Web Development", "Game Development", "Box2D", "Box2D Lights", "WebGL", "Projects"]
 title: "TypeScript Port of Box2D Lights"
 description: "I love working on the TypeScript version of Box2D Lights."
-# fixme: Not sure if I want the image to be shown in the article head.. maybe just use it for og:image and show it somewhere in the article?
 image: "box2d-lights-draw-world.jpg"
 date: "2021-01-05T10:00:00.000Z"
 ---
