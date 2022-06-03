@@ -5,7 +5,7 @@
     margin-bottom: 1rem;
 
     > h2 {
-        border-bottom: 1px solid #424242;
+        border-bottom: 1px solid var(--color-c);
         margin: 2rem 0;
     }
     figure,
@@ -14,7 +14,7 @@
     }
     figcaption {
         font-style: italic;
-        color: #424242;
+        color: var(--color-c);
         font-size: 14px;
     }
     figure {

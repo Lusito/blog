@@ -1,12 +1,11 @@
-@import "../../style/colors.scss";
 @import "../../style/spacings.scss";
 @import "../../style/breakpoints.scss";
 @import "../../style/sizes.scss";
 
 .header {
     font-family: "Doppio One";
-    background: black;
-    color: white;
+    background: var(--color-b);
+    color: var(--color-a);
     font-size: 22px;
     padding: 0 6px 0 30px;
     line-height: 100%;

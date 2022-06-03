@@ -7,16 +7,16 @@
         display: inline-block;
         font-family: "Doppio One";
         padding: $space-sm $space-md;
-        background: #1e1e1e;
+        background: var(--color-b);
         border-radius: 5px;
         text-decoration: none;
-        color: white;
+        color: var(--color-a);
         margin-right: $space-sm;
         margin-bottom: $space-sm;
         line-height: 1;
 
         &:hover {
-            background: #424242;
+            background: var(--color-c);
         }
     }
 }

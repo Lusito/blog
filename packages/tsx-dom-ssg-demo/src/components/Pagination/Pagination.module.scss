@@ -10,21 +10,23 @@
         padding: $space-sm $space-md;
         border-radius: 5px;
         text-decoration: none;
-        color: white;
+        color: var(--color-a);
         margin-right: $space-sm;
         margin-bottom: $space-sm;
         line-height: 1;
     }
 
     > span {
-        background: #636363;
+        background: var(--color-c);
+        opacity: 0.75;
+        pointer-events: none;
     }
 
     > a {
-        background: #1e1e1e;
+        background: var(--color-b);
 
         &:hover {
-            background: #424242;
+            background: var(--color-c);
         }
     }
 }

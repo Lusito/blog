@@ -11,7 +11,7 @@
     z-index: 200;
     padding-right: $menu-grip-width;
     transition: all 0.5s ease;
-    background: #f6f6f6;
+    background: var(--color-a);
     box-sizing: border-box;
 
     &:hover {
@@ -24,7 +24,7 @@
         bottom: 0;
         right: 0;
         width: $menu-grip-width;
-        background: black;
+        background: var(--color-b);
         > div {
             position: absolute;
             left: calc(50% - 9px);
@@ -33,7 +33,7 @@
                 width: 18px;
                 height: 4px;
                 margin: 5px 0;
-                background: white;
+                background: var(--color-a);
                 box-sizing: border-box;
             }
         }
@@ -90,7 +90,7 @@
         padding-left: 20px;
     }
     li > ul > li:hover {
-        background: black;
+        background: var(--color-b);
     }
     li {
         display: list-item;
@@ -99,8 +99,10 @@
         > span {
             display: block;
             text-decoration: none;
-            color: black;
             padding: 10px;
+        }
+        > span {
+            pointer-events: none;
         }
     }
     li.selected > a,
@@ -109,12 +111,13 @@
     }
     li:hover > a {
         display: block;
-        background: black;
-        color: white;
+        background: var(--color-b);
+        color: var(--color-a);
     }
     li:hover > span {
         display: block;
-        background: rgba(0, 0, 0, 0.15);
+        background: var(--color-c);
+        color: var(--color-a);
     }
     @include from("large") {
         right: 5px;
@@ -128,7 +131,7 @@
     img {
         width: 140px;
         height: 140px;
-        border: 1px solid black;
+        border: 1px solid var(--color-b);
     }
     h3 {
         margin-bottom: 0;

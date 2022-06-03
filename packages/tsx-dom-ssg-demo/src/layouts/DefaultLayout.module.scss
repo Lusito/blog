@@ -18,7 +18,6 @@
 
 .mainwrapper {
     transition: all 0.5s ease;
-    background: #f6f6f6;
     height: 100%;
     box-sizing: border-box;
     display: flex;
@@ -58,7 +57,11 @@
         perspective: 2000px;
         perspective-origin: 50% 50%;
 
-        background: #404040;
+        background: var(--color-a);
+        color: var(--color-b);
         font-family: "PT Serif";
+    }
+    a {
+        color: var(--color-b);
     }
 }
