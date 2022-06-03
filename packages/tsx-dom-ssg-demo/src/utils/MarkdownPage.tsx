@@ -23,8 +23,7 @@ export async function MarkdownPage({ page }: MarkdownPageProps) {
                     tags={page.tags}
                     slug={page.slug}
                 />
-                {/* fixme: show date */}
-                <ArticleHead title={title} description={description} />
+                <ArticleHead title={title} description={description} date={page.date} />
                 <Container>
                     {tags.length > 0 && <TagList tags={tags} />}
                     <MarkdownArticle markdown={body} />
