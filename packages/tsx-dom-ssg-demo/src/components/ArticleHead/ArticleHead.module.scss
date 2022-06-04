@@ -3,14 +3,14 @@
 
 .article-head {
     text-align: center;
-    padding: 70px 0;
+    padding: 4rem 0;
     background-repeat: no-repeat;
     background-size: cover;
     background-position: top center;
     background-attachment: fixed;
     background-image: url(./background.jpg);
     color: var(--color-a);
-    text-shadow: 1px 1px var(--color-c);
+    text-shadow: 0 0 1em var(--color-c);
     justify-content: center;
     display: flex;
     flex-direction: row;
@@ -18,12 +18,12 @@
     p,
     h1 {
         max-width: $content-width;
-        padding: 0 20px;
+        padding: 0 1.5rem;
         box-sizing: border-box;
         margin: 0;
     }
 
     p {
-        padding-top: 20px;
+        padding-top: 1rem;
     }
 }

@@ -2,13 +2,13 @@
 
 .side-bar-header {
     align-items: center;
-    padding: 20px;
+    padding: $space-lg;
     display: flex;
     flex-direction: column;
 
     > img {
-        width: 140px;
-        height: 140px;
+        width: 9rem;
+        height: 9rem;
         border: 1px solid var(--color-b);
     }
 

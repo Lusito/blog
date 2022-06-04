@@ -1,5 +1,6 @@
 @import "../../style/breakpoints.scss";
 @import "../../style/sizes.scss";
+@import "../../style/spacings.scss";
 
 .side-bar-menu,
 .side-bar-menu ul {
@@ -18,7 +19,7 @@
         > span {
             display: block;
             text-decoration: none;
-            padding: 10px;
+            padding: $space-md;
         }
         > span {
             pointer-events: none;
@@ -40,7 +41,7 @@
     }
 
     > li > ul > li {
-        padding-left: 20px;
+        padding-left: $space-lg;
     }
     > li > ul > li:hover {
         background: var(--color-b);
