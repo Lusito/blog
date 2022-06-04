@@ -1,9 +1,10 @@
 @import "../../style/spacings.scss";
+@import "../../style/fonts.scss";
 
 .link-button,
 .link-button-disabled {
     display: inline-block;
-    font-family: "Doppio One";
+    font-family: $font-sans-serif;
     padding: $space-sm $space-md;
     border-radius: $space-sm;
     text-decoration: none;

@@ -1,10 +1,11 @@
 @import "../../style/breakpoints.scss";
 @import "../../style/sizes.scss";
 @import "../../style/spacings.scss";
+@import "../../style/fonts.scss";
 
 .side-bar-menu,
 .side-bar-menu ul {
-    font-family: "Doppio One";
+    font-family: $font-sans-serif;
     width: 100%;
     list-style-type: none;
     padding: 0;
@@ -14,7 +15,7 @@
 .side-bar-menu {
     li {
         display: list-item;
-        font-size: 20px;
+        font-size: 1.25rem;
         > a,
         > span {
             display: block;

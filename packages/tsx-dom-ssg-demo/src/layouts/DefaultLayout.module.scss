@@ -5,6 +5,7 @@
 @import "../style/breakpoints.scss";
 @import "../style/reset.scss";
 @import "../style/sizes.scss";
+@import "../style/fonts.scss";
 
 @include DoppioOne.fontFace();
 @include PtSerif.fontFace();
@@ -49,7 +50,8 @@
     body {
         background: var(--color-a);
         color: var(--color-b);
-        font-family: "PT Serif";
+        font-family: $font-serif;
+        font-size: 1.125rem;
     }
     a {
         color: var(--color-b);

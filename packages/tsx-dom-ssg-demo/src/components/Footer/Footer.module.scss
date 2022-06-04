@@ -1,12 +1,12 @@
 @import "../../style/spacings.scss";
 @import "../../style/breakpoints.scss";
+@import "../../style/fonts.scss";
 
 .footer {
-    font-family: "Doppio One";
+    font-family: $font-sans-serif;
     background: var(--color-b);
     color: var(--color-a);
     text-align: center;
-    font-size: 14px;
     padding: $space-sm;
 
     > a {

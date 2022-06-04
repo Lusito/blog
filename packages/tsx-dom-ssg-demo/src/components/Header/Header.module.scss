@@ -1,9 +1,10 @@
 @import "../../style/spacings.scss";
 @import "../../style/breakpoints.scss";
 @import "../../style/sizes.scss";
+@import "../../style/fonts.scss";
 
 .header {
-    font-family: "Doppio One";
+    font-family: $font-sans-serif;
     background: var(--color-b);
     color: var(--color-a);
     font-size: 1.5rem;

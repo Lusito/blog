@@ -30,7 +30,7 @@ export async function MarkdownPage({ page }: MarkdownPageProps) {
                     {tags.length > 0 && (
                         <>
                             <TagList tags={tags} />
-                            <div>giscus</div>
+                            {/* <div>giscus</div> */}
                         </>
                     )}
                 </Container>
