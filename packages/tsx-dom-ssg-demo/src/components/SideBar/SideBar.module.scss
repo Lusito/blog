@@ -41,6 +41,7 @@
     @include from("small") {
         left: -#{$menu-width - $menu-grip-width};
     }
+
     @include until("small") {
         &:hover > .trigger > div {
             right: 0;
@@ -58,6 +59,7 @@
             }
         }
     }
+
     @include from("large") {
         left: 0;
         padding-right: 5px;
@@ -79,6 +81,7 @@
     left: 0;
     right: $menu-grip-width;
     overflow-y: auto;
+
     @include from("large") {
         right: 5px;
     }
