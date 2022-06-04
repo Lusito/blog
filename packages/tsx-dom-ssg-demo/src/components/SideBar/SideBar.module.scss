@@ -1,3 +1,4 @@
+@use "sass:math";
 @import "../../style/breakpoints.scss";
 @import "../../style/sizes.scss";
 
@@ -31,13 +32,15 @@
             top: 0;
             right: -$menu-grip-width;
             width: $menu-grip-width;
-            padding: 1px 0;
+            height: $header-height;
+            padding: 0.25rem;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
 
             > div {
-                width: 18px;
-                height: 4px;
-                margin: 5px 0;
-                margin-left: 4px;
+                height: 0.25rem;
                 background: var(--color-a);
                 box-sizing: border-box;
             }
@@ -51,11 +54,9 @@
     @include from("small") {
         left: -#{$menu-width - $menu-grip-width};
         .trigger > div {
-            left: calc(50% - 9px);
-            top: calc(50% - 16px);
+            left: calc(50% - #{math.div($menu-grip-width, 2)});
+            top: calc(50% - #{math.div($header-height, 2)});
             right: auto;
-            width: auto;
-            padding: 0;
 
             > div {
                 margin-left: 0;
@@ -65,10 +66,10 @@
 
     @include from("large") {
         left: 0;
-        padding-right: 5px;
+        padding-right: $menu-separator-width;
 
         .trigger {
-            width: 5px;
+            width: $menu-separator-width;
 
             > div {
                 display: none;
@@ -86,6 +87,6 @@
     overflow-y: auto;
 
     @include from("large") {
-        right: 5px;
+        right: $menu-separator-width;
     }
 }
