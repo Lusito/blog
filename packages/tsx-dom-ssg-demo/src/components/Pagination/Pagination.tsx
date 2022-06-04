@@ -1,4 +1,5 @@
 import { withCss } from "../../utils/withCss";
+import { LinkButton } from "../LinkButton/LinkButton";
 import classes from "./Pagination.module.scss";
 
 type LinkProps = {
@@ -8,7 +9,7 @@ type LinkProps = {
     disabled: boolean;
 };
 const Link = ({ path, label, page, disabled }: LinkProps) => {
-    if (disabled) return <span>{label}</span>;
+    if (disabled) return <LinkButton label={label} />;
 
     let href: string;
     if (page === 1) {
@@ -16,7 +17,7 @@ const Link = ({ path, label, page, disabled }: LinkProps) => {
     } else {
         href = `${path}/${page}.html`;
     }
-    return <a href={href}>{label}</a>;
+    return <LinkButton href={href} label={label} />;
 };
 
 type PaginationProps = {

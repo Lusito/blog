@@ -1,23 +1,5 @@
 @import "../../style/spacings.scss";
 
-// fixme: LinkButton component instead!
 .tag-list {
     margin-top: 1rem;
-
-    > a {
-        display: inline-block;
-        font-family: "Doppio One";
-        padding: $space-sm $space-md;
-        background: var(--color-b);
-        border-radius: $space-sm;
-        text-decoration: none;
-        color: var(--color-a);
-        margin-right: $space-sm;
-        margin-bottom: $space-sm;
-        line-height: 1;
-
-        &:hover {
-            background: var(--color-c);
-        }
-    }
 }
