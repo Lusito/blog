@@ -1,9 +1,9 @@
 @use "sass:math";
 
 $breakpoints: (
-    "small": 800px,
-    "medium": 960px,
-    "large": 1280px,
+    "small": 50em,
+    "medium": 60em,
+    "large": 80em,
 );
 
 @mixin from($breakpoint) {
@@ -13,25 +13,5 @@ $breakpoints: (
         }
     } @else {
         @warn "Invalid breakpoint `#{$breakpoint}`";
-    }
-}
-
-@mixin until($breakpoint) {
-    @if map-has-key($breakpoints, $breakpoint) {
-        @media (max-width: #{map-get($breakpoints, $breakpoint) - 1px}) {
-            @content;
-        }
-    } @else {
-        @warn "Invalid breakpoint `#{$breakpoint}`";
-    }
-}
-
-@mixin fromUntil($breakpoint, $breakpointUntil) {
-    @if map-has-key($breakpoints, $breakpoint) and map-has-key($breakpoints, $breakpointUntil) {
-        @media (min-width: map-get($breakpoints, $breakpoint)) and (max-width: #{map-get($breakpoints, $breakpointUntil) - 1px}) {
-            @content;
-        }
-    } @else {
-        @warn "Invalid breakpoints `#{$breakpoint}` or `#{breakpointUntil}`";
     }
 }

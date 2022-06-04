@@ -25,37 +25,40 @@
         width: $menu-grip-width;
         background: var(--color-b);
         > div {
+            transition: all 0.5s ease;
             position: absolute;
-            left: calc(50% - 9px);
-            top: calc(50% - 16px);
+            left: auto;
+            top: 0;
+            right: -$menu-grip-width;
+            width: $menu-grip-width;
+            padding: 1px 0;
+
             > div {
                 width: 18px;
                 height: 4px;
                 margin: 5px 0;
+                margin-left: 4px;
                 background: var(--color-a);
                 box-sizing: border-box;
             }
         }
     }
 
-    @include from("small") {
-        left: -#{$menu-width - $menu-grip-width};
+    &:hover > .trigger > div {
+        right: 0;
     }
 
-    @include until("small") {
-        &:hover > .trigger > div {
-            right: 0;
-        }
+    @include from("small") {
+        left: -#{$menu-width - $menu-grip-width};
         .trigger > div {
-            transition: all 0.5s ease;
-            top: 0;
-            right: -$menu-grip-width;
-            left: auto;
-            width: $menu-grip-width;
-            padding: 1px 0;
+            left: calc(50% - 9px);
+            top: calc(50% - 16px);
+            right: auto;
+            width: auto;
+            padding: 0;
 
             > div {
-                margin-left: 4px;
+                margin-left: 0;
             }
         }
     }
