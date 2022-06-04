@@ -1,0 +1,48 @@
+@import "../../style/breakpoints.scss";
+@import "../../style/sizes.scss";
+
+.side-bar-menu,
+.side-bar-menu ul {
+    font-family: "Doppio One";
+    width: 100%;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.side-bar-menu {
+    li {
+        display: list-item;
+        font-size: 20px;
+        > a,
+        > span {
+            display: block;
+            text-decoration: none;
+            padding: 10px;
+        }
+        > span {
+            pointer-events: none;
+        }
+    }
+    li.selected > a,
+    li.selected > span {
+        text-decoration: underline;
+    }
+    li:hover > a {
+        display: block;
+        background: var(--color-b);
+        color: var(--color-a);
+    }
+    li:hover > span {
+        display: block;
+        background: var(--color-c);
+        color: var(--color-a);
+    }
+
+    > li > ul > li {
+        padding-left: 20px;
+    }
+    > li > ul > li:hover {
+        background: var(--color-b);
+    }
+}

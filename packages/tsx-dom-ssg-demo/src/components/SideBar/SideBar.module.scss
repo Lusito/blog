@@ -1,8 +1,7 @@
 @import "../../style/breakpoints.scss";
 @import "../../style/sizes.scss";
 
-.menucolumn {
-    font-family: "Doppio One";
+.side-bar {
     position: absolute;
     top: 0;
     bottom: 0;
@@ -18,7 +17,7 @@
         left: 0;
     }
 
-    .menugrip {
+    .trigger {
         position: absolute;
         top: 0;
         bottom: 0;
@@ -43,10 +42,10 @@
         left: -#{$menu-width - $menu-grip-width};
     }
     @include until("small") {
-        &:hover > .menugrip > div {
+        &:hover > .trigger > div {
             right: 0;
         }
-        .menugrip > div {
+        .trigger > div {
             transition: all 0.5s ease;
             top: 0;
             right: -$menu-grip-width;
@@ -63,7 +62,7 @@
         left: 0;
         padding-right: 5px;
 
-        .menugrip {
+        .trigger {
             width: 5px;
 
             > div {
@@ -73,67 +72,14 @@
     }
 }
 
-.menuscroller {
+.content {
     position: absolute;
     top: 0;
     bottom: 0;
     left: 0;
     right: $menu-grip-width;
     overflow-y: auto;
-    ul {
-        width: 100%;
-        list-style-type: none;
-        padding: 0;
-        margin: 0;
-    }
-    li > ul > li {
-        padding-left: 20px;
-    }
-    li > ul > li:hover {
-        background: var(--color-b);
-    }
-    li {
-        display: list-item;
-        font-size: 20px;
-        > a,
-        > span {
-            display: block;
-            text-decoration: none;
-            padding: 10px;
-        }
-        > span {
-            pointer-events: none;
-        }
-    }
-    li.selected > a,
-    li.selected > span {
-        text-decoration: underline;
-    }
-    li:hover > a {
-        display: block;
-        background: var(--color-b);
-        color: var(--color-a);
-    }
-    li:hover > span {
-        display: block;
-        background: var(--color-c);
-        color: var(--color-a);
-    }
     @include from("large") {
         right: 5px;
-    }
-}
-
-.logo {
-    text-align: center;
-    padding: 20px;
-
-    img {
-        width: 140px;
-        height: 140px;
-        border: 1px solid var(--color-b);
-    }
-    h3 {
-        margin-bottom: 0;
     }
 }

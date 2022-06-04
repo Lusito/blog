@@ -5,8 +5,8 @@ import { Header } from "../components/Header/Header";
 import { withCss } from "../utils/withCss";
 import classes from "./DefaultLayout.module.scss";
 import { reloadScript } from "../utils/reloadScript";
-import { Navigation } from "../components/Navigation/Navigation";
 import { siteTitle } from "../utils/config";
+import { SideBar } from "../components/SideBar/SideBar";
 
 interface DefaultLayoutProps extends BaseProps {
     pageTitle: string;
@@ -24,7 +24,7 @@ export const DefaultLayout = withCss(classes, ({ children, pageTitle }: DefaultL
             {reloadScript}
         </head>
         <body>
-            <Navigation siteTitle={siteTitle} />
+            <SideBar />
             <div class={classes.mainwrapper}>
                 <Header siteTitle={siteTitle} />
                 <div class={classes.content}>
