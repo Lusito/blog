@@ -97,8 +97,6 @@ async function init() {
             return respond404(req, res);
         }
 
-        // fixme: customized description per Tag
-
         const description = tagDescriptions[tagLabel] ?? `Posts related to ${tagLabel}`;
 
         respondHTML(
