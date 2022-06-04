@@ -14,8 +14,8 @@
         margin: 0.25em 0 0.75em 0;
 
         > a {
-            color: var(--color-b);
             flex-grow: 1;
+            font-weight: bold;
         }
 
         @include from("small") {
