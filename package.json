@@ -23,8 +23,9 @@
     "test": "nx run-many --target=test --all"
   },
   "dependencies": {
-    "@fontsource/doppio-one": "^4.5.8",
-    "@fontsource/pt-serif": "^4.5.8",
+    "@fontsource/source-code-pro": "^4.5.9",
+    "@fontsource/source-sans-pro": "^4.5.9",
+    "@fontsource/source-serif-pro": "^4.5.7",
     "@hotwired/turbo": "^7.1.0",
     "@types/express": "^4.17.13",
     "css-loader": "^6.7.1",
