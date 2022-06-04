@@ -5,8 +5,10 @@
     --color-c: #333333;
 }
 
-:global {
-    html.dark {
-        // fixme
+@media (prefers-color-scheme: dark) {
+    :root {
+        --color-a: #262626;
+        --color-b: #c9c9c9;
+        --color-c: #333333;
     }
 }

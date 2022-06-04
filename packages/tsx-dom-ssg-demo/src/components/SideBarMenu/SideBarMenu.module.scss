@@ -40,6 +40,9 @@
         display: block;
         background: var(--color-c);
         color: var(--color-a);
+        @media (prefers-color-scheme: dark) {
+            color: var(--color-b);
+        }    
     }
 
     > li > ul > li {
