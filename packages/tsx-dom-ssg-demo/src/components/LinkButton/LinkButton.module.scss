@@ -9,26 +9,24 @@
     padding: $space-sm $space-md;
     border-radius: $space-sm;
     text-decoration: none;
-    color: var(--color-a);
     margin-right: $space-sm;
     margin-bottom: $space-sm;
     line-height: 1;
 }
 
 .link-button {
-    background: var(--color-b);
+    background: var(--color-dark);
+    color: var(--color-dark-contrast);
 
     &:hover {
-        background: var(--color-c);
-
-        @media (prefers-color-scheme: dark) {
-            color: var(--color-b);
-        }
+        background: var(--color-highlight);
+        color: var(--color-highlight-contrast);
     }
 }
 
 .link-button-disabled {
-    background: var(--color-c);
+    background: var(--color-disabled);
+    color: var(--color-disabled-contrast);
     opacity: 0.75;
     pointer-events: none;
 }

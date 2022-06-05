@@ -33,22 +33,19 @@
     }
     li:hover > a {
         display: block;
-        background: var(--color-b);
-        color: var(--color-a);
+        background: var(--color-highlight);
+        color: var(--color-highlight-contrast);
     }
     li:hover > span {
         display: block;
-        background: var(--color-c);
-        color: var(--color-a);
-        @media (prefers-color-scheme: dark) {
-            color: var(--color-b);
-        }    
+        background: var(--color-disabled);
+        color: var(--color-disabled-contrast);
     }
 
     > li > ul > li {
         padding-left: $space-lg;
     }
     > li > ul > li:hover {
-        background: var(--color-b);
+        background: var(--color-highlight);
     }
 }

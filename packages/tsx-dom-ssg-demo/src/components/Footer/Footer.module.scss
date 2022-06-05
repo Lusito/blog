@@ -3,12 +3,12 @@
 @import "../../style/fonts.scss";
 
 .footer {
-    background: var(--color-b);
-    color: var(--color-a);
+    background: var(--color-dark);
+    color: var(--color-dark-contrast);
     text-align: center;
     padding: $space-sm;
 
     > a {
-        color: var(--color-a);
+        color: var(--color-dark-contrast);
     }
 }

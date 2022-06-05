@@ -12,6 +12,7 @@ export const ArticleHead = withCss(classes, ({ title, description, date }: Artic
         <div>
             <h1>{title}</h1>
             {date && <div>{date.toDateString()}</div>}
+            {/* fixme: should article description rather be outside of the head, since it's easy to overlook? */}
             {description && <p>{description}</p>}
         </div>
     </div>

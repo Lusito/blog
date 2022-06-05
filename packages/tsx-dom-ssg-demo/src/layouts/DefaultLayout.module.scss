@@ -57,13 +57,13 @@
         overflow: hidden;
     }
     body {
-        background: var(--color-a);
-        color: var(--color-b);
+        background: var(--color-main);
+        color: var(--color-main-contrast);
         font-family: $font-sans-serif;
         font-size: 1.125rem;
     }
     a {
-        color: var(--color-b);
+        color: var(--color-main-contrast);
     }
     h1,
     h2,

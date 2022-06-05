@@ -137,14 +137,13 @@
     }
 
     blockquote {
-        background: var(--color-a);
-        border-left: 0.5em solid var(--color-c);
+        border-left: 0.5em solid var(--color-disabled);
         padding: 0.5em 1em;
         quotes: "\201C""\201D""\2018""\2019";
     }
 
     blockquote:before {
-        color: var(--color-c);
+        color: var(--color-disabled);
         content: open-quote;
         font-size: 4em;
         line-height: 0.1em;
@@ -227,13 +226,13 @@
 
         th {
             font-weight: bold;
-            background: var(--color-c);
-            color: var(--color-a);
+            background: var(--color-dark);
+            color: var(--color-dark-contrast);
         }
         th,
         td {
-            border: 1px solid var(--color-b);
-            padding: 0.25em;
+            border: 1px solid var(--color-dark);
+            padding: 0.25em 0.5em;
         }
     }
 }

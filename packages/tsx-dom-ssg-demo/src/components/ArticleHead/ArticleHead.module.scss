@@ -8,16 +8,13 @@
     background-size: cover;
     background-position: top center;
     background-attachment: fixed;
+    background-color: var(--color-disabled);
     background-image: url(./background.jpg);
-    color: var(--color-a);
-    text-shadow: 0 0 1em var(--color-c);
+    color: var(--color-dark-contrast);
+    text-shadow: 0 0 1em var(--color-dark);
     justify-content: center;
     display: flex;
     flex-direction: row;
-
-    @media (prefers-color-scheme: dark) {
-        color: var(--color-b);
-    }
 
     p,
     h1 {

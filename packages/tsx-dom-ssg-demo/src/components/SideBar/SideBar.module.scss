@@ -11,7 +11,7 @@
     z-index: 200;
     padding-right: $menu-grip-width;
     transition: all 0.5s ease;
-    background: var(--color-a);
+    background: var(--color-main);
     box-sizing: border-box;
 
     &:hover {
@@ -24,7 +24,7 @@
         bottom: 0;
         right: 0;
         width: $menu-grip-width;
-        background: var(--color-b);
+        background: var(--color-dark);
         > div {
             transition: all 0.5s ease;
             position: absolute;
@@ -41,7 +41,7 @@
 
             > div {
                 height: 0.25rem;
-                background: var(--color-a);
+                background: var(--color-dark-contrast);
                 box-sizing: border-box;
             }
         }
