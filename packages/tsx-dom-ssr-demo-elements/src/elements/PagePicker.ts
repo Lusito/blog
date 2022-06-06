@@ -1,10 +1,10 @@
-import * as Turbo from "@hotwired/turbo";
+import { goToPage } from "../swupInstance";
 
 class PagePicker extends HTMLSelectElement {
     onChangeHandler = () => {
         const url = this.getAttribute("url")?.replace("{{PAGE}}", this.value);
         if (url) {
-            Turbo.visit(url);
+            goToPage(url);
         }
     };
 
