@@ -31,10 +31,7 @@ export default class ProgressPlugin implements SwupPlugin {
 
     constructor(swup: Swup, options: Partial<Options> = {}) {
         this.swup = swup;
-        this.options = {
-            ...defaultOptions,
-            ...options,
-        };
+        this.options = { ...defaultOptions, ...options };
 
         this.progressBar = new ProgressBar({
             className: this.options.className,

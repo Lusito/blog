@@ -25,10 +25,7 @@ export default class ScrollPlugin implements SwupPlugin {
 
     constructor(swup: Swup, options: Partial<Options> = {}) {
         this.swup = swup;
-        this.options = {
-            ...defaultOptions,
-            ...options,
-        };
+        this.options = { ...defaultOptions, ...options };
     }
 
     mount() {

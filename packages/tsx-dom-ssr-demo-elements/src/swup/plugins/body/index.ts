@@ -3,11 +3,11 @@ import { getCurrentUrl } from "../../helpers/getCurrentUrl";
 import { SwupPlugin } from "../../plugin";
 
 type Options = {
-    prefix: string;
+    validClass: RegExp;
 };
 
 const defaultOptions: Options = {
-    prefix: "",
+    validClass: /./,
 };
 
 export default class BodyClassPlugin implements SwupPlugin {
@@ -19,10 +19,7 @@ export default class BodyClassPlugin implements SwupPlugin {
 
     constructor(swup: Swup, options: Partial<Options> = {}) {
         this.swup = swup;
-        this.options = {
-            ...defaultOptions,
-            ...options,
-        };
+        this.options = { ...defaultOptions, ...options };
     }
 
     mount() {
@@ -40,9 +37,11 @@ export default class BodyClassPlugin implements SwupPlugin {
             return;
         }
 
+        const { validClass } = this.options;
+
         // remove old classes
         document.body.classList.forEach((className) => {
-            if (this.isValidClassName(className)) {
+            if (validClass.test(className)) {
                 document.body.classList.remove(className);
             }
         });
@@ -50,13 +49,9 @@ export default class BodyClassPlugin implements SwupPlugin {
         // add new classes
         const classList = page.document.querySelector("body")?.classList;
         classList?.forEach((className) => {
-            if (this.isValidClassName(className)) {
+            if (validClass.test(className)) {
                 document.body.classList.add(className);
             }
         });
     };
-
-    isValidClassName(className: string) {
-        return className !== "" && className.startsWith(this.options.prefix);
-    }
 }

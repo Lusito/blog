@@ -20,10 +20,7 @@ export default class HeadPlugin implements SwupPlugin {
 
     constructor(swup: Swup, options: Partial<Options> = {}) {
         this.swup = swup;
-        this.options = {
-            ...defaultOptions,
-            ...options,
-        };
+        this.options = { ...defaultOptions, ...options };
 
         // options.persistAssets is a shortcut to:
         // options.persistTags with a default asset selector for scripts & styles
