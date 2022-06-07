@@ -427,57 +427,59 @@ export class Swup {
     }
 
     linkClickHandler = (event: MouseEvent) => {
+        // index of pressed button needs to be checked because Firefox triggers click on all mouse buttons
+        if (event.button !== 0) return;
+
         const delegateTarget = getDelegateTarget(event, this.options.linkSelector);
         if (!delegateTarget) return;
 
-        // no control key pressed
-        if (!event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey) {
-            // index of pressed button needs to be checked because Firefox triggers click on all mouse buttons
-            if (event.button === 0) {
-                this.events.clickLink.emit(event);
-                event.preventDefault();
-                const { url, hash } = unpackLink(delegateTarget);
-                if (url === getCurrentUrl() || !url) {
-                    // link to the same URL
-                    if (hash) {
-                        // link to the same URL with hash
-                        this.events.samePageWithHash.emit(event);
-                        const element = document.getElementById(hash.slice(1));
-                        if (element != null) {
-                            // eslint-disable-next-line no-restricted-globals
-                            window.history.replaceState(
-                                {
-                                    url: url + hash,
-                                    random: Math.random(),
-                                    source: "swup",
-                                },
-                                document.title,
-                                url + hash
-                            );
-                        } else {
-                            // referenced element not found
-                            console.warn(`Element for offset not found (${hash})`);
-                        }
-                    } else {
-                        // link to the same URL without hash
-                        this.events.samePage.emit(event);
-                    }
-                } else {
-                    // link to different url
-                    if (hash) {
-                        this.scrollToElement = hash;
-                    }
-
-                    // get custom transition from data
-                    const customTransition = delegateTarget.getAttribute("data-swup-transition");
-
-                    // load page
-                    this.loadPage({ url, customTransition });
-                }
-            }
-        } else {
+        // control key pressed
+        if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) {
             // open in new tab (do nothing)
             this.events.openPageInNewTab.emit(event);
+            return;
+        }
+
+        this.events.clickLink.emit(event);
+        event.preventDefault();
+
+        const { url, hash } = unpackLink(delegateTarget);
+        // link to different url
+        if (url !== getCurrentUrl()) {
+            if (hash) {
+                this.scrollToElement = hash;
+            }
+
+            // get custom transition from data
+            const customTransition = delegateTarget.getAttribute("data-swup-transition");
+
+            // load page
+            this.loadPage({ url, customTransition });
+            return;
+        }
+
+        if (hash) {
+            // link to the same URL with hash
+            this.events.samePageWithHash.emit(event);
+            const element = document.getElementById(hash.slice(1));
+            if (element) {
+                // eslint-disable-next-line no-restricted-globals
+                window.history.replaceState(
+                    {
+                        url: url + hash,
+                        random: Math.random(),
+                        source: "swup",
+                    },
+                    document.title,
+                    url + hash
+                );
+            } else {
+                // referenced element not found
+                console.warn(`Element for offset not found (${hash})`);
+            }
+        } else {
+            // link to the same URL without hash
+            this.events.samePage.emit(event);
         }
     };
 

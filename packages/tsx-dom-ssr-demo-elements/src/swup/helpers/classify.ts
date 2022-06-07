@@ -1,4 +1,4 @@
-export const classify = (text: string) => {
+export function classify(text: string) {
     const output = text
         .toString()
         .toLowerCase()
@@ -10,4 +10,4 @@ export const classify = (text: string) => {
         .replace(/-+$/, "") // Trim - from end of text
         .replace(/^\//, ""); // Trim / from start of text
     return output || "homepage";
-};
+}

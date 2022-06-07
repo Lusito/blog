@@ -72,15 +72,15 @@ export default class ProgressPlugin implements SwupPlugin {
         this.progressBar.show();
     };
 
-    showProgressBarAfterDelay = () => {
+    showProgressBarAfterDelay() {
         this.showProgressBarTimeout = window.setTimeout(this.showProgressBar, this.options.delay);
-    };
+    }
 
     hideProgressBar = () => {
         this.progressBar.hide();
     };
 
-    finishAnimationAndHideProgressBar = () => {
+    finishAnimationAndHideProgressBar() {
         this.hideProgressBarTimeout = window.setTimeout(this.hideProgressBar, this.options.transition);
-    };
+    }
 }

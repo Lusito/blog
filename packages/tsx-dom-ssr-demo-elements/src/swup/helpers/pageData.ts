@@ -40,7 +40,7 @@ export class PageData {
     }
 }
 
-export const getPageDataFromHtml = (url: string, html: string, containers: string[]) => {
+export function getPageDataFromHtml(url: string, html: string, containers: string[]) {
     const doc = domParser.parseFromString(html, "text/html");
     const blocks = markSwupElements(doc, containers).map(({ element, id }) => ({
         html: element.outerHTML,
@@ -48,4 +48,4 @@ export const getPageDataFromHtml = (url: string, html: string, containers: strin
     }));
 
     return new PageData(url, doc.querySelector("title")?.textContent ?? "", html, blocks, new WeakRef(doc));
-};
+}
