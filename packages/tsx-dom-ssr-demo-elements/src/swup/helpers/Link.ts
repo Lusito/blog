@@ -1,49 +1,33 @@
-type LinkData = {
-    pathname: string;
+export interface Link {
+    path: string;
     hash: string;
-    search: string;
-};
+    url: string;
+}
 
-export class Link {
-    link: HTMLAnchorElement | SVGElement;
+export type LinkSource = HTMLAnchorElement | SVGElement | string;
 
-    constructor(elementOrUrl: HTMLAnchorElement | SVGElement | string) {
-        if (elementOrUrl instanceof Element) {
-            this.link = elementOrUrl;
-        } else {
-            const a = document.createElement("a");
-            a.href = elementOrUrl;
-            this.link = a;
+const prefixSlash = (value: string) => (value.startsWith("/") ? value : `/${value}`);
+
+export function unpackLink(linkSource: LinkSource): Link {
+    let data: HTMLAnchorElement | URL;
+    if (linkSource instanceof HTMLAnchorElement) {
+        data = linkSource;
+    } else {
+        const href = typeof linkSource === "string" ? linkSource : linkSource.getAttribute("href");
+        if (!href) {
+            return {
+                path: "/",
+                hash: "",
+                url: "/",
+            };
         }
+
+        data = new URL(href, "http://ignore.me");
     }
 
-    private getData(): LinkData {
-        if (this.link instanceof HTMLAnchorElement) {
-            return this.link;
-        }
-        const href = this.link.getAttribute("href");
-        if (href) {
-            return new URL(href);
-        }
-        return {
-            pathname: "/",
-            hash: "",
-            search: "",
-        };
-    }
-
-    getPath(): string {
-        const { pathname } = this.getData();
-        return pathname.startsWith("/") ? pathname : `/${pathname}`;
-    }
-
-    getAddress() {
-        const data = this.getData();
-        const address = `${data.pathname}${data.search}`;
-        return address.startsWith("/") ? address : `/${address}`;
-    }
-
-    getHash(): string {
-        return this.getData().hash;
-    }
+    return {
+        path: prefixSlash(data.pathname),
+        hash: data.hash,
+        url: prefixSlash(`${data.pathname}${data.search}`),
+    };
 }

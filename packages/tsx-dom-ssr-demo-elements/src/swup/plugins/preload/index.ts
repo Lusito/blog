@@ -1,5 +1,5 @@
 import type { Swup } from "../..";
-import { Link } from "../../helpers/Link";
+import { LinkSource, unpackLink } from "../../helpers/Link";
 import { SwupPlugin } from "../../plugin";
 import { getDelegateTarget } from "../../helpers/getDelegateTarget";
 import { EventManager } from "../../helpers/EventManager";
@@ -50,11 +50,8 @@ export default class PreloadPlugin implements SwupPlugin {
         this.preloadPage(delegateTarget);
     };
 
-    async preloadPage(elementOrUrl: ConstructorParameters<typeof Link>[0]) {
-        const { swup } = this;
-
-        const link = new Link(elementOrUrl);
-        await swup.preloadPage(link.getAddress());
+    async preloadPage(linkSource: LinkSource) {
+        await this.swup.preloadPage(unpackLink(linkSource).url);
     }
 
     preloadPages() {

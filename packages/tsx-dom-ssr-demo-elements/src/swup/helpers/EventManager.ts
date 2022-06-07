@@ -26,8 +26,6 @@ export class EventManager<T = Event> {
 
     on(handler: Handler<T>) {
         this.handlers.add(handler);
-
-        return () => this.off(handler);
     }
 
     off(handler?: Handler<T>) {

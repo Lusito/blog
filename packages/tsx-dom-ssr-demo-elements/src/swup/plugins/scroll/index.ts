@@ -2,7 +2,7 @@ import type { Swup } from "../..";
 import type { SwupPlugin } from "../../plugin";
 import { Handler } from "../../helpers/EventManager";
 import { getDelegateTarget } from "../../helpers/getDelegateTarget";
-import { Link } from "../../helpers/Link";
+import { unpackLink } from "../../helpers/Link";
 
 type Options = {
     doScrollingRightAway: boolean;
@@ -88,7 +88,7 @@ export default class ScrollPlugin implements SwupPlugin {
         const delegateTarget = getDelegateTarget(event, this.swup.options.linkSelector);
         if (!delegateTarget) return;
 
-        const element = document.querySelector(new Link(delegateTarget).getHash());
+        const element = document.querySelector(unpackLink(delegateTarget).hash);
         if (element) {
             const top = element.getBoundingClientRect().top + window.pageYOffset - this.getOffset(element);
             this.scrollTo(top);

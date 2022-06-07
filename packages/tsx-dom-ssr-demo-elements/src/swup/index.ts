@@ -1,9 +1,7 @@
 import { Cache } from "./helpers/Cache";
 import { getPageDataFromHtml, PageData } from "./helpers/pageData";
 import { SwupPlugin } from "./plugin";
-import { transitionEndEventName } from "./helpers/transitionEnd";
-import { Link } from "./helpers/Link";
-import { createHistoryRecord } from "./helpers/createHistoryRecord";
+import { unpackLink } from "./helpers/Link";
 import { classify } from "./helpers/classify";
 import { getCurrentUrl } from "./helpers/getCurrentUrl";
 import { getDelegateTarget } from "./helpers/getDelegateTarget";
@@ -156,7 +154,7 @@ export class Swup {
         const promises = Array.from(animatedElements).map(
             (element) =>
                 new Promise<void>((resolve) => {
-                    element.addEventListener(transitionEndEventName, (event) => {
+                    element.addEventListener("transitionend", (event) => {
                         if (element === event.target) {
                             resolve();
                         }
@@ -181,8 +179,7 @@ export class Swup {
         document.documentElement.classList.remove("is-leaving");
 
         // replace state in case the url was redirected
-        const link = new Link(page.url);
-        const path = link.getPath();
+        const { path } = unpackLink(page.url);
         if (window.location.pathname !== path) {
             window.history.replaceState(
                 {
@@ -307,7 +304,15 @@ export class Swup {
         // create history record if this is not a popstate call
         if (!popstate) {
             // create pop element with or without anchor
-            createHistoryRecord(url + (this.scrollToElement ?? ""));
+            window.history.pushState(
+                {
+                    url: url + (this.scrollToElement ?? "") || window.location.href.split(window.location.hostname)[1],
+                    random: Math.random(),
+                    source: "swup",
+                },
+                document.title,
+                url || window.location.href.split(window.location.hostname)[1]
+            );
         }
 
         // animation promise stuff
@@ -431,9 +436,8 @@ export class Swup {
             if (event.button === 0) {
                 this.events.clickLink.emit(event);
                 event.preventDefault();
-                const link = new Link(delegateTarget);
-                const hash = link.getHash();
-                if (link.getAddress() === getCurrentUrl() || !link.getAddress()) {
+                const { url, hash } = unpackLink(delegateTarget);
+                if (url === getCurrentUrl() || !url) {
                     // link to the same URL
                     if (hash) {
                         // link to the same URL with hash
@@ -441,14 +445,14 @@ export class Swup {
                         const element = document.getElementById(hash.slice(1));
                         if (element != null) {
                             // eslint-disable-next-line no-restricted-globals
-                            history.replaceState(
+                            window.history.replaceState(
                                 {
-                                    url: link.getAddress() + hash,
+                                    url: url + hash,
                                     random: Math.random(),
                                     source: "swup",
                                 },
                                 document.title,
-                                link.getAddress() + hash
+                                url + hash
                             );
                         } else {
                             // referenced element not found
@@ -468,7 +472,7 @@ export class Swup {
                     const customTransition = delegateTarget.getAttribute("data-swup-transition");
 
                     // load page
-                    this.loadPage({ url: link.getAddress(), customTransition });
+                    this.loadPage({ url, customTransition });
                 }
             }
         } else {
@@ -484,14 +488,13 @@ export class Swup {
         }
 
         if (this.options.skipPopStateHandling(event)) return;
-        const link = new Link(event.state ? event.state.url : window.location.pathname);
-        const hash = link.getHash();
+        const { hash, url } = unpackLink(event.state ? event.state.url : window.location.pathname);
         if (hash) {
             this.scrollToElement = hash;
         } else {
             event.preventDefault();
         }
         this.events.popState.emit(event);
-        this.loadPage({ url: link.getAddress() }, event);
+        this.loadPage({ url }, event);
     };
 }
