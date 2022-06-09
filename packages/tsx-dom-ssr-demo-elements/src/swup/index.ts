@@ -120,11 +120,7 @@ export class Swup {
         markSwupElements(document, this.options.containers);
 
         // modify initial history record
-        window.history.replaceState(
-            { ...window.history.state, url: window.location.href, random: Math.random(), source: "swup" },
-            document.title,
-            window.location.href
-        );
+        this.replaceHistory(window.location.href, window.history.state);
 
         // trigger enabled event
         this.events.enabled.emit();
@@ -205,15 +201,7 @@ export class Swup {
         // replace state in case the url was redirected
         const { path } = unpackLink(page.url);
         if (window.location.pathname !== path) {
-            window.history.replaceState(
-                {
-                    url: path,
-                    random: Math.random(),
-                    source: "swup",
-                },
-                document.title,
-                path
-            );
+            this.replaceHistory(path);
 
             if (this.options.cache) {
                 // save new record for redirected url
@@ -293,6 +281,33 @@ export class Swup {
         this.events.pageLoaded.emit();
     }
 
+    pushHistory(url: string) {
+        // create pop element with or without anchor
+        window.history.pushState(
+            {
+                url: url + (this.scrollToElement ?? "") || window.location.href.split(window.location.hostname)[1],
+                random: Math.random(),
+                source: "swup",
+            },
+            document.title,
+            url || window.location.href.split(window.location.hostname)[1]
+        );
+    }
+
+    replaceHistory(url: string, oldState?: any) {
+        // eslint-disable-next-line no-restricted-globals
+        window.history.replaceState(
+            {
+                ...oldState,
+                url,
+                random: Math.random(),
+                source: "swup",
+            },
+            document.title,
+            url
+        );
+    }
+
     async startAnimation(data: { url: string; customTransition?: string | null }, popstate?: PopStateEvent) {
         this.events.animationOutStart.emit();
 
@@ -313,18 +328,7 @@ export class Swup {
         // fixme: unclear if this should be done here or after completion
         // create history record if this is not a popstate call
         if (!popstate) {
-            // create pop element with or without anchor
-            window.history.pushState(
-                {
-                    url:
-                        data.url + (this.scrollToElement ?? "") ||
-                        window.location.href.split(window.location.hostname)[1],
-                    random: Math.random(),
-                    source: "swup",
-                },
-                document.title,
-                data.url || window.location.href.split(window.location.hostname)[1]
-            );
+            this.pushHistory(data.url);
         }
 
         // animation promise stuff
@@ -469,16 +473,7 @@ export class Swup {
             this.events.samePageWithHash.emit(event);
             const element = document.getElementById(hash.slice(1));
             if (element) {
-                // eslint-disable-next-line no-restricted-globals
-                window.history.replaceState(
-                    {
-                        url: url + hash,
-                        random: Math.random(),
-                        source: "swup",
-                    },
-                    document.title,
-                    url + hash
-                );
+                this.replaceHistory(url + hash);
             } else {
                 // referenced element not found
                 console.warn(`Element for offset not found (${hash})`);
