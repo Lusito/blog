@@ -57,7 +57,7 @@ export default class JsPlugin implements SwupPlugin {
         return [this.createAnimationPromise(animationIndex, type)];
     };
 
-    createAnimationPromise(index: number, type: "in" | "out") {
+    private createAnimationPromise(index: number, type: "in" | "out") {
         const { transition } = this.swup;
         const animation = this.animations[index];
 
@@ -72,7 +72,7 @@ export default class JsPlugin implements SwupPlugin {
         });
     }
 
-    getAnimationIndex(type: "in" | "out") {
+    private getAnimationIndex(type: "in" | "out") {
         // already saved from out animation
         if (type === "in") {
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
@@ -95,7 +95,7 @@ export default class JsPlugin implements SwupPlugin {
         return this.currentAnimation;
     }
 
-    rateAnimation(animation: Animation) {
+    private rateAnimation(animation: Animation) {
         const { transition } = this.swup;
 
         // run regex
@@ -108,7 +108,7 @@ export default class JsPlugin implements SwupPlugin {
         rating += toMatched ? 1 : 0;
 
         // beat all other if custom parameter fits
-        rating += fromMatched && animation.to === transition.custom ? 2 : 0;
+        rating += fromMatched && transition.custom && animation.to.test(transition.custom) ? 2 : 0;
 
         return rating;
     }

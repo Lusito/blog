@@ -37,7 +37,7 @@ const defaultOptions: Options = {
 export type Transition = {
     from: string;
     to: string;
-    custom?: unknown;
+    custom?: string;
 };
 
 type PreloadData = {
@@ -194,7 +194,7 @@ export class Swup {
         return getPageDataFromHtml(url, html, this.options.containers);
     }
 
-    updateTransition(this: Swup, from: string, to: string, custom?: unknown) {
+    updateTransition(this: Swup, from: string, to: string, custom?: string) {
         // transition routes
         this.transition = { from, to, custom };
     }
@@ -247,22 +247,7 @@ export class Swup {
 
         // handle end of animation
         if (!popstate || this.options.animateHistoryBrowsing) {
-            const animationPromises = this.getAnimationPromises("in");
-            Promise.all(animationPromises).then(() => {
-                this.events.animationInDone.emit();
-                this.events.transitionEnd.emit(popstate);
-                // remove "to-{page}" classes
-                document.documentElement.className.split(" ").forEach((classItem) => {
-                    if (
-                        new RegExp("^to-").test(classItem) ||
-                        classItem === "is-changing" ||
-                        classItem === "is-rendering" ||
-                        classItem === "is-popstate"
-                    ) {
-                        document.documentElement.classList.remove(classItem);
-                    }
-                });
-            });
+            this.stopAnimation(popstate);
         } else {
             this.events.transitionEnd.emit(popstate);
         }
@@ -308,7 +293,7 @@ export class Swup {
         this.events.pageLoaded.emit();
     }
 
-    async startAnimation(url: string, popstate?: PopStateEvent) {
+    async startAnimation(data: { url: string; customTransition?: string | null }, popstate?: PopStateEvent) {
         this.events.animationOutStart.emit();
 
         // handle classes
@@ -318,7 +303,12 @@ export class Swup {
         if (popstate) {
             document.documentElement.classList.add("is-popstate");
         }
-        document.documentElement.classList.add(`to-${classify(url)}`);
+
+        if (data.customTransition) {
+            document.documentElement.classList.add(`to-${classify(data.customTransition)}`);
+        } else {
+            document.documentElement.classList.add(`to-${classify(data.url)}`);
+        }
 
         // fixme: unclear if this should be done here or after completion
         // create history record if this is not a popstate call
@@ -326,12 +316,14 @@ export class Swup {
             // create pop element with or without anchor
             window.history.pushState(
                 {
-                    url: url + (this.scrollToElement ?? "") || window.location.href.split(window.location.hostname)[1],
+                    url:
+                        data.url + (this.scrollToElement ?? "") ||
+                        window.location.href.split(window.location.hostname)[1],
                     random: Math.random(),
                     source: "swup",
                 },
                 document.title,
-                url || window.location.href.split(window.location.hostname)[1]
+                data.url || window.location.href.split(window.location.hostname)[1]
             );
         }
 
@@ -340,13 +332,32 @@ export class Swup {
         this.events.animationOutDone.emit();
     }
 
+    async stopAnimation(popstate?: PopStateEvent) {
+        const animationPromises = this.getAnimationPromises("in");
+        await Promise.all(animationPromises);
+
+        this.events.animationInDone.emit();
+        this.events.transitionEnd.emit(popstate); // fixme: should be elsewhere
+        // remove "to-{page}" classes
+        document.documentElement.classList.forEach((classItem) => {
+            if (
+                new RegExp("^to-").test(classItem) ||
+                classItem === "is-changing" ||
+                classItem === "is-rendering" ||
+                classItem === "is-popstate"
+            ) {
+                document.documentElement.classList.remove(classItem);
+            }
+        });
+    }
+
     async loadPage(data: { url: string; customTransition?: string | null }, popstate?: PopStateEvent) {
         this.events.transitionStart.emit(popstate);
 
         // set transition object
         if (data.customTransition) {
             this.updateTransition(window.location.pathname, data.url, data.customTransition);
-            document.documentElement.classList.add(`to-${classify(data.customTransition)}`);
+            document.documentElement.classList.add(`to-${data.customTransition}`);
         } else {
             this.updateTransition(window.location.pathname, data.url);
         }
@@ -366,7 +377,7 @@ export class Swup {
 
         // start/skip animation
         if (!popstate || this.options.animateHistoryBrowsing) {
-            promises.push(this.startAnimation(data.url, popstate));
+            promises.push(this.startAnimation(data, popstate));
         } else {
             this.events.animationSkipped.emit();
         }
