@@ -5,14 +5,13 @@ import { classify } from "./helpers/classify";
 import { getCurrentUrl } from "./helpers/getCurrentUrl";
 import { getDelegateTarget } from "./helpers/getDelegateTarget";
 import { EventManager } from "./helpers/EventManager";
-import { markSwupElements, unmarkSwupElements, replaceSwupElements } from "./helpers/dataSwup";
 
 type Options = {
     animateHistoryBrowsing: boolean;
     animationSelector: string;
     linkSelector: string;
     cache: boolean;
-    containers: string[];
+    containers: string;
     requestHeaders: Record<string, string>;
     skipPopStateHandling(event: PopStateEvent): boolean;
 };
@@ -23,7 +22,7 @@ const defaultOptions: Options = {
     animationSelector: '[class*="transition-"]',
     linkSelector: `a[href^="${window.location.origin}"]:not([data-no-swup]), a[href^="/"]:not([data-no-swup]), a[href^="#"]:not([data-no-swup])`,
     cache: true,
-    containers: ["#swup"],
+    containers: ".swup-container",
     requestHeaders: {
         "X-Requested-With": "swup",
         Accept: "text/html, application/xhtml+xml",
@@ -110,9 +109,6 @@ export class Swup {
         if (this.options.cache) {
             this.cache.set(page.url, page);
         }
-
-        // mark swup blocks in html
-        markSwupElements(document, this.options.containers);
 
         // modify initial history record
         this.replaceHistory(window.location.href);
@@ -203,7 +199,7 @@ export class Swup {
         this.events.willReplaceContent.emit(popstate);
 
         // replace blocks
-        replaceSwupElements(document, page);
+        this.replaceContainers(page);
 
         // set title
         document.title = page.title;
@@ -228,6 +224,16 @@ export class Swup {
 
         // reset scroll-to element
         this.scrollToElement = null;
+    }
+
+    private replaceContainers(page: PageData) {
+        const targets = document.body.querySelectorAll(this.options.containers);
+        if (targets.length !== page.blocks.length) {
+            throw new Error("Received page is invalid.");
+        }
+        for (let i = 0; i < targets.length; i++) {
+            targets[i].outerHTML = page.blocks[i];
+        }
     }
 
     private async doPreloadPage(url: string) {
@@ -312,7 +318,7 @@ export class Swup {
         // remove "to-{page}" classes
         document.documentElement.classList.forEach((classItem) => {
             if (
-                new RegExp("^to-").test(classItem) ||
+                /^to-/.test(classItem) ||
                 classItem === "is-changing" ||
                 classItem === "is-rendering" ||
                 classItem === "is-popstate"
@@ -385,9 +391,6 @@ export class Swup {
 
         // unmount plugins
         this.plugins.forEach((plugin) => this.unuse(plugin));
-
-        // remove swup data atributes from blocks
-        unmarkSwupElements(document);
 
         // remove event handlers
         EventManager.off(this.events);

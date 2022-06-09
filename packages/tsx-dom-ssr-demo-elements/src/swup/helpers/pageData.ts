@@ -1,11 +1,4 @@
-import { markSwupElements } from "./dataSwup";
-
 const domParser = new DOMParser();
-
-type PageDataBlock = {
-    html: string;
-    id: string;
-};
 
 export class PageData {
     readonly url: string;
@@ -14,11 +7,11 @@ export class PageData {
 
     readonly html: string;
 
-    readonly blocks: PageDataBlock[];
+    readonly blocks: string[];
 
     private docRef: WeakRef<Document>;
 
-    constructor(url: string, title: string, html: string, blocks: PageDataBlock[], docRef: WeakRef<Document>) {
+    constructor(url: string, title: string, html: string, blocks: string[], docRef: WeakRef<Document>) {
         this.url = url;
         this.title = title;
         this.html = html;
@@ -40,12 +33,13 @@ export class PageData {
     }
 }
 
-export function getPageDataFromHtml(url: string, html: string, containers: string[]) {
+export function getPageDataFromHtml(url: string, html: string, selector: string) {
     const doc = domParser.parseFromString(html, "text/html");
-    const blocks = markSwupElements(doc, containers).map(({ element, id }) => ({
-        html: element.outerHTML,
-        id,
-    }));
+    const elements = Array.from(doc.querySelectorAll(selector));
+    if (!elements.length) {
+        throw new Error("Received page is invalid.");
+    }
+    const blocks = elements.map((element) => element.outerHTML);
 
     return new PageData(url, doc.querySelector("title")?.textContent ?? "", html, blocks, new WeakRef(doc));
 }

@@ -18,7 +18,7 @@ export const DefaultLayout = withCss(classes, ({ children, title }: DefaultLayou
         </head>
         <body class={classes.body}>
             <Header />
-            <div id="swup" class="transition-fade">
+            <div class="transition-fade swup-container">
                 <h1>{title}</h1>
                 {children}
             </div>
