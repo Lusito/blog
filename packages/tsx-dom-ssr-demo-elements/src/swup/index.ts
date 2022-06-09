@@ -1,4 +1,3 @@
-import { Cache } from "./helpers/Cache";
 import { getPageDataFromHtml, PageData } from "./helpers/pageData";
 import { SwupPlugin } from "./plugin";
 import { unpackLink } from "./helpers/Link";
@@ -53,19 +52,19 @@ export class Swup {
         to: "",
     };
 
-    cache: Cache;
+    readonly cache = new Map<string, PageData>();
 
     // variable for save options
-    options: Options;
+    readonly options: Options;
 
     // variable for id of element to scroll to after render
     scrollToElement: string | null = null;
 
     // variable for promise used for preload, so no new loading of the same page starts while page is loading
-    preloading: Record<string, PreloadData> = {};
+    private readonly preloading = new Map<string, PreloadData>();
 
     // variable for plugins array
-    plugins: SwupPlugin[] = [];
+    private plugins: SwupPlugin[] = [];
 
     // handler arrays
     readonly events = {
@@ -105,11 +104,36 @@ export class Swup {
             this.log = setOptions.log;
         }
 
-        // make modules accessible in instance
-        this.cache = new Cache(this);
+        // add event listeners
+        document.addEventListener("click", this.linkClickHandler);
+        window.addEventListener("popstate", this.popStateHandler);
 
-        // enable swup
-        this.enable();
+        // initial save to cache
+        const url = getCurrentUrl();
+        const page = getPageDataFromHtml(url, document.documentElement.outerHTML, this.options.containers);
+        if (!page) throw new Error("Failed getting page from document");
+        if (this.options.cache) {
+            this.cache.set(page.url, page);
+        }
+
+        // mark swup blocks in html
+        markSwupElements(document, this.options.containers);
+
+        // modify initial history record
+        window.history.replaceState(
+            { ...window.history.state, url: window.location.href, random: Math.random(), source: "swup" },
+            document.title,
+            window.location.href
+        );
+
+        // trigger enabled event
+        this.events.enabled.emit();
+
+        // add swup-enabled class to html tag
+        document.documentElement.classList.add("swup-enabled");
+
+        // trigger page view event
+        this.events.pageView.emit();
     }
 
     log(..._args: unknown[]) {
@@ -191,8 +215,10 @@ export class Swup {
                 path
             );
 
-            // save new record for redirected url
-            this.cache.add(page.cloneWithUrl(path));
+            if (this.options.cache) {
+                // save new record for redirected url
+                this.cache.set(path, page.cloneWithUrl(path));
+            }
         }
 
         // only add for non-popstate transitions
@@ -210,11 +236,6 @@ export class Swup {
 
         this.events.contentReplaced.emit(popstate);
         this.events.pageView.emit(popstate);
-
-        // empty cache if it's disabled (because pages could be preloaded and stuff)
-        if (!this.options.cache) {
-            this.cache.empty();
-        }
 
         // start animation IN
         setTimeout(() => {
@@ -250,7 +271,6 @@ export class Swup {
         this.scrollToElement = null;
     }
 
-    // fixme: every call to this could be added to preloadData!
     private async doPreloadPage(url: string) {
         const response = await fetch(url, { headers: this.options.requestHeaders });
 
@@ -263,23 +283,23 @@ export class Swup {
         const page = await this.getPageData(url, response);
 
         // render page
-        this.cache.add(page);
+        this.cache.set(url, page);
         this.events.pagePreloaded.emit();
     }
 
     preloadPage(url: string) {
-        if (this.cache.exists(url) || this.preloading[url]) {
+        if (this.cache.has(url) || this.preloading.has(url)) {
             return Promise.resolve();
         }
 
         const promise = this.doPreloadPage(url);
         const entry = {
             promise: promise.then(() => {
-                delete this.preloading[url];
+                this.preloading.delete(url);
             }),
             url,
         };
-        this.preloading[url] = entry;
+        this.preloading.set(url, entry);
         return entry.promise;
     }
 
@@ -333,12 +353,15 @@ export class Swup {
 
         const promises: Array<Promise<void>> = [];
         // start/skip loading of page
-        if (this.cache.exists(data.url)) {
+        if (this.cache.has(data.url)) {
             this.events.pageRetrievedFromCache.emit();
-        } else if (this.preloading[data.url]) {
-            promises.push(this.preloading[data.url].promise);
         } else {
-            promises.push(this.fetchPage(data.url));
+            const preloading = this.preloading.get(data.url);
+            if (preloading) {
+                promises.push(preloading.promise);
+            } else {
+                promises.push(this.fetchPage(data.url));
+            }
         }
 
         // start/skip animation
@@ -364,40 +387,12 @@ export class Swup {
             // go back to the last page we're still at
             this.isErrorPop = true; // fixme: maybe not needed if we would replace when actually done
             window.history.back();
+        } finally {
+            // clear cache if it's disabled (because pages could be preloaded and stuff)
+            if (!this.options.cache) {
+                this.cache.clear();
+            }
         }
-    }
-
-    enable() {
-        // add event listeners
-        document.addEventListener("click", this.linkClickHandler);
-        window.addEventListener("popstate", this.popStateHandler);
-
-        // initial save to cache
-        const url = getCurrentUrl();
-        const page = getPageDataFromHtml(url, document.documentElement.outerHTML, this.options.containers);
-        if (!page) throw new Error("Failed getting page from document");
-        if (this.options.cache) {
-            this.cache.add(page);
-        }
-
-        // mark swup blocks in html
-        markSwupElements(document, this.options.containers);
-
-        // modify initial history record
-        window.history.replaceState(
-            { ...window.history.state, url: window.location.href, random: Math.random(), source: "swup" },
-            document.title,
-            window.location.href
-        );
-
-        // trigger enabled event
-        this.events.enabled.emit();
-
-        // add swup-enabled class to html tag
-        document.documentElement.classList.add("swup-enabled");
-
-        // trigger page view event
-        this.events.pageView.emit();
     }
 
     destroy() {
@@ -407,8 +402,8 @@ export class Swup {
         // remove popstate listener
         window.removeEventListener("popstate", this.popStateHandler);
 
-        // empty cache
-        this.cache.empty();
+        // clear cache
+        this.cache.clear();
 
         // unmount plugins
         this.plugins.forEach((plugin) => this.unuse(plugin));

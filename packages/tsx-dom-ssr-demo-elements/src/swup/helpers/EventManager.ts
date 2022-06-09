@@ -10,14 +10,13 @@ export class EventManager<T = Event> {
     }
 
     emit(originalEvent?: T) {
-        // call saved handlers with "on" method and pass originalEvent object if available
-        this.handlers.forEach((handler) => {
+        for (const handler of this.handlers) {
             try {
                 handler(originalEvent);
             } catch (error) {
                 console.error(error);
             }
-        });
+        }
 
         // trigger event on document with prefix "swup:"
         const event = new CustomEvent(`swup:${this.name}`, { detail: this.name });
