@@ -155,12 +155,12 @@ export class Swup {
         // replace state in case the url was redirected
         const { path } = unpackLink(page.url);
         if (window.location.pathname !== path) {
-            this.replaceHistory(path);
+            this.pushHistory(path);
 
-            if (this.options.cache) {
-                // save new record for redirected url
-                this.cache.set(path, page.cloneWithUrl(path));
-            }
+            // save new record for redirected url
+            this.cache.set(path, page.cloneWithUrl(path));
+        } else {
+            this.pushHistory(page.url + (this.scrollToElement ?? ""));
         }
 
         // only add for non-popstate transitions
@@ -245,11 +245,11 @@ export class Swup {
         this.events.pageLoaded.emit();
     }
 
-    pushHistory(url: string) {
+    private pushHistory(url: string) {
         window.history.pushState({ url, source: "swup" }, "", url);
     }
 
-    replaceHistory(url: string) {
+    private replaceHistory(url: string) {
         window.history.replaceState({ url, source: "swup" }, "", url);
     }
 
@@ -270,12 +270,6 @@ export class Swup {
             document.documentElement.classList.add(`to-${classify(data.url)}`);
         }
 
-        // fixme: unclear if this should be done here or after completion
-        // create history record if this is not a popstate call
-        if (!popstate) {
-            this.pushHistory(data.url + (this.scrollToElement ?? ""));
-        }
-
         // animation promise stuff
         await Promise.all(this.getAnimationPromises("out"));
         this.events.animationOutDone.emit();
@@ -287,14 +281,9 @@ export class Swup {
 
         this.events.animationInDone.emit();
         this.events.transitionEnd.emit(popstate); // fixme: should be elsewhere
-        // remove "to-{page}" classes
+        // remove some classes
         document.documentElement.classList.forEach((classItem) => {
-            if (
-                /^to-/.test(classItem) ||
-                classItem === "is-changing" ||
-                classItem === "is-rendering" ||
-                classItem === "is-popstate"
-            ) {
+            if (/^(to-|is-changing$|is-rendering$|is-popstate$)/.test(classItem)) {
                 document.documentElement.classList.remove(classItem);
             }
         });
@@ -313,11 +302,7 @@ export class Swup {
             this.events.pageRetrievedFromCache.emit();
         } else {
             const preloading = this.preloading.get(data.url);
-            if (preloading) {
-                promises.push(preloading.promise);
-            } else {
-                promises.push(this.fetchPage(data.url));
-            }
+            promises.push(preloading ? preloading.promise : this.fetchPage(data.url));
         }
 
         // start/skip animation
