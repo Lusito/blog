@@ -120,7 +120,7 @@ export class Swup {
         markSwupElements(document, this.options.containers);
 
         // modify initial history record
-        this.replaceHistory(window.location.href, window.history.state);
+        this.replaceHistory(window.location.href);
 
         // trigger enabled event
         this.events.enabled.emit();
@@ -282,30 +282,11 @@ export class Swup {
     }
 
     pushHistory(url: string) {
-        // create pop element with or without anchor
-        window.history.pushState(
-            {
-                url: url + (this.scrollToElement ?? "") || window.location.href.split(window.location.hostname)[1],
-                random: Math.random(),
-                source: "swup",
-            },
-            document.title,
-            url || window.location.href.split(window.location.hostname)[1]
-        );
+        window.history.pushState({ url, source: "swup" }, "", url);
     }
 
-    replaceHistory(url: string, oldState?: any) {
-        // eslint-disable-next-line no-restricted-globals
-        window.history.replaceState(
-            {
-                ...oldState,
-                url,
-                random: Math.random(),
-                source: "swup",
-            },
-            document.title,
-            url
-        );
+    replaceHistory(url: string) {
+        window.history.replaceState({ url, source: "swup" }, "", url);
     }
 
     async startAnimation(data: { url: string; customTransition?: string | null }, popstate?: PopStateEvent) {
@@ -328,7 +309,7 @@ export class Swup {
         // fixme: unclear if this should be done here or after completion
         // create history record if this is not a popstate call
         if (!popstate) {
-            this.pushHistory(data.url);
+            this.pushHistory(data.url + (this.scrollToElement ?? ""));
         }
 
         // animation promise stuff
@@ -356,6 +337,7 @@ export class Swup {
     }
 
     async loadPage(data: { url: string; customTransition?: string | null }, popstate?: PopStateEvent) {
+        // fixme: ensure data.url starts with "/""?
         this.events.transitionStart.emit(popstate);
 
         // set transition object
