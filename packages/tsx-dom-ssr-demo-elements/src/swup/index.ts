@@ -89,8 +89,6 @@ export class Swup {
         willReplaceContent: new EventManager<PopStateEvent>("willReplaceContent"),
     };
 
-    private isErrorPop = false;
-
     constructor(setOptions: Partial<Options> = {}) {
         // merge options
         this.options = {
@@ -155,11 +153,13 @@ export class Swup {
         // replace state in case the url was redirected
         const { path } = unpackLink(page.url);
         if (window.location.pathname !== path) {
-            this.pushHistory(path);
+            if (!popstate) {
+                this.pushHistory(path);
+            }
 
             // save new record for redirected url
             this.cache.set(path, page.cloneWithUrl(path));
-        } else {
+        } else if (!popstate) {
             this.pushHistory(page.url + (this.scrollToElement ?? ""));
         }
 
@@ -264,11 +264,9 @@ export class Swup {
             document.documentElement.classList.add("is-popstate");
         }
 
-        if (data.customTransition) {
-            document.documentElement.classList.add(`to-${classify(data.customTransition)}`);
-        } else {
-            document.documentElement.classList.add(`to-${classify(data.url)}`);
-        }
+        // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
+        const transition = data.customTransition || data.url;
+        document.documentElement.classList.add(`to-${classify(transition)}`);
 
         // animation promise stuff
         await Promise.all(this.getAnimationPromises("out"));
@@ -325,9 +323,7 @@ export class Swup {
         } catch (error) {
             console.error("Error loading page: ", error);
 
-            // go back to the last page we're still at
-            this.isErrorPop = true; // fixme: maybe not needed if we would replace when actually done
-            window.history.back();
+            window.location.reload();
         } finally {
             // clear cache if it's disabled (because pages could be preloaded and stuff)
             if (!this.options.cache) {
@@ -409,12 +405,10 @@ export class Swup {
     };
 
     popStateHandler = (event: PopStateEvent) => {
-        if (this.isErrorPop) {
-            window.location.reload();
+        if (this.options.skipPopStateHandling(event)) {
+            console.log("this happens");
             return;
         }
-
-        if (this.options.skipPopStateHandling(event)) return;
 
         const { hash, url } = unpackLink(event.state ? event.state.url : window.location.pathname);
         if (hash) {
