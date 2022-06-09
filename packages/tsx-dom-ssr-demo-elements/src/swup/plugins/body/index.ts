@@ -13,9 +13,9 @@ const defaultOptions: Options = {
 export default class BodyClassPlugin implements SwupPlugin {
     readonly name = "BodyClassPlugin";
 
-    swup: Swup;
+    private swup: Swup;
 
-    options: Options;
+    private options: Options;
 
     constructor(swup: Swup, options: Partial<Options> = {}) {
         this.swup = swup;
@@ -30,7 +30,7 @@ export default class BodyClassPlugin implements SwupPlugin {
         this.swup.events.contentReplaced.off(this.onContentReplaced);
     }
 
-    onContentReplaced = () => {
+    private onContentReplaced = () => {
         const page = this.swup.cache.get(getCurrentUrl());
         if (!page) {
             console.warn("Page did not exist in cache: ", getCurrentUrl());

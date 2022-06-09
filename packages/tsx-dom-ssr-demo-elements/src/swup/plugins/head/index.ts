@@ -12,9 +12,9 @@ const defaultOptions: Options = {
 export default class HeadPlugin implements SwupPlugin {
     readonly name = "HeadPlugin";
 
-    swup: Swup;
+    private swup: Swup;
 
-    options: Options;
+    private options: Options;
 
     constructor(swup: Swup, options: Partial<Options> = {}) {
         this.swup = swup;
@@ -29,7 +29,7 @@ export default class HeadPlugin implements SwupPlugin {
         this.swup.events.contentReplaced.off(this.onContentReplaced);
     }
 
-    onContentReplaced = () => {
+    private onContentReplaced = () => {
         const page = this.swup.cache.get(getCurrentUrl());
         if (!page) {
             console.warn("Page did not exist in cache: ", getCurrentUrl());
@@ -41,7 +41,7 @@ export default class HeadPlugin implements SwupPlugin {
         this.updateHtmlLangAttribute(nextDocument);
     };
 
-    getHeadAndReplace(nextDocument: Document) {
+    private getHeadAndReplace(nextDocument: Document) {
         const oldTags = Array.from(document.head.children);
         const newTags = Array.from(nextDocument.head.children);
 
@@ -55,21 +55,18 @@ export default class HeadPlugin implements SwupPlugin {
         removeTags.forEach((tag) => tag.remove());
         // fixme: insert at correct position
         addTags.forEach((tag) => head.appendChild(tag.cloneNode(true)));
-
-        this.swup.log(`Removed ${removeTags.length} / added ${addTags.length} tags in head`);
     }
 
-    updateHtmlLangAttribute(nextDocument: Document) {
+    private updateHtmlLangAttribute(nextDocument: Document) {
         const html = document.documentElement;
         const newLang = nextDocument.documentElement.lang;
 
         if (html.lang !== newLang) {
-            this.swup.log(`Updated lang attribute: ${html.lang} > ${newLang}`);
             html.lang = newLang;
         }
     }
 
-    isPersistentTag(item: Element) {
+    private isPersistentTag(item: Element) {
         if (item.hasAttribute("data-swup-persist")) {
             return true;
         }

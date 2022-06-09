@@ -19,9 +19,9 @@ const defaultOptions: Options = {
 export default class ScrollPlugin implements SwupPlugin {
     readonly name = "ScrollPlugin";
 
-    swup: Swup;
+    private swup: Swup;
 
-    options: Options;
+    private options: Options;
 
     constructor(swup: Swup, options: Partial<Options> = {}) {
         this.swup = swup;
@@ -57,7 +57,7 @@ export default class ScrollPlugin implements SwupPlugin {
         window.history.scrollRestoration = "auto";
     }
 
-    scrollTo(offset: number) {
+    private scrollTo(offset: number) {
         window.scrollTo({
             left: 0,
             top: offset,
@@ -65,7 +65,7 @@ export default class ScrollPlugin implements SwupPlugin {
         });
     }
 
-    getOffset(element: Element) {
+    private getOffset(element: Element) {
         switch (typeof this.options.offset) {
             case "number":
                 return this.options.offset;
@@ -76,11 +76,11 @@ export default class ScrollPlugin implements SwupPlugin {
         }
     }
 
-    onSamePage = () => {
+    private onSamePage = () => {
         this.scrollTo(0);
     };
 
-    onSamePageWithHash: Handler<MouseEvent> = (event) => {
+    private onSamePageWithHash: Handler<MouseEvent> = (event) => {
         if (!event) return;
         const delegateTarget = getDelegateTarget(event, this.swup.options.linkSelector);
         if (!delegateTarget) return;
@@ -92,19 +92,19 @@ export default class ScrollPlugin implements SwupPlugin {
         }
     };
 
-    onTransitionStart = (popstate?: PopStateEvent) => {
+    private onTransitionStart = (popstate?: PopStateEvent) => {
         if (this.options.doScrollingRightAway && !this.swup.scrollToElement) {
             this.doScrolling(popstate);
         }
     };
 
-    onContentReplaced = (popstate?: PopStateEvent) => {
+    private onContentReplaced = (popstate?: PopStateEvent) => {
         if (!this.options.doScrollingRightAway || this.swup.scrollToElement) {
             this.doScrolling(popstate);
         }
     };
 
-    doScrolling(popstate?: PopStateEvent) {
+    private doScrolling(popstate?: PopStateEvent) {
         const { swup } = this;
 
         if (!popstate || swup.options.animateHistoryBrowsing) {

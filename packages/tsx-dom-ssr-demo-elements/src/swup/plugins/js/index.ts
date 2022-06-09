@@ -27,11 +27,11 @@ const defaultAnimation: Animation = {
 export default class JsPlugin implements SwupPlugin {
     readonly name = "JsPlugin";
 
-    swup: Swup;
+    private swup: Swup;
 
-    currentAnimation: number | null = null;
+    private currentAnimation: number | null = null;
 
-    animations: Animation[];
+    private animations: Animation[];
 
     private swupGetAnimationPromises?: (_type: "in" | "out") => Array<Promise<void>>;
 
@@ -52,7 +52,7 @@ export default class JsPlugin implements SwupPlugin {
         }
     }
 
-    getAnimationPromises = (type: "in" | "out") => {
+    private getAnimationPromises = (type: "in" | "out") => {
         const animationIndex = this.getAnimationIndex(type);
         return [this.createAnimationPromise(animationIndex, type)];
     };

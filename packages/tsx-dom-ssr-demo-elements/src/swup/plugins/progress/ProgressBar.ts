@@ -10,33 +10,30 @@ const defaultOptions = {
 };
 
 export default class ProgressBar {
-    options: Options;
+    private options: Options;
 
-    minValue = 0.1;
+    private minValue = 0.1;
 
-    stylesheetElement: HTMLStyleElement;
+    private stylesheetElement: HTMLStyleElement;
 
-    progressElement: HTMLDivElement;
+    private progressElement: HTMLDivElement;
 
-    hiding = false;
+    private hiding = false;
 
-    trickleInterval?: number;
+    private trickleInterval?: number;
 
-    value = 0;
+    private value = 0;
 
-    visible = false;
+    private visible = false;
 
     constructor(options: Partial<Options> = {}) {
-        this.options = {
-            ...defaultOptions,
-            ...options,
-        };
+        this.options = { ...defaultOptions, ...options };
 
         this.stylesheetElement = this.createStylesheetElement();
         this.progressElement = this.createProgressElement();
     }
 
-    get defaultCSS() {
+    private get defaultCSS() {
         const { className, animationDuration, background } = this.options;
         return `
 			.${className} {
@@ -48,9 +45,9 @@ export default class ProgressBar {
 				background: ${background};
 				z-index: 9999;
 				transition:
-				width ${animationDuration}ms ease-out,
-				opacity ${animationDuration / 2}ms ${animationDuration / 2}ms ease-in;
-				transform: translate3d(0, 0, 0);
+                    width ${animationDuration}ms ease-out,
+                    opacity ${animationDuration / 2}ms ${animationDuration / 2}ms ease-in;
+                    transform: translate3d(0, 0, 0);
 			}
     `;
     }
@@ -81,53 +78,51 @@ export default class ProgressBar {
         this.refresh();
     }
 
-    // Private
-
-    installStylesheetElement() {
+    private installStylesheetElement() {
         document.head.insertBefore(this.stylesheetElement, document.head.firstChild);
     }
 
-    installProgressElement() {
+    private installProgressElement() {
         this.progressElement.style.width = "0";
         this.progressElement.style.opacity = "1";
         document.documentElement.insertBefore(this.progressElement, document.body);
         this.refresh();
     }
 
-    fadeProgressElement(callback: () => void) {
+    private fadeProgressElement(callback: () => void) {
         this.progressElement.style.opacity = "0";
         setTimeout(callback, this.options.animationDuration * 1.5);
     }
 
-    uninstallProgressElement() {
+    private uninstallProgressElement() {
         if (this.progressElement.parentNode) {
             document.documentElement.removeChild(this.progressElement);
         }
     }
 
-    startTrickling() {
+    private startTrickling() {
         if (!this.trickleInterval) {
             this.trickleInterval = window.setInterval(this.trickle, this.options.animationDuration);
         }
     }
 
-    stopTrickling() {
+    private stopTrickling() {
         window.clearInterval(this.trickleInterval);
         delete this.trickleInterval;
     }
 
-    trickle = () => {
+    private trickle = () => {
         const advance = (Math.random() * 3) / 100;
         this.setValue(this.value + advance);
     };
 
-    refresh() {
+    private refresh() {
         requestAnimationFrame(() => {
             this.progressElement.style.width = `${10 + this.value * 90}%`;
         });
     }
 
-    createStylesheetElement() {
+    private createStylesheetElement() {
         const element = document.createElement("style");
         element.setAttribute("data-progressbar-styles", "");
         element.setAttribute("data-swup-persist", "true");
@@ -135,7 +130,7 @@ export default class ProgressBar {
         return element;
     }
 
-    createProgressElement() {
+    private createProgressElement() {
         const element = document.createElement("div");
         element.className = this.options.className;
         return element;

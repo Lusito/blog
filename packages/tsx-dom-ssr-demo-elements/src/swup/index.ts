@@ -15,7 +15,6 @@ type Options = {
     containers: string[];
     requestHeaders: Record<string, string>;
     skipPopStateHandling(event: PopStateEvent): boolean;
-    log?: (...args: unknown[]) => void;
 };
 
 // default options
@@ -30,14 +29,14 @@ const defaultOptions: Options = {
         Accept: "text/html, application/xhtml+xml",
     },
     skipPopStateHandling(event) {
-        return !(event.state && event.state.source === "swup");
+        return event.state?.source !== "swup";
     },
 };
 
 export type Transition = {
     from: string;
     to: string;
-    custom?: string;
+    custom?: string | null;
 };
 
 type PreloadData = {
@@ -100,10 +99,6 @@ export class Swup {
             ...setOptions,
         };
 
-        if (setOptions.log) {
-            this.log = setOptions.log;
-        }
-
         // add event listeners
         document.addEventListener("click", this.linkClickHandler);
         window.addEventListener("popstate", this.popStateHandler);
@@ -130,10 +125,6 @@ export class Swup {
 
         // trigger page view event
         this.events.pageView.emit();
-    }
-
-    log(..._args: unknown[]) {
-        // do nothing
     }
 
     use(plugin: SwupPlugin) {
@@ -188,11 +179,6 @@ export class Swup {
         // this method can be replaced in case other content than html is expected to be received from server
         const html = await response.text();
         return getPageDataFromHtml(url, html, this.options.containers);
-    }
-
-    updateTransition(this: Swup, from: string, to: string, custom?: string) {
-        // transition routes
-        this.transition = { from, to, custom };
     }
 
     renderPage(page: PageData, popstate?: PopStateEvent) {
@@ -341,12 +327,7 @@ export class Swup {
         this.events.transitionStart.emit(popstate);
 
         // set transition object
-        if (data.customTransition) {
-            this.updateTransition(window.location.pathname, data.url, data.customTransition);
-            document.documentElement.classList.add(`to-${data.customTransition}`);
-        } else {
-            this.updateTransition(window.location.pathname, data.url);
-        }
+        this.transition = { from: window.location.pathname, to: data.url, custom: data.customTransition };
 
         const promises: Array<Promise<void>> = [];
         // start/skip loading of page

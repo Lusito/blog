@@ -7,9 +7,9 @@ import { EventManager } from "../../helpers/EventManager";
 export default class PreloadPlugin implements SwupPlugin {
     readonly name = "PreloadPlugin";
 
-    swup: Swup;
+    private swup: Swup;
 
-    readonly events = {
+    private readonly events = {
         hoverLink: new EventManager("hoverLink"),
     };
 
@@ -36,11 +36,11 @@ export default class PreloadPlugin implements SwupPlugin {
         this.swup.events.contentReplaced.off(this.onContentReplaced);
     }
 
-    onContentReplaced = () => {
+    private onContentReplaced = () => {
         this.preloadPages();
     };
 
-    onMouseover = (event: MouseEvent) => {
+    private onMouseover = (event: MouseEvent) => {
         const { swup } = this;
         const delegateTarget = getDelegateTarget(event, swup.options.linkSelector);
         if (!delegateTarget) return;
@@ -50,11 +50,11 @@ export default class PreloadPlugin implements SwupPlugin {
         this.preloadPage(delegateTarget);
     };
 
-    async preloadPage(linkSource: LinkSource) {
+    private async preloadPage(linkSource: LinkSource) {
         await this.swup.preloadPage(unpackLink(linkSource).url);
     }
 
-    preloadPages() {
+    private preloadPages() {
         document.querySelectorAll("[data-swup-preload]").forEach((element) => {
             const href = element.getAttribute("href");
             if (href) this.preloadPage(href);

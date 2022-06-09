@@ -19,15 +19,15 @@ const defaultOptions = {
 export default class ProgressPlugin implements SwupPlugin {
     readonly name = "SwupProgressPlugin";
 
-    swup: Swup;
+    private swup: Swup;
 
-    options: Options;
+    private options: Options;
 
-    showProgressBarTimeout?: number;
+    private showProgressBarTimeout?: number;
 
-    hideProgressBarTimeout?: number;
+    private hideProgressBarTimeout?: number;
 
-    progressBar: ProgressBar;
+    private progressBar: ProgressBar;
 
     constructor(swup: Swup, options: Partial<Options> = {}) {
         this.swup = swup;
@@ -49,12 +49,12 @@ export default class ProgressPlugin implements SwupPlugin {
         this.swup.events.contentReplaced.off(this.stopShowingProgress);
     }
 
-    startShowingProgress = () => {
+    private startShowingProgress = () => {
         this.progressBar.setValue(0);
         this.showProgressBarAfterDelay();
     };
 
-    stopShowingProgress = () => {
+    private stopShowingProgress = () => {
         this.progressBar.setValue(1);
         if (this.options.hideImmediately) {
             this.hideProgressBar();
@@ -66,21 +66,21 @@ export default class ProgressPlugin implements SwupPlugin {
         delete this.showProgressBarTimeout;
     };
 
-    showProgressBar = () => {
+    private showProgressBar = () => {
         window.clearTimeout(this.hideProgressBarTimeout);
         delete this.hideProgressBarTimeout;
         this.progressBar.show();
     };
 
-    showProgressBarAfterDelay() {
+    private showProgressBarAfterDelay() {
         this.showProgressBarTimeout = window.setTimeout(this.showProgressBar, this.options.delay);
     }
 
-    hideProgressBar = () => {
+    private hideProgressBar = () => {
         this.progressBar.hide();
     };
 
-    finishAnimationAndHideProgressBar() {
+    private finishAnimationAndHideProgressBar() {
         this.hideProgressBarTimeout = window.setTimeout(this.hideProgressBar, this.options.transition);
     }
 }

@@ -15,11 +15,11 @@ const defaultOptions: Options = {
 export default class SwupA11yPlugin implements SwupPlugin {
     readonly name = "SwupA11yPlugin";
 
-    swup: Swup;
+    private swup: Swup;
 
-    options: Options;
+    private options: Options;
 
-    liveNode?: HTMLElement;
+    private liveNode?: HTMLElement;
 
     constructor(swup: Swup, options: Partial<Options> = {}) {
         this.swup = swup;
@@ -35,14 +35,14 @@ export default class SwupA11yPlugin implements SwupPlugin {
         this.removeLiveNode();
     }
 
-    removeLiveNode() {
+    private removeLiveNode() {
         if (this.liveNode) {
             this.liveNode.remove();
             delete this.liveNode;
         }
     }
 
-    announce(message: string) {
+    private announce(message: string) {
         this.removeLiveNode();
 
         const node = document.createElement("span");
@@ -62,14 +62,14 @@ export default class SwupA11yPlugin implements SwupPlugin {
         this.liveNode = node;
     }
 
-    announceVisit = () => {
+    private announceVisit = () => {
         requestAnimationFrame(() => {
             this.announcePageName();
             this.focusPageContent();
         });
     };
 
-    announcePageName() {
+    private announcePageName() {
         const { contentSelector, headingSelector, urlTemplate, announcementTemplate } = this.options;
 
         // Default: announce new /path/of/page.html
@@ -95,7 +95,7 @@ export default class SwupA11yPlugin implements SwupPlugin {
         this.announce(announcement);
     }
 
-    focusPageContent() {
+    private focusPageContent() {
         const content = document.querySelector(this.options.contentSelector);
         if (content) {
             content.setAttribute("tabindex", "-1");
