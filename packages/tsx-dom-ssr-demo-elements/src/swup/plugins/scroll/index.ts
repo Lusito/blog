@@ -17,8 +17,6 @@ const defaultOptions: Options = {
 };
 
 export default class ScrollPlugin implements SwupPlugin {
-    readonly name = "ScrollPlugin";
-
     private swup: Swup;
 
     private options: Options;
@@ -111,8 +109,7 @@ export default class ScrollPlugin implements SwupPlugin {
             if (swup.scrollToElement) {
                 const element = document.getElementById(swup.scrollToElement.slice(1));
                 if (element) {
-                    const top = element.getBoundingClientRect().top + window.pageYOffset - this.getOffset(element);
-                    this.scrollTo(top);
+                    this.scrollTo(element.getBoundingClientRect().top + window.pageYOffset - this.getOffset(element));
                 } else {
                     console.warn(`Element ${swup.scrollToElement} not found`);
                 }

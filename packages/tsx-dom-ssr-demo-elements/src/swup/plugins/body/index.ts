@@ -11,8 +11,6 @@ const defaultOptions: Options = {
 };
 
 export default class BodyClassPlugin implements SwupPlugin {
-    readonly name = "BodyClassPlugin";
-
     private swup: Swup;
 
     private options: Options;

@@ -10,8 +10,6 @@ const defaultOptions: Options = {
 };
 
 export default class HeadPlugin implements SwupPlugin {
-    readonly name = "HeadPlugin";
-
     private swup: Swup;
 
     private options: Options;

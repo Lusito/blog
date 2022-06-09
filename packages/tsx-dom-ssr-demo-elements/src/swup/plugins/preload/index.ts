@@ -5,8 +5,6 @@ import { getDelegateTarget } from "../../helpers/getDelegateTarget";
 import { EventManager } from "../../helpers/EventManager";
 
 export default class PreloadPlugin implements SwupPlugin {
-    readonly name = "PreloadPlugin";
-
     private swup: Swup;
 
     private readonly events = {

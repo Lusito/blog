@@ -17,8 +17,6 @@ const defaultOptions = {
 };
 
 export default class ProgressPlugin implements SwupPlugin {
-    readonly name = "SwupProgressPlugin";
-
     private swup: Swup;
 
     private options: Options;

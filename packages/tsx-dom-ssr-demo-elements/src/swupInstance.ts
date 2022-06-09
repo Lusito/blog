@@ -8,11 +8,13 @@ import ScrollPlugin from "./swup/plugins/scroll";
 let swup: Swup | null = null;
 document.addEventListener("DOMContentLoaded", () => {
     swup = new Swup();
-    swup.use(new HeadPlugin(swup));
-    swup.use(new BodyClassPlugin(swup));
-    swup.use(new ScrollPlugin(swup));
-    swup.use(new ProgressPlugin(swup));
-    swup.use(new PreloadPlugin(swup));
+    swup.use(
+        new HeadPlugin(swup),
+        new BodyClassPlugin(swup),
+        new ScrollPlugin(swup),
+        new ProgressPlugin(swup),
+        new PreloadPlugin(swup)
+    );
 });
 
 export function goToPage(url: string) {

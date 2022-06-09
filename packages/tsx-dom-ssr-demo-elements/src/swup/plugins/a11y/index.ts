@@ -13,8 +13,6 @@ const defaultOptions: Options = {
 };
 
 export default class SwupA11yPlugin implements SwupPlugin {
-    readonly name = "SwupA11yPlugin";
-
     private swup: Swup;
 
     private options: Options;

@@ -1,6 +1,4 @@
 export interface SwupPlugin {
-    name?: string;
-
     /**
      * this is mount method rewritten by class extending
      * and is executed when swup is enabled with plugin

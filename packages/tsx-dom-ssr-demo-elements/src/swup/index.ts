@@ -123,37 +123,9 @@ export class Swup {
         this.events.pageView.emit();
     }
 
-    use(plugin: SwupPlugin) {
-        this.plugins.push(plugin);
-        plugin.mount();
-
-        return this.plugins;
-    }
-
-    unuse(plugin: string | SwupPlugin) {
-        let pluginReference: SwupPlugin | undefined;
-
-        if (typeof plugin === "string") {
-            pluginReference = this.plugins.find((p) => plugin === p.name);
-        } else {
-            pluginReference = plugin;
-        }
-
-        if (!pluginReference) {
-            console.warn("No such plugin.");
-            return;
-        }
-
-        pluginReference.unmount();
-
-        const index = this.plugins.indexOf(pluginReference);
-        this.plugins.splice(index, 1);
-
-        return this.plugins;
-    }
-
-    findPlugin(pluginName: string) {
-        return this.plugins.find((p) => pluginName === p.name);
+    use(...plugins: SwupPlugin[]) {
+        this.plugins.concat(plugins);
+        plugins.forEach((plugin) => plugin.mount());
     }
 
     getAnimationPromises(_type: "in" | "out") {
@@ -390,7 +362,8 @@ export class Swup {
         this.cache.clear();
 
         // unmount plugins
-        this.plugins.forEach((plugin) => this.unuse(plugin));
+        this.plugins.forEach((plugin) => plugin.unmount());
+        this.plugins.length = 0;
 
         // remove event handlers
         EventManager.off(this.events);
@@ -457,6 +430,7 @@ export class Swup {
         }
 
         if (this.options.skipPopStateHandling(event)) return;
+
         const { hash, url } = unpackLink(event.state ? event.state.url : window.location.pathname);
         if (hash) {
             this.scrollToElement = hash;
