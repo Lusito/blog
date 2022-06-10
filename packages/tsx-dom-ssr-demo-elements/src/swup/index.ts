@@ -90,12 +90,8 @@ export class Swup {
         willReplaceContent: new EventManager<PopStateEvent>("willReplaceContent"),
     };
 
-    constructor(setOptions: Partial<Options> = {}) {
-        // merge options
-        this.options = {
-            ...defaultOptions,
-            ...setOptions,
-        };
+    constructor(options: Partial<Options> = {}) {
+        this.options = { ...defaultOptions, ...options };
 
         // add event listeners
         document.addEventListener("click", this.linkClickHandler);
