@@ -66,9 +66,6 @@ export default class SwupClickPlugin implements SwupPlugin {
         const { hash, url } = unpackLink(event.state ? event.state.url : window.location.pathname);
         if (hash) {
             this.swup.scrollToElement = hash;
-        } else {
-            // fixme: why?
-            event.preventDefault();
         }
         this.swup.events.popState.emit(event);
         this.swup.loadPage({ url }, event);
