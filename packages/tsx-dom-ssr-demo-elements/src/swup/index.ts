@@ -5,6 +5,7 @@ import { classify } from "./helpers/classify";
 import { getCurrentUrl } from "./helpers/getCurrentUrl";
 import { getDelegateTarget } from "./helpers/getDelegateTarget";
 import { EventManager } from "./helpers/EventManager";
+import SwupClickPlugin from "./plugins/click/SwupClickPlugin";
 
 type Options = {
     animateHistoryBrowsing: boolean;
@@ -93,9 +94,7 @@ export class Swup {
     constructor(options: Partial<Options> = {}) {
         this.options = { ...defaultOptions, ...options };
 
-        // add event listeners
-        document.addEventListener("click", this.linkClickHandler);
-        window.addEventListener("popstate", this.popStateHandler);
+        this.use(new SwupClickPlugin(this));
 
         // initial save to cache
         const url = getCurrentUrl();
@@ -332,12 +331,6 @@ export class Swup {
     }
 
     destroy() {
-        // remove delegated listeners
-        document.removeEventListener("click", this.linkClickHandler);
-
-        // remove popstate listener
-        window.removeEventListener("popstate", this.popStateHandler);
-
         // clear cache
         this.cache.clear();
 
@@ -354,69 +347,4 @@ export class Swup {
         // remove swup-enabled class from html tag
         document.documentElement.classList.remove("swup-enabled");
     }
-
-    // fixme: plugin for click & popstate?
-    linkClickHandler = (event: MouseEvent) => {
-        // index of pressed button needs to be checked because Firefox triggers click on all mouse buttons
-        if (event.button !== 0) return;
-
-        const delegateTarget = getDelegateTarget(event, this.options.linkSelector);
-        if (!delegateTarget) return;
-
-        // control key pressed
-        if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) {
-            // open in new tab (do nothing)
-            this.events.openPageInNewTab.emit(event);
-            return;
-        }
-
-        this.events.clickLink.emit(event);
-        event.preventDefault();
-
-        const { url, hash } = unpackLink(delegateTarget);
-        // link to different url
-        if (url !== getCurrentUrl()) {
-            if (hash) {
-                this.scrollToElement = hash;
-            }
-
-            // get custom transition from data
-            const customTransition = delegateTarget.getAttribute("data-swup-transition");
-
-            // load page
-            this.loadPage({ url, customTransition });
-            return;
-        }
-
-        if (hash) {
-            // link to the same URL with hash
-            this.events.samePageWithHash.emit(event);
-            const element = document.getElementById(hash.slice(1));
-            if (element) {
-                this.replaceHistory(url + hash);
-            } else {
-                // referenced element not found
-                console.warn(`Element for offset not found (${hash})`);
-            }
-        } else {
-            // link to the same URL without hash
-            this.events.samePage.emit(event);
-        }
-    };
-
-    popStateHandler = (event: PopStateEvent) => {
-        if (this.options.skipPopStateHandling(event)) {
-            console.log("this happens");
-            return;
-        }
-
-        const { hash, url } = unpackLink(event.state ? event.state.url : window.location.pathname);
-        if (hash) {
-            this.scrollToElement = hash;
-        } else {
-            event.preventDefault();
-        }
-        this.events.popState.emit(event);
-        this.loadPage({ url }, event);
-    };
 }
