@@ -4,7 +4,7 @@ import { getDelegateTarget } from "../../helpers/getDelegateTarget";
 import { unpackLink } from "../../helpers/Link";
 import { SwupPlugin } from "../../plugin";
 
-export default class SwupClickPlugin implements SwupPlugin {
+export  class SwupClickPlugin implements SwupPlugin {
     private swup: Swup;
 
     constructor(swup: Swup) {

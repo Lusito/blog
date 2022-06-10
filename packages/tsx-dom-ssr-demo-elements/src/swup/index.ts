@@ -3,8 +3,7 @@ import { SwupAnimationPlugin, SwupPlugin } from "./plugin";
 import { unpackLink } from "./helpers/Link";
 import { getCurrentUrl } from "./helpers/getCurrentUrl";
 import { EventManager } from "./helpers/EventManager";
-import { SwupCssPlugin } from "./plugins/css/SwupCssPlugin";
-import SwupClickPlugin from "./plugins/click/SwupClickPlugin";
+import { SwupClickPlugin } from "./plugins/click/SwupClickPlugin";
 
 type Options = {
     animateHistoryBrowsing: boolean;
@@ -71,7 +70,7 @@ export class Swup {
 
     private plugins: SwupPlugin[] = [];
 
-    private animationPlugin: SwupAnimationPlugin;
+    private animationPlugin?: SwupAnimationPlugin;
 
     // fixme: one event handler with different string event names?
     readonly events = {
@@ -103,9 +102,6 @@ export class Swup {
 
         this.cache = this.options.cache ? new Map() : noopCache;
 
-        // fixme: make configurable:
-        this.animationPlugin = new SwupCssPlugin(this);
-        this.use(this.animationPlugin);
         this.use(new SwupClickPlugin(this));
 
         // initial save to cache
@@ -126,7 +122,12 @@ export class Swup {
 
     use(...plugins: SwupPlugin[]) {
         this.plugins.concat(plugins);
-        plugins.forEach((plugin) => plugin.mount());
+        for (const plugin of plugins) {
+            if ("animateOut" in plugin && "animateIn" in plugin) {
+                this.animationPlugin = plugin as SwupAnimationPlugin;
+            }
+            plugin.mount();
+        }
     }
 
     async getPageData(url: string, response: Response) {
@@ -160,7 +161,7 @@ export class Swup {
         this.events.contentReplaced.emit(popstate);
         this.events.pageView.emit(popstate);
 
-        if (!popstate || this.options.animateHistoryBrowsing) {
+        if (this.animationPlugin && (!popstate || this.options.animateHistoryBrowsing)) {
             this.events.animationInStart.emit();
             await this.animationPlugin.animateIn(popstate);
             this.events.animationInDone.emit();
@@ -237,15 +238,17 @@ export class Swup {
         // set transition object
         this.transition = { from: window.location.pathname, to: data.url, custom: data.customTransition };
 
-        let animateOutPromise: Promise<void>;
-        if (popstate && !this.options.animateHistoryBrowsing) {
-            this.events.animationSkipped.emit();
-            animateOutPromise = Promise.resolve();
-        } else {
-            this.events.animationOutStart.emit();
-            animateOutPromise = this.animationPlugin.animateOut(data, popstate);
-            this.events.animationOutDone.emit();
+        let animateOutPromise = Promise.resolve();
+        if (this.animationPlugin) {
+            if (popstate && !this.options.animateHistoryBrowsing) {
+                this.events.animationSkipped.emit();
+            } else {
+                this.events.animationOutStart.emit();
+                animateOutPromise = this.animationPlugin.animateOut(data, popstate);
+                this.events.animationOutDone.emit();
+            }
         }
+
         let page = this.cache.get(data.url);
         // start/skip loading of page
         if (page) {

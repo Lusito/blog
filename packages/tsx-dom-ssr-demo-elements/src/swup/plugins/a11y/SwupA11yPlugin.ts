@@ -12,7 +12,7 @@ const defaultOptions: Options = {
     urlTemplate: "New page at {url}",
 };
 
-export default class SwupA11yPlugin implements SwupPlugin {
+export  class SwupA11yPlugin implements SwupPlugin {
     private swup: Swup;
 
     private options: Options;

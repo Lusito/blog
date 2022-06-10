@@ -9,7 +9,7 @@ const defaultOptions = {
     background: "red",
 };
 
-export default class ProgressBar {
+export  class ProgressBar {
     private options: Options;
 
     private minValue = 0.1;

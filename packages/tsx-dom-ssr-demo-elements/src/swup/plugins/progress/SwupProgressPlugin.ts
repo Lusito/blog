@@ -1,6 +1,6 @@
 import type { Swup } from "../..";
 import type { SwupPlugin } from "../../plugin";
-import ProgressBar from "./ProgressBar";
+import { ProgressBar } from "./ProgressBar";
 
 type Options = {
     className: string;
@@ -16,7 +16,7 @@ const defaultOptions = {
     hideImmediately: true,
 };
 
-export default class SwupProgressPlugin implements SwupPlugin {
+export class SwupProgressPlugin implements SwupPlugin {
     private swup: Swup;
 
     private options: Options;

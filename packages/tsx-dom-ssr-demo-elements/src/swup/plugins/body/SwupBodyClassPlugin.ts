@@ -10,7 +10,7 @@ const defaultOptions: Options = {
     validClass: /./,
 };
 
-export default class SwupBodyClassPlugin implements SwupPlugin {
+export  class SwupBodyClassPlugin implements SwupPlugin {
     private swup: Swup;
 
     private options: Options;

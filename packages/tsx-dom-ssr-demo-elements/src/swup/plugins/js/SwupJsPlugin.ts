@@ -36,7 +36,7 @@ const defaultOptions: Options = {
     ],
 };
 
-export default class SwupJsPlugin implements SwupAnimationPlugin {
+export  class SwupJsPlugin implements SwupAnimationPlugin {
     private swup: Swup;
 
     private currentAnimation: Animation | null = null;
