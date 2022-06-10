@@ -27,12 +27,6 @@ export default class SwupScrollPlugin implements SwupPlugin {
     }
 
     mount() {
-        // disable browser scroll control on popstates when
-        // animateHistoryBrowsing option is enabled in swup
-        if (this.swup.options.animateHistoryBrowsing) {
-            window.history.scrollRestoration = "manual";
-        }
-
         // scroll to the top of the page
         this.swup.events.samePage.on(this.onSamePage);
 
@@ -105,7 +99,7 @@ export default class SwupScrollPlugin implements SwupPlugin {
     private doScrolling(popstate?: PopStateEvent) {
         const { swup } = this;
 
-        if (!popstate || swup.options.animateHistoryBrowsing) {
+        if (!popstate) {
             if (swup.scrollToElement) {
                 const element = document.getElementById(swup.scrollToElement.slice(1));
                 if (element) {
