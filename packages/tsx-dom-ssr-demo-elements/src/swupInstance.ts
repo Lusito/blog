@@ -1,19 +1,19 @@
 import { Swup } from "./swup";
-import BodyClassPlugin from "./swup/plugins/body";
-import HeadPlugin from "./swup/plugins/head";
-import PreloadPlugin from "./swup/plugins/preload";
-import ProgressPlugin from "./swup/plugins/progress";
-import ScrollPlugin from "./swup/plugins/scroll";
+import SwupBodyClassPlugin from "./swup/plugins/body/SwupBodyClassPlugin";
+import SwupHeadPlugin from "./swup/plugins/head/SwupHeadPlugin";
+import SwupPreloadPlugin from "./swup/plugins/preload/SwupPreloadPlugin";
+import SwupProgressPlugin from "./swup/plugins/progress/SwupProgressPlugin";
+import SwupScrollPlugin from "./swup/plugins/scroll/SwupScrollPlugin";
 
 let swup: Swup | null = null;
 document.addEventListener("DOMContentLoaded", () => {
     swup = new Swup();
     swup.use(
-        new HeadPlugin(swup),
-        new BodyClassPlugin(swup),
-        new ScrollPlugin(swup),
-        new ProgressPlugin(swup),
-        new PreloadPlugin(swup)
+        new SwupHeadPlugin(swup),
+        new SwupBodyClassPlugin(swup),
+        new SwupScrollPlugin(swup),
+        new SwupProgressPlugin(swup),
+        new SwupPreloadPlugin(swup)
     );
 });
 

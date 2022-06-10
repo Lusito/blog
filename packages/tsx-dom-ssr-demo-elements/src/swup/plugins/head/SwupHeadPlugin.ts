@@ -9,7 +9,7 @@ const defaultOptions: Options = {
     persistTags: false,
 };
 
-export default class HeadPlugin implements SwupPlugin {
+export default class SwupHeadPlugin implements SwupPlugin {
     private swup: Swup;
 
     private options: Options;

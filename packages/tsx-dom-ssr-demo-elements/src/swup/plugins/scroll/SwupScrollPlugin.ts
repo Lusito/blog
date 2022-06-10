@@ -16,7 +16,7 @@ const defaultOptions: Options = {
     offset: 0,
 };
 
-export default class ScrollPlugin implements SwupPlugin {
+export default class SwupScrollPlugin implements SwupPlugin {
     private swup: Swup;
 
     private options: Options;

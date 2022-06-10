@@ -24,7 +24,7 @@ const defaultAnimation: Animation = {
     in: (next) => next(),
 };
 
-export default class JsPlugin implements SwupPlugin {
+export default class SwupJsPlugin implements SwupPlugin {
     private swup: Swup;
 
     private currentAnimation: number | null = null;

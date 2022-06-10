@@ -4,7 +4,7 @@ import { SwupPlugin } from "../../plugin";
 import { getDelegateTarget } from "../../helpers/getDelegateTarget";
 import { EventManager } from "../../helpers/EventManager";
 
-export default class PreloadPlugin implements SwupPlugin {
+export default class SwupPreloadPlugin implements SwupPlugin {
     private swup: Swup;
 
     private readonly events = {

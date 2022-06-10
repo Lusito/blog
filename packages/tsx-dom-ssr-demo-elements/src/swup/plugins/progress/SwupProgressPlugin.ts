@@ -16,7 +16,7 @@ const defaultOptions = {
     hideImmediately: true,
 };
 
-export default class ProgressPlugin implements SwupPlugin {
+export default class SwupProgressPlugin implements SwupPlugin {
     private swup: Swup;
 
     private options: Options;
