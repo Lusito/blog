@@ -65,6 +65,7 @@ export class Swup {
     private plugins: SwupPlugin[] = [];
 
     // handler arrays
+    // fixme: one event handler with different string event names?
     readonly events = {
         animationInDone: new EventManager("animationInDone"),
         animationInStart: new EventManager("animationInStart"),
@@ -253,6 +254,7 @@ export class Swup {
         window.history.replaceState({ url, source: "swup" }, "", url);
     }
 
+    // fixme: plugin for animation classes?
     async startAnimation(data: { url: string; customTransition?: string | null }, popstate?: PopStateEvent) {
         this.events.animationOutStart.emit();
 
@@ -357,6 +359,7 @@ export class Swup {
         document.documentElement.classList.remove("swup-enabled");
     }
 
+    // fixme: plugin for click & popstate?
     linkClickHandler = (event: MouseEvent) => {
         // index of pressed button needs to be checked because Firefox triggers click on all mouse buttons
         if (event.button !== 0) return;

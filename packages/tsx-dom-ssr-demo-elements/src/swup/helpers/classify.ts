@@ -1,3 +1,4 @@
+// fixme: let user define data-swup-page somewhere instead of using a generated path?
 export function classify(text: string) {
     const output = text
         .toString()
