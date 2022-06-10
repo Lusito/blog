@@ -1,15 +1,13 @@
 import { getPageDataFromHtml, PageData } from "./helpers/pageData";
-import { SwupPlugin } from "./plugin";
+import { SwupAnimationPlugin, SwupPlugin } from "./plugin";
 import { unpackLink } from "./helpers/Link";
-import { classify } from "./helpers/classify";
 import { getCurrentUrl } from "./helpers/getCurrentUrl";
-import { getDelegateTarget } from "./helpers/getDelegateTarget";
 import { EventManager } from "./helpers/EventManager";
+import { SwupCssPlugin } from "./plugins/css/SwupCssPlugin";
 import SwupClickPlugin from "./plugins/click/SwupClickPlugin";
 
 type Options = {
     animateHistoryBrowsing: boolean;
-    animationSelector: string;
     linkSelector: string;
     cache: boolean;
     containers: string;
@@ -20,7 +18,6 @@ type Options = {
 // default options
 const defaultOptions: Options = {
     animateHistoryBrowsing: false,
-    animationSelector: '[class*="transition-"]',
     linkSelector: `a[href^="${window.location.origin}"]:not([data-no-swup]), a[href^="/"]:not([data-no-swup]), a[href^="#"]:not([data-no-swup])`,
     cache: true,
     containers: ".swup-container",
@@ -40,32 +37,42 @@ export type Transition = {
 };
 
 type PreloadData = {
-    promise: Promise<void>;
+    promise: Promise<PageData>;
     url: string;
 };
 
+type Cache = {
+    get(url: string): PageData | undefined;
+    set(url: string, page: PageData): void;
+    clear(): void;
+};
+const noop = () => undefined;
+const noopCache = {
+    get: noop,
+    set: noop,
+    clear: noop,
+};
+
 export class Swup {
-    // variable for current transition object
     transition: Transition = {
         from: "",
         to: "",
     };
 
-    readonly cache = new Map<string, PageData>();
+    readonly cache: Cache;
 
-    // variable for save options
     readonly options: Options;
 
     // variable for id of element to scroll to after render
+    // fixme: is there a better way?
     scrollToElement: string | null = null;
 
-    // variable for promise used for preload, so no new loading of the same page starts while page is loading
     private readonly preloading = new Map<string, PreloadData>();
 
-    // variable for plugins array
     private plugins: SwupPlugin[] = [];
 
-    // handler arrays
+    private animationPlugin: SwupAnimationPlugin;
+
     // fixme: one event handler with different string event names?
     readonly events = {
         animationInDone: new EventManager("animationInDone"),
@@ -94,24 +101,24 @@ export class Swup {
     constructor(options: Partial<Options> = {}) {
         this.options = { ...defaultOptions, ...options };
 
+        this.cache = this.options.cache ? new Map() : noopCache;
+
+        // fixme: make configurable:
+        this.animationPlugin = new SwupCssPlugin(this);
+        this.use(this.animationPlugin);
         this.use(new SwupClickPlugin(this));
 
         // initial save to cache
         const url = getCurrentUrl();
         const page = getPageDataFromHtml(url, document.documentElement.outerHTML, this.options.containers);
         if (!page) throw new Error("Failed getting page from document");
-        if (this.options.cache) {
-            this.cache.set(page.url, page);
-        }
+        this.cache.set(page.url, page);
 
         // modify initial history record
         this.replaceHistory(window.location.href);
 
         // trigger enabled event
         this.events.enabled.emit();
-
-        // add swup-enabled class to html tag
-        document.documentElement.classList.add("swup-enabled");
 
         // trigger page view event
         this.events.pageView.emit();
@@ -122,30 +129,13 @@ export class Swup {
         plugins.forEach((plugin) => plugin.mount());
     }
 
-    getAnimationPromises(_type: "in" | "out") {
-        const animatedElements = document.querySelectorAll(this.options.animationSelector);
-        const promises = Array.from(animatedElements).map(
-            (element) =>
-                new Promise<void>((resolve) => {
-                    element.addEventListener("transitionend", (event) => {
-                        if (element === event.target) {
-                            resolve();
-                        }
-                    });
-                })
-        );
-        return promises;
-    }
-
     async getPageData(url: string, response: Response) {
         // this method can be replaced in case other content than html is expected to be received from server
         const html = await response.text();
         return getPageDataFromHtml(url, html, this.options.containers);
     }
 
-    renderPage(page: PageData, popstate?: PopStateEvent) {
-        document.documentElement.classList.remove("is-leaving");
-
+    async renderPage(page: PageData, popstate?: PopStateEvent) {
         // replace state in case the url was redirected
         const { path } = unpackLink(page.url);
         if (window.location.pathname !== path) {
@@ -159,11 +149,6 @@ export class Swup {
             this.pushHistory(page.url + (this.scrollToElement ?? ""));
         }
 
-        // only add for non-popstate transitions
-        if (!popstate || this.options.animateHistoryBrowsing) {
-            document.documentElement.classList.add("is-rendering");
-        }
-
         this.events.willReplaceContent.emit(popstate);
 
         // replace blocks
@@ -175,20 +160,12 @@ export class Swup {
         this.events.contentReplaced.emit(popstate);
         this.events.pageView.emit(popstate);
 
-        // start animation IN
-        setTimeout(() => {
-            if (!popstate || this.options.animateHistoryBrowsing) {
-                this.events.animationInStart.emit();
-                document.documentElement.classList.remove("is-animating");
-            }
-        }, 10);
-
-        // handle end of animation
         if (!popstate || this.options.animateHistoryBrowsing) {
-            this.stopAnimation(popstate);
-        } else {
-            this.events.transitionEnd.emit(popstate);
+            this.events.animationInStart.emit();
+            await this.animationPlugin.animateIn(popstate);
+            this.events.animationInDone.emit();
         }
+        this.events.transitionEnd.emit(popstate);
 
         // reset scroll-to element
         this.scrollToElement = null;
@@ -215,20 +192,23 @@ export class Swup {
         // get page data
         const page = await this.getPageData(url, response);
 
-        // render page
         this.cache.set(url, page);
         this.events.pagePreloaded.emit();
+
+        return page;
     }
 
     preloadPage(url: string) {
-        if (this.cache.has(url) || this.preloading.has(url)) {
-            return Promise.resolve();
-        }
+        const cachedPage = this.cache.get(url);
+        if (cachedPage) return cachedPage;
+        const preloading = this.preloading.get(url);
+        if (preloading) return preloading.promise;
 
         const promise = this.doPreloadPage(url);
         const entry = {
-            promise: promise.then(() => {
+            promise: promise.then((page) => {
                 this.preloading.delete(url);
+                return page;
             }),
             url,
         };
@@ -237,8 +217,9 @@ export class Swup {
     }
 
     async fetchPage(url: string) {
-        await this.preloadPage(url);
+        const page = await this.preloadPage(url);
         this.events.pageLoaded.emit();
+        return page;
     }
 
     private pushHistory(url: string) {
@@ -249,41 +230,6 @@ export class Swup {
         window.history.replaceState({ url, source: "swup" }, "", url);
     }
 
-    // fixme: plugin for animation classes?
-    async startAnimation(data: { url: string; customTransition?: string | null }, popstate?: PopStateEvent) {
-        this.events.animationOutStart.emit();
-
-        // handle classes
-        document.documentElement.classList.add("is-changing");
-        document.documentElement.classList.add("is-leaving");
-        document.documentElement.classList.add("is-animating");
-        if (popstate) {
-            document.documentElement.classList.add("is-popstate");
-        }
-
-        // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
-        const transition = data.customTransition || data.url;
-        document.documentElement.classList.add(`to-${classify(transition)}`);
-
-        // animation promise stuff
-        await Promise.all(this.getAnimationPromises("out"));
-        this.events.animationOutDone.emit();
-    }
-
-    async stopAnimation(popstate?: PopStateEvent) {
-        const animationPromises = this.getAnimationPromises("in");
-        await Promise.all(animationPromises);
-
-        this.events.animationInDone.emit();
-        this.events.transitionEnd.emit(popstate); // fixme: should be elsewhere
-        // remove some classes
-        document.documentElement.classList.forEach((classItem) => {
-            if (/^(to-|is-changing$|is-rendering$|is-popstate$)/.test(classItem)) {
-                document.documentElement.classList.remove(classItem);
-            }
-        });
-    }
-
     async loadPage(data: { url: string; customTransition?: string | null }, popstate?: PopStateEvent) {
         // fixme: ensure data.url starts with "/""?
         this.events.transitionStart.emit(popstate);
@@ -291,42 +237,38 @@ export class Swup {
         // set transition object
         this.transition = { from: window.location.pathname, to: data.url, custom: data.customTransition };
 
-        const promises: Array<Promise<void>> = [];
+        let animateOutPromise: Promise<void>;
+        if (popstate && !this.options.animateHistoryBrowsing) {
+            this.events.animationSkipped.emit();
+            animateOutPromise = Promise.resolve();
+        } else {
+            this.events.animationOutStart.emit();
+            animateOutPromise = this.animationPlugin.animateOut(data, popstate);
+            this.events.animationOutDone.emit();
+        }
+        let page = this.cache.get(data.url);
         // start/skip loading of page
-        if (this.cache.has(data.url)) {
+        if (page) {
             this.events.pageRetrievedFromCache.emit();
         } else {
             const preloading = this.preloading.get(data.url);
-            promises.push(preloading ? preloading.promise : this.fetchPage(data.url));
-        }
-
-        // start/skip animation
-        if (!popstate || this.options.animateHistoryBrowsing) {
-            promises.push(this.startAnimation(data, popstate));
-        } else {
-            this.events.animationSkipped.emit();
+            if (preloading) {
+                page = await preloading.promise;
+            } else {
+                page = await this.fetchPage(data.url);
+            }
         }
 
         try {
-            // when everything is ready, handle the outcome
-            await Promise.all(promises);
+            await animateOutPromise;
 
-            const page = this.cache.get(data.url);
-            if (!page) {
-                throw new Error(`Page did not exist in cache: ${data.url}`);
-            }
             // render page
-            this.renderPage(page, popstate);
+            await this.renderPage(page, popstate);
         } catch (error) {
             console.error("Error loading page: ", error);
 
             // An error happened, try to make it load manually
             window.location.href = data.url;
-        } finally {
-            // clear cache if it's disabled (because pages could be preloaded and stuff)
-            if (!this.options.cache) {
-                this.cache.clear();
-            }
         }
     }
 
@@ -343,8 +285,5 @@ export class Swup {
 
         // trigger disable event
         this.events.disabled.emit();
-
-        // remove swup-enabled class from html tag
-        document.documentElement.classList.remove("swup-enabled");
     }
 }

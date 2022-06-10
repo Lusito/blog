@@ -11,3 +11,8 @@ export interface SwupPlugin {
      */
     unmount(): void;
 }
+
+export interface SwupAnimationPlugin extends SwupPlugin {
+    animateOut(data: { url: string; customTransition?: string | null }, popstate?: PopStateEvent): Promise<void>;
+    animateIn(popstate?: PopStateEvent): Promise<void>;
+}

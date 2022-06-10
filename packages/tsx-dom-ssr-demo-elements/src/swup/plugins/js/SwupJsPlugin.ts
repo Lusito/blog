@@ -1,5 +1,5 @@
 import type { Swup, Transition } from "../..";
-import { SwupPlugin } from "../../plugin";
+import { SwupAnimationPlugin } from "../../plugin";
 
 type InOutParam = {
     paramsFrom: RegExpExecArray | null;
@@ -16,48 +16,58 @@ type Animation = {
     in: (next: () => void, param: InOutParam) => void;
 };
 
-const catchAll = /^(.*)[/#?]?$/i; // pathToRegExp("(.*)")
-const defaultAnimation: Animation = {
-    from: catchAll,
-    to: catchAll,
-    out: (next) => next(),
-    in: (next) => next(),
+type Options = {
+    animateHistoryBrowsing: boolean;
+    animations: Animation[];
 };
 
-export default class SwupJsPlugin implements SwupPlugin {
+const catchAll = /^(.*)[/#?]?$/i; // pathToRegExp("(.*)")
+
+// default options
+const defaultOptions: Options = {
+    animateHistoryBrowsing: false,
+    animations: [
+        {
+            from: catchAll,
+            to: catchAll,
+            out: (next) => next(),
+            in: (next) => next(),
+        },
+    ],
+};
+
+export default class SwupJsPlugin implements SwupAnimationPlugin {
     private swup: Swup;
 
-    private currentAnimation: number | null = null;
+    private currentAnimation: Animation | null = null;
 
-    private animations: Animation[];
+    private options: Options;
 
-    private swupGetAnimationPromises?: (_type: "in" | "out") => Array<Promise<void>>;
-
-    constructor(swup: Swup, animations: Animation[] = []) {
+    constructor(swup: Swup, options: Partial<Options> = {}) {
         this.swup = swup;
-        this.animations = [defaultAnimation, ...animations];
-    }
-
-    mount() {
-        this.swupGetAnimationPromises = this.getAnimationPromises;
-        this.swup.getAnimationPromises = this.getAnimationPromises;
-    }
-
-    unmount() {
-        if (this.swupGetAnimationPromises) {
-            this.getAnimationPromises = this.swupGetAnimationPromises;
-            delete this.swupGetAnimationPromises;
+        this.options = { ...defaultOptions, ...options };
+        if (options.animations) {
+            this.options.animations = [...defaultOptions.animations, ...options.animations];
         }
     }
 
-    private getAnimationPromises = (type: "in" | "out") => {
-        const animationIndex = this.getAnimationIndex(type);
-        return [this.createAnimationPromise(animationIndex, type)];
-    };
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    mount() {}
 
-    private createAnimationPromise(index: number, type: "in" | "out") {
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
+    unmount() {}
+
+    animateOut() {
+        return this.createAnimationPromise("out");
+    }
+
+    animateIn() {
+        return this.createAnimationPromise("in");
+    }
+
+    private createAnimationPromise(type: "in" | "out") {
+        const animation = this.getRatedAnimation(type);
         const { transition } = this.swup;
-        const animation = this.animations[index];
 
         return new Promise<void>((resolve) => {
             animation[type](resolve, {
@@ -70,26 +80,26 @@ export default class SwupJsPlugin implements SwupPlugin {
         });
     }
 
-    private getAnimationIndex(type: "in" | "out") {
+    private getRatedAnimation(type: "in" | "out") {
         // already saved from out animation
         if (type === "in") {
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             return this.currentAnimation!;
         }
 
-        let animationIndex = 0;
+        let topAnimation = this.options.animations[0];
         let topRating = 0;
 
-        this.animations.forEach((animation, index) => {
+        this.options.animations.forEach((animation) => {
             const rating = this.rateAnimation(animation);
 
             if (rating >= topRating) {
-                animationIndex = index;
+                topAnimation = animation;
                 topRating = rating;
             }
         });
 
-        this.currentAnimation = animationIndex;
+        this.currentAnimation = topAnimation;
         return this.currentAnimation;
     }
 
