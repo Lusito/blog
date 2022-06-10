@@ -323,7 +323,8 @@ export class Swup {
         } catch (error) {
             console.error("Error loading page: ", error);
 
-            window.location.reload();
+            // An error happened, try to make it load manually
+            window.location.href = data.url;
         } finally {
             // clear cache if it's disabled (because pages could be preloaded and stuff)
             if (!this.options.cache) {
