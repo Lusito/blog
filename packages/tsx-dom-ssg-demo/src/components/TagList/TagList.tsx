@@ -13,7 +13,12 @@ type TagListProps = {
 export const TagList = withCss(classes, ({ tags }: TagListProps) => (
     <div class={classes.tagList}>
         {tags.map((tag) => (
-            <LinkButton href={`/tag/${slugify(tag, slugifyOptions)}.html`} label={tag} title={tagDescriptions[tag]} />
+            <LinkButton
+                href={`/tag/${slugify(tag, slugifyOptions)}.html`}
+                label={tag}
+                ariaLabel={`Category: ${tag}`}
+                title={tagDescriptions[tag]}
+            />
         ))}
     </div>
 ));

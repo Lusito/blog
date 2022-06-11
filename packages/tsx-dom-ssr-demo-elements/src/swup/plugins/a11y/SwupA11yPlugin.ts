@@ -3,11 +3,16 @@
 import { SwupPlugin } from "../../plugin";
 import type { Swup } from "../..";
 
-type Options = { contentSelector: string; headingSelector: string; announcementTemplate: string; urlTemplate: string };
+type Options = {
+    headingSelector: string;
+    mode: "focusHeading" | "announceHeading";
+    announcementTemplate: string;
+    urlTemplate: string;
+};
 
 const defaultOptions: Options = {
-    contentSelector: "main",
-    headingSelector: "h1, h2, [role=heading]",
+    headingSelector: "main h1, h2, [role=heading]",
+    mode: "focusHeading",
     announcementTemplate: "Navigated to: {title}",
     urlTemplate: "New page at {url}",
 };
@@ -25,11 +30,11 @@ export class SwupA11yPlugin implements SwupPlugin {
     }
 
     mount() {
-        this.swup.events.contentReplaced.on(this.announceVisit);
+        this.swup.events.transitionEnd.on(this.announceVisit);
     }
 
     unmount() {
-        this.swup.events.contentReplaced.off(this.announceVisit);
+        this.swup.events.transitionEnd.off(this.announceVisit);
         this.removeLiveNode();
     }
 
@@ -63,38 +68,39 @@ export class SwupA11yPlugin implements SwupPlugin {
     private announceVisit = () => {
         requestAnimationFrame(() => {
             this.announcePageName();
-            this.focusPageContent();
         });
     };
 
     private announcePageName() {
-        const { contentSelector, headingSelector, urlTemplate, announcementTemplate } = this.options;
+        const { headingSelector, mode, urlTemplate, announcementTemplate } = this.options;
+
+        // Look for first heading matching selector
+        const heading = document.querySelector(headingSelector);
+        if (mode === "focusHeading") {
+            if (heading instanceof HTMLElement) {
+                heading.setAttribute("tabindex", "-1");
+                heading.focus();
+                return;
+            }
+        }
 
         // Default: title or announce new /path/of/page.html
         let pageName = document.title || urlTemplate.replace("{url}", window.location.pathname);
 
-        // Look for first heading matching selector within content
-        const content = document.querySelector(contentSelector);
-        if (content) {
-            const heading = content.querySelector(headingSelector);
-            if (heading) {
-                const ariaLabel = heading.getAttribute("aria-label");
-                if (ariaLabel) pageName = ariaLabel;
-                else if (heading.textContent) pageName = heading.textContent;
-            }
+        if (heading) {
+            const ariaLabel = heading.getAttribute("aria-label");
+            if (ariaLabel) pageName = ariaLabel;
+            else if (heading.textContent) pageName = heading.textContent;
         }
 
+        this.loseFocus();
         const announcement = announcementTemplate.replace("{title}", pageName.trim());
         this.announce(announcement);
     }
 
-    private focusPageContent() {
-        const content = document.querySelector(this.options.contentSelector);
-        if (content) {
-            content.setAttribute("tabindex", "-1");
-            if (content instanceof HTMLElement || content instanceof SVGElement) {
-                content.focus({ preventScroll: true });
-            }
+    private loseFocus() {
+        if (document.activeElement instanceof HTMLElement || document.activeElement instanceof SVGElement) {
+            document.activeElement.blur();
         }
     }
 }
