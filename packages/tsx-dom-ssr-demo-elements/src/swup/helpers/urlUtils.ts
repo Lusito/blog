@@ -31,3 +31,5 @@ export function unpackLink(linkSource: LinkSource): Link {
         url: prefixSlash(`${data.pathname}${data.search}`),
     };
 }
+
+export const getCurrentUrl = () => window.location.pathname + window.location.search;

@@ -1,4 +1,4 @@
-export type EventHandler<T> = [T] extends [never] ? () => void : (event: T) => void;
+export type EventHandler<T> = [T] extends [never] ? () => void : (detail: T) => void;
 
 export type EventManager<T> = {
     emit: EventHandler<T>;
@@ -9,17 +9,17 @@ export type EventManager<T> = {
 export function createEventManager<T = never>(name: string) {
     const listeners = new Set<EventHandler<T>>();
     return {
-        emit(value: T) {
+        emit(detail: T) {
             for (const listener of listeners) {
                 try {
-                    listener(value);
+                    listener(detail);
                 } catch (error) {
                     console.error(error);
                 }
             }
 
             // trigger event on document with prefix "swup:"
-            document.dispatchEvent(new CustomEvent(`swup:${name}`, { detail: value }));
+            document.dispatchEvent(new CustomEvent(`swup:${name}`, { detail }));
         },
 
         on(listener: EventHandler<T>) {

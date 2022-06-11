@@ -1,5 +1,5 @@
 import type { Swup } from "../..";
-import { getCurrentUrl } from "../../helpers/getCurrentUrl";
+import { getCurrentUrl } from "../../helpers/urlUtils";
 import { SwupPlugin } from "../../plugin";
 
 type Options = {
@@ -10,6 +10,7 @@ const defaultOptions: Options = {
     validClass: /./,
 };
 
+// fixme: more than just body class? all attributes?
 export  class SwupBodyClassPlugin implements SwupPlugin {
     private swup: Swup;
 

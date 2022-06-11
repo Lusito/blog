@@ -1,7 +1,6 @@
 import { getPageDataFromHtml, PageData } from "./helpers/pageData";
 import { SwupAnimationPlugin, SwupPlugin } from "./plugin";
-import { unpackLink } from "./helpers/Link";
-import { getCurrentUrl } from "./helpers/getCurrentUrl";
+import { unpackLink, getCurrentUrl } from "./helpers/urlUtils";
 import { createEventManager, eventManagerMapOff } from "./helpers/EventManager";
 import { SwupClickPlugin } from "./plugins/click/SwupClickPlugin";
 

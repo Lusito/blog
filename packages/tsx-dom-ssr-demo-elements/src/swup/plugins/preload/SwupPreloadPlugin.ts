@@ -1,5 +1,5 @@
 import type { Swup } from "../..";
-import { LinkSource, unpackLink } from "../../helpers/Link";
+import { LinkSource, unpackLink } from "../../helpers/urlUtils";
 import { SwupPlugin } from "../../plugin";
 import { getDelegateTarget } from "../../helpers/getDelegateTarget";
 import { createEventManager, eventManagerMapOff } from "../../helpers/EventManager";

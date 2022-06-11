@@ -1,7 +1,7 @@
 import type { Swup, SwupPageLoadEvent } from "../..";
 import type { SwupPlugin } from "../../plugin";
 import { getDelegateTarget } from "../../helpers/getDelegateTarget";
-import { unpackLink } from "../../helpers/Link";
+import { unpackLink } from "../../helpers/urlUtils";
 
 type Options = {
     doScrollingRightAway: boolean;
