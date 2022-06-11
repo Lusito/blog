@@ -1,7 +1,8 @@
 import { ArticleHead } from "../components/ArticleHead/ArticleHead";
 import { Container } from "../components/Container/Container";
+import { MetaTags } from "../components/MetaTags/MetaTags";
 import { DefaultLayout } from "../layouts/DefaultLayout";
-import { PageInfo } from "./pageUtils";
+import { PageInfo, tagLabels } from "./pageUtils";
 
 type ListAllPageProps = {
     pages: PageInfo[];
@@ -9,10 +10,12 @@ type ListAllPageProps = {
 
 export async function ListAllPage({ pages }: ListAllPageProps) {
     const title = "All Posts";
+    const description = "A chronological list of posts on this blog";
     return (
         <DefaultLayout pageTitle={title}>
             <main>
-                <ArticleHead title={title} description="A chronological list of posts on this blog" />
+                <MetaTags description={description} slug="all" title={title} tags={tagLabels} />
+                <ArticleHead title={title} description={description} />
                 <Container>
                     <ul>
                         {pages.map((page) => (

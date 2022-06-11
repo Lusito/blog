@@ -6,7 +6,7 @@ import { DynamicPage } from "./utils/DynamicPage";
 import { ListAllPage } from "./utils/ListAllPage";
 import { itemsPerPage, ListPage } from "./utils/ListPage";
 import { MarkdownPage } from "./utils/MarkdownPage";
-import { getPages, PageInfo, pageHasTags, tagLabels } from "./utils/pageUtils";
+import { getPages, PageInfo, pageHasTags, tagSlugToLabel, tagLabels } from "./utils/pageUtils";
 import { renderHTML } from "./utils/renderHTML";
 
 async function writeHTML(path: string, children: ComponentChildren) {
@@ -19,7 +19,7 @@ async function createHTMLPath(path: string) {
     if (!fs.existsSync(fullPath)) await fs.promises.mkdir(fullPath);
 }
 
-async function writePages(path: string, title: string, description: string, pages: PageInfo[]) {
+async function writePages(path: string, tags: string[], title: string, description: string, pages: PageInfo[]) {
     const pageCount = Math.ceil(pages.length / itemsPerPage);
     if (pageCount <= 1) return [];
 
@@ -28,7 +28,14 @@ async function writePages(path: string, title: string, description: string, page
         Array.from({ length: pageCount - 1 }, (_, index) =>
             writeHTML(
                 `${path}/${index + 2}.html`,
-                <ListPage path={path} title={title} description={description} pages={pages} pageNumber={index + 2} />
+                <ListPage
+                    path={path}
+                    tags={tags}
+                    title={title}
+                    description={description}
+                    pages={pages}
+                    pageNumber={index + 2}
+                />
             )
         )
     );
@@ -38,7 +45,7 @@ async function createFiles() {
     const start = Date.now();
     const pages = await getPages();
     const pagesWithTags = pages.filter(pageHasTags);
-    const tags = Object.keys(tagLabels);
+    const tags = Object.keys(tagSlugToLabel);
 
     await createHTMLPath("/tag");
     await Promise.all([
@@ -47,6 +54,7 @@ async function createFiles() {
             "/index.html",
             <ListPage
                 path="/latest"
+                tags={tagLabels}
                 title="Latest Posts"
                 description="A chronological list of posts on this blog"
                 pages={pagesWithTags}
@@ -54,10 +62,10 @@ async function createFiles() {
             />
         ),
         writeHTML("/all.html", <ListAllPage pages={pagesWithTags} />),
-        writePages("/latest", "Latest Posts", "A chronological list of posts on this blog", pagesWithTags),
+        writePages("/latest", tagLabels, "Latest Posts", "A chronological list of posts on this blog", pagesWithTags),
         ...tags
             .map((tag) => {
-                const tagLabel = tagLabels[tag] ?? tag;
+                const tagLabel = tagSlugToLabel[tag] ?? tag;
                 const filteredPages = pages.filter((p) => p.tags.includes(tagLabel));
                 const description = `Posts related to ${tagLabel}`;
                 return [
@@ -65,13 +73,14 @@ async function createFiles() {
                         `/tag/${tag}.html`,
                         <ListPage
                             path={`/tag/${tag}`}
+                            tags={[tagLabel]}
                             title={tagLabel}
                             description={description}
                             pages={filteredPages}
                             pageNumber={1}
                         />
                     ),
-                    writePages(`/tag/${tag}`, tagLabel, description, filteredPages),
+                    writePages(`/tag/${tag}`, [tagLabel], tagLabel, description, filteredPages),
                 ];
             })
             .flat(),

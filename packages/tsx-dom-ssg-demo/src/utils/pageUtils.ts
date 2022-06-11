@@ -46,7 +46,8 @@ export type PageInfoMd = PageInfoBase & { type: "md"; body: string };
 export type PageInfoTsx = PageInfoBase & { type: "tsx"; component: Component };
 export type PageInfo = PageInfoMd | PageInfoTsx;
 
-export const tagLabels: Record<string, string> = {};
+export const tagSlugToLabel: Record<string, string> = {};
+export const tagLabels: string[] = [];
 
 export async function getPages() {
     const rootPath = path.join("packages", "tsx-dom-ssg-demo", "src", "pages");
@@ -60,7 +61,7 @@ export async function getPages() {
                 const page = fm.attributes as FrontMatter;
 
                 for (const tag of page.tags) {
-                    tagLabels[slugify(tag, slugifyOptions)] = tag;
+                    tagSlugToLabel[slugify(tag, slugifyOptions)] = tag;
                 }
 
                 return {
@@ -82,7 +83,7 @@ export async function getPages() {
             const fm = page.frontMatter;
 
             for (const tag of fm.tags) {
-                tagLabels[slugify(tag, slugifyOptions)] = tag;
+                tagSlugToLabel[slugify(tag, slugifyOptions)] = tag;
             }
 
             return {
@@ -97,6 +98,9 @@ export async function getPages() {
             };
         })
     );
+
+    tagLabels.push(...Object.values(tagSlugToLabel));
+    tagLabels.sort();
 
     return list.sort((a, b) => (a.date < b.date ? 1 : -1));
 }

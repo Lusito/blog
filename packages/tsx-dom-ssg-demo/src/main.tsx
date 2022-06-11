@@ -5,7 +5,7 @@ import fs from "fs";
 import { renderHTML } from "./utils/renderHTML";
 import NotFoundPage from "./pages/site/404.page";
 import { DynamicPage } from "./utils/DynamicPage";
-import { getPages, pageHasTags, tagLabels } from "./utils/pageUtils";
+import { getPages, pageHasTags, tagLabels, tagSlugToLabel } from "./utils/pageUtils";
 import { MarkdownPage } from "./utils/MarkdownPage";
 import { itemsPerPage, ListPage } from "./utils/ListPage";
 import { ListAllPage } from "./utils/ListAllPage";
@@ -66,6 +66,7 @@ async function init() {
             req.path,
             <ListPage
                 path="/latest"
+                tags={tagLabels}
                 title="Latest Posts"
                 description="A chronological list of posts on this blog"
                 pages={pages.filter(pageHasTags)}
@@ -89,6 +90,7 @@ async function init() {
             req.path,
             <ListPage
                 path="/latest"
+                tags={tagLabels}
                 title="Latest Posts"
                 description="A chronological list of posts on this blog"
                 pages={filteredPages}
@@ -101,7 +103,7 @@ async function init() {
     app.get("/tag/:tag/:page?.html", (req, res) => {
         const { tag, page } = req.params;
         const pageNumber = page ? parseInt(page) : 1;
-        const tagLabel = tagLabels[tag] ?? tag;
+        const tagLabel = tagSlugToLabel[tag] ?? tag;
         const filteredPages = pages.filter((p) => p.tags.includes(tagLabel));
 
         if (
@@ -120,6 +122,7 @@ async function init() {
             req.path,
             <ListPage
                 path={`/tag/${tag}`}
+                tags={[tagLabel]}
                 title={tagLabel}
                 description={description}
                 pages={filteredPages}

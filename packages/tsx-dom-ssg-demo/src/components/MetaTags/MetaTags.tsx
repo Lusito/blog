@@ -6,6 +6,7 @@ type MetaTagsBaseProps = {
     title: string;
     image?: string;
     description: string;
+    tags: string[];
     slug: string;
     // fixme: image:type, image:width, image:height, image:alt
 };
@@ -13,9 +14,10 @@ type MetaTagsBaseProps = {
 type MetaTagsProps = BaseProps & MetaTagsBaseProps;
 
 // fixme: ensure it's set on all pages
-export const MetaTags = ({ title, image, description, slug, children }: MetaTagsProps) => (
+export const MetaTags = ({ title, image, description, tags, slug, children }: MetaTagsProps) => (
     <head>
         <meta name="description" content={description} />
+        <meta name="keywords" content={tags.join(", ")} />
         <meta property="og:site_name" content={siteTitle} />
         {image && <meta property="og:image" content={`${siteUrl}/assets/${image}`} />}
         <meta property="og:title" content={title} />
@@ -29,18 +31,16 @@ export const MetaTags = ({ title, image, description, slug, children }: MetaTags
 type MetaTagsArticleProps = MetaTagsBaseProps & {
     publishedTime: Date;
     modifiedTime?: Date;
-    tags: string[];
 };
 
-export const MetaTagsArticle = ({ publishedTime, modifiedTime, tags, ...rest }: MetaTagsArticleProps) => (
-    <MetaTags {...rest}>
-        <meta name="keywords" content={tags.join(", ")} />
+export const MetaTagsArticle = ({ publishedTime, modifiedTime, ...props }: MetaTagsArticleProps) => (
+    <MetaTags {...props}>
         <meta name="author" content="Santo Pfingsten" />
         <meta property="og:type" content="article" />
         <meta property="og:author" content="Santo Pfingsten" />
         <meta property="og:published_time" content={publishedTime.toISOString()} />
         {modifiedTime && <meta property="og:modified_time" content={modifiedTime.toISOString()} />}
-        {tags.map((tag) => (
+        {props.tags.map((tag) => (
             <meta property="og:tag" content={tag} />
         ))}
     </MetaTags>
