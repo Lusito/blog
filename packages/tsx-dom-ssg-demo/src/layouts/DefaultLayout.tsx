@@ -22,7 +22,7 @@ export const DefaultLayout = withCss(classes, ({ children, pageTitle }: DefaultL
                 {pageTitle} - {siteTitle}
             </title>
             {reloadScript}
-            <script src="/custom-elements.js" />
+            <script src="/custom-elements.js" defer />
         </head>
         <body>
             <SideBar />

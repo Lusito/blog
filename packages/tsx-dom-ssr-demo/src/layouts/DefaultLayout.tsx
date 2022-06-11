@@ -12,9 +12,9 @@ interface DefaultLayoutProps extends BaseProps {
 export const DefaultLayout = withCss(classes, ({ children, title }: DefaultLayoutProps) => (
     <html>
         <head>
-            <script src="/custom-elements.js" />
             <title>{title}</title>
             <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <script src="/custom-elements.js" defer />
         </head>
         <body class={classes.body}>
             <Header />
