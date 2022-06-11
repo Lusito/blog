@@ -39,15 +39,11 @@ export class SwupClickPlugin implements SwupPlugin {
         const { url, hash } = unpackLink(delegateTarget);
         const fromUrl = getCurrentUrl();
         if (url !== fromUrl) {
-            if (hash) {
-                this.swup.scrollToElement = hash;
-            }
-
             // get custom transition from data
             const customTransition = delegateTarget.getAttribute("data-swup-transition");
 
             // load page
-            this.swup.loadPage({ toUrl: url, fromUrl, customTransition });
+            this.swup.loadPage({ fromUrl, url, hash, customTransition });
             return;
         }
 
@@ -66,11 +62,8 @@ export class SwupClickPlugin implements SwupPlugin {
         }
 
         const { hash, url } = unpackLink(event.state ? event.state.url : getCurrentUrl());
-        if (hash) {
-            this.swup.scrollToElement = hash;
-        }
 
         // fixme: fromUrl is not determinable
-        this.swup.loadPage({ toUrl: url, fromUrl: "", popstate: event });
+        this.swup.loadPage({ fromUrl: "", url, hash, popstate: event });
     };
 }

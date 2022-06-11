@@ -59,7 +59,7 @@ export class SwupCssPlugin implements SwupAnimationPlugin {
         }
     };
 
-    async animateOut({ popstate, toUrl, customTransition }: SwupPageLoadEvent) {
+    async animateOut({ popstate, url, customTransition }: SwupPageLoadEvent) {
         // handle classes
         document.documentElement.classList.add("is-changing");
         document.documentElement.classList.add("is-leaving");
@@ -69,7 +69,7 @@ export class SwupCssPlugin implements SwupAnimationPlugin {
         }
 
         // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
-        const transition = customTransition || toUrl;
+        const transition = customTransition || url;
         document.documentElement.classList.add(`to-${classify(transition)}`);
 
         await Promise.all(this.getAnimationPromises());

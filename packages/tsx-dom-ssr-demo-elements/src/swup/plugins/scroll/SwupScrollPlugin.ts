@@ -95,23 +95,22 @@ export class SwupScrollPlugin implements SwupPlugin {
         this.scrollTo(unpackLink(delegateTarget).hash);
     };
 
-    private onTransitionStart: EventHandler<SwupPageLoadEvent> = ({ popstate }) => {
-        if (this.options.doScrollingRightAway && !this.swup.scrollToElement) {
-            this.doScrolling(popstate);
+    private onTransitionStart: EventHandler<SwupPageLoadEvent> = (event) => {
+        if (this.options.doScrollingRightAway && !event.hash) {
+            this.doScrolling(event);
         }
     };
 
-    private onContentReplaced: EventHandler<SwupPageLoadEvent> = ({ popstate }) => {
-        if (!this.options.doScrollingRightAway || this.swup.scrollToElement) {
-            this.doScrolling(popstate);
+    private onContentReplaced: EventHandler<SwupPageLoadEvent> = (event) => {
+        if (!this.options.doScrollingRightAway || event.hash) {
+            this.doScrolling(event);
         }
     };
 
-    private doScrolling(popstate?: PopStateEvent) {
+    private doScrolling({ popstate, hash }: SwupPageLoadEvent) {
         if (!popstate) {
             // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
-            this.scrollTo(this.swup.scrollToElement || 0);
-            this.swup.scrollToElement = null;
+            this.scrollTo(hash || 0);
         }
     }
 }

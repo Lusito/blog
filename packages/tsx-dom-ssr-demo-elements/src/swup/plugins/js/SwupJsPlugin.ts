@@ -70,7 +70,7 @@ export class SwupJsPlugin implements SwupAnimationPlugin {
         return new Promise<void>((resolve) => {
             animation[type](resolve, {
                 paramsFrom: animation.from.exec(event.fromUrl),
-                paramsTo: animation.to.exec(event.toUrl),
+                paramsTo: animation.to.exec(event.url),
                 event,
                 from: animation.from,
                 to: animation.to,
@@ -97,7 +97,7 @@ export class SwupJsPlugin implements SwupAnimationPlugin {
 
     private rateAnimation(event: SwupPageLoadEvent, animation: Animation) {
         const fromMatched = animation.from.test(event.fromUrl);
-        const toMatched = animation.to.test(event.toUrl);
+        const toMatched = animation.to.test(event.url);
 
         const rating = (fromMatched ? 1 : 0) + (toMatched ? 1 : 0);
 

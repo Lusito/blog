@@ -48,7 +48,8 @@ const noopCache = {
 
 export type SwupPageLoadEvent = {
     fromUrl: string;
-    toUrl: string;
+    url: string;
+    hash: string;
     customTransition?: string | null;
     popstate?: PopStateEvent;
 };
@@ -57,10 +58,6 @@ export class Swup {
     readonly cache: Cache;
 
     readonly options: Options;
-
-    // variable for id of element to scroll to after render
-    // fixme: is there a better way?
-    scrollToElement: string | null = null;
 
     private readonly preloading = new Map<string, PreloadData>();
 
@@ -143,7 +140,7 @@ export class Swup {
             // save new record for redirected url
             this.cache.set(path, page.cloneWithUrl(path));
         } else if (!popstate) {
-            this.pushHistory(page.url + (this.scrollToElement ?? ""));
+            this.pushHistory(page.url + event.hash);
         }
 
         this.events.willReplaceContent.emit(event);
@@ -163,9 +160,6 @@ export class Swup {
             this.events.animationInDone.emit();
         }
         this.events.transitionEnd.emit(event);
-
-        // reset scroll-to element
-        this.scrollToElement = null;
     }
 
     private replaceContainers(page: PageData) {
@@ -229,11 +223,7 @@ export class Swup {
 
     goTo(href: string, customTransition?: string) {
         const { hash, url } = unpackLink(href);
-        if (hash) {
-            this.scrollToElement = hash;
-        }
-
-        this.loadPage({ fromUrl: getCurrentUrl(), toUrl: url, customTransition });
+        this.loadPage({ fromUrl: getCurrentUrl(), url, hash, customTransition });
     }
 
     async loadPage(event: SwupPageLoadEvent) {
@@ -250,16 +240,16 @@ export class Swup {
             }
         }
 
-        let page = this.cache.get(event.toUrl);
+        let page = this.cache.get(event.url);
         // start/skip loading of page
         if (page) {
             this.events.pageRetrievedFromCache.emit();
         } else {
-            const preloading = this.preloading.get(event.toUrl);
+            const preloading = this.preloading.get(event.url);
             if (preloading) {
                 page = await preloading.promise;
             } else {
-                page = await this.fetchPage(event.toUrl);
+                page = await this.fetchPage(event.url);
             }
         }
 
@@ -272,7 +262,7 @@ export class Swup {
             console.error("Error loading page: ", error);
 
             // An error happened, try to make it load manually
-            window.location.href = event.toUrl;
+            window.location.href = event.url;
         }
     }
 
