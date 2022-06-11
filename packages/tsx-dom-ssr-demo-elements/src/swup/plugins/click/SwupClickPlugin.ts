@@ -42,7 +42,8 @@ export class SwupClickPlugin implements SwupPlugin {
             const customTransition = delegateTarget.getAttribute("data-swup-transition");
 
             // load page
-            this.swup.loadPage({ fromUrl, url, hash, customTransition });
+            // eslint-disable-next-line dot-notation
+            this.swup["loadPage"]({ fromUrl, url, hash, customTransition });
             return;
         }
 
@@ -62,7 +63,7 @@ export class SwupClickPlugin implements SwupPlugin {
 
         const { hash, url } = unpackLink(event.state ? event.state.url : getCurrentUrl());
 
-        // fixme: fromUrl is not determinable
-        this.swup.loadPage({ fromUrl: "", url, hash, popstate: event });
+        // eslint-disable-next-line dot-notation
+        this.swup["loadPage"]({ fromUrl: "", url, hash, popstate: event });
     };
 }

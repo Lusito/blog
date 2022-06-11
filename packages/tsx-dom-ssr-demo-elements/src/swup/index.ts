@@ -74,7 +74,7 @@ export class Swup {
         enabled: createEventManager("enabled"),
         openPageInNewTab: createEventManager<MouseEvent>("openPageInNewTab"),
         pagePreloaded: createEventManager("pagePreloaded"),
-        pageLoaded: createEventManager("pageLoaded"),
+        pageLoaded: createEventManager<SwupPageLoadEvent>("pageLoaded"),
         pageRetrievedFromCache: createEventManager("pageRetrievedFromCache"),
         pageView: createEventManager<SwupPageLoadEvent | undefined>("pageView"),
         samePage: createEventManager<MouseEvent>("samePage"),
@@ -188,6 +188,7 @@ export class Swup {
     preloadPage(url: string) {
         const cachedPage = this.cache.get(url);
         if (cachedPage) return cachedPage;
+
         const preloading = this.preloading.get(url);
         if (preloading) return preloading.promise;
 
@@ -203,12 +204,6 @@ export class Swup {
         return entry.promise;
     }
 
-    async fetchPage(url: string) {
-        const page = await this.preloadPage(url);
-        this.events.pageLoaded.emit();
-        return page;
-    }
-
     private pushHistory(url: string) {
         window.history.pushState({ url, source: "swup" }, "", url);
     }
@@ -222,7 +217,7 @@ export class Swup {
         this.loadPage({ fromUrl: getCurrentUrl(), url, hash, customTransition });
     }
 
-    async loadPage(event: SwupPageLoadEvent) {
+    private async loadPage(event: SwupPageLoadEvent) {
         this.events.transitionStart.emit(event);
 
         let animateOutPromise = Promise.resolve();
@@ -236,8 +231,8 @@ export class Swup {
             }
         }
 
-        let page = this.cache.get(event.url);
         // start/skip loading of page
+        let page = this.cache.get(event.url);
         if (page) {
             this.events.pageRetrievedFromCache.emit();
         } else {
@@ -245,14 +240,14 @@ export class Swup {
             if (preloading) {
                 page = await preloading.promise;
             } else {
-                page = await this.fetchPage(event.url);
+                page = await this.preloadPage(event.url);
+                this.events.pageLoaded.emit(event);
             }
         }
 
         try {
             await animateOutPromise;
 
-            // render page
             await this.renderPage(page, event);
         } catch (error) {
             console.error("Error loading page: ", error);
@@ -263,17 +258,15 @@ export class Swup {
     }
 
     destroy() {
-        // clear cache
         this.cache.clear();
 
         // unmount plugins
         this.plugins.forEach((plugin) => plugin.unmount());
         this.plugins.length = 0;
 
+        this.events.disabled.emit();
+
         // remove event handlers
         eventManagerMapOff(this.events);
-
-        // trigger disable event
-        this.events.disabled.emit();
     }
 }
