@@ -1,12 +1,18 @@
 @import "../../style/sizes.scss";
+@import "../../style/breakpoints.scss";
 
 .container {
     margin: 2rem auto;
-    padding: 0 2rem;
+    padding: 0 1rem;
     max-width: $content-width;
     box-sizing: border-box;
 
     > * {
         flex-grow: 1;
+    }
+
+
+    @include from("small") {
+        padding: 0 2rem;
     }
 }
