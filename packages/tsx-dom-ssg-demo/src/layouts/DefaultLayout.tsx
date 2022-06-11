@@ -24,7 +24,7 @@ export const DefaultLayout = withCss(classes, ({ children, pageTitle }: DefaultL
             {reloadScript}
             <script src="/custom-elements.js" />
         </head>
-        <body class="transition-fade">
+        <body>
             <SideBar />
             <div class={classes.mainwrapper}>
                 <Header siteTitle={siteTitle} />
