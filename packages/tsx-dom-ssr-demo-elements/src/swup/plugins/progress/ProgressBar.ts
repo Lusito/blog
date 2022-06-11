@@ -33,7 +33,7 @@ export  class ProgressBar {
         this.progressElement = this.createProgressElement();
     }
 
-    private get defaultCSS() {
+    private getDefaultCSS() {
         const { className, animationDuration, background } = this.options;
         return `
 			.${className} {
@@ -55,8 +55,8 @@ export  class ProgressBar {
     show() {
         if (!this.visible) {
             this.visible = true;
-            this.installStylesheetElement();
-            this.installProgressElement();
+            document.head.insertBefore(this.stylesheetElement, document.head.firstChild);
+            this.insertProgressElement();
             this.startTrickling();
         }
     }
@@ -65,7 +65,7 @@ export  class ProgressBar {
         if (this.visible && !this.hiding) {
             this.hiding = true;
             this.fadeProgressElement(() => {
-                this.uninstallProgressElement();
+                this.progressElement.remove();
                 this.stopTrickling();
                 this.visible = false;
                 this.hiding = false;
@@ -78,11 +78,7 @@ export  class ProgressBar {
         this.refresh();
     }
 
-    private installStylesheetElement() {
-        document.head.insertBefore(this.stylesheetElement, document.head.firstChild);
-    }
-
-    private installProgressElement() {
+    private insertProgressElement() {
         this.progressElement.style.width = "0";
         this.progressElement.style.opacity = "1";
         document.documentElement.insertBefore(this.progressElement, document.body);
@@ -92,12 +88,6 @@ export  class ProgressBar {
     private fadeProgressElement(callback: () => void) {
         this.progressElement.style.opacity = "0";
         setTimeout(callback, this.options.animationDuration * 1.5);
-    }
-
-    private uninstallProgressElement() {
-        if (this.progressElement.parentNode) {
-            document.documentElement.removeChild(this.progressElement);
-        }
     }
 
     private startTrickling() {
@@ -126,7 +116,7 @@ export  class ProgressBar {
         const element = document.createElement("style");
         element.setAttribute("data-progressbar-styles", "");
         element.setAttribute("data-swup-persist", "true");
-        element.textContent = this.defaultCSS;
+        element.innerHTML = this.getDefaultCSS();
         return element;
     }
 

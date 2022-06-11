@@ -38,21 +38,21 @@ export class SwupProgressPlugin implements SwupPlugin {
     }
 
     mount() {
-        this.swup.events.transitionStart.on(this.startShowingProgress);
-        this.swup.events.contentReplaced.on(this.stopShowingProgress);
+        this.swup.events.transitionStart.on(this.start);
+        this.swup.events.contentReplaced.on(this.stop);
     }
 
     unmount() {
-        this.swup.events.transitionStart.off(this.startShowingProgress);
-        this.swup.events.contentReplaced.off(this.stopShowingProgress);
+        this.swup.events.transitionStart.off(this.start);
+        this.swup.events.contentReplaced.off(this.stop);
     }
 
-    private startShowingProgress = () => {
+    private start = () => {
         this.progressBar.setValue(0);
         this.showProgressBarAfterDelay();
     };
 
-    private stopShowingProgress = () => {
+    private stop = () => {
         this.progressBar.setValue(1);
         if (this.options.hideImmediately) {
             this.hideProgressBar();
