@@ -1,15 +1,11 @@
 type Options = {
+    container: Element;
     className: string;
-    animationDuration: number;
     background: string;
-};
-const defaultOptions = {
-    className: "progress-bar",
-    animationDuration: 300, // ms
-    background: "red",
+    transition: number;
 };
 
-export  class ProgressBar {
+export class ProgressBar {
     private options: Options;
 
     private minValue = 0.1;
@@ -26,15 +22,15 @@ export  class ProgressBar {
 
     private visible = false;
 
-    constructor(options: Partial<Options> = {}) {
-        this.options = { ...defaultOptions, ...options };
+    constructor(options: Options) {
+        this.options = options;
 
         this.stylesheetElement = this.createStylesheetElement();
         this.progressElement = this.createProgressElement();
     }
 
     private getDefaultCSS() {
-        const { className, animationDuration, background } = this.options;
+        const { className, transition: animationDuration, background } = this.options;
         return `
 			.${className} {
 				position: fixed;
@@ -87,12 +83,12 @@ export  class ProgressBar {
 
     private fadeProgressElement(callback: () => void) {
         this.progressElement.style.opacity = "0";
-        setTimeout(callback, this.options.animationDuration * 1.5);
+        setTimeout(callback, this.options.transition * 1.5);
     }
 
     private startTrickling() {
         if (!this.trickleInterval) {
-            this.trickleInterval = window.setInterval(this.trickle, this.options.animationDuration);
+            this.trickleInterval = window.setInterval(this.trickle, this.options.transition);
         }
     }
 

@@ -3,14 +3,18 @@ import type { SwupPlugin } from "../../plugin";
 import { ProgressBar } from "./ProgressBar";
 
 type Options = {
+    container: string;
     className: string;
+    background: string;
     transition: number;
     delay: number;
     hideImmediately: boolean;
 };
 
 const defaultOptions = {
+    container: "body",
     className: "swup-progress-bar",
+    background: "red",
     transition: 300,
     delay: 300,
     hideImmediately: true,
@@ -31,9 +35,19 @@ export class SwupProgressPlugin implements SwupPlugin {
         this.swup = swup;
         this.options = { ...defaultOptions, ...options };
 
+        let container = document.querySelector(this.options.container);
+        if (!container) {
+            console.warn(
+                `Could not find container for progress bar using "${this.options.container}". Using body instead`
+            );
+            container = document.body;
+        }
+
         this.progressBar = new ProgressBar({
             className: this.options.className,
-            animationDuration: this.options.transition,
+            transition: this.options.transition,
+            background: this.options.background,
+            container,
         });
     }
 
