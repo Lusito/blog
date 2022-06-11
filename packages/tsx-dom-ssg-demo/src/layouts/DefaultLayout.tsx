@@ -22,12 +22,13 @@ export const DefaultLayout = withCss(classes, ({ children, pageTitle }: DefaultL
                 {pageTitle} - {siteTitle}
             </title>
             {reloadScript}
+            <script src="/custom-elements.js" />
         </head>
-        <body>
+        <body class="transition-fade">
             <SideBar />
             <div class={classes.mainwrapper}>
                 <Header siteTitle={siteTitle} />
-                <div class={classes.content}>
+                <div class={`${classes.content} swup-container`}>
                     {children}
                     <Footer />
                 </div>

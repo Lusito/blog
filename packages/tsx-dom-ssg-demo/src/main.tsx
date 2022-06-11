@@ -1,5 +1,6 @@
 import express, { Request, Response } from "express";
 import { ComponentChildren } from "tsx-dom-ssr";
+import fs from "fs";
 
 import { renderHTML } from "./utils/renderHTML";
 import NotFoundPage from "./pages/site/404.page";
@@ -34,6 +35,21 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 app.use("/assets", express.static("dist/packages/tsx-dom-ssg-demo/assets", { index: false, redirect: false }));
+
+app.get("/custom-elements.js", async (req, res) => {
+    let filePath = "./dist/packages/tsx-dom-ssr-demo-elements/main.esm.js";
+    if (!fs.existsSync(filePath)) {
+        filePath = filePath.replace(/\.esm\.js$/, ".js");
+    }
+
+    fs.readFile(filePath, "utf-8", (err, content) => {
+        if (err) {
+            res.status(404).send("");
+        } else {
+            res.contentType("text/javascript").send(content);
+        }
+    });
+});
 
 const respond404 = (req: Request, res: Response) => {
     res.status(404);
