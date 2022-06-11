@@ -1,7 +1,6 @@
 import { classify } from "../../helpers/classify";
 import { SwupAnimationPlugin } from "../../plugin";
 import type { Swup, SwupPageLoadEvent } from "../..";
-import { EventHandler } from "../../helpers/EventManager";
 
 type Options = {
     animationSelector: string;
@@ -50,7 +49,7 @@ export class SwupCssPlugin implements SwupAnimationPlugin {
         return promises;
     }
 
-    private onWillReplaceContent: EventHandler<SwupPageLoadEvent> = ({ popstate }) => {
+    private onWillReplaceContent = ({ popstate }: SwupPageLoadEvent) => {
         document.documentElement.classList.remove("is-leaving");
 
         // only add for non-popstate transitions

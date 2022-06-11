@@ -1,6 +1,5 @@
 import type { Swup, SwupPageLoadEvent } from "../..";
 import type { SwupPlugin } from "../../plugin";
-import { EventHandler } from "../../helpers/EventManager";
 import { getDelegateTarget } from "../../helpers/getDelegateTarget";
 import { unpackLink } from "../../helpers/Link";
 
@@ -87,7 +86,7 @@ export class SwupScrollPlugin implements SwupPlugin {
         this.scrollTo(0);
     };
 
-    private onSamePageWithHash: EventHandler<MouseEvent> = (event) => {
+    private onSamePageWithHash = (event: MouseEvent) => {
         if (!event) return;
         const delegateTarget = getDelegateTarget(event, this.swup.options.linkSelector);
         if (!delegateTarget) return;
@@ -95,13 +94,13 @@ export class SwupScrollPlugin implements SwupPlugin {
         this.scrollTo(unpackLink(delegateTarget).hash);
     };
 
-    private onTransitionStart: EventHandler<SwupPageLoadEvent> = (event) => {
+    private onTransitionStart = (event: SwupPageLoadEvent) => {
         if (this.options.doScrollingRightAway && !event.hash) {
             this.doScrolling(event);
         }
     };
 
-    private onContentReplaced: EventHandler<SwupPageLoadEvent> = (event) => {
+    private onContentReplaced = (event: SwupPageLoadEvent) => {
         if (!this.options.doScrollingRightAway || event.hash) {
             this.doScrolling(event);
         }
