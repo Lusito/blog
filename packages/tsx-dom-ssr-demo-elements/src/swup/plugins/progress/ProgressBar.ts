@@ -81,7 +81,7 @@ export  class ProgressBar {
     private insertProgressElement() {
         this.progressElement.style.width = "0";
         this.progressElement.style.opacity = "1";
-        document.documentElement.insertBefore(this.progressElement, document.body);
+        document.body.insertBefore(this.progressElement, document.body.firstChild);
         this.refresh();
     }
 
