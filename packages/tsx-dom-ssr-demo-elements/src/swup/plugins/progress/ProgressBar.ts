@@ -70,7 +70,7 @@ export class ProgressBar {
     }
 
     setValue(value: number) {
-        this.value = Math.max(this.minValue, value);
+        this.value = Math.min(1, Math.max(this.minValue, value));
         this.refresh();
     }
 
@@ -100,6 +100,9 @@ export class ProgressBar {
     private trickle = () => {
         const advance = (Math.random() * 3) / 100;
         this.setValue(this.value + advance);
+        if (this.value === 1) {
+            this.stopTrickling();
+        }
     };
 
     private refresh() {
