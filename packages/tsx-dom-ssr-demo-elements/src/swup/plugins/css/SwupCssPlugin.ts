@@ -1,6 +1,6 @@
 import { classify } from "../../helpers/classify";
 import { SwupAnimationPlugin } from "../../plugin";
-import type { Swup } from "../..";
+import type { Swup, SwupLoadPageData } from "../..";
 
 type Options = {
     animationSelector: string;
@@ -58,7 +58,7 @@ export class SwupCssPlugin implements SwupAnimationPlugin {
         }
     };
 
-    async animateOut(data: { url: string; customTransition?: string | null }, popstate?: PopStateEvent) {
+    async animateOut({ popstate, url, customTransition }: SwupLoadPageData) {
         // handle classes
         document.documentElement.classList.add("is-changing");
         document.documentElement.classList.add("is-leaving");
@@ -68,7 +68,7 @@ export class SwupCssPlugin implements SwupAnimationPlugin {
         }
 
         // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
-        const transition = data.customTransition || data.url;
+        const transition = customTransition || url;
         document.documentElement.classList.add(`to-${classify(transition)}`);
 
         await Promise.all(this.getAnimationPromises());

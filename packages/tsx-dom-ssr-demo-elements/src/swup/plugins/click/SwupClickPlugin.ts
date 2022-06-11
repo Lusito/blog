@@ -4,7 +4,7 @@ import { getDelegateTarget } from "../../helpers/getDelegateTarget";
 import { unpackLink } from "../../helpers/Link";
 import { SwupPlugin } from "../../plugin";
 
-export  class SwupClickPlugin implements SwupPlugin {
+export class SwupClickPlugin implements SwupPlugin {
     private swup: Swup;
 
     constructor(swup: Swup) {
@@ -68,6 +68,6 @@ export  class SwupClickPlugin implements SwupPlugin {
             this.swup.scrollToElement = hash;
         }
         this.swup.events.popState.emit(event);
-        this.swup.loadPage({ url }, event);
+        this.swup.loadPage({ url, popstate: event });
     };
 }

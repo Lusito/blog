@@ -52,6 +52,12 @@ const noopCache = {
     clear: noop,
 };
 
+export type SwupLoadPageData = {
+    url: string;
+    customTransition?: string | null;
+    popstate?: PopStateEvent;
+};
+
 export class Swup {
     transition: Transition = {
         from: "",
@@ -136,7 +142,8 @@ export class Swup {
         return getPageDataFromHtml(url, html, this.options.containers);
     }
 
-    async renderPage(page: PageData, popstate?: PopStateEvent) {
+    async renderPage(page: PageData, data: SwupLoadPageData) {
+        const { popstate } = data;
         // replace state in case the url was redirected
         const { path } = unpackLink(page.url);
         if (window.location.pathname !== path) {
@@ -163,7 +170,7 @@ export class Swup {
 
         if (this.animationPlugin && (!popstate || this.options.animateHistoryBrowsing)) {
             this.events.animationInStart.emit();
-            await this.animationPlugin.animateIn(popstate);
+            await this.animationPlugin.animateIn(data);
             this.events.animationInDone.emit();
         }
         this.events.transitionEnd.emit(popstate);
@@ -231,28 +238,28 @@ export class Swup {
         window.history.replaceState({ url, source: "swup" }, "", url);
     }
 
-    goTo(href: string) {
+    goTo(href: string, customTransition?: string) {
         const { hash, url } = unpackLink(href);
         if (hash) {
             this.scrollToElement = hash;
         }
 
-        this.loadPage({ url });
+        this.loadPage({ url, customTransition });
     }
 
-    async loadPage(data: { url: string; customTransition?: string | null }, popstate?: PopStateEvent) {
-        this.events.transitionStart.emit(popstate);
+    async loadPage(data: SwupLoadPageData) {
+        this.events.transitionStart.emit(data.popstate);
 
         // set transition object
         this.transition = { from: window.location.pathname, to: data.url, custom: data.customTransition };
 
         let animateOutPromise = Promise.resolve();
         if (this.animationPlugin) {
-            if (popstate && !this.options.animateHistoryBrowsing) {
+            if (data.popstate && !this.options.animateHistoryBrowsing) {
                 this.events.animationSkipped.emit();
             } else {
                 this.events.animationOutStart.emit();
-                animateOutPromise = this.animationPlugin.animateOut(data, popstate);
+                animateOutPromise = this.animationPlugin.animateOut(data);
                 this.events.animationOutDone.emit();
             }
         }
@@ -274,7 +281,7 @@ export class Swup {
             await animateOutPromise;
 
             // render page
-            await this.renderPage(page, popstate);
+            await this.renderPage(page, data);
         } catch (error) {
             console.error("Error loading page: ", error);
 

@@ -1,3 +1,5 @@
+import type { SwupLoadPageData } from ".";
+
 export interface SwupPlugin {
     /**
      * this is mount method rewritten by class extending
@@ -13,6 +15,6 @@ export interface SwupPlugin {
 }
 
 export interface SwupAnimationPlugin extends SwupPlugin {
-    animateOut(data: { url: string; customTransition?: string | null }, popstate?: PopStateEvent): Promise<void>;
-    animateIn(popstate?: PopStateEvent): Promise<void>;
+    animateOut(data: SwupLoadPageData): Promise<void>;
+    animateIn(data: SwupLoadPageData): Promise<void>;
 }
