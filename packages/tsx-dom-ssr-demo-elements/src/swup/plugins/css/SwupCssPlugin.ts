@@ -67,7 +67,7 @@ export class SwupCssPlugin implements SwupAnimationPlugin {
         document.documentElement.classList.remove("is-leaving");
 
         // only add for non-popstate transitions
-        if (!popstate || this.swup.options.animateHistoryBrowsing) {
+        if (!popstate) {
             document.documentElement.classList.add("is-rendering");
         }
     };

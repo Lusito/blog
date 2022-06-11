@@ -17,7 +17,6 @@ type Animation = {
 };
 
 type Options = {
-    animateHistoryBrowsing: boolean;
     animations: Animation[];
 };
 
@@ -25,7 +24,6 @@ const catchAll = /^(.*)[/#?]?$/i; // pathToRegExp("(.*)")
 
 // default options
 const defaultOptions: Options = {
-    animateHistoryBrowsing: false,
     animations: [
         {
             from: catchAll,

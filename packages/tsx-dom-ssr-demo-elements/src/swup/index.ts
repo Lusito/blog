@@ -5,7 +5,6 @@ import { createEventManager, eventManagerMapOff } from "./utils/EventManager";
 import { SwupClickPlugin } from "./plugins/click/SwupClickPlugin";
 
 type Options = {
-    animateHistoryBrowsing: boolean;
     linkSelector: string;
     cache: boolean;
     containers: string;
@@ -15,7 +14,6 @@ type Options = {
 
 // default options
 const defaultOptions: Options = {
-    animateHistoryBrowsing: false,
     linkSelector: `a[href^="${window.location.origin}"]:not([data-no-swup]), a[href^="/"]:not([data-no-swup]), a[href^="#"]:not([data-no-swup])`,
     cache: true,
     containers: ".swup-container",
@@ -64,7 +62,6 @@ export class Swup {
 
     private animationPlugin?: SwupAnimationPlugin;
 
-    // fixme: one event handler with different string event names?
     readonly events = {
         animationInDone: createEventManager("animationInDone"),
         animationInStart: createEventManager("animationInStart"),
@@ -153,7 +150,7 @@ export class Swup {
         this.events.contentReplaced.emit(event);
         this.events.pageView.emit(event);
 
-        if (this.animationPlugin && (!popstate || this.options.animateHistoryBrowsing)) {
+        if (this.animationPlugin && !popstate) {
             this.events.animationInStart.emit();
             await this.animationPlugin.animateIn(event);
             this.events.animationInDone.emit();
@@ -230,7 +227,7 @@ export class Swup {
 
         let animateOutPromise = Promise.resolve();
         if (this.animationPlugin) {
-            if (event.popstate && !this.options.animateHistoryBrowsing) {
+            if (event.popstate) {
                 this.events.animationSkipped.emit();
             } else {
                 this.events.animationOutStart.emit();
