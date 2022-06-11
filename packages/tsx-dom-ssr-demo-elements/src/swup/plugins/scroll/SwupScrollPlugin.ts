@@ -1,6 +1,6 @@
-import type { Swup } from "../..";
+import type { Swup, SwupPageLoadEvent } from "../..";
 import type { SwupPlugin } from "../../plugin";
-import { Handler } from "../../helpers/EventManager";
+import { EventHandler } from "../../helpers/EventManager";
 import { getDelegateTarget } from "../../helpers/getDelegateTarget";
 import { unpackLink } from "../../helpers/Link";
 
@@ -87,7 +87,7 @@ export class SwupScrollPlugin implements SwupPlugin {
         this.scrollTo(0);
     };
 
-    private onSamePageWithHash: Handler<MouseEvent> = (event) => {
+    private onSamePageWithHash: EventHandler<MouseEvent> = (event) => {
         if (!event) return;
         const delegateTarget = getDelegateTarget(event, this.swup.options.linkSelector);
         if (!delegateTarget) return;
@@ -95,13 +95,13 @@ export class SwupScrollPlugin implements SwupPlugin {
         this.scrollTo(unpackLink(delegateTarget).hash);
     };
 
-    private onTransitionStart = (popstate?: PopStateEvent) => {
+    private onTransitionStart: EventHandler<SwupPageLoadEvent> = ({ popstate }) => {
         if (this.options.doScrollingRightAway && !this.swup.scrollToElement) {
             this.doScrolling(popstate);
         }
     };
 
-    private onContentReplaced = (popstate?: PopStateEvent) => {
+    private onContentReplaced: EventHandler<SwupPageLoadEvent> = ({ popstate }) => {
         if (!this.options.doScrollingRightAway || this.swup.scrollToElement) {
             this.doScrolling(popstate);
         }

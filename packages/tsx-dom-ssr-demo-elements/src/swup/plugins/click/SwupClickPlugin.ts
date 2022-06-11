@@ -37,7 +37,8 @@ export class SwupClickPlugin implements SwupPlugin {
         event.preventDefault();
 
         const { url, hash } = unpackLink(delegateTarget);
-        if (url !== getCurrentUrl()) {
+        const fromUrl = getCurrentUrl();
+        if (url !== fromUrl) {
             if (hash) {
                 this.swup.scrollToElement = hash;
             }
@@ -46,11 +47,13 @@ export class SwupClickPlugin implements SwupPlugin {
             const customTransition = delegateTarget.getAttribute("data-swup-transition");
 
             // load page
-            this.swup.loadPage({ url, customTransition });
+            this.swup.loadPage({ toUrl: url, fromUrl, customTransition });
             return;
         }
 
         if (hash) {
+            // eslint-disable-next-line dot-notation
+            this.swup["pushHistory"](url + hash);
             this.swup.events.samePageWithHash.emit(event);
         } else {
             this.swup.events.samePage.emit(event);
@@ -59,15 +62,15 @@ export class SwupClickPlugin implements SwupPlugin {
 
     private popStateHandler = (event: PopStateEvent) => {
         if (this.swup.options.skipPopStateHandling(event)) {
-            console.log("this happens");
             return;
         }
 
-        const { hash, url } = unpackLink(event.state ? event.state.url : window.location.pathname);
+        const { hash, url } = unpackLink(event.state ? event.state.url : getCurrentUrl());
         if (hash) {
             this.swup.scrollToElement = hash;
         }
-        this.swup.events.popState.emit(event);
-        this.swup.loadPage({ url, popstate: event });
+
+        // fixme: fromUrl is not determinable
+        this.swup.loadPage({ toUrl: url, fromUrl: "", popstate: event });
     };
 }

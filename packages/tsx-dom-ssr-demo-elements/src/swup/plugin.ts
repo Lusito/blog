@@ -1,4 +1,4 @@
-import type { SwupLoadPageData } from ".";
+import type { SwupPageLoadEvent } from ".";
 
 export interface SwupPlugin {
     /**
@@ -15,6 +15,6 @@ export interface SwupPlugin {
 }
 
 export interface SwupAnimationPlugin extends SwupPlugin {
-    animateOut(data: SwupLoadPageData): Promise<void>;
-    animateIn(data: SwupLoadPageData): Promise<void>;
+    animateOut(data: SwupPageLoadEvent): Promise<void>;
+    animateIn(data: SwupPageLoadEvent): Promise<void>;
 }

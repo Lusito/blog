@@ -1,42 +1,41 @@
-export type Handler<T = Event> = (event?: T) => void;
+export type EventHandler<T> = [T] extends [never] ? () => void : (event: T) => void;
 
-export class EventManager<T = Event> {
-    readonly name: string;
+export type EventManager<T> = {
+    emit: EventHandler<T>;
+    on(listener: EventHandler<T>): void;
+    off(listener?: EventHandler<T>): void;
+};
 
-    private handlers = new Set<Handler<T>>();
-
-    constructor(name: string) {
-        this.name = name;
-    }
-
-    emit(originalEvent?: T) {
-        for (const handler of this.handlers) {
-            try {
-                handler(originalEvent);
-            } catch (error) {
-                console.error(error);
+export function createEventManager<T = never>(name: string) {
+    const listeners = new Set<EventHandler<T>>();
+    return {
+        emit(value: T) {
+            for (const listener of listeners) {
+                try {
+                    listener(value);
+                } catch (error) {
+                    console.error(error);
+                }
             }
-        }
 
-        // trigger event on document with prefix "swup:"
-        const event = new CustomEvent(`swup:${this.name}`, { detail: this.name });
-        document.dispatchEvent(event);
-    }
+            // trigger event on document with prefix "swup:"
+            document.dispatchEvent(new CustomEvent(`swup:${name}`, { detail: value }));
+        },
 
-    on(handler: Handler<T>) {
-        this.handlers.add(handler);
-    }
+        on(listener: EventHandler<T>) {
+            listeners.add(listener);
+        },
 
-    off(handler?: Handler<T>) {
-        if (!handler) {
-            this.handlers.clear();
-        } else if (!this.handlers.delete(handler)) {
-            console.warn(`Handler for event '${this.name}' no found.`);
-        }
-    }
+        off(listener?: EventHandler<T>) {
+            if (!listener) {
+                listeners.clear();
+            } else if (!listeners.delete(listener)) {
+                console.warn(`Handler for event '${name}' no found.`);
+            }
+        },
+    } as EventManager<T>;
+}
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    static off(map: Record<string, EventManager<any>>) {
-        Object.keys(map).forEach((keys) => map[keys].off());
-    }
+export function eventManagerMapOff<T>(map: Record<string, EventManager<T>>) {
+    Object.keys(map).forEach((keys) => map[keys].off());
 }

@@ -2,13 +2,13 @@ import type { Swup } from "../..";
 import { LinkSource, unpackLink } from "../../helpers/Link";
 import { SwupPlugin } from "../../plugin";
 import { getDelegateTarget } from "../../helpers/getDelegateTarget";
-import { EventManager } from "../../helpers/EventManager";
+import { createEventManager, eventManagerMapOff } from "../../helpers/EventManager";
 
-export  class SwupPreloadPlugin implements SwupPlugin {
+export class SwupPreloadPlugin implements SwupPlugin {
     private swup: Swup;
 
     private readonly events = {
-        hoverLink: new EventManager("hoverLink"),
+        hoverLink: createEventManager<MouseEvent>("hoverLink"),
     };
 
     constructor(swup: Swup) {
@@ -27,7 +27,7 @@ export  class SwupPreloadPlugin implements SwupPlugin {
     }
 
     unmount() {
-        EventManager.off(this.events);
+        eventManagerMapOff(this.events);
 
         document.body.removeEventListener("mouseover", this.onMouseover);
 

@@ -2,7 +2,7 @@ import { getPageDataFromHtml, PageData } from "./helpers/pageData";
 import { SwupAnimationPlugin, SwupPlugin } from "./plugin";
 import { unpackLink } from "./helpers/Link";
 import { getCurrentUrl } from "./helpers/getCurrentUrl";
-import { EventManager } from "./helpers/EventManager";
+import { createEventManager, eventManagerMapOff } from "./helpers/EventManager";
 import { SwupClickPlugin } from "./plugins/click/SwupClickPlugin";
 
 type Options = {
@@ -29,12 +29,6 @@ const defaultOptions: Options = {
     },
 };
 
-export type Transition = {
-    from: string;
-    to: string;
-    custom?: string | null;
-};
-
 type PreloadData = {
     promise: Promise<PageData>;
     url: string;
@@ -52,18 +46,14 @@ const noopCache = {
     clear: noop,
 };
 
-export type SwupLoadPageData = {
-    url: string;
+export type SwupPageLoadEvent = {
+    fromUrl: string;
+    toUrl: string;
     customTransition?: string | null;
     popstate?: PopStateEvent;
 };
 
 export class Swup {
-    transition: Transition = {
-        from: "",
-        to: "",
-    };
-
     readonly cache: Cache;
 
     readonly options: Options;
@@ -80,27 +70,26 @@ export class Swup {
 
     // fixme: one event handler with different string event names?
     readonly events = {
-        animationInDone: new EventManager("animationInDone"),
-        animationInStart: new EventManager("animationInStart"),
-        animationOutDone: new EventManager("animationOutDone"),
-        animationOutStart: new EventManager("animationOutStart"),
-        animationSkipped: new EventManager("animationSkipped"),
-        clickLink: new EventManager<MouseEvent>("clickLink"),
-        contentReplaced: new EventManager<PopStateEvent>("contentReplaced"),
-        disabled: new EventManager("disabled"),
-        enabled: new EventManager("enabled"),
-        openPageInNewTab: new EventManager<MouseEvent>("openPageInNewTab"),
-        pagePreloaded: new EventManager("pagePreloaded"),
-        pageLoaded: new EventManager("pageLoaded"),
-        pageRetrievedFromCache: new EventManager("pageRetrievedFromCache"),
-        pageView: new EventManager<PopStateEvent>("pageView"),
-        popState: new EventManager<PopStateEvent>("popState"),
-        samePage: new EventManager<MouseEvent>("samePage"),
-        samePageWithHash: new EventManager<MouseEvent>("samePageWithHash"),
-        serverError: new EventManager("serverError"),
-        transitionStart: new EventManager<PopStateEvent>("transitionStart"),
-        transitionEnd: new EventManager<PopStateEvent>("transitionEnd"),
-        willReplaceContent: new EventManager<PopStateEvent>("willReplaceContent"),
+        animationInDone: createEventManager("animationInDone"),
+        animationInStart: createEventManager("animationInStart"),
+        animationOutDone: createEventManager("animationOutDone"),
+        animationOutStart: createEventManager("animationOutStart"),
+        animationSkipped: createEventManager("animationSkipped"),
+        clickLink: createEventManager<MouseEvent>("clickLink"),
+        contentReplaced: createEventManager<SwupPageLoadEvent>("contentReplaced"),
+        disabled: createEventManager("disabled"),
+        enabled: createEventManager("enabled"),
+        openPageInNewTab: createEventManager<MouseEvent>("openPageInNewTab"),
+        pagePreloaded: createEventManager("pagePreloaded"),
+        pageLoaded: createEventManager("pageLoaded"),
+        pageRetrievedFromCache: createEventManager("pageRetrievedFromCache"),
+        pageView: createEventManager<SwupPageLoadEvent | undefined>("pageView"),
+        samePage: createEventManager<MouseEvent>("samePage"),
+        samePageWithHash: createEventManager<MouseEvent>("samePageWithHash"),
+        serverError: createEventManager("serverError"),
+        transitionStart: createEventManager<SwupPageLoadEvent>("transitionStart"),
+        transitionEnd: createEventManager<SwupPageLoadEvent>("transitionEnd"),
+        willReplaceContent: createEventManager<SwupPageLoadEvent>("willReplaceContent"),
     };
 
     constructor(options: Partial<Options> = {}) {
@@ -123,7 +112,7 @@ export class Swup {
         this.events.enabled.emit();
 
         // trigger page view event
-        this.events.pageView.emit();
+        this.events.pageView.emit(undefined);
     }
 
     use(...plugins: SwupPlugin[]) {
@@ -142,8 +131,8 @@ export class Swup {
         return getPageDataFromHtml(url, html, this.options.containers);
     }
 
-    async renderPage(page: PageData, data: SwupLoadPageData) {
-        const { popstate } = data;
+    async renderPage(page: PageData, event: SwupPageLoadEvent) {
+        const { popstate } = event;
         // replace state in case the url was redirected
         const { path } = unpackLink(page.url);
         if (window.location.pathname !== path) {
@@ -157,7 +146,7 @@ export class Swup {
             this.pushHistory(page.url + (this.scrollToElement ?? ""));
         }
 
-        this.events.willReplaceContent.emit(popstate);
+        this.events.willReplaceContent.emit(event);
 
         // replace blocks
         this.replaceContainers(page);
@@ -165,15 +154,15 @@ export class Swup {
         // set title
         document.title = page.title;
 
-        this.events.contentReplaced.emit(popstate);
-        this.events.pageView.emit(popstate);
+        this.events.contentReplaced.emit(event);
+        this.events.pageView.emit(event);
 
         if (this.animationPlugin && (!popstate || this.options.animateHistoryBrowsing)) {
             this.events.animationInStart.emit();
-            await this.animationPlugin.animateIn(data);
+            await this.animationPlugin.animateIn(event);
             this.events.animationInDone.emit();
         }
-        this.events.transitionEnd.emit(popstate);
+        this.events.transitionEnd.emit(event);
 
         // reset scroll-to element
         this.scrollToElement = null;
@@ -244,36 +233,33 @@ export class Swup {
             this.scrollToElement = hash;
         }
 
-        this.loadPage({ url, customTransition });
+        this.loadPage({ fromUrl: getCurrentUrl(), toUrl: url, customTransition });
     }
 
-    async loadPage(data: SwupLoadPageData) {
-        this.events.transitionStart.emit(data.popstate);
-
-        // set transition object
-        this.transition = { from: window.location.pathname, to: data.url, custom: data.customTransition };
+    async loadPage(event: SwupPageLoadEvent) {
+        this.events.transitionStart.emit(event);
 
         let animateOutPromise = Promise.resolve();
         if (this.animationPlugin) {
-            if (data.popstate && !this.options.animateHistoryBrowsing) {
+            if (event.popstate && !this.options.animateHistoryBrowsing) {
                 this.events.animationSkipped.emit();
             } else {
                 this.events.animationOutStart.emit();
-                animateOutPromise = this.animationPlugin.animateOut(data);
+                animateOutPromise = this.animationPlugin.animateOut(event);
                 this.events.animationOutDone.emit();
             }
         }
 
-        let page = this.cache.get(data.url);
+        let page = this.cache.get(event.toUrl);
         // start/skip loading of page
         if (page) {
             this.events.pageRetrievedFromCache.emit();
         } else {
-            const preloading = this.preloading.get(data.url);
+            const preloading = this.preloading.get(event.toUrl);
             if (preloading) {
                 page = await preloading.promise;
             } else {
-                page = await this.fetchPage(data.url);
+                page = await this.fetchPage(event.toUrl);
             }
         }
 
@@ -281,12 +267,12 @@ export class Swup {
             await animateOutPromise;
 
             // render page
-            await this.renderPage(page, data);
+            await this.renderPage(page, event);
         } catch (error) {
             console.error("Error loading page: ", error);
 
             // An error happened, try to make it load manually
-            window.location.href = data.url;
+            window.location.href = event.toUrl;
         }
     }
 
@@ -299,7 +285,7 @@ export class Swup {
         this.plugins.length = 0;
 
         // remove event handlers
-        EventManager.off(this.events);
+        eventManagerMapOff(this.events);
 
         // trigger disable event
         this.events.disabled.emit();

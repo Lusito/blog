@@ -1,10 +1,10 @@
-import type { Swup, Transition } from "../..";
+import type { Swup, SwupPageLoadEvent } from "../..";
 import { SwupAnimationPlugin } from "../../plugin";
 
 type InOutParam = {
     paramsFrom: RegExpExecArray | null;
     paramsTo: RegExpExecArray | null;
-    transition: Transition;
+    event: SwupPageLoadEvent;
     from: string | RegExp;
     to: string | RegExp;
 };
@@ -36,15 +36,12 @@ const defaultOptions: Options = {
     ],
 };
 
-export  class SwupJsPlugin implements SwupAnimationPlugin {
-    private swup: Swup;
-
+export class SwupJsPlugin implements SwupAnimationPlugin {
     private currentAnimation: Animation | null = null;
 
     private options: Options;
 
-    constructor(swup: Swup, options: Partial<Options> = {}) {
-        this.swup = swup;
+    constructor(_swup: Swup, options: Partial<Options> = {}) {
         this.options = { ...defaultOptions, ...options };
         if (options.animations) {
             this.options.animations = [...defaultOptions.animations, ...options.animations];
@@ -57,41 +54,36 @@ export  class SwupJsPlugin implements SwupAnimationPlugin {
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     unmount() {}
 
-    animateOut() {
-        return this.createAnimationPromise("out");
+    animateOut(event: SwupPageLoadEvent) {
+        return this.createAnimationPromise(event, "out");
     }
 
-    animateIn() {
-        return this.createAnimationPromise("in");
+    animateIn(event: SwupPageLoadEvent) {
+        return this.createAnimationPromise(event, "in");
     }
 
-    private createAnimationPromise(type: "in" | "out") {
-        const animation = this.getRatedAnimation(type);
-        const { transition } = this.swup;
+    private createAnimationPromise(event: SwupPageLoadEvent, type: "in" | "out") {
+        // type === "in" => already saved from out animation
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        const animation = type === "in" ? this.currentAnimation! : this.getRatedAnimation(event);
 
         return new Promise<void>((resolve) => {
             animation[type](resolve, {
-                paramsFrom: animation.from.exec(transition.from),
-                paramsTo: animation.to.exec(transition.to),
-                transition,
+                paramsFrom: animation.from.exec(event.fromUrl),
+                paramsTo: animation.to.exec(event.toUrl),
+                event,
                 from: animation.from,
                 to: animation.to,
             });
         });
     }
 
-    private getRatedAnimation(type: "in" | "out") {
-        // already saved from out animation
-        if (type === "in") {
-            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-            return this.currentAnimation!;
-        }
-
+    private getRatedAnimation(event: SwupPageLoadEvent) {
         let topAnimation = this.options.animations[0];
         let topRating = 0;
 
         this.options.animations.forEach((animation) => {
-            const rating = this.rateAnimation(animation);
+            const rating = this.rateAnimation(event, animation);
 
             if (rating >= topRating) {
                 topAnimation = animation;
@@ -103,20 +95,16 @@ export  class SwupJsPlugin implements SwupAnimationPlugin {
         return this.currentAnimation;
     }
 
-    private rateAnimation(animation: Animation) {
-        const { transition } = this.swup;
+    private rateAnimation(event: SwupPageLoadEvent, animation: Animation) {
+        const fromMatched = animation.from.test(event.fromUrl);
+        const toMatched = animation.to.test(event.toUrl);
 
-        // run regex
-        const fromMatched = animation.from.test(transition.from);
-        const toMatched = animation.to.test(transition.to);
-
-        let rating = 0;
-        // check if regex passes
-        rating += fromMatched ? 1 : 0;
-        rating += toMatched ? 1 : 0;
+        const rating = (fromMatched ? 1 : 0) + (toMatched ? 1 : 0);
 
         // beat all other if custom parameter fits
-        rating += fromMatched && transition.custom && animation.to.test(transition.custom) ? 2 : 0;
+        if (fromMatched && event.customTransition && animation.to.test(event.customTransition)) {
+            return rating + 2;
+        }
 
         return rating;
     }
