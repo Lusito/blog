@@ -12,7 +12,7 @@ const defaultOptions: Options = {
     urlTemplate: "New page at {url}",
 };
 
-export  class SwupA11yPlugin implements SwupPlugin {
+export class SwupA11yPlugin implements SwupPlugin {
     private swup: Swup;
 
     private options: Options;
@@ -70,22 +70,17 @@ export  class SwupA11yPlugin implements SwupPlugin {
     private announcePageName() {
         const { contentSelector, headingSelector, urlTemplate, announcementTemplate } = this.options;
 
-        // Default: announce new /path/of/page.html
-        let pageName = urlTemplate.replace("{url}", window.location.pathname);
+        // Default: title or announce new /path/of/page.html
+        let pageName = document.title || urlTemplate.replace("{url}", window.location.pathname);
 
-        // Check for title tag
-        if (document.title) {
-            pageName = document.title;
-        }
-
-        // Look for first heading in content container
+        // Look for first heading matching selector within content
         const content = document.querySelector(contentSelector);
         if (content) {
-            const headings = content.querySelectorAll(headingSelector);
-            if (headings.length) {
-                const heading = headings[0];
-                // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
-                pageName = heading.getAttribute("aria-label") || heading.textContent || "";
+            const heading = content.querySelector(headingSelector);
+            if (heading) {
+                const ariaLabel = heading.getAttribute("aria-label");
+                if (ariaLabel) pageName = ariaLabel;
+                else if (heading.textContent) pageName = heading.textContent;
             }
         }
 
