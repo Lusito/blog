@@ -1,8 +1,8 @@
 import type { Swup } from "../..";
-import { LinkSource, unpackLink } from "../../helpers/urlUtils";
+import { LinkSource, unpackLink } from "../../utils/urlUtils";
 import { SwupPlugin } from "../../plugin";
-import { getDelegateTarget } from "../../helpers/getDelegateTarget";
-import { createEventManager, eventManagerMapOff } from "../../helpers/EventManager";
+import { getDelegateTarget } from "../../utils/getDelegateTarget";
+import { createEventManager, eventManagerMapOff } from "../../utils/EventManager";
 
 export class SwupPreloadPlugin implements SwupPlugin {
     private swup: Swup;

@@ -1,6 +1,20 @@
-import { classify } from "../../helpers/classify";
 import { SwupAnimationPlugin } from "../../plugin";
 import type { Swup, SwupPageLoadEvent } from "../..";
+
+// fixme: let user define data-swup-page somewhere instead of using a generated path?
+export function classify(text: string) {
+    const output = text
+        .toString()
+        .toLowerCase()
+        .replace(/\s+/g, "-") // Replace spaces with -
+        .replace(/\//g, "-") // Replace / with -
+        .replace(/[^\w-]+/g, "") // Remove all non-word chars
+        .replace(/--+/g, "-") // Replace multiple - with single -
+        .replace(/^-+/, "") // Trim - from start of text
+        .replace(/-+$/, "") // Trim - from end of text
+        .replace(/^\//, ""); // Trim / from start of text
+    return output || "homepage";
+}
 
 type Options = {
     animationSelector: string;

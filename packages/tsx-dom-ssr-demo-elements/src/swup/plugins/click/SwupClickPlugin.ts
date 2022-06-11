@@ -1,6 +1,6 @@
 import type { Swup } from "../..";
-import { getDelegateTarget } from "../../helpers/getDelegateTarget";
-import { unpackLink, getCurrentUrl } from "../../helpers/urlUtils";
+import { getDelegateTarget } from "../../utils/getDelegateTarget";
+import { unpackLink, getCurrentUrl } from "../../utils/urlUtils";
 import { SwupPlugin } from "../../plugin";
 
 export class SwupClickPlugin implements SwupPlugin {

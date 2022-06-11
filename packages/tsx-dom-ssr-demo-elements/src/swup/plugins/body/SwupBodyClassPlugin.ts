@@ -1,5 +1,5 @@
 import type { Swup } from "../..";
-import { getCurrentUrl } from "../../helpers/urlUtils";
+import { getCurrentUrl } from "../../utils/urlUtils";
 import { SwupPlugin } from "../../plugin";
 
 type Options = {

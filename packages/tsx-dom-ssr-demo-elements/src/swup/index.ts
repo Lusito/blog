@@ -1,7 +1,7 @@
-import { getPageDataFromHtml, PageData } from "./helpers/pageData";
+import { getPageDataFromHtml, PageData } from "./utils/pageData";
 import { SwupAnimationPlugin, SwupPlugin } from "./plugin";
-import { unpackLink, getCurrentUrl } from "./helpers/urlUtils";
-import { createEventManager, eventManagerMapOff } from "./helpers/EventManager";
+import { unpackLink, getCurrentUrl } from "./utils/urlUtils";
+import { createEventManager, eventManagerMapOff } from "./utils/EventManager";
 import { SwupClickPlugin } from "./plugins/click/SwupClickPlugin";
 
 type Options = {
