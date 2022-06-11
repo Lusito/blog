@@ -231,8 +231,16 @@ export class Swup {
         window.history.replaceState({ url, source: "swup" }, "", url);
     }
 
+    goTo(href: string) {
+        const { hash, url } = unpackLink(href);
+        if (hash) {
+            this.scrollToElement = hash;
+        }
+
+        this.loadPage({ url });
+    }
+
     async loadPage(data: { url: string; customTransition?: string | null }, popstate?: PopStateEvent) {
-        // fixme: ensure data.url starts with "/""?
         this.events.transitionStart.emit(popstate);
 
         // set transition object

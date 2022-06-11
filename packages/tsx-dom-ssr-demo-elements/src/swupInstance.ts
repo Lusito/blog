@@ -21,6 +21,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 export function goToPage(url: string) {
     if (swup) {
-        swup.loadPage({ url });
+        swup.goTo(url);
     }
 }
