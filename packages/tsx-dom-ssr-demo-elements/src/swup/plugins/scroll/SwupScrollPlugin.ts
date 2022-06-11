@@ -6,13 +6,11 @@ import { unpackLink } from "../../utils/urlUtils";
 type Options = {
     doScrollingRightAway: boolean;
     behavior?: ScrollBehavior;
-    offset: number | string | ((element: Element) => number);
 };
 
 const defaultOptions: Options = {
     doScrollingRightAway: false,
     behavior: undefined,
-    offset: 0,
 };
 
 export class SwupScrollPlugin implements SwupPlugin {
@@ -48,12 +46,12 @@ export class SwupScrollPlugin implements SwupPlugin {
         window.history.scrollRestoration = "auto";
     }
 
-    private scrollTo(offsetOrHash: number | string) {
-        window.scrollTo({
-            left: 0,
-            top: typeof offsetOrHash === "number" ? offsetOrHash : this.getScrollTop(offsetOrHash),
-            behavior: this.options.behavior,
-        });
+    private scrollTo(top = 0) {
+        window.scrollTo({ left: 0, top, behavior: this.options.behavior });
+    }
+
+    private scrollToHash(hash: string) {
+        this.scrollTo(this.getScrollTop(hash));
     }
 
     private getScrollTop(hash: string) {
@@ -64,34 +62,21 @@ export class SwupScrollPlugin implements SwupPlugin {
         }
 
         if (element) {
-            return element.getBoundingClientRect().top + window.pageYOffset - this.getOffset(element);
+            return element.getBoundingClientRect().top + window.pageYOffset;
         }
 
         console.warn(`Element ${hash} not found`);
         return 0;
     }
 
-    private getOffset(element: Element) {
-        switch (typeof this.options.offset) {
-            case "number":
-                return this.options.offset;
-            case "function":
-                return this.options.offset(element);
-            default:
-                return parseInt(this.options.offset, 10);
-        }
-    }
-
-    private onSamePage = () => {
-        this.scrollTo(0);
-    };
+    private onSamePage = () => this.scrollTo();
 
     private onSamePageWithHash = (event: MouseEvent) => {
         if (!event) return;
         const delegateTarget = getDelegateTarget(event, this.swup.options.linkSelector);
         if (!delegateTarget) return;
 
-        this.scrollTo(unpackLink(delegateTarget).hash);
+        this.scrollToHash(unpackLink(delegateTarget).hash);
     };
 
     private onTransitionStart = (event: SwupPageLoadEvent) => {
@@ -108,8 +93,8 @@ export class SwupScrollPlugin implements SwupPlugin {
 
     private doScrolling({ popstate, hash }: SwupPageLoadEvent) {
         if (!popstate) {
-            // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
-            this.scrollTo(hash || 0);
+            if (hash) this.scrollToHash(hash);
+            else this.scrollTo();
         }
     }
 }

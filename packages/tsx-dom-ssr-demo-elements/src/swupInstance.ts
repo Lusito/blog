@@ -1,4 +1,5 @@
 import { Swup } from "./swup";
+import { SwupA11yPlugin } from "./swup/plugins/a11y/SwupA11yPlugin";
 import { SwupBodyClassPlugin } from "./swup/plugins/body/SwupBodyClassPlugin";
 import { SwupCssPlugin } from "./swup/plugins/css/SwupCssPlugin";
 import { SwupHeadPlugin } from "./swup/plugins/head/SwupHeadPlugin";
@@ -15,7 +16,8 @@ document.addEventListener("DOMContentLoaded", () => {
         new SwupBodyClassPlugin(swup),
         new SwupScrollPlugin(swup),
         new SwupProgressPlugin(swup),
-        new SwupPreloadPlugin(swup)
+        new SwupPreloadPlugin(swup),
+        new SwupA11yPlugin(swup)
     );
 });
 
