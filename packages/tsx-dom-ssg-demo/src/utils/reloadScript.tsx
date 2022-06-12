@@ -4,7 +4,6 @@ function initSSE() {
         const evtSource = new EventSource("/hot-sse");
         evtSource.onmessage = (event) => {
             if (lastId && lastId !== event.data) {
-                // fixme: turbo reload?
                 window.location.reload();
             }
             lastId = event.data;
