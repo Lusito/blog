@@ -1,4 +1,5 @@
 function initSSE() {
+    let delay = 500;
     let lastId = "";
     function connect() {
         const evtSource = new EventSource("/hot-sse");
@@ -10,7 +11,10 @@ function initSSE() {
         };
         evtSource.onerror = () => {
             evtSource.close();
-            setTimeout(connect, 500);
+            setTimeout(connect, delay);
+            if (delay < 3000) {
+                delay *= 2;
+            }
         };
     }
     connect();
