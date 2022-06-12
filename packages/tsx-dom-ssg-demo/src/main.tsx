@@ -1,4 +1,5 @@
 import express, { Request, Response } from "express";
+import compression from "compression";
 import { ComponentChildren } from "tsx-dom-ssr";
 import fs from "fs";
 
@@ -13,6 +14,7 @@ import { tagDescriptions } from "./utils/tagDescriptions";
 
 // The stuff below is purely for the dev-server
 const app = express();
+app.use(compression());
 const port = 3000;
 
 async function respondHTML(res: Response, path: string, children: ComponentChildren) {
@@ -31,6 +33,7 @@ if (process.env.NODE_ENV !== "production") {
     app.get("/hot-sse", (req, res) => {
         res.status(200).set({ connection: "keep-alive", "content-type": "text/event-stream" });
         res.write(`data: ${startupTime}\n\n`);
+        res.flush();
     });
 }
 
@@ -41,14 +44,7 @@ app.get("/custom-elements.js", async (req, res) => {
     if (!fs.existsSync(filePath)) {
         filePath = filePath.replace(/\.esm\.js$/, ".js");
     }
-
-    fs.readFile(filePath, "utf-8", (err, content) => {
-        if (err) {
-            res.status(404).send("");
-        } else {
-            res.contentType("text/javascript").send(content);
-        }
-    });
+    res.sendFile(filePath, { root: process.cwd() });
 });
 
 const respond404 = (req: Request, res: Response) => {
