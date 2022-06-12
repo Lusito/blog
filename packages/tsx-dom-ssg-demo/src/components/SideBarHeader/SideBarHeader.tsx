@@ -1,6 +1,6 @@
 import { withCss } from "../../utils/withCss";
 import classes from "./SideBarHeader.module.scss";
-import logo from "./logo.png";
+import logo from "./logo.webp";
 import { siteTitle } from "../../utils/config";
 
 // eslint-disable-next-line func-names
