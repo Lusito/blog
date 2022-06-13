@@ -21,20 +21,29 @@
         > span {
             display: block;
             text-decoration: none;
+            border-radius: 0;
             padding: $space-md;
+        }
+        > a:link {
+            &:not(:hover,:focus) {
+                color: var(--color-main-contrast);
+            }
         }
         > span {
             pointer-events: none;
+        }
+        > a:hover,
+        > a:focus {
+            display: block;
+            background: var(--color-highlight);
+            color: var(--color-highlight-contrast);
+            outline: none;
+            box-shadow: none;
         }
     }
     li.selected > a,
     li.selected > span {
         text-decoration: underline;
-    }
-    li:hover > a {
-        display: block;
-        background: var(--color-highlight);
-        color: var(--color-highlight-contrast);
     }
     li:hover > span {
         display: block;
@@ -43,9 +52,9 @@
     }
 
     > li > ul > li {
-        padding-left: $space-lg;
-    }
-    > li > ul > li:hover {
-        background: var(--color-highlight);
+        > a,
+        > span {
+            padding-left: $space-lg + $space-md;
+        }
     }
 }

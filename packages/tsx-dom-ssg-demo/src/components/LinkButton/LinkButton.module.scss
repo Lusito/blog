@@ -17,10 +17,21 @@
 .link-button {
     background: var(--color-dark);
     color: var(--color-dark-contrast);
+    padding-left: $space-md - $space-sm;
+    border-left: $space-sm solid var(--color-dark);
 
-    &:hover {
+    &:hover,
+    &:focus {
         background: var(--color-highlight);
         color: var(--color-highlight-contrast);
+        &:not(:link) {
+            border-left-color: var(--color-highlight);
+        }
+    }
+
+    &:link {
+        color: var(--color-dark-contrast);
+        border-left-color: var(--color-dark-link);
     }
 }
 

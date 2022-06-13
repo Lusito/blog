@@ -10,5 +10,8 @@
 
     > a {
         color: var(--color-dark-contrast);
+        &:link {
+            color: var(--color-dark-link);
+        }
     }
 }

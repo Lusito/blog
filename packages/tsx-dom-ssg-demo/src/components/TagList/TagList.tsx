@@ -15,10 +15,11 @@ export const TagList = withCss(classes, ({ tags }: TagListProps) => (
         {tags.map((tag) => (
             <LinkButton
                 href={`/tag/${slugify(tag, slugifyOptions)}.html`}
-                label={tag}
                 ariaLabel={`Category: ${tag}`}
                 title={tagDescriptions[tag]}
-            />
+            >
+                {tag}
+            </LinkButton>
         ))}
     </div>
 ));

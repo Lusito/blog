@@ -14,10 +14,6 @@
     background: var(--color-main);
     box-sizing: border-box;
 
-    &:hover {
-        left: 0;
-    }
-
     .trigger {
         position: absolute;
         top: 0;
@@ -47,8 +43,13 @@
         }
     }
 
-    &:hover > .trigger > div {
-        right: 0;
+    &:hover,
+    &:focus {
+        left: 0;
+
+        > .trigger > div {
+            right: 0;
+        }
     }
 
     @include from("small") {

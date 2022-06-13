@@ -10,7 +10,7 @@ type LinkProps = {
     disabled: boolean;
 };
 const Link = ({ path, label, ariaLabel, page, disabled }: LinkProps) => {
-    if (disabled) return <LinkButton label={label} />;
+    if (disabled) return <LinkButton>{label}</LinkButton>;
 
     let href: string;
     if (page === 1) {
@@ -18,7 +18,12 @@ const Link = ({ path, label, ariaLabel, page, disabled }: LinkProps) => {
     } else {
         href = `${path}/${page}.html`;
     }
-    return <LinkButton href={href} label={label} ariaLabel={ariaLabel} />;
+
+    return (
+        <LinkButton href={href} ariaLabel={ariaLabel}>
+            {label}
+        </LinkButton>
+    );
 };
 
 type PaginationProps = {
