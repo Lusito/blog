@@ -1,11 +1,10 @@
 @import "../../style/breakpoints.scss";
-@import "../../style/spacings.scss";
 
 .tag-detail {
     margin: 2rem 0;
     padding: 1rem;
     border: 1px solid var(--color-main-contrast);
-    border-radius: $space-sm;
+    border-radius: 0.5rem;
     overflow: hidden;
 
     > h2 {
@@ -17,7 +16,7 @@
             flex-direction: column;
             margin: 0;
             padding: 0.5rem 1rem;
-            padding-left: calc(1rem - 0.5rem);
+            padding-left: -0.5rem;
             border-left: 0.5rem solid var(--color-dark);
             border-radius: 0;
 

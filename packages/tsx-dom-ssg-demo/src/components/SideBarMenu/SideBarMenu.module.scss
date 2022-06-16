@@ -1,6 +1,5 @@
 @import "../../style/breakpoints.scss";
 @import "../../style/sizes.scss";
-@import "../../style/spacings.scss";
 @import "../../style/fonts.scss";
 
 .side-bar-menu,
@@ -22,7 +21,7 @@
             display: block;
             text-decoration: none;
             border-radius: 0;
-            padding: $space-md;
+            padding: 0.75rem;
         }
         > a:link {
             &:not(:hover,:focus) {
@@ -54,7 +53,7 @@
     > li > ul > li {
         > a,
         > span {
-            padding-left: $space-lg + $space-md;
+            padding-left: 1.75rem;
         }
     }
 }

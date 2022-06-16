@@ -1,9 +1,6 @@
-@import "../../style/spacings.scss";
 @import "../../style/fonts.scss";
 
 .article {
-    // fixme:  no longer required?
-    // max-width: calc(100vw - 2.5rem);
     margin-bottom: 2rem;
 
     > h2 {
@@ -17,7 +14,7 @@
         max-width: 100%;
     }
     pre > code {
-        border-radius: $space-sm;
+        border-radius: 0.5rem;
         margin: 1rem 0;
         font-family: $font-monospace;
     }
