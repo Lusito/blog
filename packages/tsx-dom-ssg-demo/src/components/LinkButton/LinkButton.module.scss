@@ -5,7 +5,6 @@
     display: inline-block;
     font-family: $font-sans-serif;
     font-weight: bold;
-    padding: 0.5rem 0.75rem;
     border-radius: 0.5rem;
     text-decoration: none;
     margin-right: 0.5rem;
@@ -16,25 +15,27 @@
 .link-button {
     background: var(--color-dark);
     color: var(--color-dark-contrast);
-    padding-left: 0.75rem - 0.5rem;
+    padding: 0.5rem 0.25rem;
     border-left: 0.5rem solid var(--color-dark);
+    border-right: 0.5rem solid var(--color-dark);
 
     &:hover,
     &:focus {
         background: var(--color-highlight);
         color: var(--color-highlight-contrast);
         &:not(:link) {
-            border-left-color: var(--color-highlight);
+            border-color: var(--color-highlight);
         }
     }
 
     &:link {
         color: var(--color-dark-contrast);
-        border-left-color: var(--color-dark-link);
+        border-color: var(--color-dark-link);
     }
 }
 
 .link-button-disabled {
+    padding: 0.5rem 0.75rem;
     background: var(--color-disabled);
     color: var(--color-disabled-contrast);
     pointer-events: none;

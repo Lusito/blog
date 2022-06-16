@@ -16,7 +16,7 @@
             flex-direction: column;
             margin: 0;
             padding: 0.5rem 1rem;
-            padding-left: -0.5rem;
+            padding-left: 0.5rem;
             border-left: 0.5rem solid var(--color-dark);
             border-radius: 0;
 
@@ -27,7 +27,7 @@
             .date {
                 flex-grow: 0;
                 font-size: 1.125rem;
-                padding: 0 0 0 1rem;
+                padding: 0.5rem 0 0 0;
             }
 
             @include from("small") {
@@ -36,6 +36,7 @@
     
                 .date {
                     flex-shrink: 0;
+                    padding: 0 0 0 1rem;
                 }
             }
         }
