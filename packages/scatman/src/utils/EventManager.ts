@@ -18,8 +18,8 @@ export function createEventManager<T = never>(name: string) {
                 }
             }
 
-            // trigger event on document with prefix "swup:"
-            document.dispatchEvent(new CustomEvent(`swup:${name}`, { detail }));
+            // trigger event on document with prefix "scatman:"
+            document.dispatchEvent(new CustomEvent(`scatman:${name}`, { detail }));
         },
 
         on(listener: EventHandler<T>) {

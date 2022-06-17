@@ -1,5 +1,5 @@
-import type { Swup, SwupPageLoadEvent } from "../../Swup";
-import type { SwupPlugin } from "../../plugin";
+import type { Scatman, ScatPageLoadEvent } from "../../Scatman";
+import type { ScatPlugin } from "../../ScatPlugin";
 import { getDelegateTarget } from "../../utils/getDelegateTarget";
 import { unpackLink } from "../../utils/urlUtils";
 
@@ -13,35 +13,35 @@ const defaultOptions: Options = {
     behavior: undefined,
 };
 
-export class SwupScrollPlugin implements SwupPlugin {
-    private swup: Swup;
+export class ScatScrollPlugin implements ScatPlugin {
+    private scatman: Scatman;
 
     private options: Options;
 
-    constructor(swup: Swup, options: Partial<Options> = {}) {
-        this.swup = swup;
+    constructor(scatman: Scatman, options: Partial<Options> = {}) {
+        this.scatman = scatman;
         this.options = { ...defaultOptions, ...options };
     }
 
     mount() {
         // scroll to the top of the page
-        this.swup.events.samePage.on(this.onSamePage);
+        this.scatman.events.samePage.on(this.onSamePage);
 
         // scroll to referenced element on the same page
-        this.swup.events.samePageWithHash.on(this.onSamePageWithHash);
+        this.scatman.events.samePageWithHash.on(this.onSamePageWithHash);
 
         // scroll to the referenced element
-        this.swup.events.transitionStart.on(this.onTransitionStart);
+        this.scatman.events.transitionStart.on(this.onTransitionStart);
 
         // scroll to the referenced element when it's in the page (after render)
-        this.swup.events.contentReplaced.on(this.onContentReplaced);
+        this.scatman.events.contentReplaced.on(this.onContentReplaced);
     }
 
     unmount() {
-        this.swup.events.samePage.off(this.onSamePage);
-        this.swup.events.samePageWithHash.off(this.onSamePageWithHash);
-        this.swup.events.transitionStart.off(this.onTransitionStart);
-        this.swup.events.contentReplaced.off(this.onContentReplaced);
+        this.scatman.events.samePage.off(this.onSamePage);
+        this.scatman.events.samePageWithHash.off(this.onSamePageWithHash);
+        this.scatman.events.transitionStart.off(this.onTransitionStart);
+        this.scatman.events.contentReplaced.off(this.onContentReplaced);
 
         window.history.scrollRestoration = "auto";
     }
@@ -73,25 +73,25 @@ export class SwupScrollPlugin implements SwupPlugin {
 
     private onSamePageWithHash = (event: MouseEvent) => {
         if (!event) return;
-        const delegateTarget = getDelegateTarget(event, this.swup.options.linkSelector);
+        const delegateTarget = getDelegateTarget(event, this.scatman.options.linkSelector);
         if (!delegateTarget) return;
 
         this.scrollToHash(unpackLink(delegateTarget).hash);
     };
 
-    private onTransitionStart = (event: SwupPageLoadEvent) => {
+    private onTransitionStart = (event: ScatPageLoadEvent) => {
         if (this.options.doScrollingRightAway && !event.hash) {
             this.doScrolling(event);
         }
     };
 
-    private onContentReplaced = (event: SwupPageLoadEvent) => {
+    private onContentReplaced = (event: ScatPageLoadEvent) => {
         if (!this.options.doScrollingRightAway || event.hash) {
             this.doScrolling(event);
         }
     };
 
-    private doScrolling({ popstate, hash }: SwupPageLoadEvent) {
+    private doScrolling({ popstate, hash }: ScatPageLoadEvent) {
         if (!popstate) {
             if (hash) this.scrollToHash(hash);
             else this.scrollTo();

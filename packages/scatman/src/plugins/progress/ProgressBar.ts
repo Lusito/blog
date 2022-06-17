@@ -114,7 +114,7 @@ export class ProgressBar {
     private createStylesheetElement() {
         const element = document.createElement("style");
         element.setAttribute("data-progressbar-styles", "");
-        element.setAttribute("data-swup-persist", "true");
+        element.setAttribute("data-scatman-persist", "true");
         element.innerHTML = this.getDefaultCSS();
         return element;
     }

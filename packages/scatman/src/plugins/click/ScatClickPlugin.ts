@@ -1,13 +1,13 @@
-import type { Swup } from "../../Swup";
+import type { Scatman } from "../../Scatman";
 import { getDelegateTarget } from "../../utils/getDelegateTarget";
 import { unpackLink, getCurrentUrl } from "../../utils/urlUtils";
-import { SwupPlugin } from "../../plugin";
+import { ScatPlugin } from "../../ScatPlugin";
 
-export class SwupClickPlugin implements SwupPlugin {
-    private swup: Swup;
+export class ScatClickPlugin implements ScatPlugin {
+    private scatman: Scatman;
 
-    constructor(swup: Swup) {
-        this.swup = swup;
+    constructor(scatman: Scatman) {
+        this.scatman = scatman;
     }
 
     mount() {
@@ -23,47 +23,47 @@ export class SwupClickPlugin implements SwupPlugin {
     private linkClickHandler = (event: MouseEvent) => {
         if (event.button !== 0) return;
 
-        const delegateTarget = getDelegateTarget(event, this.swup.options.linkSelector);
+        const delegateTarget = getDelegateTarget(event, this.scatman.options.linkSelector);
         if (!delegateTarget) return;
 
         if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) {
             // open in new tab (do nothing)
-            this.swup.events.openPageInNewTab.emit(event);
+            this.scatman.events.openPageInNewTab.emit(event);
             return;
         }
 
-        this.swup.events.clickLink.emit(event);
+        this.scatman.events.clickLink.emit(event);
         event.preventDefault();
 
         const { url, hash } = unpackLink(delegateTarget);
         const fromUrl = getCurrentUrl();
         if (url !== fromUrl) {
             // get custom transition from data
-            const customTransition = delegateTarget.getAttribute("data-swup-transition");
+            const customTransition = delegateTarget.getAttribute("data-scatman-transition");
 
             // load page
             // eslint-disable-next-line dot-notation
-            this.swup["loadPage"]({ fromUrl, url, hash, customTransition });
+            this.scatman["loadPage"]({ fromUrl, url, hash, customTransition });
             return;
         }
 
         if (hash) {
             // eslint-disable-next-line dot-notation
-            this.swup["pushHistory"](url + hash);
-            this.swup.events.samePageWithHash.emit(event);
+            this.scatman["pushHistory"](url + hash);
+            this.scatman.events.samePageWithHash.emit(event);
         } else {
-            this.swup.events.samePage.emit(event);
+            this.scatman.events.samePage.emit(event);
         }
     };
 
     private popStateHandler = (event: PopStateEvent) => {
-        if (this.swup.options.skipPopStateHandling(event)) {
+        if (this.scatman.options.skipPopStateHandling(event)) {
             return;
         }
 
         const { hash, url } = unpackLink(event.state ? event.state.url : getCurrentUrl());
 
         // eslint-disable-next-line dot-notation
-        this.swup["loadPage"]({ fromUrl: "", url, hash, popstate: event });
+        this.scatman["loadPage"]({ fromUrl: "", url, hash, popstate: event });
     };
 }

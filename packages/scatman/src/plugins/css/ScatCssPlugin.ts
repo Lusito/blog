@@ -1,7 +1,7 @@
-import { SwupAnimationPlugin } from "../../plugin";
-import type { Swup, SwupPageLoadEvent } from "../../Swup";
+import { ScatAnimationPlugin } from "../../ScatPlugin";
+import type { Scatman, ScatPageLoadEvent } from "../../Scatman";
 
-// fixme: let user define data-swup-page somewhere instead of using a generated path?
+// fixme: let user define data-scatman-page somewhere instead of using a generated path?
 export function classify(text: string) {
     const output = text
         .toString()
@@ -25,24 +25,24 @@ const defaultOptions: Options = {
     animationSelector: '[class*="transition-"]',
 };
 
-export class SwupCssPlugin implements SwupAnimationPlugin {
+export class ScatCssPlugin implements ScatAnimationPlugin {
     readonly options: Options;
 
-    private swup: Swup;
+    private scatman: Scatman;
 
-    constructor(swup: Swup, options: Partial<Options> = {}) {
-        this.swup = swup;
+    constructor(scatman: Scatman, options: Partial<Options> = {}) {
+        this.scatman = scatman;
         this.options = { ...defaultOptions, ...options };
     }
 
     mount(): void {
-        document.documentElement.classList.add("swup-enabled");
-        this.swup.events.willReplaceContent.on(this.onWillReplaceContent);
+        document.documentElement.classList.add("scatman-enabled");
+        this.scatman.events.willReplaceContent.on(this.onWillReplaceContent);
     }
 
     unmount(): void {
-        document.documentElement.classList.remove("swup-enabled");
-        this.swup.events.willReplaceContent.off(this.onWillReplaceContent);
+        document.documentElement.classList.remove("scatman-enabled");
+        this.scatman.events.willReplaceContent.off(this.onWillReplaceContent);
         // fixme: remove other classes?
     }
 
@@ -63,7 +63,7 @@ export class SwupCssPlugin implements SwupAnimationPlugin {
         return promises;
     }
 
-    private onWillReplaceContent = ({ popstate }: SwupPageLoadEvent) => {
+    private onWillReplaceContent = ({ popstate }: ScatPageLoadEvent) => {
         document.documentElement.classList.remove("is-leaving");
 
         // only add for non-popstate transitions
@@ -72,7 +72,7 @@ export class SwupCssPlugin implements SwupAnimationPlugin {
         }
     };
 
-    async animateOut({ popstate, url, customTransition }: SwupPageLoadEvent) {
+    async animateOut({ popstate, url, customTransition }: ScatPageLoadEvent) {
         // handle classes
         document.documentElement.classList.add("is-changing");
         document.documentElement.classList.add("is-leaving");

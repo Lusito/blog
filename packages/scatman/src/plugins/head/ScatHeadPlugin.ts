@@ -1,6 +1,6 @@
-import type { Swup } from "../../Swup";
+import type { Scatman } from "../../Scatman";
 import { getCurrentUrl } from "../../utils/urlUtils";
-import { SwupPlugin } from "../../plugin";
+import { ScatPlugin } from "../../ScatPlugin";
 
 type Options = {
     persistTags: boolean | string | ((element: Element) => boolean);
@@ -9,26 +9,26 @@ const defaultOptions: Options = {
     persistTags: false,
 };
 
-export class SwupHeadPlugin implements SwupPlugin {
-    private swup: Swup;
+export class ScatHeadPlugin implements ScatPlugin {
+    private scatman: Scatman;
 
     private options: Options;
 
-    constructor(swup: Swup, options: Partial<Options> = {}) {
-        this.swup = swup;
+    constructor(scatman: Scatman, options: Partial<Options> = {}) {
+        this.scatman = scatman;
         this.options = { ...defaultOptions, ...options };
     }
 
     mount() {
-        this.swup.events.contentReplaced.on(this.onContentReplaced);
+        this.scatman.events.contentReplaced.on(this.onContentReplaced);
     }
 
     unmount() {
-        this.swup.events.contentReplaced.off(this.onContentReplaced);
+        this.scatman.events.contentReplaced.off(this.onContentReplaced);
     }
 
     private onContentReplaced = () => {
-        const page = this.swup.cache.get(getCurrentUrl());
+        const page = this.scatman.cache.get(getCurrentUrl());
         if (!page) {
             console.warn("Page did not exist in cache: ", getCurrentUrl());
             return;
@@ -65,7 +65,7 @@ export class SwupHeadPlugin implements SwupPlugin {
     }
 
     private isPersistentTag(item: Element) {
-        if (item.hasAttribute("data-swup-persist")) {
+        if (item.hasAttribute("data-scatman-persist")) {
             return true;
         }
 

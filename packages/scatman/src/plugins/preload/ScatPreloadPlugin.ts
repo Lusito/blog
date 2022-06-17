@@ -1,29 +1,29 @@
-import type { Swup } from "../../Swup";
+import type { Scatman } from "../../Scatman";
 import { LinkSource, unpackLink } from "../../utils/urlUtils";
-import { SwupPlugin } from "../../plugin";
+import { ScatPlugin } from "../../ScatPlugin";
 import { getDelegateTarget } from "../../utils/getDelegateTarget";
 import { createEventManager, eventManagerMapOff } from "../../utils/EventManager";
 
-export class SwupPreloadPlugin implements SwupPlugin {
-    private swup: Swup;
+export class ScatPreloadPlugin implements ScatPlugin {
+    private scatman: Scatman;
 
     private readonly events = {
         hoverLink: createEventManager<MouseEvent>("hoverLink"),
     };
 
-    constructor(swup: Swup) {
-        this.swup = swup;
+    constructor(scatman: Scatman) {
+        this.scatman = scatman;
     }
 
     mount() {
         // register mouseover handler
         document.body.addEventListener("mouseover", this.onMouseover);
 
-        // initial preload of page form links with [data-swup-preload]
+        // initial preload of page form links with [data-scatman-preload]
         this.preloadPages();
 
         // do the same on every content replace
-        this.swup.events.contentReplaced.on(this.onContentReplaced);
+        this.scatman.events.contentReplaced.on(this.onContentReplaced);
     }
 
     unmount() {
@@ -31,7 +31,7 @@ export class SwupPreloadPlugin implements SwupPlugin {
 
         document.body.removeEventListener("mouseover", this.onMouseover);
 
-        this.swup.events.contentReplaced.off(this.onContentReplaced);
+        this.scatman.events.contentReplaced.off(this.onContentReplaced);
     }
 
     private onContentReplaced = () => {
@@ -39,8 +39,8 @@ export class SwupPreloadPlugin implements SwupPlugin {
     };
 
     private onMouseover = (event: MouseEvent) => {
-        const { swup } = this;
-        const delegateTarget = getDelegateTarget(event, swup.options.linkSelector);
+        const { scatman } = this;
+        const delegateTarget = getDelegateTarget(event, scatman.options.linkSelector);
         if (!delegateTarget) return;
 
         this.events.hoverLink.emit(event);
@@ -49,11 +49,11 @@ export class SwupPreloadPlugin implements SwupPlugin {
     };
 
     private async preloadPage(linkSource: LinkSource) {
-        await this.swup.preloadPage(unpackLink(linkSource).url);
+        await this.scatman.preloadPage(unpackLink(linkSource).url);
     }
 
     private preloadPages() {
-        document.querySelectorAll("[data-swup-preload]").forEach((element) => {
+        document.querySelectorAll("[data-scatman-preload]").forEach((element) => {
             const href = element.getAttribute("href");
             if (href) this.preloadPage(href);
         });

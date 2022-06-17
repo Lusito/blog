@@ -1,10 +1,10 @@
-import type { Swup, SwupPageLoadEvent } from "../../Swup";
-import { SwupAnimationPlugin } from "../../plugin";
+import type { Scatman, ScatPageLoadEvent } from "../../Scatman";
+import { ScatAnimationPlugin } from "../../ScatPlugin";
 
 type InOutParam = {
     paramsFrom: RegExpExecArray | null;
     paramsTo: RegExpExecArray | null;
-    event: SwupPageLoadEvent;
+    event: ScatPageLoadEvent;
     from: string | RegExp;
     to: string | RegExp;
 };
@@ -34,12 +34,12 @@ const defaultOptions: Options = {
     ],
 };
 
-export class SwupJsPlugin implements SwupAnimationPlugin {
+export class ScatJsPlugin implements ScatAnimationPlugin {
     private currentAnimation: Animation | null = null;
 
     private options: Options;
 
-    constructor(_swup: Swup, options: Partial<Options> = {}) {
+    constructor(_scatman: Scatman, options: Partial<Options> = {}) {
         this.options = { ...defaultOptions, ...options };
         if (options.animations) {
             this.options.animations = [...defaultOptions.animations, ...options.animations];
@@ -52,15 +52,15 @@ export class SwupJsPlugin implements SwupAnimationPlugin {
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     unmount() {}
 
-    animateOut(event: SwupPageLoadEvent) {
+    animateOut(event: ScatPageLoadEvent) {
         return this.createAnimationPromise(event, "out");
     }
 
-    animateIn(event: SwupPageLoadEvent) {
+    animateIn(event: ScatPageLoadEvent) {
         return this.createAnimationPromise(event, "in");
     }
 
-    private createAnimationPromise(event: SwupPageLoadEvent, type: "in" | "out") {
+    private createAnimationPromise(event: ScatPageLoadEvent, type: "in" | "out") {
         // type === "in" => already saved from out animation
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         const animation = type === "in" ? this.currentAnimation! : this.getRatedAnimation(event);
@@ -76,7 +76,7 @@ export class SwupJsPlugin implements SwupAnimationPlugin {
         });
     }
 
-    private getRatedAnimation(event: SwupPageLoadEvent) {
+    private getRatedAnimation(event: ScatPageLoadEvent) {
         let topAnimation = this.options.animations[0];
         let topRating = 0;
 
@@ -93,7 +93,7 @@ export class SwupJsPlugin implements SwupAnimationPlugin {
         return this.currentAnimation;
     }
 
-    private rateAnimation(event: SwupPageLoadEvent, animation: Animation) {
+    private rateAnimation(event: ScatPageLoadEvent, animation: Animation) {
         const fromMatched = animation.from.test(event.fromUrl);
         const toMatched = animation.to.test(event.url);
 

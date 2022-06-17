@@ -1,5 +1,5 @@
-import type { Swup } from "../../Swup";
-import type { SwupPlugin } from "../../plugin";
+import type { Scatman } from "../../Scatman";
+import type { ScatPlugin } from "../../ScatPlugin";
 import { ProgressBar } from "./ProgressBar";
 
 type Options = {
@@ -13,15 +13,15 @@ type Options = {
 
 const defaultOptions = {
     container: "body",
-    className: "swup-progress-bar",
+    className: "scatman-progress-bar",
     background: "red",
     transition: 300,
     delay: 300,
     hideImmediately: true,
 };
 
-export class SwupProgressPlugin implements SwupPlugin {
-    private swup: Swup;
+export class ScatProgressPlugin implements ScatPlugin {
+    private scatman: Scatman;
 
     private options: Options;
 
@@ -31,8 +31,8 @@ export class SwupProgressPlugin implements SwupPlugin {
 
     private progressBar: ProgressBar;
 
-    constructor(swup: Swup, options: Partial<Options> = {}) {
-        this.swup = swup;
+    constructor(scatman: Scatman, options: Partial<Options> = {}) {
+        this.scatman = scatman;
         this.options = { ...defaultOptions, ...options };
 
         let container = document.querySelector(this.options.container);
@@ -52,13 +52,13 @@ export class SwupProgressPlugin implements SwupPlugin {
     }
 
     mount() {
-        this.swup.events.transitionStart.on(this.start);
-        this.swup.events.contentReplaced.on(this.stop);
+        this.scatman.events.transitionStart.on(this.start);
+        this.scatman.events.contentReplaced.on(this.stop);
     }
 
     unmount() {
-        this.swup.events.transitionStart.off(this.start);
-        this.swup.events.contentReplaced.off(this.stop);
+        this.scatman.events.transitionStart.off(this.start);
+        this.scatman.events.contentReplaced.off(this.stop);
     }
 
     private start = () => {

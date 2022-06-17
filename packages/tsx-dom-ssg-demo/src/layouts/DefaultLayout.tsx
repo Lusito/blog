@@ -28,7 +28,7 @@ export const DefaultLayout = withCss(classes, ({ children, pageTitle }: DefaultL
             <SideBar />
             <div class={classes.mainwrapper}>
                 <Header siteTitle={siteTitle} />
-                <div class={`${classes.content} swup-container`}>
+                <div class={`${classes.content} scatman-container`}>
                     {children}
                     <Footer />
                 </div>

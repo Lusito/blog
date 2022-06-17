@@ -20,7 +20,7 @@ export const DefaultLayout = withCss(classes, ({ children, title }: DefaultLayou
         </head>
         <body class={classes.body}>
             <Header />
-            <div class="transition-fade swup-container">
+            <div class="transition-fade scatman-container">
                 <h1>{title}</h1>
                 {children}
             </div>

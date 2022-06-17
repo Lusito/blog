@@ -1,7 +1,7 @@
 // import "focus-options-polyfill"; // tell authors to install if needed
 
-import { SwupPlugin } from "../../plugin";
-import type { Swup } from "../../Swup";
+import { ScatPlugin } from "../../ScatPlugin";
+import type { Scatman } from "../../Scatman";
 
 type Options = {
     headingSelector: string;
@@ -17,24 +17,24 @@ const defaultOptions: Options = {
     urlTemplate: "New page at {url}",
 };
 
-export class SwupA11yPlugin implements SwupPlugin {
-    private swup: Swup;
+export class ScatA11yPlugin implements ScatPlugin {
+    private scatman: Scatman;
 
     private options: Options;
 
     private liveNode?: HTMLElement;
 
-    constructor(swup: Swup, options: Partial<Options> = {}) {
-        this.swup = swup;
+    constructor(scatman: Scatman, options: Partial<Options> = {}) {
+        this.scatman = scatman;
         this.options = { ...defaultOptions, ...options };
     }
 
     mount() {
-        this.swup.events.transitionEnd.on(this.announceVisit);
+        this.scatman.events.transitionEnd.on(this.announceVisit);
     }
 
     unmount() {
-        this.swup.events.transitionEnd.off(this.announceVisit);
+        this.scatman.events.transitionEnd.off(this.announceVisit);
         this.removeLiveNode();
     }
 

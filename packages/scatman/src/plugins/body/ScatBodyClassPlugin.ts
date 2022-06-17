@@ -1,6 +1,6 @@
-import type { Swup } from "../../Swup";
+import type { Scatman } from "../../Scatman";
 import { getCurrentUrl } from "../../utils/urlUtils";
-import { SwupPlugin } from "../../plugin";
+import { ScatPlugin } from "../../ScatPlugin";
 
 type Options = {
     validClass: RegExp;
@@ -11,26 +11,26 @@ const defaultOptions: Options = {
 };
 
 // fixme: more than just body class? all attributes?
-export  class SwupBodyClassPlugin implements SwupPlugin {
-    private swup: Swup;
+export  class ScatBodyClassPlugin implements ScatPlugin {
+    private scatman: Scatman;
 
     private options: Options;
 
-    constructor(swup: Swup, options: Partial<Options> = {}) {
-        this.swup = swup;
+    constructor(scatman: Scatman, options: Partial<Options> = {}) {
+        this.scatman = scatman;
         this.options = { ...defaultOptions, ...options };
     }
 
     mount() {
-        this.swup.events.contentReplaced.on(this.onContentReplaced);
+        this.scatman.events.contentReplaced.on(this.onContentReplaced);
     }
 
     unmount() {
-        this.swup.events.contentReplaced.off(this.onContentReplaced);
+        this.scatman.events.contentReplaced.off(this.onContentReplaced);
     }
 
     private onContentReplaced = () => {
-        const page = this.swup.cache.get(getCurrentUrl());
+        const page = this.scatman.cache.get(getCurrentUrl());
         if (!page) {
             console.warn("Page did not exist in cache: ", getCurrentUrl());
             return;

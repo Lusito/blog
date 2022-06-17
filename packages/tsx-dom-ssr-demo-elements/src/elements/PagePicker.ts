@@ -1,4 +1,4 @@
-import { goToPage } from "../swupInstance";
+import { goToPage } from "../scatman";
 
 class PagePicker extends HTMLSelectElement {
     onChangeHandler = () => {

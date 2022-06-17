@@ -1,8 +1,8 @@
 import { getPageDataFromHtml, PageData } from "./utils/pageData";
-import { SwupAnimationPlugin, SwupPlugin } from "./plugin";
+import { ScatAnimationPlugin, ScatPlugin } from "./ScatPlugin";
 import { unpackLink, getCurrentUrl } from "./utils/urlUtils";
 import { createEventManager, eventManagerMapOff } from "./utils/EventManager";
-import { SwupClickPlugin } from "./plugins/click/SwupClickPlugin";
+import { ScatClickPlugin } from "./plugins/click/ScatClickPlugin";
 
 type Options = {
     linkSelector: string;
@@ -14,15 +14,15 @@ type Options = {
 
 // default options
 const defaultOptions: Options = {
-    linkSelector: `a[href^="${window.location.origin}"]:not([data-no-swup]), a[href^="/"]:not([data-no-swup]), a[href^="#"]:not([data-no-swup])`,
+    linkSelector: `a[href^="${window.location.origin}"]:not([data-no-scatman]), a[href^="/"]:not([data-no-scatman]), a[href^="#"]:not([data-no-scatman])`,
     cache: true,
-    containers: ".swup-container",
+    containers: ".scatman-container",
     requestHeaders: {
-        "X-Requested-With": "swup",
+        "X-Requested-With": "scatman",
         Accept: "text/html, application/xhtml+xml",
     },
     skipPopStateHandling(event) {
-        return event.state?.source !== "swup";
+        return event.state?.source !== "scatman";
     },
 };
 
@@ -43,7 +43,7 @@ const noopCache = {
     clear: noop,
 };
 
-export type SwupPageLoadEvent = {
+export type ScatPageLoadEvent = {
     fromUrl: string;
     url: string;
     hash: string;
@@ -51,16 +51,16 @@ export type SwupPageLoadEvent = {
     popstate?: PopStateEvent;
 };
 
-export class Swup {
+export class Scatman {
     readonly cache: Cache;
 
     readonly options: Options;
 
     private readonly preloading = new Map<string, PreloadData>();
 
-    private plugins: SwupPlugin[] = [];
+    private plugins: ScatPlugin[] = [];
 
-    private animationPlugin?: SwupAnimationPlugin;
+    private animationPlugin?: ScatAnimationPlugin;
 
     readonly events = {
         animationInDone: createEventManager("animationInDone"),
@@ -69,20 +69,20 @@ export class Swup {
         animationOutStart: createEventManager("animationOutStart"),
         animationSkipped: createEventManager("animationSkipped"),
         clickLink: createEventManager<MouseEvent>("clickLink"),
-        contentReplaced: createEventManager<SwupPageLoadEvent>("contentReplaced"),
+        contentReplaced: createEventManager<ScatPageLoadEvent>("contentReplaced"),
         disabled: createEventManager("disabled"),
         enabled: createEventManager("enabled"),
         openPageInNewTab: createEventManager<MouseEvent>("openPageInNewTab"),
         pagePreloaded: createEventManager("pagePreloaded"),
-        pageLoaded: createEventManager<SwupPageLoadEvent>("pageLoaded"),
+        pageLoaded: createEventManager<ScatPageLoadEvent>("pageLoaded"),
         pageRetrievedFromCache: createEventManager("pageRetrievedFromCache"),
-        pageView: createEventManager<SwupPageLoadEvent | undefined>("pageView"),
+        pageView: createEventManager<ScatPageLoadEvent | undefined>("pageView"),
         samePage: createEventManager<MouseEvent>("samePage"),
         samePageWithHash: createEventManager<MouseEvent>("samePageWithHash"),
         serverError: createEventManager("serverError"),
-        transitionStart: createEventManager<SwupPageLoadEvent>("transitionStart"),
-        transitionEnd: createEventManager<SwupPageLoadEvent>("transitionEnd"),
-        willReplaceContent: createEventManager<SwupPageLoadEvent>("willReplaceContent"),
+        transitionStart: createEventManager<ScatPageLoadEvent>("transitionStart"),
+        transitionEnd: createEventManager<ScatPageLoadEvent>("transitionEnd"),
+        willReplaceContent: createEventManager<ScatPageLoadEvent>("willReplaceContent"),
     };
 
     constructor(options: Partial<Options> = {}) {
@@ -90,7 +90,7 @@ export class Swup {
 
         this.cache = this.options.cache ? new Map() : noopCache;
 
-        this.use(new SwupClickPlugin(this));
+        this.use(new ScatClickPlugin(this));
 
         // initial save to cache
         const url = getCurrentUrl();
@@ -108,11 +108,11 @@ export class Swup {
         this.events.pageView.emit(undefined);
     }
 
-    use(...plugins: SwupPlugin[]) {
+    use(...plugins: ScatPlugin[]) {
         this.plugins.concat(plugins);
         for (const plugin of plugins) {
             if ("animateOut" in plugin && "animateIn" in plugin) {
-                this.animationPlugin = plugin as SwupAnimationPlugin;
+                this.animationPlugin = plugin as ScatAnimationPlugin;
             }
             plugin.mount();
         }
@@ -124,7 +124,7 @@ export class Swup {
         return getPageDataFromHtml(url, html, this.options.containers);
     }
 
-    async renderPage(page: PageData, event: SwupPageLoadEvent) {
+    async renderPage(page: PageData, event: ScatPageLoadEvent) {
         const { popstate } = event;
         // replace state in case the url was redirected
         const { path } = unpackLink(page.url);
@@ -205,11 +205,11 @@ export class Swup {
     }
 
     private pushHistory(url: string) {
-        window.history.pushState({ url, source: "swup" }, "", url);
+        window.history.pushState({ url, source: "scatman" }, "", url);
     }
 
     private replaceHistory(url: string) {
-        window.history.replaceState({ url, source: "swup" }, "", url);
+        window.history.replaceState({ url, source: "scatman" }, "", url);
     }
 
     goTo(href: string, customTransition?: string) {
@@ -217,7 +217,7 @@ export class Swup {
         this.loadPage({ fromUrl: getCurrentUrl(), url, hash, customTransition });
     }
 
-    private async loadPage(event: SwupPageLoadEvent) {
+    private async loadPage(event: ScatPageLoadEvent) {
         this.events.transitionStart.emit(event);
 
         let animateOutPromise = Promise.resolve();
