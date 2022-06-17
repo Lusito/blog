@@ -1,4 +1,4 @@
-import type { Swup, SwupPageLoadEvent } from "../..";
+import type { Swup, SwupPageLoadEvent } from "../../Swup";
 import type { SwupPlugin } from "../../plugin";
 import { getDelegateTarget } from "../../utils/getDelegateTarget";
 import { unpackLink } from "../../utils/urlUtils";

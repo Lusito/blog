@@ -1,4 +1,4 @@
-import type { Swup, SwupPageLoadEvent } from "../..";
+import type { Swup, SwupPageLoadEvent } from "../../Swup";
 import { SwupAnimationPlugin } from "../../plugin";
 
 type InOutParam = {

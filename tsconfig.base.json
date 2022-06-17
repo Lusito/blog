@@ -17,6 +17,7 @@
     "baseUrl": ".",
     "paths": {
       "dom-helmet": ["packages/dom-helmet/src/index.ts"],
+      "scatman": ["packages/scatman/src/index.ts"],
       "tsx-dom": ["packages/tsx-dom/src/index.ts"],
       "tsx-dom-ssr": ["packages/tsx-dom-ssr/src/index.ts"],
       "tsx-dom-ssr-demo-elements": ["packages/tsx-dom-ssr-demo-elements/src/index.ts"],

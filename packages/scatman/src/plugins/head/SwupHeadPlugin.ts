@@ -1,4 +1,4 @@
-import type { Swup } from "../..";
+import type { Swup } from "../../Swup";
 import { getCurrentUrl } from "../../utils/urlUtils";
 import { SwupPlugin } from "../../plugin";
 

@@ -1,4 +1,4 @@
-import type { Swup } from "../..";
+import type { Swup } from "../../Swup";
 import type { SwupPlugin } from "../../plugin";
 import { ProgressBar } from "./ProgressBar";
 

@@ -1,5 +1,5 @@
 import { SwupAnimationPlugin } from "../../plugin";
-import type { Swup, SwupPageLoadEvent } from "../..";
+import type { Swup, SwupPageLoadEvent } from "../../Swup";
 
 // fixme: let user define data-swup-page somewhere instead of using a generated path?
 export function classify(text: string) {

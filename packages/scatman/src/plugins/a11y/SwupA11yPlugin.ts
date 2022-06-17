@@ -1,7 +1,7 @@
 // import "focus-options-polyfill"; // tell authors to install if needed
 
 import { SwupPlugin } from "../../plugin";
-import type { Swup } from "../..";
+import type { Swup } from "../../Swup";
 
 type Options = {
     headingSelector: string;
