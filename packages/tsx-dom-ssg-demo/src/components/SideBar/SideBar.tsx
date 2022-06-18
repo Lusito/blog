@@ -5,7 +5,7 @@ import classes from "./SideBar.module.scss";
 
 // eslint-disable-next-line func-names
 export const SideBar = withCss(classes, () => (
-    <div class={`${classes.sideBar} ${classes.sideBarHover}`}>
+    <div class={classes.sideBar}>
         <div class={classes.content}>
             <SideBarHeader />
             <SideBarMenu />
