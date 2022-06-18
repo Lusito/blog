@@ -89,7 +89,10 @@ export class Scatman {
         this.options = { ...defaultOptions, ...options };
 
         this.cache = this.options.cache ? new Map() : noopCache;
+    }
 
+    init() {
+        // fixme: check if already initialized
         this.use(new ScatClickPlugin(this));
 
         // initial save to cache
@@ -106,6 +109,19 @@ export class Scatman {
 
         // trigger page view event
         this.events.pageView.emit(undefined);
+    }
+
+    destroy() {
+        this.cache.clear();
+
+        // unmount plugins
+        this.plugins.forEach((plugin) => plugin.unmount());
+        this.plugins.length = 0;
+
+        this.events.disabled.emit();
+
+        // remove event handlers
+        eventManagerMapOff(this.events);
     }
 
     use(...plugins: ScatPlugin[]) {
@@ -255,18 +271,5 @@ export class Scatman {
             // An error happened, try to make it load manually
             window.location.href = event.url;
         }
-    }
-
-    destroy() {
-        this.cache.clear();
-
-        // unmount plugins
-        this.plugins.forEach((plugin) => plugin.unmount());
-        this.plugins.length = 0;
-
-        this.events.disabled.emit();
-
-        // remove event handlers
-        eventManagerMapOff(this.events);
     }
 }

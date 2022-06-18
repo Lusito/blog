@@ -9,9 +9,9 @@ import {
     ScatScrollPlugin,
 } from "scatman";
 
-let scatman: Scatman | null = null;
+export const scatman = new Scatman();
+
 document.addEventListener("DOMContentLoaded", () => {
-    scatman = new Scatman();
     scatman.use(
         new ScatCssPlugin(scatman),
         new ScatHeadPlugin(scatman),
@@ -23,8 +23,3 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 });
 
-export function goToPage(url: string) {
-    if (scatman) {
-        scatman.goTo(url);
-    }
-}
