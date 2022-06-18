@@ -2,6 +2,19 @@
 @import "../../style/breakpoints.scss";
 @import "../../style/sizes.scss";
 
+$transition-time: 0.5s;
+
+.side-bar-overlay {
+    background: transparent;
+    transition: right 0s $transition-time linear, background-color $transition-time ease-in-out;
+    position: fixed;
+    top: 0;
+    right: 100vw;
+    bottom: 0;
+    left: 0;
+    z-index: 199;
+}
+
 .side-bar {
     position: absolute;
     top: 0;
@@ -10,7 +23,7 @@
     width: $menu-width;
     z-index: 200;
     padding-right: $menu-grip-width;
-    transition: all 0.5s ease;
+    transition: all $transition-time ease;
     background: var(--color-main);
     box-sizing: border-box;
 
@@ -20,6 +33,12 @@
 
         > .trigger > div {
             right: 0;
+        }
+
+        + .side-bar-overlay {
+            background: var(--color-overlay);
+            right: 0;
+            transition: right 0s linear, background-color $transition-time ease-in-out;
         }
     }
 
@@ -31,7 +50,7 @@
         width: $menu-grip-width;
         background: var(--color-dark);
         > div {
-            transition: all 0.5s ease;
+            transition: all $transition-time ease;
             position: absolute;
             left: auto;
             top: 0;

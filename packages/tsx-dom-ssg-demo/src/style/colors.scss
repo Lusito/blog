@@ -18,6 +18,7 @@ $color-cyan: #268c91;
     --color-focus-contrast: #{$color-main-100};
     --color-disabled: #{$color-main-400};
     --color-disabled-contrast: #{$color-main-100};
+    --color-overlay: #{fade-out($color-main-900, 0.4)};
 }
 
 @media (prefers-color-scheme: dark) {
