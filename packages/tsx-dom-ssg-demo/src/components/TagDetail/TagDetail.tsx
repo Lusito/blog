@@ -11,10 +11,10 @@ type TagDetailProps = {
 };
 
 export const TagDetail = withCss(classes, ({ tag }: TagDetailProps) => (
-    <div class={classes.tagDetail}>
+    <article class={classes.tagDetail}>
         <h2>
             <LinkButton href={`/tag/${slugify(tag, slugifyOptions)}.html`}>{tag}</LinkButton>
         </h2>
         <div>{tagDescriptions[tag]}</div>
-    </div>
+    </article>
 ));

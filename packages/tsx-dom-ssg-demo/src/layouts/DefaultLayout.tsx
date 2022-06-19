@@ -29,7 +29,7 @@ export const DefaultLayout = withCss(classes, ({ children, pageTitle }: DefaultL
             <div class={classes.mainwrapper}>
                 <Header siteTitle={siteTitle} />
                 <div class={`${classes.content} scatman-container`}>
-                    {children}
+                    <main>{children}</main>
                     <Footer />
                 </div>
             </div>

@@ -1,9 +1,9 @@
-import { ArticleHead } from "../../components/ArticleHead/ArticleHead";
+import { ArticleHeader } from "../../components/ArticleHeader/ArticleHeader";
 import { Container } from "../../components/Container/Container";
 import { MetaTags } from "../../components/MetaTags/MetaTags";
 import { TagDetail } from "../../components/TagDetail/TagDetail";
 import { DefaultLayout } from "../../layouts/DefaultLayout";
-import { FrontMatter, tagLabels, tagSlugToLabel } from "../../utils/pageUtils";
+import { FrontMatter, tagLabels } from "../../utils/pageUtils";
 
 export const frontMatter: FrontMatter = {
     tags: [],
@@ -17,20 +17,20 @@ export const frontMatter: FrontMatter = {
 export default async function () {
     return (
         <DefaultLayout pageTitle={frontMatter.title}>
-            <main>
+            <article>
                 <MetaTags
                     description={frontMatter.description}
                     slug={frontMatter.slug!}
                     title={frontMatter.title}
                     tags={tagLabels}
                 />
-                <ArticleHead title={frontMatter.title} description={frontMatter.description} />
+                <ArticleHeader title={frontMatter.title} description={frontMatter.description} />
                 <Container>
                     {tagLabels.map((tag) => (
                         <TagDetail tag={tag} />
                     ))}
                 </Container>
-            </main>
+            </article>
         </DefaultLayout>
     );
 }

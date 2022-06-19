@@ -1,5 +1,5 @@
 import { MarkdownArticle } from "../components/Article/Article";
-import { ArticleHead } from "../components/ArticleHead/ArticleHead";
+import { ArticleHeader } from "../components/ArticleHeader/ArticleHeader";
 import { Container } from "../components/Container/Container";
 import { MetaTagsArticle } from "../components/MetaTags/MetaTags";
 import { TagList } from "../components/TagList/TagList";
@@ -14,7 +14,7 @@ export async function MarkdownPage({ page }: MarkdownPageProps) {
     const { title, body, tags, description } = page;
     return (
         <DefaultLayout pageTitle={title}>
-            <main>
+            <article>
                 <MetaTagsArticle
                     title={title}
                     description={description}
@@ -23,7 +23,7 @@ export async function MarkdownPage({ page }: MarkdownPageProps) {
                     tags={page.tags}
                     slug={page.slug}
                 />
-                <ArticleHead title={title} description={description} date={page.date} />
+                <ArticleHeader title={title} description={description} date={page.date} />
                 <Container>
                     {tags.length > 0 && <TagList tags={tags} />}
                     <MarkdownArticle markdown={body} />
@@ -34,7 +34,7 @@ export async function MarkdownPage({ page }: MarkdownPageProps) {
                         </>
                     )}
                 </Container>
-            </main>
+            </article>
         </DefaultLayout>
     );
 }

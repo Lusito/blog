@@ -9,7 +9,7 @@ type PagePreviewProps = {
 };
 
 export const PagePreview = withCss(classes, ({ page }: PagePreviewProps) => (
-    <div class={classes.pagePreview}>
+    <article class={classes.pagePreview}>
         <h2>
             <LinkButton href={`/${page.slug}.html`}>
                 <span class={classes.label}>{page.title}</span>
@@ -18,5 +18,5 @@ export const PagePreview = withCss(classes, ({ page }: PagePreviewProps) => (
         </h2>
         <div>{page.description}</div>
         <TagList tags={page.tags} />
-    </div>
+    </article>
 ));

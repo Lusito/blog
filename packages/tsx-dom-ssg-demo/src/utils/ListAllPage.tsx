@@ -1,4 +1,4 @@
-import { ArticleHead } from "../components/ArticleHead/ArticleHead";
+import { ArticleHeader } from "../components/ArticleHeader/ArticleHeader";
 import { Container } from "../components/Container/Container";
 import { MetaTags } from "../components/MetaTags/MetaTags";
 import { DefaultLayout } from "../layouts/DefaultLayout";
@@ -13,9 +13,9 @@ export async function ListAllPage({ pages }: ListAllPageProps) {
     const description = "A chronological list of posts on this blog";
     return (
         <DefaultLayout pageTitle={title}>
-            <main>
+            <article>
                 <MetaTags description={description} slug="all" title={title} tags={tagLabels} />
-                <ArticleHead title={title} description={description} />
+                <ArticleHeader title={title} description={description} />
                 <Container>
                     <ul>
                         {pages.map((page) => (
@@ -25,7 +25,7 @@ export async function ListAllPage({ pages }: ListAllPageProps) {
                         ))}
                     </ul>
                 </Container>
-            </main>
+            </article>
         </DefaultLayout>
     );
 }

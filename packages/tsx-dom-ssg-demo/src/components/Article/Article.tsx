@@ -21,8 +21,9 @@ const md: MarkdownIt = new MarkdownIt({
     },
 });
 
+// fixme: rename to ArticleContent or something?
 export const Article = withCss(classes, ({ children }: BaseProps) => (
-    <article class={classes.article}>{children}</article>
+    <div class={classes.article}>{children}</div>
 ));
 
 type MarkdownArticleProps = {
@@ -30,5 +31,5 @@ type MarkdownArticleProps = {
 };
 
 export const MarkdownArticle = withCss(classes, ({ markdown }: MarkdownArticleProps) => (
-    <article class={classes.article} dangerouslySetInnerHTML={md.render(markdown)} />
+    <div class={classes.article} dangerouslySetInnerHTML={md.render(markdown)} />
 ));

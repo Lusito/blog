@@ -1,4 +1,4 @@
-import { ArticleHead } from "../../components/ArticleHead/ArticleHead";
+import { ArticleHeader } from "../../components/ArticleHeader/ArticleHeader";
 import { Container } from "../../components/Container/Container";
 import { MetaTags } from "../../components/MetaTags/MetaTags";
 import { TagList } from "../../components/TagList/TagList";
@@ -17,14 +17,14 @@ export const frontMatter: FrontMatter = {
 export default async function () {
     return (
         <DefaultLayout pageTitle={frontMatter.title}>
-            <main>
+            <article>
                 <MetaTags description={frontMatter.description} slug={frontMatter.slug!} title={frontMatter.title} tags={[]} />
-                <ArticleHead title={frontMatter.title} description={frontMatter.description} />
+                <ArticleHeader title={frontMatter.title} description={frontMatter.description} />
                 <Container>
                     <p>Could not find the file you were looking for! Try looking at one of these topics:</p>
                     <TagList tags={tagLabels} />
                 </Container>
-            </main>
+            </article>
         </DefaultLayout>
     );
 }

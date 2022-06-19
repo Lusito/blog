@@ -1,4 +1,4 @@
-import { ArticleHead } from "../components/ArticleHead/ArticleHead";
+import { ArticleHeader } from "../components/ArticleHeader/ArticleHeader";
 import { Container } from "../components/Container/Container";
 import { MetaTags } from "../components/MetaTags/MetaTags";
 import { PagePreview } from "../components/PagePreview/PagePreview";
@@ -28,9 +28,9 @@ export async function ListPage({ path, tags, title, description, pages, pageNumb
 
     return (
         <DefaultLayout pageTitle={title}>
-            <main>
+            <article>
                 <MetaTags description={description} slug={path.slice(1)} title={title} tags={tags} />
-                <ArticleHead title={title} description={description} />
+                <ArticleHeader title={title} description={description} />
                 <Container>
                     {pagination}
                     {filtered.map((page) => (
@@ -38,7 +38,7 @@ export async function ListPage({ path, tags, title, description, pages, pageNumb
                     ))}
                     {pagination}
                 </Container>
-            </main>
+            </article>
         </DefaultLayout>
     );
 }
