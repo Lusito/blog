@@ -1,3 +1,6 @@
+// eslint-disable-next-line @nrwl/nx/enforce-module-boundaries
+import("tsx-dom-ssg-demo-elements");
+
 type CssModule = {
     _getCss(): string;
     [key: string]: string;

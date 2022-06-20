@@ -32,11 +32,12 @@ const md: MarkdownIt = new MarkdownIt({
 
                 if (content.length === 0) return html;
 
+                const title = "Copy the code snippet to the clipboard";
                 const el = createElement("code-copy-button", {
                     enhancedClass: classes.enhancedCopyButton,
                     code: content,
-                    title: "Copy",
-                    "aria-label": "Copy",
+                    title,
+                    "aria-label": title,
                 });
 
                 return html.replace("</pre>", `${el.outerHTML}</pre>`);
