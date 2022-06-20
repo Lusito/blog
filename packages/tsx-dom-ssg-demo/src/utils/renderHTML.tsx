@@ -58,7 +58,10 @@ export async function renderHTML(path: string, children: ComponentChildren) {
             link.setAttribute("rel", "noopener nofollow");
         }
     });
-    // fixme: warn if html does not contain meta description
+
+    if (!wrapper.querySelector("meta[name=description]")) {
+        throw new Error(`Path "${path}" does not contain meta description`);
+    }
 
     return `<!DOCTYPE html>${wrapper.innerHTML}`;
 }

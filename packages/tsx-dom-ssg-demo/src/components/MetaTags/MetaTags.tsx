@@ -13,7 +13,6 @@ type MetaTagsBaseProps = {
 
 type MetaTagsProps = BaseProps & MetaTagsBaseProps;
 
-// fixme: ensure it's set on all pages
 export const MetaTags = ({ title, image, description, tags, slug, children }: MetaTagsProps) => (
     <head>
         <meta name="description" content={description} />
