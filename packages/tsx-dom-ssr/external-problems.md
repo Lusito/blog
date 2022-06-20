@@ -44,7 +44,7 @@ Error-boundaries can be used to catch the errors caused by the abort.
 
 ## Fast Page Transitions
 
-Try @hotwired/turbo or barba.js
+Try scatman, swup, @hotwired/turbo or barba.js
 
 ## Client-Side Code
 

@@ -13,6 +13,15 @@
     img {
         max-width: 100%;
     }
+
+    p > code {
+        font-family: $font-monospace;
+        background: #1e1e1e;
+        color: #dcdcdc;
+        border-radius: 0.25rem;
+        padding: 0.125rem 0.25rem;
+    }
+
     pre {
         position: relative;
 
@@ -77,8 +86,4 @@
             }
         }
     }
-}
-
-:global {
-    @import "highlight.js/styles/vs2015";
 }

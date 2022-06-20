@@ -4,6 +4,7 @@ import { domHelmet } from "dom-helmet";
 import { Window } from "happy-dom";
 
 import { siteUrl } from "./config";
+import highlightCss from "../style/highlight.module.scss";
 
 const window = new Window();
 const document = window.document as unknown as Document;
@@ -40,14 +41,14 @@ export async function renderHTML(path: string, children: ComponentChildren) {
         body: wrapper.querySelector("html > body")!,
     });
 
-    // fixme: would be nice to only have one style tag,
-    // but @hotwired/turbo will then keep adding new style tags to the head on navigation with partially duplicate css.
-    for (const cssModule of cssModules) {
-        const style = document.createElement("style");
-        // eslint-disable-next-line no-underscore-dangle
-        style.innerHTML = cssModule._getCss();
-        head.appendChild(style);
+    if (wrapper.querySelector("code.hljs")) {
+        cssModules.push(highlightCss);
     }
+
+    const style = document.createElement("style");
+    // eslint-disable-next-line no-underscore-dangle
+    style.innerHTML = cssModules.map((m) => m._getCss()).join("\n");
+    head.appendChild(style);
 
     wrapper.querySelectorAll("a").forEach((link) => {
         const href = link.getAttribute("href");

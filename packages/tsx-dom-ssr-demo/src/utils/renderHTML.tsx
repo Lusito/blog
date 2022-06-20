@@ -41,14 +41,10 @@ export async function renderHTML(children: ComponentChildren) {
         body: wrapper.querySelector("html > body")!,
     });
 
-    // fixme: would be nice to only have one style tag,
-    // but @hotwired/turbo will then keep adding new style tags to the head on navigation with partially duplicate css.
-    for (const cssModule of cssModules) {
-        const style = document.createElement("style");
-        // eslint-disable-next-line no-underscore-dangle
-        style.innerHTML = cssModule._getCss();
-        head.appendChild(style);
-    }
+    const style = document.createElement("style");
+    // eslint-disable-next-line no-underscore-dangle
+    style.innerHTML = cssModules.map((m) => m._getCss()).join("\n");
+    head.appendChild(style);
 
     return `<!DOCTYPE html>${wrapper.innerHTML}`;
 }
