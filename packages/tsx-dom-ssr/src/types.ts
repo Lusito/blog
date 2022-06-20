@@ -1,4 +1,4 @@
-import type { StyleAttributes, SVGAttributes } from "tsx-dom-types";
+import type { HTMLAttributes, SVGAttributes, StyleAttributes } from "tsx-dom-types";
 
 export type VNode = (
     document: Document,
@@ -31,6 +31,10 @@ export type ComponentChildren = ComponentChild | ComponentChildren[] | Promise<C
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface CustomElementsHTML {}
 
+export type SVGAndHTMLElementKeys = keyof SVGElementTagNameMap & keyof HTMLElementTagNameMap;
+export type SVGOnlyElementKeys = Exclude<keyof SVGElementTagNameMap, SVGAndHTMLElementKeys>;
 export type IntrinsicElementsHTMLAndSVG = {
-    [TKey in keyof HTMLElementTagNameMap | keyof SVGElementTagNameMap]?: SVGAttributes & HTMLComponentProps;
+    [TKey in keyof HTMLElementTagNameMap]?: HTMLAttributes & HTMLComponentProps;
+} & {
+    [TKey in SVGOnlyElementKeys]?: SVGAttributes & HTMLComponentProps;
 };
