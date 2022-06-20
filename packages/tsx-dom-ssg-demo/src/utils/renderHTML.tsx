@@ -61,3 +61,12 @@ export async function renderHTML(path: string, children: ComponentChildren) {
 
     return `<!DOCTYPE html>${wrapper.innerHTML}`;
 }
+
+export function createElement(tag: string, attributes: Record<string, string> = {}) {
+    const el = document.createElement(tag);
+    for (const key of Object.keys(attributes)) {
+        el.setAttribute(key, attributes[key]);
+    }
+
+    return el;
+}
