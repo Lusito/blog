@@ -92,7 +92,10 @@ export class Scatman {
     }
 
     init() {
-        // fixme: check if already initialized
+        if (this.plugins.length) {
+            throw new Error("Scatman is already initialized");
+        }
+
         this.use(new ScatClickPlugin(this));
 
         // initial save to cache
