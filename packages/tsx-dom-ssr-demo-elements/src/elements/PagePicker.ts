@@ -1,10 +1,10 @@
-import { goToPage } from "../scatman";
+import { scatman } from "../scatman";
 
 class PagePicker extends HTMLSelectElement {
     onChangeHandler = () => {
         const url = this.getAttribute("url")?.replace("{{PAGE}}", this.value);
         if (url) {
-            goToPage(url);
+            scatman.goTo(url);
         }
     };
 

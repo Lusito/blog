@@ -12,6 +12,7 @@ import {
 export const scatman = new Scatman();
 
 document.addEventListener("DOMContentLoaded", () => {
+    scatman.init();
     scatman.use(
         new ScatCssPlugin(scatman),
         new ScatHeadPlugin(scatman),
@@ -22,4 +23,3 @@ document.addEventListener("DOMContentLoaded", () => {
         new ScatA11yPlugin(scatman)
     );
 });
-
