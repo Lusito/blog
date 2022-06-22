@@ -1,9 +1,13 @@
+import slugify from "slugify";
+
 import { ArticleHeader } from "../../components/ArticleHeader/ArticleHeader";
+import { Box } from "../../components/Box/Box";
 import { Container } from "../../components/Container/Container";
 import { MetaTags } from "../../components/MetaTags/MetaTags";
-import { TagDetail } from "../../components/TagDetail/TagDetail";
 import { DefaultLayout } from "../../layouts/DefaultLayout";
+import { slugifyOptions } from "../../utils/config";
 import { FrontMatter, tagLabels } from "../../utils/pageUtils";
+import { tagDescriptions } from "../../utils/tagDescriptions";
 
 export const frontMatter: FrontMatter = {
     tags: [],
@@ -27,7 +31,9 @@ export default async function () {
                 <ArticleHeader title={frontMatter.title} description={frontMatter.description} />
                 <Container>
                     {tagLabels.map((tag) => (
-                        <TagDetail tag={tag} />
+                        <Box href={`/tag/${slugify(tag, slugifyOptions)}.html`} title={tag}>
+                            <div>{tagDescriptions[tag]}</div>
+                        </Box>
                     ))}
                 </Container>
             </article>

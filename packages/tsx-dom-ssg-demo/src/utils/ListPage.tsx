@@ -1,8 +1,9 @@
 import { ArticleHeader } from "../components/ArticleHeader/ArticleHeader";
+import { Box } from "../components/Box/Box";
 import { Container } from "../components/Container/Container";
 import { MetaTags } from "../components/MetaTags/MetaTags";
-import { PagePreview } from "../components/PagePreview/PagePreview";
 import { Pagination } from "../components/Pagination/Pagination";
+import { TagList } from "../components/TagList/TagList";
 import { DefaultLayout } from "../layouts/DefaultLayout";
 import { PageInfo } from "./pageUtils";
 
@@ -34,7 +35,10 @@ export async function ListPage({ path, tags, title, description, pages, pageNumb
                 <Container>
                     {pagination}
                     {filtered.map((page) => (
-                        <PagePreview page={page} />
+                        <Box href={`/${page.slug}.html`} title={page.title} date={page.date}>
+                            <div>{page.description}</div>
+                            <TagList tags={page.tags} />
+                        </Box>
                     ))}
                     {pagination}
                 </Container>
