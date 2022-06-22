@@ -3,7 +3,7 @@ import MarkdownIt from "markdown-it";
 import hljs from "highlight.js";
 
 import { withCss } from "../../utils/withCss";
-import classes from "./Article.module.scss";
+import classes from "./ArticleBody.module.scss";
 import { createElement } from "../../utils/renderHTML";
 
 const md: MarkdownIt = new MarkdownIt({
@@ -47,12 +47,12 @@ const md: MarkdownIt = new MarkdownIt({
 });
 
 // fixme: rename to ArticleContent or something?
-export const Article = withCss(classes, ({ children }: BaseProps) => <div class={classes.article}>{children}</div>);
+export const ArticleBody = withCss(classes, ({ children }: BaseProps) => <div class={classes.articleBody}>{children}</div>);
 
-type MarkdownArticleProps = {
+type MarkdownArticleBodyProps = {
     markdown: string;
 };
 
-export const MarkdownArticle = withCss(classes, ({ markdown }: MarkdownArticleProps) => (
-    <div class={classes.article} dangerouslySetInnerHTML={md.render(markdown)} />
+export const MarkdownArticleBody = withCss(classes, ({ markdown }: MarkdownArticleBodyProps) => (
+    <div class={classes.articleBody} dangerouslySetInnerHTML={md.render(markdown)} />
 ));

@@ -1,4 +1,4 @@
-import { MarkdownArticle } from "../components/Article/Article";
+import { MarkdownArticleBody } from "../components/ArticleBody/ArticleBody";
 import { ArticleHeader } from "../components/ArticleHeader/ArticleHeader";
 import { Container } from "../components/Container/Container";
 import { MetaTagsArticle } from "../components/MetaTags/MetaTags";
@@ -26,11 +26,11 @@ export async function MarkdownPage({ page }: MarkdownPageProps) {
                 <ArticleHeader title={title} description={description} date={page.date} />
                 <Container>
                     {tags.length > 0 && <TagList tags={tags} />}
-                    <MarkdownArticle markdown={body} />
+                    <MarkdownArticleBody markdown={body} />
                     {tags.length > 0 && (
                         <>
                             <TagList tags={tags} />
-                            {/* <div>giscus</div> */}
+                            {/* fixme: <div>giscus</div> */}
                         </>
                     )}
                 </Container>
