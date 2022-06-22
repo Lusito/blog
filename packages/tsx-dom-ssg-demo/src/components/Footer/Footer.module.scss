@@ -6,11 +6,20 @@
     color: var(--color-dark-contrast);
     text-align: center;
     padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
 
-    > a {
+    a {
         color: var(--color-dark-contrast);
         &:link {
             color: var(--color-dark-link);
+        }
+    }
+
+    @include from("small") {
+        display: block;
+        > span + span::before {
+            content: " - ";
         }
     }
 }
