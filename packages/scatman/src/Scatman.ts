@@ -162,6 +162,8 @@ export class Scatman {
 
         // replace blocks
         this.replaceContainers(page);
+        // fixme: make optional:
+        this.activateScripts();
 
         // set title
         document.title = page.title;
@@ -178,13 +180,24 @@ export class Scatman {
     }
 
     private replaceContainers(page: PageData) {
-        const targets = document.body.querySelectorAll(this.options.containers);
+        const targets = Array.from(document.body.querySelectorAll(this.options.containers));
         if (targets.length !== page.blocks.length) {
             throw new Error("Received page is invalid.");
         }
         for (let i = 0; i < targets.length; i++) {
             targets[i].outerHTML = page.blocks[i];
         }
+    }
+
+    private activateScripts() {
+        Array.from(document.body.querySelectorAll(this.options.containers))
+            .flatMap((e) => Array.from(e.querySelectorAll("script")))
+            .forEach((oldScript) => {
+                const newScript = document.createElement("script");
+                Array.from(oldScript.attributes).forEach((attr) => newScript.setAttribute(attr.name, attr.value));
+                newScript.appendChild(document.createTextNode(oldScript.innerHTML));
+                oldScript.replaceWith(newScript);
+            });
     }
 
     private async doPreloadPage(url: string) {
