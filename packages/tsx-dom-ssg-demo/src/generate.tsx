@@ -8,6 +8,12 @@ import { itemsPerPage, ListPage } from "./utils/ListPage";
 import { MarkdownPage } from "./utils/MarkdownPage";
 import { getPages, PageInfo, pageHasTags, tagSlugToLabel, tagLabels } from "./utils/pageUtils";
 import { renderHTML } from "./utils/renderHTML";
+import { renderSitemap, SitemapConfig } from "./utils/renderSitemap";
+
+async function writeSitemap(config: SitemapConfig) {
+    const xml = await renderSitemap(config);
+    await fs.promises.writeFile("dist/packages/tsx-dom-ssg-demo/sitemap.xml", xml);
+}
 
 async function writeHTML(path: string, children: ComponentChildren) {
     const html = await renderHTML(path, children);
@@ -89,6 +95,7 @@ async function createFiles() {
             if (page.type === "md") return writeHTML(path, <MarkdownPage page={page} />);
             return writeHTML(path, <DynamicPage component={page.component} />);
         }),
+        writeSitemap({ pages, pagesWithTags }),
     ]);
 
     console.log(`Generating files took ${Date.now() - start}ms`);

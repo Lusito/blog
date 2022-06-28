@@ -11,6 +11,7 @@ import { MarkdownPage } from "./utils/MarkdownPage";
 import { itemsPerPage, ListPage } from "./utils/ListPage";
 import { ListAllPage } from "./utils/ListAllPage";
 import { tagDescriptions } from "./utils/tagDescriptions";
+import { renderSitemap } from "./utils/renderSitemap";
 
 // The stuff below is purely for the dev-server
 const app = express();
@@ -54,6 +55,7 @@ const respond404 = (req: Request, res: Response) => {
 
 async function init() {
     const pages = await getPages();
+    const pagesWithTags = pages.filter(pageHasTags);
 
     // Pages without tags are internal (for example "about") and not supposed to be listed
     app.get("/", (req, res) =>
@@ -65,19 +67,18 @@ async function init() {
                 tags={tagLabels}
                 title="Latest Posts"
                 description="A chronological list of posts on this blog"
-                pages={pages.filter(pageHasTags)}
+                pages={pagesWithTags}
                 pageNumber={1}
             />
         )
     );
-    app.get("/all.html", (req, res) => respondHTML(res, req.path, <ListAllPage pages={pages.filter(pageHasTags)} />));
+    app.get("/all.html", (req, res) => respondHTML(res, req.path, <ListAllPage pages={pagesWithTags} />));
 
     app.get("/latest/:page.html", (req, res) => {
         const { page } = req.params;
         const pageNumber = page ? parseInt(page) : 1;
-        const filteredPages = pages.filter(pageHasTags);
 
-        if (Number.isNaN(pageNumber) || pageNumber < 2 || (pageNumber - 1) * itemsPerPage >= filteredPages.length) {
+        if (Number.isNaN(pageNumber) || pageNumber < 2 || (pageNumber - 1) * itemsPerPage >= pagesWithTags.length) {
             return respond404(req, res);
         }
 
@@ -89,7 +90,7 @@ async function init() {
                 tags={tagLabels}
                 title="Latest Posts"
                 description="A chronological list of posts on this blog"
-                pages={filteredPages}
+                pages={pagesWithTags}
                 pageNumber={pageNumber}
             />
         );
@@ -139,6 +140,18 @@ async function init() {
         if (page.type === "md") return respondHTML(res, req.path, <MarkdownPage page={page} />);
         return respondHTML(res, req.path, <DynamicPage component={page.component} />);
     });
+
+    app.get("/sitemap.xml", async (req, res) => {
+        try {
+            const xml = await renderSitemap({ pages, pagesWithTags });
+            res.type('application/xml');
+            res.send(xml);
+        } catch (e) {
+            console.error("Uncaught exception", e);
+            res.status(500).send(`Unknown Error ${String(e)}`);
+        }
+    });
+
     app.get("*", respond404);
 
     app.listen(port, () => {
