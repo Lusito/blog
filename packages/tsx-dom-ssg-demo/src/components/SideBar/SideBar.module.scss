@@ -73,6 +73,7 @@ $transition-time: 0.5s;
 
     @include from("small") {
         left: -#{$menu-width - $menu-grip-width};
+
         .trigger > div {
             left: calc(50% - #{math.div($menu-grip-width, 2)});
             top: calc(50% - #{math.div($header-height, 2)});
@@ -87,6 +88,15 @@ $transition-time: 0.5s;
     @include from("large") {
         left: 0;
         padding-right: $menu-separator-width;
+
+        &:hover,
+        &:focus-within {
+            + .side-bar-overlay {
+                background: transparent;
+                right: 100vw;
+                transition: right 0s $transition-time linear, background-color $transition-time ease-in-out;
+            }
+        }
 
         .trigger {
             width: $menu-separator-width;
