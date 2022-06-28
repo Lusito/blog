@@ -1,6 +1,7 @@
 import { MarkdownArticleBody } from "../components/ArticleBody/ArticleBody";
 import { ArticleHeader } from "../components/ArticleHeader/ArticleHeader";
 import { Container } from "../components/Container/Container";
+import { Discussions } from "../components/Discussions/Discussions";
 import { MetaTagsArticle } from "../components/MetaTags/MetaTags";
 import { TagList } from "../components/TagList/TagList";
 import { DefaultLayout } from "../layouts/DefaultLayout";
@@ -30,7 +31,7 @@ export async function MarkdownPage({ page }: MarkdownPageProps) {
                     {tags.length > 0 && (
                         <>
                             <TagList tags={tags} />
-                            {/* fixme: <div>giscus</div> */}
+                            <Discussions />
                         </>
                     )}
                 </Container>
