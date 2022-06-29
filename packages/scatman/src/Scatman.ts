@@ -17,7 +17,7 @@ type Options = {
 const defaultOptions: Options = {
     linkSelector: `a[href^="${window.location.origin}"]:not([data-no-scatman]), a[href^="/"]:not([data-no-scatman]), a[href^="#"]:not([data-no-scatman])`,
     cache: true,
-    activateScripts: false,
+    activateScripts: true,
     containers: ".scatman-container",
     requestHeaders: {
         "X-Requested-With": "scatman",
