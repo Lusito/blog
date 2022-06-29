@@ -59,7 +59,7 @@ describe("transferHead", () => {
         expect(falseHeadChildren.every((child) => child.parentNode === head)).toBe(true);
     });
 
-    it("does not remove elements that are not in the fake head", () => {
+    it("does not remove elements that are not in the false head", () => {
         const { head, falseHead } = createDom();
 
         const unique = Array.from(head.querySelectorAll("*")).filter((v) => v.outerHTML.includes("unique"));
@@ -68,7 +68,7 @@ describe("transferHead", () => {
         expect(unique.every((child) => child.parentNode === head)).toBe(true);
     });
 
-    it("removes elements that are in the fake head", () => {
+    it("removes elements that are in the false head", () => {
         const { head, falseHead } = createDom();
 
         const notUnique = Array.from(head.querySelectorAll("*")).filter((v) => !v.outerHTML.includes("unique"));
@@ -77,7 +77,7 @@ describe("transferHead", () => {
         expect(notUnique.filter((child) => child.parentNode !== null)).toHaveLength(0);
     });
 
-    it("removes fake head after completion", () => {
+    it("removes false head after completion", () => {
         const { head, falseHead } = createDom();
 
         transferHead(head, falseHead);

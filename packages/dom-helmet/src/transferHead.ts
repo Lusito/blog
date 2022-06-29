@@ -3,6 +3,7 @@ import {
     removeDuplicatesBySelectorAndAttribute,
     removeDuplicatesBySelectorAndTextContent,
 } from "./removeDuplicates";
+import { transferChildren } from "./transferChildren";
 
 export function transferHead(head: HTMLHeadElement, falseHead: HTMLHeadElement) {
     // If title, base or meta[charset] are present, they will replace old instances completely.
@@ -18,7 +19,7 @@ export function transferHead(head: HTMLHeadElement, falseHead: HTMLHeadElement) 
     removeDuplicatesBySelectorAndTextContent(head, falseHead, "style");
 
     // Move all children of head elements in the body to the main head
-    Array.from(falseHead.childNodes).forEach((node) => head.appendChild(node));
+    transferChildren(falseHead, head);
 
     // Then remove the false head
     falseHead.remove();
