@@ -1,18 +1,17 @@
 import { ScatAnimationPlugin } from "../../ScatPlugin";
 import type { Scatman, ScatPageLoadEvent } from "../../Scatman";
 
-// fixme: let user define data-scatman-page somewhere instead of using a generated path?
-export function classify(text: string) {
+function classify(text: string) {
     const output = text
-        .toString()
         .toLowerCase()
-        .replace(/\s+/g, "-") // Replace spaces with -
-        .replace(/\//g, "-") // Replace / with -
-        .replace(/[^\w-]+/g, "") // Remove all non-word chars
-        .replace(/--+/g, "-") // Replace multiple - with single -
-        .replace(/^-+/, "") // Trim - from start of text
-        .replace(/-+$/, "") // Trim - from end of text
-        .replace(/^\//, ""); // Trim / from start of text
+        // Replace spaces, slashes and underscore with a hyphen
+        .replace(/[\s/_]+/g, "-")
+        // Remove all remaining invalid characters
+        .replace(/[^\w-]+/g, "")
+        // Replace multiple hyphens with a single one
+        .replace(/--+/g, "-")
+        // Trim leading and trailing hyphens
+        .replace(/(^-+|-+$)/g, "");
     return output || "homepage";
 }
 

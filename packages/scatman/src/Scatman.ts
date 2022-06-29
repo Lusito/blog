@@ -7,6 +7,7 @@ import { ScatClickPlugin } from "./plugins/click/ScatClickPlugin";
 type Options = {
     linkSelector: string;
     cache: boolean;
+    activateScripts: boolean;
     containers: string;
     requestHeaders: Record<string, string>;
     skipPopStateHandling(event: PopStateEvent): boolean;
@@ -16,6 +17,7 @@ type Options = {
 const defaultOptions: Options = {
     linkSelector: `a[href^="${window.location.origin}"]:not([data-no-scatman]), a[href^="/"]:not([data-no-scatman]), a[href^="#"]:not([data-no-scatman])`,
     cache: true,
+    activateScripts: false,
     containers: ".scatman-container",
     requestHeaders: {
         "X-Requested-With": "scatman",
@@ -162,8 +164,9 @@ export class Scatman {
 
         // replace blocks
         this.replaceContainers(page);
-        // fixme: make optional:
-        this.activateScripts();
+        if (this.options.activateScripts) {
+            this.activateScripts();
+        }
 
         // set title
         document.title = page.title;
