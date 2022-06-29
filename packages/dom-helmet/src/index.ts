@@ -1,11 +1,11 @@
-import { transferAttributes } from "./transferAttributes";
-import { transferChildren } from "./transferChildren";
+import { transferBody } from "./transferBody";
 import { transferHead } from "./transferHead";
+import { transferHtml } from "./transferHtml";
 
 export type HelmetOptions = {
-    html: HTMLElement;
-    head: HTMLElement;
-    body: HTMLElement;
+    html: HTMLHtmlElement;
+    head: HTMLHeadElement;
+    body: HTMLBodyElement;
 };
 
 /**
@@ -21,17 +21,7 @@ export type HelmetOptions = {
  * @param elements An object containing the elements required.
  */
 export function domHelmet({ html, head, body }: HelmetOptions) {
-    // fixme: more tests
-    // HTML Attributes
-    html.querySelectorAll("html").forEach((element) => transferAttributes(html, element));
-    // fixme: verify that html elements do not contain any children?
-
-    body.querySelectorAll("body").forEach((falseBody) => {
-        transferAttributes(body, falseBody);
-        transferChildren(falseBody, body);
-        // Remove false body
-        falseBody.remove();
-    });
-
+    html.querySelectorAll("html").forEach((element) => transferHtml(html, element));
+    body.querySelectorAll("body").forEach((falseBody) => transferBody(body, falseBody));
     body.querySelectorAll("head").forEach((falseHead) => transferHead(head, falseHead));
 }
