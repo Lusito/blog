@@ -11,7 +11,7 @@ const defaultOptions: Options = {
 };
 
 // fixme: more than just body class? all attributes?
-export  class ScatBodyClassPlugin implements ScatPlugin {
+export class ScatBodyClassPlugin implements ScatPlugin {
     private scatman: Scatman;
 
     private options: Options;

@@ -144,7 +144,7 @@ async function init() {
     app.get("/sitemap.xml", async (req, res) => {
         try {
             const xml = await renderSitemap({ pages, pagesWithTags });
-            res.type('application/xml');
+            res.type("application/xml");
             res.send(xml);
         } catch (e) {
             console.error("Uncaught exception", e);

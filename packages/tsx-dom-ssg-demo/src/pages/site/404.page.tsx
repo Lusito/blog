@@ -18,7 +18,12 @@ export default async function () {
     return (
         <DefaultLayout pageTitle={frontMatter.title}>
             <article>
-                <MetaTags description={frontMatter.description} slug={frontMatter.slug!} title={frontMatter.title} tags={[]} />
+                <MetaTags
+                    description={frontMatter.description}
+                    slug={frontMatter.slug!}
+                    title={frontMatter.title}
+                    tags={[]}
+                />
                 <ArticleHeader title={frontMatter.title} description={frontMatter.description} />
                 <Container>
                     <p>Could not find the file you were looking for! Try looking at one of these topics:</p>

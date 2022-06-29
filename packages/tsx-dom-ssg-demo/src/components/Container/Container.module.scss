@@ -11,7 +11,6 @@
         flex-grow: 1;
     }
 
-
     @include from("small") {
         padding: 0 2rem;
     }
