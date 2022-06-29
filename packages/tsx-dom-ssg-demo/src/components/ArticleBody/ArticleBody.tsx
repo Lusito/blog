@@ -46,7 +46,6 @@ const md: MarkdownIt = new MarkdownIt({
     }
 });
 
-// fixme: rename to ArticleContent or something?
 export const ArticleBody = withCss(classes, ({ children }: BaseProps) => (
     <div class={classes.articleBody}>{children}</div>
 ));
