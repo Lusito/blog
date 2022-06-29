@@ -1,11 +1,10 @@
-import slugify from "slugify";
+import slugify from "slug";
 
 import { ArticleHeader } from "../../components/ArticleHeader/ArticleHeader";
 import { Box } from "../../components/Box/Box";
 import { Container } from "../../components/Container/Container";
 import { MetaTags } from "../../components/MetaTags/MetaTags";
 import { DefaultLayout } from "../../layouts/DefaultLayout";
-import { slugifyOptions } from "../../utils/config";
 import { FrontMatter, tagLabels } from "../../utils/pageUtils";
 import { tagDescriptions } from "../../utils/tagDescriptions";
 
@@ -31,7 +30,7 @@ export default async function () {
                 <ArticleHeader title={frontMatter.title} description={frontMatter.description} />
                 <Container>
                     {tagLabels.map((tag) => (
-                        <Box href={`/tag/${slugify(tag, slugifyOptions)}.html`} title={tag}>
+                        <Box href={`/tag/${slugify(tag)}.html`} title={tag}>
                             <div>{tagDescriptions[tag]}</div>
                         </Box>
                     ))}

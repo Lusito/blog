@@ -32,7 +32,7 @@ export function renderSitemap({ pages, pagesWithTags }: SitemapConfig) {
 
     const urls = entries.map(({ loc, lastmod }) => {
         const lastmodPart = lastmod ? `<lastmod>${lastmod?.toISOString()}</lastmod>` : "";
-        return `<url><loc>${escapeXml(siteUrl + loc)}</loc>${lastmodPart}</url>`;
+        return `<url><loc>${siteUrl}${loc}</loc>${lastmodPart}</url>`;
     });
 
     return `<?xml version="1.0" encoding="utf-8"?>
@@ -41,23 +41,4 @@ export function renderSitemap({ pages, pagesWithTags }: SitemapConfig) {
    xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
     ${urls.join("\n    ")}
 </urlset>`;
-}
-
-// https://stackoverflow.com/a/27979933
-function escapeXml(unsafe: string) {
-    return unsafe.replace(/[<>&'"]/g, (c) => {
-        switch (c) {
-            case "<":
-                return "&lt;";
-            case ">":
-                return "&gt;";
-            case "&":
-                return "&amp;";
-            case "'":
-                return "&apos;";
-            case '"':
-                return "&quot;";
-        }
-        return c;
-    });
 }

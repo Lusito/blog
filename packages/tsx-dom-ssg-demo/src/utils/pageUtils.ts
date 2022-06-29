@@ -2,9 +2,7 @@ import fs from "fs";
 import path from "path";
 import frontMatter from "front-matter";
 import { Component } from "tsx-dom-ssr";
-import slugify from "slugify";
-
-import { slugifyOptions } from "./config";
+import slugify from "slug";
 
 function getAllFiles(dirPath: string, pattern: RegExp, arrayOfFiles: string[]) {
     const files = fs.readdirSync(dirPath);
@@ -61,7 +59,7 @@ export async function getPages() {
                 const page = fm.attributes as FrontMatter;
 
                 for (const tag of page.tags) {
-                    tagSlugToLabel[slugify(tag, slugifyOptions)] = tag;
+                    tagSlugToLabel[slugify(tag)] = tag;
                 }
 
                 return {
@@ -71,7 +69,7 @@ export async function getPages() {
                     image: page.image,
                     description: page.description,
                     date: new Date(page.date),
-                    slug: page.slug ?? slugify(page.title, slugifyOptions),
+                    slug: page.slug ?? slugify(page.title),
                     body: fm.body,
                 };
             }
@@ -83,7 +81,7 @@ export async function getPages() {
             const fm = page.frontMatter;
 
             for (const tag of fm.tags) {
-                tagSlugToLabel[slugify(tag, slugifyOptions)] = tag;
+                tagSlugToLabel[slugify(tag)] = tag;
             }
 
             return {
@@ -93,7 +91,7 @@ export async function getPages() {
                 image: fm.image,
                 description: fm.description,
                 date: new Date(fm.date),
-                slug: fm.slug ?? slugify(fm.title, slugifyOptions),
+                slug: fm.slug ?? slugify(fm.title),
                 component: page.default,
             };
         })

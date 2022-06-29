@@ -1,6 +1,5 @@
-import slugify from "slugify";
+import slugify from "slug";
 
-import { slugifyOptions } from "../../utils/config";
 import { tagDescriptions } from "../../utils/tagDescriptions";
 import { withCss } from "../../utils/withCss";
 import { LinkButton } from "../LinkButton/LinkButton";
@@ -13,11 +12,7 @@ type TagListProps = {
 export const TagList = withCss(classes, ({ tags }: TagListProps) => (
     <div class={classes.tagList}>
         {tags.map((tag) => (
-            <LinkButton
-                href={`/tag/${slugify(tag, slugifyOptions)}.html`}
-                ariaLabel={`Category: ${tag}`}
-                title={tagDescriptions[tag]}
-            >
+            <LinkButton href={`/tag/${slugify(tag)}.html`} ariaLabel={`Category: ${tag}`} title={tagDescriptions[tag]}>
                 {tag}
             </LinkButton>
         ))}
