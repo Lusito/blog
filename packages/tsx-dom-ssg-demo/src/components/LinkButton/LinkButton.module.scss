@@ -1,6 +1,7 @@
 @import "../../style/fonts.scss";
 
 .link-button,
+.link-button-pagination,
 .link-button-disabled {
     display: inline-block;
     font-family: $font-sans-serif;
@@ -11,25 +12,37 @@
     line-height: 1;
 }
 
-.link-button {
-    background: var(--color-dark);
+.link-button,
+.link-button-pagination {
     color: var(--color-dark-contrast);
-    padding: 0.5rem 0.25rem;
-    border-left: 0.5rem solid var(--color-dark);
-    border-right: 0.5rem solid var(--color-dark);
+    background: var(--color-dark);
+    padding: 0.5rem 0.75rem;
 
     &:hover,
     &:focus {
         text-decoration: none;
         background: var(--color-highlight);
         color: var(--color-highlight-contrast);
+    }
+
+    &:link {
+        color: var(--color-dark-contrast);
+    }
+}
+
+.link-button {
+    padding: 0.5rem 0.25rem;
+    border-left: 0.5rem solid var(--color-dark);
+    border-right: 0.5rem solid var(--color-dark);
+
+    &:hover,
+    &:focus {
         &:not(:link) {
             border-color: var(--color-highlight);
         }
     }
 
     &:link {
-        color: var(--color-dark-contrast);
         border-color: var(--color-dark-link);
     }
 }
