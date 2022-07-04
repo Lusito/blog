@@ -10,9 +10,9 @@
     flex-direction: column;
 
     a {
-        color: var(--color-dark-contrast);
-        &:link {
-            color: var(--color-dark-link);
+        color: var(--color-dark-link);
+        &:visited {
+            color: var(--color-dark-link-visited);
         }
     }
 

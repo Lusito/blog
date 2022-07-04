@@ -1,6 +1,7 @@
 $color-main-900: #000000;
 $color-main-500: #333333;
 $color-main-400: #5c5c5c;
+$color-main-200: #979797;
 $color-main-100: #f6f6f6;
 $color-blue: #063e66;
 $color-cyan: #268c91;
@@ -9,9 +10,11 @@ $color-cyan: #268c91;
     --color-dark: #{$color-main-900};
     --color-dark-contrast: #{$color-main-100};
     --color-dark-link: #{$color-cyan};
+    --color-dark-link-visited: #{$color-main-200};
     --color-main: #{$color-main-100};
     --color-main-contrast: #{$color-main-900};
     --color-main-link: #{$color-cyan};
+    --color-main-link-visited: #{$color-main-400};
     --color-highlight: #{$color-blue};
     --color-highlight-contrast: #{$color-main-100};
     --color-focus: #{fade-out($color-blue, 0.4)};
@@ -25,5 +28,6 @@ $color-cyan: #268c91;
     :root {
         --color-main: #{$color-main-500};
         --color-main-contrast: #{$color-main-100};
+        --color-main-link-visited: #{$color-main-200};
     }
 }

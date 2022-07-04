@@ -8,11 +8,10 @@ type LinkButtonProps = BaseProps & {
     ariaLabel?: string;
     ariaCurrent?: "page";
     title?: string;
-    theme?: "default" | "pagination";
 };
 export const LinkButton = withCss(
     classes,
-    ({ href, children, ariaLabel, ariaCurrent, title, theme }: LinkButtonProps) => {
+    ({ href, children, ariaLabel, ariaCurrent, title }: LinkButtonProps) => {
         if (!href) {
             return (
                 <span class={classes.linkButtonDisabled} aria-label={ariaLabel} aria-current={ariaCurrent}>
@@ -21,10 +20,8 @@ export const LinkButton = withCss(
             );
         }
 
-        const className = theme === "pagination" ? classes.linkButtonPagination : classes.linkButton;
-
         return (
-            <a href={href} class={className} title={title} aria-label={ariaLabel} aria-current={ariaCurrent}>
+            <a href={href} class={classes.linkButton} title={title} aria-label={ariaLabel} aria-current={ariaCurrent}>
                 {children}
             </a>
         );

@@ -21,7 +21,7 @@ const Link = ({ path, label, ariaLabel, ariaCurrent, page, disabled }: LinkProps
     }
 
     return (
-        <LinkButton href={href} ariaLabel={ariaLabel} ariaCurrent={ariaCurrent} theme="pagination">
+        <LinkButton href={href} ariaLabel={ariaLabel} ariaCurrent={ariaCurrent}>
             {label}
         </LinkButton>
     );

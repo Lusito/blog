@@ -18,6 +18,6 @@ export const Box = withCss(classes, ({ href, title, date, children }: BoxProps) 
                 {date && <span class={classes.date}>{date.toDateString()}</span>}
             </LinkButton>
         </h2>
-        {children}
+        <div class={classes.boxChildren}>{children}</div>
     </article>
 ));

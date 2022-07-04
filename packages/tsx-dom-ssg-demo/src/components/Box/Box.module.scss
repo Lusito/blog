@@ -2,28 +2,25 @@
 
 .box {
     margin: 2rem -1rem;
-    padding: 1rem;
+    word-break: break-word;
     border: 1px solid var(--color-dark);
     border-width: 0 0 1px 0;
-    overflow: hidden;
-    word-break: break-word;
 
     @include from("small") {
-        border-radius: 0.5rem;
-        border-width: 1px;
+        border-width: 0 1px 1px 1px;
         margin: 2rem 0;
     }
 
     > h2 {
         padding: 0;
-        margin: -1rem -1rem 0.75rem -1rem;
+        margin: 0;
 
         > a {
             display: flex;
             flex-direction: column;
             margin: 0;
-            padding: 0.5rem;
-            border-radius: 0;
+            padding: 0.5rem 1rem 0.25rem 1rem;
+            text-decoration: none;
 
             .label {
                 flex-grow: 1;
@@ -45,5 +42,9 @@
                 }
             }
         }
+    }
+
+    .box-children {
+        padding: 1rem;
     }
 }

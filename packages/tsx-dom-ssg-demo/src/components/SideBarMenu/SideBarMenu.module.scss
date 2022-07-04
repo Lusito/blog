@@ -19,13 +19,11 @@
         > a,
         > span {
             display: block;
-            border-radius: 0;
             padding: 0.75rem;
+            text-decoration: none;
         }
-        > a:link {
-            &:not(:hover, :focus) {
-                color: var(--color-main-contrast);
-            }
+        > a:not(:hover, :focus) {
+            color: var(--color-main-contrast);
         }
         > span {
             pointer-events: none;
