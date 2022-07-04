@@ -2,4 +2,4 @@ $menu-width: 20rem;
 $menu-grip-width: 2rem;
 $menu-separator-width: 0.25rem;
 $header-height: 2.5rem;
-$content-width: 50rem;
+$content-width: 50rem - $menu-grip-width;
