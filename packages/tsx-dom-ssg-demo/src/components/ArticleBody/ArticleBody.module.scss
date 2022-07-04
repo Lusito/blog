@@ -1,4 +1,5 @@
 @import "../../style/fonts.scss";
+@import "../../style/breakpoints.scss";
 
 .article-body {
     margin-bottom: 2rem;
@@ -27,9 +28,14 @@
         position: relative;
 
         > code {
-            border-radius: 0.5rem;
-            margin: 1rem 0;
+            border-radius: 0;
+            margin: 1rem -1rem;
             font-family: $font-monospace;
+
+            @include from("small") {
+                border-radius: 0.5rem;
+                margin: 1rem 0;
+            }
         }
 
         code-copy-button:not(.enhanced-copy-button) {
