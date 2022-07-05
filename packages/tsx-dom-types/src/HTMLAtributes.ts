@@ -9,11 +9,8 @@ export interface HTMLAttributes {
     alt?: string;
     as?: string;
     async?: boolean;
-    autocomplete?: string;
     autoComplete?: string;
-    autocorrect?: string;
     autoCorrect?: string;
-    autofocus?: boolean;
     autoFocus?: boolean;
     autoPlay?: boolean;
     capture?: boolean | string;

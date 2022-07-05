@@ -26,7 +26,7 @@ export type FrontMatter = {
     title: string;
     image?: string;
     description: string;
-    date: string;
+    date: string; // fixme: differ between create and modified
     /** optional, usually generated from title */
     slug?: string;
 };

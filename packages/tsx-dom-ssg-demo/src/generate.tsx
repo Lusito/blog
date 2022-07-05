@@ -9,6 +9,7 @@ import { MarkdownPage } from "./utils/MarkdownPage";
 import { getPages, PageInfo, pageHasTags, tagSlugToLabel, tagLabels } from "./utils/pageUtils";
 import { renderHTML } from "./utils/renderHTML";
 import { renderSitemap, SitemapConfig } from "./utils/renderSitemap";
+import { SearchPage } from "./utils/SearchPage";
 
 async function writeSitemap(config: SitemapConfig) {
     const xml = await renderSitemap(config);
@@ -68,6 +69,7 @@ async function createFiles() {
             />
         ),
         writeHTML("/all.html", <ListAllPage pages={pagesWithTags} />),
+        writeHTML("/search.html", <SearchPage pages={pagesWithTags} />),
         writePages("/latest", tagLabels, "Latest Posts", "A chronological list of posts on this blog", pagesWithTags),
         ...tags
             .map((tag) => {

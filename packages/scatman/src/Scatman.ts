@@ -284,6 +284,12 @@ export class Scatman {
             await animateOutPromise;
 
             await this.renderPage(page, event);
+            const focusElement = document.querySelector("[autofocus]");
+            if (focusElement instanceof HTMLElement) {
+                requestAnimationFrame(() => {
+                    focusElement.focus();
+                });
+            }
         } catch (error) {
             console.error("Error loading page: ", error);
 

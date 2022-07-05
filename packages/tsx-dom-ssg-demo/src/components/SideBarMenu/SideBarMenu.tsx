@@ -48,6 +48,7 @@ export const SideBarMenu = withCss(classes, () => (
                 </ul>
             </li>
             <NavItem path="/categories.html" label="All Categories" />
+            <NavItem path="/search.html" label="Search" />
             <NavItem path="/about.html" label="About" ariaLabel="About this blog" />
         </ul>
     </nav>

@@ -12,6 +12,7 @@ import { itemsPerPage, ListPage } from "./utils/ListPage";
 import { ListAllPage } from "./utils/ListAllPage";
 import { tagDescriptions } from "./utils/tagDescriptions";
 import { renderSitemap } from "./utils/renderSitemap";
+import { SearchPage } from "./utils/SearchPage";
 
 // The stuff below is purely for the dev-server
 const app = express();
@@ -73,6 +74,7 @@ async function init() {
         )
     );
     app.get("/all.html", (req, res) => respondHTML(res, req.path, <ListAllPage pages={pagesWithTags} />));
+    app.get("/search.html", (req, res) => respondHTML(res, req.path, <SearchPage pages={pagesWithTags} />));
 
     app.get("/latest/:page.html", (req, res) => {
         const { page } = req.params;
