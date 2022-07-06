@@ -2,6 +2,8 @@
 import { addAbortSignal, ComponentChildren, toDom } from "tsx-dom-ssr";
 import { domHelmet } from "dom-helmet";
 import { Window } from "happy-dom";
+import imageSize from "image-size";
+import type { ISizeCalculationResult } from 'image-size/dist/types/interface';
 
 import { siteUrl } from "./config";
 import highlightCss from "../style/highlight.module.scss";
@@ -9,6 +11,16 @@ import highlightCss from "../style/highlight.module.scss";
 const window = new Window();
 const document = window.document as unknown as Document;
 const protocolPattern = /^https?:\/\//;
+
+const imageSizes: Record<string, ISizeCalculationResult> = {};
+function cachedImageSize(assetPath: string) {
+    let result = imageSizes[assetPath];
+    if (!result) {
+        result = imageSize(`./dist/packages/tsx-dom-ssg-demo${assetPath}`);
+        imageSizes[assetPath] = result;
+    }
+    return result;
+}
 
 export async function renderHTML(path: string, children: ComponentChildren) {
     const cssModules: CssModule[] = [];
@@ -62,6 +74,17 @@ export async function renderHTML(path: string, children: ComponentChildren) {
     if (!wrapper.querySelector("meta[name=description]")) {
         throw new Error(`Path "${path}" does not contain meta description`);
     }
+
+    // Add width/height attributes to all img tags, which don't have it yet
+    wrapper.querySelectorAll("img").forEach((img) => {
+        if (!img.hasAttribute("width") && !img.hasAttribute("height") && img.src.startsWith("/assets/")) {
+            const { width, height } = cachedImageSize(img.src);
+            if (width && height) {
+                img.setAttribute("width", width.toString());
+                img.setAttribute("height", height.toString());
+            }
+        }
+    });
 
     return `<!DOCTYPE html>${wrapper.innerHTML}`;
 }
