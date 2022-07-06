@@ -1,6 +1,7 @@
 import { BaseProps } from "tsx-dom-ssr";
 
 import { withCss } from "../../utils/withCss";
+import { DateTime } from "../DateTime/DateTime";
 import { LinkButton } from "../LinkButton/LinkButton";
 import classes from "./Box.module.scss";
 
@@ -15,7 +16,7 @@ export const Box = withCss(classes, ({ href, title, date, children }: BoxProps) 
         <h2>
             <LinkButton href={href}>
                 <span class={classes.label}>{title}</span>
-                {date && <span class={classes.date}>{date.toDateString()}</span>}
+                {date && <DateTime date={date} />}
             </LinkButton>
         </h2>
         <div class={classes.boxChildren}>{children}</div>

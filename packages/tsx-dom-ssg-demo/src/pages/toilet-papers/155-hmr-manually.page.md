@@ -4,7 +4,7 @@ title: "Address Hot Module Replacement API manually"
 description: >
     HMR works automagically in almost all popular frontend frameworks.
     It is, however, possible to control HMR manually. How and why is shown in this Toilet Paper.
-date: "2022-02-18T10:00:00.000Z"
+created: "2022-02-18"
 ---
 
 ## Problem

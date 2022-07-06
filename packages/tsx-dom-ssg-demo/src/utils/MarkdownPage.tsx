@@ -20,11 +20,17 @@ export async function MarkdownPage({ page }: MarkdownPageProps) {
                     title={title}
                     description={description}
                     image={page.image}
-                    publishedTime={page.date}
+                    publishedTime={page.created}
+                    modifiedTime={page.modified}
                     tags={page.tags}
                     slug={page.slug}
                 />
-                <ArticleHeader title={title} description={description} date={page.date} />
+                <ArticleHeader
+                    title={title}
+                    description={description}
+                    created={page.created}
+                    modified={page.modified}
+                />
                 <Container>
                     {tags.length > 0 && <TagList tags={tags} />}
                     <MarkdownArticleBody markdown={body} />

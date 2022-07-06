@@ -26,7 +26,8 @@ export type FrontMatter = {
     title: string;
     image?: string;
     description: string;
-    date: string; // fixme: differ between create and modified
+    created: string;
+    modified?: string;
     /** optional, usually generated from title */
     slug?: string;
 };
@@ -37,7 +38,8 @@ export type PageInfoBase = {
     title: string;
     image?: string;
     description: string;
-    date: Date;
+    created: Date;
+    modified?: Date;
     slug: string;
 };
 export type PageInfoMd = PageInfoBase & { type: "md"; body: string };
@@ -46,6 +48,12 @@ export type PageInfo = PageInfoMd | PageInfoTsx;
 
 export const tagSlugToLabel: Record<string, string> = {};
 export const tagLabels: string[] = [];
+
+function parseDate(date: string) {
+    if (date.includes('T')) return new Date(date);
+    // If not manually specified, append a default time of 12:00
+    return new Date(`${date}T12:00:00.000Z`);
+}
 
 export async function getPages() {
     const rootPath = path.join("packages", "tsx-dom-ssg-demo", "src", "pages");
@@ -68,7 +76,8 @@ export async function getPages() {
                     title: page.title,
                     image: page.image,
                     description: page.description,
-                    date: new Date(page.date),
+                    created: parseDate(page.created),
+                    modified: page.modified ? parseDate(page.modified) : undefined,
                     slug: page.slug ?? slugify(page.title),
                     body: fm.body,
                 };
@@ -90,7 +99,8 @@ export async function getPages() {
                 title: fm.title,
                 image: fm.image,
                 description: fm.description,
-                date: new Date(fm.date),
+                created: parseDate(fm.created),
+                modified: fm.modified ? parseDate(fm.modified) : undefined,
                 slug: fm.slug ?? slugify(fm.title),
                 component: page.default,
             };
@@ -100,7 +110,7 @@ export async function getPages() {
     tagLabels.push(...Object.values(tagSlugToLabel));
     tagLabels.sort();
 
-    return list.sort((a, b) => (a.date < b.date ? 1 : -1));
+    return list.sort((a, b) => (a.created < b.created ? 1 : -1));
 }
 
 export function pageHasTags(page: PageInfo) {

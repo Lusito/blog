@@ -3,7 +3,7 @@ tags: ["Web-Extensions", "Web Development"]
 title: "Mozilla Workshop Summary"
 description: >
     I attended a workshop at Mozillas office in London on the topic of Manifest V3 and the future of the Recommended Extensions Program.
-date: "2019-11-17T10:00:00.000Z"
+created: "2019-11-17"
 ---
 
 ## Introduction

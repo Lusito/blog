@@ -3,7 +3,7 @@ tags: ["TypeScript", "JavaScript", "Web Development", "Game Development", "Box2D
 title: "TypeScript Port of Box2D Lights"
 description: "I love working on the TypeScript version of Box2D Lights."
 image: "box2d-lights-draw-world.jpg"
-date: "2021-01-05T10:00:00.000Z"
+created: "2021-01-05"
 ---
 
 ## Project Introduction

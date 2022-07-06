@@ -15,8 +15,9 @@ export function renderSitemap({ pages, pagesWithTags }: SitemapConfig) {
     // eslint-disable-next-line no-undef-init
     let newestLastmod: Date | undefined = undefined;
     for (const page of pagesWithTags) {
-        if (page.date && (!newestLastmod || page.date > newestLastmod)) {
-            newestLastmod = page.date;
+        const lastmod = page.modified ?? page.created;
+        if (lastmod && (!newestLastmod ||lastmod > newestLastmod)) {
+            newestLastmod = lastmod;
         }
     }
 
@@ -26,7 +27,7 @@ export function renderSitemap({ pages, pagesWithTags }: SitemapConfig) {
     for (const page of pages) {
         entries.push({
             loc: `/${page.slug}.html`,
-            lastmod: page.date,
+            lastmod: page.modified ?? page.created,
         });
     }
 

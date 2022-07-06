@@ -4,7 +4,7 @@ title: "Extending NGINX with JavaScript (NJS)"
 description: >
     Extending NGINX with Java-Script (NJS)? The much-loved NGINX has a limited feature-set.
     In this ToiletPaper you'll learn how to extend it with custom code.
-date: "2021-11-12T10:00:00.000Z"
+created: "2021-11-12"
 ---
 
 ## Problem

@@ -4,7 +4,7 @@ title: "PixlCam, a 2D Camera Library"
 description: >
     I've just released a 2D camera library for web games, with several camera types. Most notable one, which can get influenced by cues in the world and offsets like player movement/aim. There's a demo link inside.
 image: "pixlcam.png"
-date: "2022-02-04T10:00:00.000Z"
+created: "2022-02-04"
 ---
 
 ## Recently

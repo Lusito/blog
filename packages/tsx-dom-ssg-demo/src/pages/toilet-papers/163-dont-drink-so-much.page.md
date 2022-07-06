@@ -4,7 +4,7 @@ title: "Don't Drink So Much: Reducing Frontend Code"
 description: >
     Some developers keep using the tools they are used to, rather than the best tool for the job.
     Recently, I had to develop a Multi Page Application using a Single Page Application Framework and here are my thoughts on how to do it better.
-date: "2022-06-03T10:00:00.000Z"
+created: "2022-06-03"
 ---
 
 ## Introduction

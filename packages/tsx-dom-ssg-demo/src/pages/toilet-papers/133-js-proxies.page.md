@@ -4,7 +4,7 @@ title: "JavaScript Proxy Object"
 description: >
     Need to provide an object without knowing which operations are applied to it or without writing them manually?
     No problem with JavaScript Proxy Object!
-date: "2020-10-23T10:00:00.000Z"
+created: "2020-10-23"
 ---
 
 ## Problem

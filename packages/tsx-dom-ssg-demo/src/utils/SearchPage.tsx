@@ -28,7 +28,7 @@ export const SearchPage = withCss(classes, async ({ pages }: SearchPageProps) =>
                         </label>
                         {pages.map((page) => (
                             <div class={classes.searchItem}>
-                                <Box href={`/${page.slug}.html`} title={page.title} date={page.date}>
+                                <Box href={`/${page.slug}.html`} title={page.title} date={page.created}>
                                     <div>{page.description}</div>
                                     <TagList tags={page.tags} />
                                 </Box>

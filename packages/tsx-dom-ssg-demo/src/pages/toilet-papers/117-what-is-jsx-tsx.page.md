@@ -4,7 +4,7 @@ title: "What Is Jsx / TSX?"
 description: >
     Anyone who has ever worked with React will know the file extension JSX (TSX for TypeScript) and the HTML-related syntax.
     But what lies under the hood?
-date: "2019-06-28T10:00:00.000Z"
+created: "2019-06-28"
 ---
 
 ## Problem

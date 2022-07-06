@@ -9,7 +9,7 @@ export const frontMatter: FrontMatter = {
     tags: [],
     title: "404",
     description: "File Not Found",
-    date: "2022-06-01T10:44:12.865Z",
+    created: "2022-06-01",
     slug: "404",
 };
 

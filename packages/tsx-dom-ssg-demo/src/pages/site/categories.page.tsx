@@ -12,7 +12,7 @@ export const frontMatter: FrontMatter = {
     tags: [],
     title: "All Categories",
     description: "An overview over all categories on this blog",
-    date: "2022-06-01T10:44:12.865Z",
+    created: "2022-06-01",
     slug: "categories",
 };
 

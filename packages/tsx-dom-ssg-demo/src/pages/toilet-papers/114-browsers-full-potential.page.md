@@ -5,7 +5,7 @@ description: >
     Everyone knows how to use a browser to perform certain tasks.
     And yet there are problems many people might work around,
     because they don't know the browser’s full potential.
-date: "2019-05-17T10:00:00.000Z"
+created: "2019-05-17"
 ---
 
 ## Problem

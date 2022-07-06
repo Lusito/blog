@@ -35,7 +35,7 @@ export async function ListPage({ path, tags, title, description, pages, pageNumb
                 <Container>
                     {pagination}
                     {filtered.map((page) => (
-                        <Box href={`/${page.slug}.html`} title={page.title} date={page.date}>
+                        <Box href={`/${page.slug}.html`} title={page.title} date={page.created}>
                             <div>{page.description}</div>
                             <TagList tags={page.tags} />
                         </Box>
