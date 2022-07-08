@@ -1,20 +1,18 @@
-export function transferAttributes(original: Element, element: Element) {
-    const attributes = element.getAttributeNames();
+export function transferAttributes(source: Element, target: Element) {
+    const attributes = source.getAttributeNames();
     for (const attribute of attributes) {
-        const newValue = element.getAttribute(attribute) ?? "";
-        const oldValue = original.getAttribute(attribute);
+        const newValue = source.getAttribute(attribute) ?? "";
+        const oldValue = target.getAttribute(attribute);
 
         if (attribute === "class" && oldValue) {
             // Classes will be appended instead of replaced
-            original.setAttribute("class", `${oldValue} ${newValue}`);
+            target.setAttribute("class", `${oldValue} ${newValue}`);
         } else if (attribute === "style" && oldValue) {
             // Style will be appended instead of replaced
             const separator = oldValue.endsWith(";") ? "" : ";";
-            original.setAttribute("style", `${oldValue}${separator}${newValue}`);
+            target.setAttribute("style", `${oldValue}${separator}${newValue}`);
         } else {
-            original.setAttribute(attribute, newValue);
+            target.setAttribute(attribute, newValue);
         }
     }
-
-    element.remove();
 }

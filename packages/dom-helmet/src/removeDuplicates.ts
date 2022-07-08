@@ -1,19 +1,19 @@
 export const removeElement = (element: Element) => element.remove();
 
-export function removeDuplicatesBySelector(head: Element, falseHead: Element, selector: string) {
-    if (falseHead.querySelector(selector)) {
-        head.querySelectorAll(selector).forEach(removeElement);
+export function removeDuplicatesBySelector(falseElement: Element, target: Element, selector: string) {
+    if (falseElement.querySelector(selector)) {
+        target.querySelectorAll(selector).forEach(removeElement);
     }
 }
 
 export function removeDuplicatesBySelectorAndAttribute(
-    head: Element,
-    falseHead: Element,
+    falseElement: Element,
+    target: Element,
     selector: string,
     attribute: string
 ) {
-    const originalElements = head.querySelectorAll(selector);
-    falseHead.querySelectorAll(selector).forEach((newElement) => {
+    const originalElements = target.querySelectorAll(selector);
+    falseElement.querySelectorAll(selector).forEach((newElement) => {
         const newValue = newElement.getAttribute(attribute);
         if (newValue) {
             originalElements.forEach((oldLink) => {
@@ -23,9 +23,9 @@ export function removeDuplicatesBySelectorAndAttribute(
     });
 }
 
-export function removeDuplicatesBySelectorAndTextContent(head: Element, falseHead: Element, selector: string) {
-    const originalElements = head.querySelectorAll(selector);
-    falseHead.querySelectorAll(selector).forEach((newElement) => {
+export function removeDuplicatesBySelectorAndTextContent(falseElement: Element, target: Element, selector: string) {
+    const originalElements = target.querySelectorAll(selector);
+    falseElement.querySelectorAll(selector).forEach((newElement) => {
         const newValue = newElement.textContent;
         if (newValue) {
             originalElements.forEach((oldLink) => {

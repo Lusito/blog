@@ -20,7 +20,7 @@ describe("removeDuplicatesBySelector", () => {
         `);
         const head = el.querySelector("html > head")!;
         const falseHead = el.querySelector("body > head")!;
-        removeDuplicatesBySelector(head, falseHead, "title");
+        removeDuplicatesBySelector(falseHead, head, "title");
 
         expect(head.querySelector("title")).toBeFalsy();
         expect(falseHead.querySelector("title")).toBeTruthy();
@@ -37,7 +37,7 @@ describe("removeDuplicatesBySelector", () => {
         `);
         const head = el.querySelector("html > head")!;
         const falseHead = el.querySelector("body > head")!;
-        removeDuplicatesBySelector(head, falseHead, "title");
+        removeDuplicatesBySelector(falseHead, head, "title");
 
         expect(head.querySelector("title")).toBeTruthy();
     });
@@ -57,7 +57,7 @@ describe("removeDuplicatesBySelectorAndAttribute", () => {
         `);
         const head = el.querySelector("html > head")!;
         const falseHead = el.querySelector("body > head")!;
-        removeDuplicatesBySelectorAndAttribute(head, falseHead, "meta", "name");
+        removeDuplicatesBySelectorAndAttribute(falseHead, head, "meta", "name");
 
         expect(head.querySelector("meta")).toBeFalsy();
         expect(falseHead.querySelector("meta")).toBeTruthy();
@@ -74,7 +74,7 @@ describe("removeDuplicatesBySelectorAndAttribute", () => {
         `);
         const head = el.querySelector("html > head")!;
         const falseHead = el.querySelector("body > head")!;
-        removeDuplicatesBySelectorAndAttribute(head, falseHead, "meta", "name");
+        removeDuplicatesBySelectorAndAttribute(falseHead, head, "meta", "name");
 
         expect(head.querySelector("meta")).toBeTruthy();
     });
@@ -92,7 +92,7 @@ describe("removeDuplicatesBySelectorAndAttribute", () => {
         `);
         const head = el.querySelector("html > head")!;
         const falseHead = el.querySelector("body > head")!;
-        removeDuplicatesBySelectorAndAttribute(head, falseHead, "meta", "name");
+        removeDuplicatesBySelectorAndAttribute(falseHead, head, "meta", "name");
 
         expect(head.querySelector("meta")).toBeTruthy();
     });
@@ -112,7 +112,7 @@ describe("removeDuplicatesBySelectorAndTextContent", () => {
         `);
         const head = el.querySelector("html > head")!;
         const falseHead = el.querySelector("body > head")!;
-        removeDuplicatesBySelectorAndTextContent(head, falseHead, "style");
+        removeDuplicatesBySelectorAndTextContent(falseHead, head, "style");
 
         expect(head.querySelector("style")).toBeFalsy();
         expect(falseHead.querySelector("style")).toBeTruthy();
@@ -129,7 +129,7 @@ describe("removeDuplicatesBySelectorAndTextContent", () => {
         `);
         const head = el.querySelector("html > head")!;
         const falseHead = el.querySelector("body > head")!;
-        removeDuplicatesBySelectorAndTextContent(head, falseHead, "style");
+        removeDuplicatesBySelectorAndTextContent(falseHead, head, "style");
 
         expect(head.querySelector("style")).toBeTruthy();
     });
@@ -147,7 +147,7 @@ describe("removeDuplicatesBySelectorAndTextContent", () => {
         `);
         const head = el.querySelector("html > head")!;
         const falseHead = el.querySelector("body > head")!;
-        removeDuplicatesBySelectorAndTextContent(head, falseHead, "style");
+        removeDuplicatesBySelectorAndTextContent(falseHead, head, "style");
 
         expect(head.querySelector("style")).toBeTruthy();
     });

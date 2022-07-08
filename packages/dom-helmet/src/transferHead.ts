@@ -5,18 +5,18 @@ import {
 } from "./removeDuplicates";
 import { transferChildren } from "./transferChildren";
 
-export function transferHead(target: HTMLHeadElement, falseElement: HTMLHeadElement) {
+export function transferHead(falseElement: HTMLHeadElement, target: HTMLHeadElement) {
     // If title, base or meta[charset] are present, they will replace old instances completely.
-    removeDuplicatesBySelector(target, falseElement, "title");
-    removeDuplicatesBySelector(target, falseElement, "base");
-    removeDuplicatesBySelector(target, falseElement, "meta[charset]");
+    removeDuplicatesBySelector(falseElement, target, "title");
+    removeDuplicatesBySelector(falseElement, target, "base");
+    removeDuplicatesBySelector(falseElement, target, "meta[charset]");
 
-    removeDuplicatesBySelectorAndAttribute(target, falseElement, "meta", "name");
-    removeDuplicatesBySelectorAndAttribute(target, falseElement, "meta", "http-equiv");
-    removeDuplicatesBySelectorAndAttribute(target, falseElement, "link", "href");
-    removeDuplicatesBySelectorAndAttribute(target, falseElement, "script", "src");
-    removeDuplicatesBySelectorAndAttribute(target, falseElement, "*", "id");
-    removeDuplicatesBySelectorAndTextContent(target, falseElement, "style");
+    removeDuplicatesBySelectorAndAttribute(falseElement, target, "meta", "name");
+    removeDuplicatesBySelectorAndAttribute(falseElement, target, "meta", "http-equiv");
+    removeDuplicatesBySelectorAndAttribute(falseElement, target, "link", "href");
+    removeDuplicatesBySelectorAndAttribute(falseElement, target, "script", "src");
+    removeDuplicatesBySelectorAndAttribute(falseElement, target, "*", "id");
+    removeDuplicatesBySelectorAndTextContent(falseElement, target, "style");
 
     // Move all children of head elements in the body to the main head
     transferChildren(falseElement, target);

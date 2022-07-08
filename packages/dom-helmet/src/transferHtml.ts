@@ -1,11 +1,12 @@
 import { transferAttributes } from "./transferAttributes";
 
-// fixme: tests
-export function transferHtml(target: HTMLHtmlElement, falseElement: HTMLHtmlElement) {
-    // fixme: verify that html elements do not contain any children?
+export function transferHtml(falseElement: HTMLHtmlElement, target: HTMLHtmlElement) {
+    if (falseElement.childNodes.length) {
+        throw new Error("False html elements may not contain children");
+    }
 
     // Transfer attributes
-    transferAttributes(target, falseElement);
+    transferAttributes(falseElement, target);
 
     // Then remove the false element
     falseElement.remove();

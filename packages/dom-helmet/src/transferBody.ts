@@ -1,10 +1,9 @@
 import { transferAttributes } from "./transferAttributes";
 import { transferChildren } from "./transferChildren";
 
-// fixme: tests
-export function transferBody(target: HTMLBodyElement, falseElement: HTMLBodyElement) {
+export function transferBody(falseElement: HTMLBodyElement, target: HTMLBodyElement) {
     // Transfer attributes
-    transferAttributes(target, falseElement);
+    transferAttributes(falseElement, target);
 
     // Move all children of head elements in the body to the main head
     transferChildren(falseElement, target);

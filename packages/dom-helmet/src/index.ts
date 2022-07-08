@@ -21,7 +21,7 @@ export type HelmetOptions = {
  * @param elements An object containing the elements required.
  */
 export function domHelmet({ html, head, body }: HelmetOptions) {
-    html.querySelectorAll("html").forEach((element) => transferHtml(html, element));
-    body.querySelectorAll("body").forEach((falseBody) => transferBody(body, falseBody));
-    body.querySelectorAll("head").forEach((falseHead) => transferHead(head, falseHead));
+    html.querySelectorAll("html").forEach((element) => transferHtml(element, html));
+    body.querySelectorAll("body").forEach((falseBody) => transferBody(falseBody, body));
+    body.querySelectorAll("head").forEach((falseHead) => transferHead(falseHead, head));
 }
