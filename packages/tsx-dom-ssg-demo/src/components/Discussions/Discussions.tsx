@@ -9,7 +9,7 @@ export const Discussions = withCss(classes, () => (
             data-repo-id="R_kgDOHpGztA"
             data-category="Announcements"
             data-category-id="DIC_kwDOHpGztM4CQKXP"
-            data-mapping="title"
+            data-mapping="og:title"
             data-reactions-enabled="1"
             data-emit-metadata="0"
             data-input-position="bottom"
