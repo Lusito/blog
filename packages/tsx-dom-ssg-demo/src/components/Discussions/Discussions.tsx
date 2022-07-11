@@ -5,11 +5,10 @@ export const Discussions = withCss(classes, () => (
     <div class={classes.discussions}>
         <script
             src="https://giscus.app/client.js"
-            // fixme: my repo
-            data-repo="giscus/giscus"
-            data-repo-id="MDEwOlJlcG9zaXRvcnkzNTE5NTgwNTM="
-            data-category="General"
-            data-category-id="MDE4OkRpc2N1c3Npb25DYXRlZ29yeTMyNzk2NTc1"
+            data-repo="Lusito/blog"
+            data-repo-id="R_kgDOHpGztA"
+            data-category="Announcements"
+            data-category-id="DIC_kwDOHpGztM4CQKXP"
             data-mapping="title"
             data-reactions-enabled="1"
             data-emit-metadata="0"
