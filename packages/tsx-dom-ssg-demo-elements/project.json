@@ -5,7 +5,7 @@
   "tags": [],
   "targets": {
     "build": {
-      "executor": "@nrwl/node:webpack",
+      "executor": "@nrwl/web:webpack",
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "production",
       "options": {
@@ -35,7 +35,7 @@
       }
     },
     "serve": {
-      "executor": "@nrwl/node:webpack",
+      "executor": "@nrwl/web:webpack",
       "outputs": ["{options.outputPath}"],
       "defaultConfiguration": "development",
       "options": {
