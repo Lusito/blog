@@ -7,6 +7,7 @@ function debounce(func: () => void, timeout = 300) {
 }
 
 // fixme: pagination if too many items?
+// fixme: filter by tags, maybe date-range?
 class SearchContainer extends HTMLElement {
     searchField?: HTMLInputElement;
 

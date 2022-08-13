@@ -130,9 +130,6 @@ async function init() {
         );
     });
 
-    // fixme: search is done clientside, filter by search-text, tags (and/or) and date-range
-    // app.get("/search.html", (req, res) => respondHTML(res, <SearchPage />));
-
     app.get("/:slug.html", (req, res) => {
         const { slug } = req.params;
         const page = pages.find((p) => p.slug === slug);
