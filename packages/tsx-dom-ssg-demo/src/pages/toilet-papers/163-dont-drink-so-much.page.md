@@ -3,7 +3,8 @@ tags: ["Toilet Paper", "React", "JavaScript", "TypeScript", "Web Development", "
 title: "Don't Drink So Much: Reducing Frontend Code"
 description: >
     Some developers keep using the tools they are used to, rather than the best tool for the job.
-    Recently, I had to develop a Multi Page Application using a Single Page Application Framework and here are my thoughts on how to do it better.
+    Recently, I had to work on a Multi Page Application, which was rendered using a Single Page Application
+    Framework. Here are my thoughts on how to do it better.
 created: "2022-06-03"
 ---
 
