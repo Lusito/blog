@@ -24,7 +24,7 @@ export default async function () {
                     title={frontMatter.title}
                     tags={[]}
                 />
-                <ArticleHeader title={frontMatter.title} description={frontMatter.description} />
+                <ArticleHeader title={frontMatter.title} subTitle={<p>{frontMatter.description}</p>} />
                 <Container>
                     <p>Could not find the file you were looking for! Try looking at one of these topics:</p>
                     <TagList tags={tagLabels} />

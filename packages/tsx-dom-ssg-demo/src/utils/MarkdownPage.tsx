@@ -1,8 +1,10 @@
 import { MarkdownArticleBody } from "../components/ArticleBody/ArticleBody";
+import { ArticleDateSubTitle } from "../components/ArticleDateSubTitle/ArticleDateSubTitle";
 import { ArticleHeader } from "../components/ArticleHeader/ArticleHeader";
 import { Container } from "../components/Container/Container";
 import { Discussions } from "../components/Discussions/Discussions";
 import { MetaTagsArticle } from "../components/MetaTags/MetaTags";
+import { Synopsis } from "../components/Synopsis/Synopsis";
 import { TagList } from "../components/TagList/TagList";
 import { DefaultLayout } from "../layouts/DefaultLayout";
 import type { PageInfoMd } from "./pageUtils";
@@ -27,11 +29,11 @@ export async function MarkdownPage({ page }: MarkdownPageProps) {
                 />
                 <ArticleHeader
                     title={title}
-                    description={description}
-                    created={page.created}
-                    modified={page.modified}
+                    // fixme: some markdown pages might not need a date (like about)
+                    subTitle={<ArticleDateSubTitle created={page.created} modified={page.modified} />}
                 />
                 <Container>
+                    <Synopsis>{description}</Synopsis>
                     {tags.length > 0 && <TagList tags={tags} />}
                     <MarkdownArticleBody markdown={body} />
                     {tags.length > 0 && (

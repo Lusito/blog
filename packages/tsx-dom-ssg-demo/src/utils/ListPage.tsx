@@ -31,7 +31,7 @@ export async function ListPage({ path, tags, title, description, pages, pageNumb
         <DefaultLayout pageTitle={title}>
             <article>
                 <MetaTags description={description} slug={path.slice(1)} title={title} tags={tags} />
-                <ArticleHeader title={title} description={description} />
+                <ArticleHeader title={title} subTitle={<p>{description}</p>} />
                 <Container>
                     {pagination}
                     {filtered.map((page) => (
