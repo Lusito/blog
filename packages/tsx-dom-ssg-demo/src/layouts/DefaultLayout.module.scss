@@ -66,13 +66,16 @@
         text-decoration: underline;
         color: var(--color-main-link);
 
-        &:focus {
-            outline: none;
-            box-shadow: 0 0 0 3px var(--color-focus);
-            outline: 1px solid var(--color-focus-contrast);
-        }
         &:visited {
             color: var(--color-main-link-visited);
+        }
+    }
+    input,
+    select,
+    a {
+        &:focus {
+            box-shadow: 0 0 0 3px var(--color-focus);
+            outline: 1px solid var(--color-focus-contrast);
         }
     }
     h1,
