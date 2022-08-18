@@ -33,7 +33,7 @@ export async function MarkdownPage({ page }: MarkdownPageProps) {
                     subTitle={<ArticleDateSubTitle created={page.created} modified={page.modified} />}
                 />
                 <Container>
-                    <Synopsis>{description}</Synopsis>
+                    {description && <Synopsis>{description}</Synopsis>}
                     {tags.length > 0 && <TagList tags={tags} />}
                     <MarkdownArticleBody markdown={body} />
                     {tags.length > 0 && (
