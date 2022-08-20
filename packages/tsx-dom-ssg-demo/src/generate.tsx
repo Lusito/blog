@@ -1,8 +1,10 @@
 import fs from "fs";
+import { basename } from "path";
 import { ComponentChildren } from "tsx-dom-ssr";
 
 import NotFoundPage from "./pages/site/404.page";
 import { DynamicPage } from "./utils/DynamicPage";
+import { getAllFiles } from "./utils/fileUtils";
 import { ListAllPage } from "./utils/ListAllPage";
 import { itemsPerPage, ListPage } from "./utils/ListPage";
 import { MarkdownPage } from "./utils/MarkdownPage";
@@ -11,19 +13,22 @@ import { renderHTML } from "./utils/renderHTML";
 import { renderSitemap, SitemapConfig } from "./utils/renderSitemap";
 import { SearchPage } from "./utils/SearchPage";
 
+const assets = "dist/packages/tsx-dom-ssg-demo/assets";
+const destination = "dist/packages/tsx-dom-ssg-demo/out";
+
 async function writeSitemap(config: SitemapConfig) {
     const xml = await renderSitemap(config);
-    await fs.promises.writeFile("dist/packages/tsx-dom-ssg-demo/sitemap.xml", xml);
+    await fs.promises.writeFile(`${destination}/sitemap.xml`, xml);
 }
 
 async function writeHTML(path: string, children: ComponentChildren) {
     const html = await renderHTML(path, children);
-    await fs.promises.writeFile(`dist/packages/tsx-dom-ssg-demo${path}`, html);
+    await fs.promises.writeFile(`${destination}${path}`, html);
 }
 
 async function createHTMLPath(path: string) {
-    const fullPath = `dist/packages/tsx-dom-ssg-demo${path}`;
-    if (!fs.existsSync(fullPath)) await fs.promises.mkdir(fullPath);
+    const fullPath = `${destination}${path}`;
+    if (!fs.existsSync(fullPath)) await fs.promises.mkdir(fullPath, { recursive: true });
 }
 
 async function writePages(path: string, tags: string[], title: string, description: string, pages: PageInfo[]) {
@@ -48,6 +53,21 @@ async function writePages(path: string, tags: string[], title: string, descripti
     );
 }
 
+async function copyAssets() {
+    const files = getAllFiles(assets, /(?<!\.gitkeep)$/, []);
+    await createHTMLPath("/assets");
+    await Promise.all(
+        files.map((file) => {
+            const target = `${destination}/assets/${basename(file)}`;
+            return fs.promises.copyFile(file, target);
+        })
+    );
+    await fs.promises.copyFile(
+        "dist/packages/tsx-dom-ssg-demo-elements/main.esm.js",
+        `${destination}/custom-elements.js`
+    );
+}
+
 async function createFiles() {
     const start = Date.now();
     const pages = await getPages();
@@ -56,6 +76,7 @@ async function createFiles() {
 
     await createHTMLPath("/tag");
     await Promise.all([
+        copyAssets(),
         writeHTML("/404.html", <NotFoundPage />),
         writeHTML(
             "/index.html",

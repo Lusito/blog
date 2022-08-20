@@ -4,22 +4,7 @@ import frontMatter from "front-matter";
 import { Component } from "tsx-dom-ssr";
 import slugify from "slug";
 
-function getAllFiles(dirPath: string, pattern: RegExp, arrayOfFiles: string[]) {
-    const files = fs.readdirSync(dirPath);
-
-    arrayOfFiles = arrayOfFiles || [];
-
-    for (const file of files) {
-        const filePath = path.join(dirPath, file);
-        if (fs.statSync(filePath).isDirectory()) {
-            arrayOfFiles = getAllFiles(filePath, pattern, arrayOfFiles);
-        } else if (pattern.test(filePath)) {
-            arrayOfFiles.push(filePath);
-        }
-    }
-
-    return arrayOfFiles;
-}
+import { getAllFiles } from "./fileUtils";
 
 export type FrontMatter = {
     tags: string[];
@@ -50,7 +35,7 @@ export const tagSlugToLabel: Record<string, string> = {};
 export const tagLabels: string[] = [];
 
 function parseDate(date: string) {
-    if (date.includes('T')) return new Date(date);
+    if (date.includes("T")) return new Date(date);
     // If not manually specified, append a default time of 12:00
     return new Date(`${date}T12:00:00.000Z`);
 }
