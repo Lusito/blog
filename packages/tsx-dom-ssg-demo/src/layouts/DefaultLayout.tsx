@@ -29,7 +29,9 @@ export const DefaultLayout = withCss(classes, ({ children, pageTitle }: DefaultL
             <script src="/custom-elements.js" defer />
         </head>
         <body>
-            <SideBar />
+            <div class="scatman-container">
+                <SideBar />
+            </div>
             <div class={classes.mainwrapper}>
                 <Header siteTitle={siteTitle} />
                 <div class={`${classes.content} scatman-container`}>

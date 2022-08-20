@@ -27,11 +27,6 @@ $transition-time: 0.5s;
     background: var(--color-main);
     box-sizing: border-box;
 
-    :global(html.is-animating) & {
-        pointer-events: none;
-        transition: none; // fixme: if we do this, can we remove other transitions?
-    }
-
     &:hover,
     &:focus-within {
         left: 0;

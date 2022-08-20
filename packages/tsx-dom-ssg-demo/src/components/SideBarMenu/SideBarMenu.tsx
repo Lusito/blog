@@ -29,7 +29,7 @@ function NavItem(this: ComponentThis, { label, ariaLabel, path }: NavItemProps) 
 // eslint-disable-next-line func-names
 export const SideBarMenu = withCss(classes, () => (
     <nav role="navigation" aria-label="Main Menu">
-        <ul class={`${classes.sideBarMenu} scatman-container`}>
+        <ul class={classes.sideBarMenu}>
             <NavItem path="/" label="Latest Posts" />
             <li>
                 <span>Top Categories</span>

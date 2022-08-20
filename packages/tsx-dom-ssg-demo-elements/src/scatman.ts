@@ -2,7 +2,6 @@ import {
     Scatman,
     ScatA11yPlugin,
     ScatBodyClassPlugin,
-    ScatCssPlugin,
     ScatHeadPlugin,
     ScatPreloadPlugin,
     ScatProgressPlugin,
@@ -14,7 +13,6 @@ export const scatman = new Scatman();
 document.addEventListener("DOMContentLoaded", () => {
     scatman.init();
     scatman.use(
-        new ScatCssPlugin(scatman),
         new ScatHeadPlugin(scatman),
         new ScatBodyClassPlugin(scatman),
         new ScatScrollPlugin(scatman),
