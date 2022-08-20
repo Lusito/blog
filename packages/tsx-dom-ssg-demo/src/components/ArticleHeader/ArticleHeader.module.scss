@@ -5,7 +5,7 @@
     position: relative;
     text-align: center;
     padding: 4rem 0;
-    background: radial-gradient(ellipse at center, $color-blue 0%, darken($color-blue, 15%) 100%);
+    background: radial-gradient(ellipse at center, $color-accent-700 0%, $color-accent-900 100%);
     color: var(--color-highlight-contrast);
     text-shadow: 0 0 1em var(--color-dark);
     justify-content: center;

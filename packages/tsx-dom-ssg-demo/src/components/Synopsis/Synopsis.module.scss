@@ -1,40 +1,25 @@
+@import "../../style/breakpoints.scss";
+
 .synopsis {
     margin: 2em 0;
     padding: 0.25em;
     position: relative;
     background: linear-gradient(
-        45deg,
-        var(--color-dark-link),
-        var(--color-dark-link-visited) 25%,
-        var(--color-dark-link-visited) 75%,
-        var(--color-dark-link)
+        75deg,
+        var(--color-synopsis-border),
+        var(--color-main) 25%,
+        var(--color-main) 75%,
+        var(--color-synopsis-border)
     );
 
-    &::before,
-    &::after {
-        content: "";
+    @include from("small") {
         background: linear-gradient(
             45deg,
-            transparent,
-            transparent 1em,
-            var(--color-main) 1em,
-            var(--color-main),
-            var(--color-main) calc(100% - 1em),
-            transparent calc(100% - 1em),
-            transparent
+            var(--color-synopsis-border),
+            var(--color-main) 25%,
+            var(--color-main) 75%,
+            var(--color-synopsis-border)
         );
-        position: absolute;
-        height: 0.25em;
-    }
-    &::before {
-        top: 0;
-        left: 0;
-        right: 8em;
-    }
-    &::after {
-        bottom: 0;
-        right: 0;
-        left: 8em;
     }
 
     > p {

@@ -15,7 +15,7 @@
     background: var(--color-dark);
     padding: 0.5rem 0.75rem 0.25rem 0.75rem;
     text-decoration: none;
-    border-bottom: 0.25rem solid var(--color-dark-link);
+    border-bottom: 0.25rem solid var(--color-button-link);
 
     &:hover,
     &:focus {
@@ -25,7 +25,7 @@
 
     &:visited {
         color: var(--color-dark-contrast);
-        border-color: var(--color-dark-link-visited);
+        border-color: var(--color-button-link-visited);
     }
 }
 
