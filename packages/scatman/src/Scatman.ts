@@ -229,9 +229,8 @@ export class Scatman {
 
         const promise = this.doPreloadPage(url);
         const entry = {
-            promise: promise.then((page) => {
+            promise: promise.finally(() => {
                 this.preloading.delete(url);
-                return page;
             }),
             url,
         };
@@ -266,21 +265,21 @@ export class Scatman {
             }
         }
 
-        // start/skip loading of page
-        let page = this.cache.get(event.url);
-        if (page) {
-            this.events.pageRetrievedFromCache.emit();
-        } else {
-            const preloading = this.preloading.get(event.url);
-            if (preloading) {
-                page = await preloading.promise;
-            } else {
-                page = await this.preloadPage(event.url);
-                this.events.pageLoaded.emit(event);
-            }
-        }
-
         try {
+            // start/skip loading of page
+            let page = this.cache.get(event.url);
+            if (page) {
+                this.events.pageRetrievedFromCache.emit();
+            } else {
+                const preloading = this.preloading.get(event.url);
+                if (preloading) {
+                    page = await preloading.promise;
+                } else {
+                    page = await this.preloadPage(event.url);
+                    this.events.pageLoaded.emit(event);
+                }
+            }
+
             await animateOutPromise;
 
             await this.renderPage(page, event);

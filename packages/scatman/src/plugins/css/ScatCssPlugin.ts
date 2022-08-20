@@ -37,11 +37,13 @@ export class ScatCssPlugin implements ScatAnimationPlugin {
     mount(): void {
         document.documentElement.classList.add("scatman-enabled");
         this.scatman.events.willReplaceContent.on(this.onWillReplaceContent);
+        this.scatman.events.contentReplaced.on(this.onContentReplaced);
     }
 
     unmount(): void {
         document.documentElement.classList.remove("scatman-enabled");
         this.scatman.events.willReplaceContent.off(this.onWillReplaceContent);
+        this.scatman.events.contentReplaced.off(this.onContentReplaced);
         // fixme: remove other classes?
     }
 
@@ -69,6 +71,10 @@ export class ScatCssPlugin implements ScatAnimationPlugin {
         if (!popstate) {
             document.documentElement.classList.add("is-rendering");
         }
+    };
+
+    private onContentReplaced = () => {
+        document.documentElement.classList.remove("is-rendering");
     };
 
     async animateOut({ popstate, url, customTransition }: ScatPageLoadEvent) {
