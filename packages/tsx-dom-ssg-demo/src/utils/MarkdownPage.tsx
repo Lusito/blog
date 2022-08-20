@@ -14,7 +14,8 @@ type MarkdownPageProps = {
 };
 
 export async function MarkdownPage({ page }: MarkdownPageProps) {
-    const { title, body, tags, description } = page;
+    const { title, body, tags, description, hideDate, hideSynopsis } = page;
+
     return (
         <DefaultLayout pageTitle={title}>
             <article>
@@ -27,13 +28,10 @@ export async function MarkdownPage({ page }: MarkdownPageProps) {
                     tags={page.tags}
                     slug={page.slug}
                 />
-                <ArticleHeader
-                    title={title}
-                    // fixme: some markdown pages might not need a date (like about)
-                    subTitle={<ArticleDateSubTitle created={page.created} modified={page.modified} />}
-                />
+                <ArticleHeader title={title.split(":")[0]} subTitle={title.split(":")[1]} />
+                {!hideDate && <ArticleDateSubTitle created={page.created} modified={page.modified} />}
                 <Container>
-                    {description && <Synopsis>{description}</Synopsis>}
+                    {description && !hideSynopsis && <Synopsis>{description}</Synopsis>}
                     {tags.length > 0 && <TagList tags={tags} />}
                     <MarkdownArticleBody markdown={body} />
                     {tags.length > 0 && (

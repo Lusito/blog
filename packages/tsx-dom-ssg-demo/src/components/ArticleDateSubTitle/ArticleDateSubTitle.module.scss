@@ -1,0 +1,37 @@
+@import "../../style/breakpoints.scss";
+
+.article-date-sub-title {
+    line-height: 2rem;
+    color: var(--color-dark-contrast);
+    background: var(--color-dark);
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    text-align: center;
+    justify-content: space-between;
+
+    > span {
+        padding: 0 1rem;
+        flex-grow: 1;
+        &::first-letter {
+            text-transform: uppercase;
+        }
+    }
+
+    @include from("small") {
+        display: block;
+        width: max-content;
+        margin: 0 auto;
+        padding: 0 1rem;
+        transform: translateY(-1rem);
+
+        > :nth-child(2)::before {
+            content: ", ";
+        }
+
+        > span {
+            padding: 0;
+            text-transform: none;
+        }
+    }
+}

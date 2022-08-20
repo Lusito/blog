@@ -16,7 +16,7 @@ export async function ListAllPage({ pages }: ListAllPageProps) {
         <DefaultLayout pageTitle={title}>
             <article>
                 <MetaTags description={description} slug="all" title={title} tags={tagLabels} />
-                <ArticleHeader title={title} subTitle={<p>{description}</p>} />
+                <ArticleHeader title={title} subTitle={description} />
                 <Container>
                     <ul>
                         {pages.map((page) => (

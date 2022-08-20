@@ -1,6 +1,6 @@
 ---
 tags: ["Toilet Paper", "TypeScript", "JavaScript", "Web Development"]
-title: "Forgotten JavaScript Feature: Labels"
+title: "Labels: Forgotten JavaScript Feature"
 description: "Breaking out of deeply nested conditions and loops in JavaScript? Find out how in this ToiletPaper."
 created: "2022-01-28"
 ---

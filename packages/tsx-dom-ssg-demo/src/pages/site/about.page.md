@@ -1,8 +1,10 @@
 ---
 tags: []
 title: "About"
-description: ""
+description: "This is a blog on all the tech things I'm interested in, probably mostly focused on web- and game technologies."
 created: "2022-06-01"
+hideDate: true
+hideSynopsis: true
 ---
 
 Hi, my name is Santo Pfingsten, also known as [Lusito](https://github.com/lusito/).

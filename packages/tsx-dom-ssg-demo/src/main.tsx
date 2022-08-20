@@ -137,7 +137,7 @@ async function init() {
             return respond404(req, res);
         }
         if (page.type === "md") return respondHTML(res, req.path, <MarkdownPage page={page} />);
-        return respondHTML(res, req.path, <DynamicPage component={page.component} />);
+        return respondHTML(res, req.path, <DynamicPage component={page.body} />);
     });
 
     app.get("/sitemap.xml", async (req, res) => {

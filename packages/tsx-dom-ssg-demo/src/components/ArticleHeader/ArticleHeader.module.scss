@@ -31,15 +31,11 @@
         z-index: 2;
     }
 
-    p,
-    h1 {
+    h1,
+    h4 {
         max-width: $content-width;
         padding: 0 1.5rem;
         box-sizing: border-box;
         margin: 0;
-    }
-
-    p {
-        padding-top: 1rem;
     }
 }

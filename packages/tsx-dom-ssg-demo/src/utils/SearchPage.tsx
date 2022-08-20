@@ -19,7 +19,7 @@ export const SearchPage = withCss(classes, async ({ pages }: SearchPageProps) =>
         <DefaultLayout pageTitle={title}>
             <article>
                 <MetaTags description={description} slug="all" title={title} tags={tagLabels} />
-                <ArticleHeader title={title} subTitle={<p>{description}</p>} />
+                <ArticleHeader title={title} subTitle={description} />
                 <Container>
                     <search-container searchField={classes.searchField} searchItem={classes.searchItem}>
                         <label class={classes.searchFieldWrapper}>

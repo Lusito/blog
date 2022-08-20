@@ -15,6 +15,8 @@ export type FrontMatter = {
     modified?: string;
     /** optional, usually generated from title */
     slug?: string;
+    hideSynopsis?: boolean;
+    hideDate?: boolean;
 };
 export type TsxPage = { frontMatter: FrontMatter; default: Component };
 
@@ -26,9 +28,11 @@ export type PageInfoBase = {
     created: Date;
     modified?: Date;
     slug: string;
+    hideSynopsis?: boolean;
+    hideDate?: boolean;
 };
 export type PageInfoMd = PageInfoBase & { type: "md"; body: string };
-export type PageInfoTsx = PageInfoBase & { type: "tsx"; component: Component };
+export type PageInfoTsx = PageInfoBase & { type: "tsx"; body: Component };
 export type PageInfo = PageInfoMd | PageInfoTsx;
 
 export const tagSlugToLabel: Record<string, string> = {};
@@ -40,55 +44,44 @@ function parseDate(date: string) {
     return new Date(`${date}T12:00:00.000Z`);
 }
 
+function createPageInfoBase(fm: FrontMatter, body: string | Component): PageInfo {
+    for (const tag of fm.tags) {
+        tagSlugToLabel[slugify(tag)] = tag;
+    }
+
+    return {
+        type: typeof body === "string" ? "md" : "tsx",
+        tags: fm.tags,
+        title: fm.title,
+        image: fm.image,
+        description: fm.description,
+        created: parseDate(fm.created),
+        modified: fm.modified ? parseDate(fm.modified) : undefined,
+        slug: fm.slug ?? slugify(fm.title),
+        hideDate: fm.hideDate,
+        hideSynopsis: fm.hideSynopsis,
+        body,
+    } as PageInfo;
+}
+
 export async function getPages() {
     const rootPath = path.join("packages", "tsx-dom-ssg-demo", "src", "pages");
     const pages = getAllFiles(rootPath, /\.page\.(md|tsx)$/, []);
 
-    const list: PageInfo[] = await Promise.all(
-        pages.map(async (file) => {
+    const list = await Promise.all(
+        pages.map(async (file): Promise<PageInfo> => {
             if (file.endsWith(".md")) {
                 const data = await fs.promises.readFile(file, "utf-8");
-                const fm = frontMatter(data);
-                const page = fm.attributes as FrontMatter;
+                const result = frontMatter(data);
 
-                for (const tag of page.tags) {
-                    tagSlugToLabel[slugify(tag)] = tag;
-                }
-
-                return {
-                    type: "md",
-                    tags: page.tags,
-                    title: page.title,
-                    image: page.image,
-                    description: page.description,
-                    created: parseDate(page.created),
-                    modified: page.modified ? parseDate(page.modified) : undefined,
-                    slug: page.slug ?? slugify(page.title),
-                    body: fm.body,
-                };
+                return createPageInfoBase(result.attributes as FrontMatter, result.body);
             }
 
             const relativePath = path.relative(rootPath, file).replace(/\.page\.tsx$/, "");
             const page: TsxPage = await import(`../pages/${relativePath}.page`);
             if (!page?.frontMatter || !page?.default) throw new Error("Invalid page export");
 
-            const fm = page.frontMatter;
-
-            for (const tag of fm.tags) {
-                tagSlugToLabel[slugify(tag)] = tag;
-            }
-
-            return {
-                type: "tsx",
-                tags: fm.tags,
-                title: fm.title,
-                image: fm.image,
-                description: fm.description,
-                created: parseDate(fm.created),
-                modified: fm.modified ? parseDate(fm.modified) : undefined,
-                slug: fm.slug ?? slugify(fm.title),
-                component: page.default,
-            };
+            return createPageInfoBase(page.frontMatter, page.default);
         })
     );
 

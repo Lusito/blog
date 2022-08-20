@@ -12,6 +12,7 @@ import { getPages, PageInfo, pageHasTags, tagSlugToLabel, tagLabels } from "./ut
 import { renderHTML } from "./utils/renderHTML";
 import { renderSitemap, SitemapConfig } from "./utils/renderSitemap";
 import { SearchPage } from "./utils/SearchPage";
+import { tagDescriptions } from "./utils/tagDescriptions";
 
 const assets = "dist/packages/tsx-dom-ssg-demo/assets";
 const destination = "dist/packages/tsx-dom-ssg-demo/out";
@@ -96,7 +97,8 @@ async function createFiles() {
             .map((tag) => {
                 const tagLabel = tagSlugToLabel[tag] ?? tag;
                 const filteredPages = pages.filter((p) => p.tags.includes(tagLabel));
-                const description = `Posts related to ${tagLabel}`;
+
+                const description = tagDescriptions[tagLabel] ?? `Posts related to ${tagLabel}`;
                 return [
                     writeHTML(
                         `/tag/${tag}.html`,
@@ -116,7 +118,7 @@ async function createFiles() {
         ...pages.map((page) => {
             const path = `/${page.slug}.html`;
             if (page.type === "md") return writeHTML(path, <MarkdownPage page={page} />);
-            return writeHTML(path, <DynamicPage component={page.component} />);
+            return writeHTML(path, <DynamicPage component={page.body} />);
         }),
         writeSitemap({ pages, pagesWithTags }),
     ]);

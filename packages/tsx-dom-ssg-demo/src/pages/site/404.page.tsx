@@ -10,7 +10,6 @@ export const frontMatter: FrontMatter = {
     title: "404",
     description: "File Not Found",
     created: "2022-06-01",
-    slug: "404",
 };
 
 // eslint-disable-next-line func-names
@@ -24,7 +23,7 @@ export default async function () {
                     title={frontMatter.title}
                     tags={[]}
                 />
-                <ArticleHeader title={frontMatter.title} subTitle={<p>{frontMatter.description}</p>} />
+                <ArticleHeader title={frontMatter.title} subTitle={frontMatter.description} />
                 <Container>
                     <p>Could not find the file you were looking for! Try looking at one of these topics:</p>
                     <TagList tags={tagLabels} />

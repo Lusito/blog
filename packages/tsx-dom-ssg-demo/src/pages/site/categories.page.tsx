@@ -27,7 +27,7 @@ export default async function () {
                     title={frontMatter.title}
                     tags={tagLabels}
                 />
-                <ArticleHeader title={frontMatter.title} subTitle={<p>{frontMatter.description}</p>} />
+                <ArticleHeader title={frontMatter.title} subTitle={frontMatter.description} />
                 <Container>
                     {tagLabels.map((tag) => (
                         <Box href={`/tag/${slugify(tag)}.html`} title={tag}>
