@@ -16,6 +16,8 @@ type MarkdownPageProps = {
 export async function MarkdownPage({ page }: MarkdownPageProps) {
     const { title, body, tags, description, hideDate, hideSynopsis } = page;
 
+    const [mainTitle, subTitle] = title.split(":");
+
     return (
         <DefaultLayout pageTitle={title}>
             <article>
@@ -28,7 +30,7 @@ export async function MarkdownPage({ page }: MarkdownPageProps) {
                     tags={page.tags}
                     slug={page.slug}
                 />
-                <ArticleHeader title={title.split(":")[0]} subTitle={title.split(":")[1]} />
+                <ArticleHeader title={mainTitle} subTitle={subTitle} />
                 {!hideDate && <ArticleDateSubTitle created={page.created} modified={page.modified} />}
                 <Container>
                     {description && !hideSynopsis && <Synopsis>{description}</Synopsis>}
