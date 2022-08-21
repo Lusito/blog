@@ -4,7 +4,7 @@ title: "I Started a Blog"
 description: >
     Recently, I wrote a rant about using the right tools for the job.
     This sparked some ideas and I needed a project to try it on.
-    I had been writing posts from time to time, so it seemed like a good time to start my own blog."
+    I had been writing posts from time to time, so it seemed like a good time to start my own blog.
 created: "2022-08-21"
 ---
 
