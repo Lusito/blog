@@ -16,7 +16,7 @@ type MarkdownPageProps = {
 export const MarkdownPage = ({ page }: MarkdownPageProps) => {
     const { title, body, tags, description, hideDate, hideSynopsis } = page;
 
-    const [mainTitle, subTitle] = title.split(":");
+    const [mainTitle, subTitle] = title.split(": ");
 
     return (
         <DefaultLayout pageTitle={title}>
