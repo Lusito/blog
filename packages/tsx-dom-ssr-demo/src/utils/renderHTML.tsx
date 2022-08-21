@@ -41,10 +41,12 @@ export async function renderHTML(children: ComponentChildren) {
         body: wrapper.querySelector("html > body")!,
     });
 
-    const style = document.createElement("style");
-    // eslint-disable-next-line no-underscore-dangle
-    style.innerHTML = cssModules.map((m) => m._getCss()).join("\n");
-    head.appendChild(style);
+    for (const cssModule of cssModules) {
+        const style = document.createElement("style");
+        // eslint-disable-next-line no-underscore-dangle
+        style.innerHTML = cssModule._getCss();
+        head.appendChild(style);
+    }
 
     return `<!DOCTYPE html>${wrapper.innerHTML}`;
 }

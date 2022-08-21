@@ -57,10 +57,12 @@ export async function renderHTML(path: string, children: ComponentChildren) {
         cssModules.push(highlightCss);
     }
 
-    const style = document.createElement("style");
-    // eslint-disable-next-line no-underscore-dangle
-    style.innerHTML = cssModules.map((m) => m._getCss()).join("\n");
-    head.appendChild(style);
+    for (const cssModule of cssModules) {
+        const style = document.createElement("style");
+        // eslint-disable-next-line no-underscore-dangle
+        style.innerHTML = cssModule._getCss();
+        head.appendChild(style);
+    }
 
     wrapper.querySelectorAll("a").forEach((link) => {
         const href = link.getAttribute("href");
