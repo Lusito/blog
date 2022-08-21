@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import { BaseProps } from "tsx-dom-ssr";
 
 import { withCss } from "../../utils/withCss";
@@ -8,22 +9,23 @@ type LinkButtonProps = BaseProps & {
     ariaLabel?: string;
     ariaCurrent?: "page";
     title?: string;
+    class?: string;
 };
-export const LinkButton = withCss(
-    classes,
-    ({ href, children, ariaLabel, ariaCurrent, title }: LinkButtonProps) => {
-        if (!href) {
-            return (
-                <span class={classes.linkButtonDisabled} aria-label={ariaLabel} aria-current={ariaCurrent}>
-                    {children}
-                </span>
-            );
-        }
+export const LinkButton = withCss(classes, (props: LinkButtonProps) => {
+    const { href, children, ariaLabel, ariaCurrent, title } = props;
+    const clazz = classNames(href ? classes.linkButton : classes.linkButtonDisabled, props.class);
 
+    if (!href) {
         return (
-            <a href={href} class={classes.linkButton} title={title} aria-label={ariaLabel} aria-current={ariaCurrent}>
+            <span class={clazz} title={title} aria-label={ariaLabel} aria-current={ariaCurrent}>
                 {children}
-            </a>
+            </span>
         );
     }
-);
+
+    return (
+        <a href={href} class={clazz} title={title} aria-label={ariaLabel} aria-current={ariaCurrent}>
+            {children}
+        </a>
+    );
+});

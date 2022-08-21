@@ -1,19 +1,30 @@
 @import "../../style/fonts.scss";
 
 .side-bar-header {
-    align-items: center;
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-
-    > img {
-        width: 9rem;
-        height: 9rem;
-        border: 1px solid var(--color-dark);
+    text-decoration: none;
+    &,
+    &:visited {
+        color: var(--color-main-contrast);
+    }
+    &:hover {
+        text-decoration: underline;
     }
 
-    > h3 {
-        font-family: $font-sans-serif;
-        margin: 0.5rem 0 0 0;
+    > header {
+        align-items: center;
+        padding: 1rem;
+        display: flex;
+        flex-direction: column;
+
+        > img {
+            width: 9rem;
+            height: 9rem;
+            border: 1px solid var(--color-dark);
+        }
+
+        > h3 {
+            font-family: $font-sans-serif;
+            margin: 0.5rem 0 0 0;
+        }
     }
 }

@@ -18,7 +18,7 @@ type ListPageProps = {
     pageNumber: number;
 };
 
-export async function ListPage({ path, tags, title, description, pages, pageNumber }: ListPageProps) {
+export const ListPage = ({ path, tags, title, description, pages, pageNumber }: ListPageProps) => {
     const pageIndex = pageNumber - 1;
     const start = pageIndex * itemsPerPage;
     const filtered = pages.slice(start, start + itemsPerPage);
@@ -45,4 +45,4 @@ export async function ListPage({ path, tags, title, description, pages, pageNumb
             </article>
         </DefaultLayout>
     );
-}
+};

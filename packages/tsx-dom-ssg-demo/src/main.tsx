@@ -13,6 +13,7 @@ import { ListAllPage } from "./utils/ListAllPage";
 import { tagDescriptions } from "./utils/tagDescriptions";
 import { renderSitemap } from "./utils/renderSitemap";
 import { SearchPage } from "./utils/SearchPage";
+import { HomePage } from "./utils/HomePage";
 
 // The stuff below is purely for the dev-server
 const app = express();
@@ -54,33 +55,29 @@ const respond404 = (req: Request, res: Response) => {
     return respondHTML(res, req.path, <NotFoundPage />);
 };
 
+const validatePage = (page: string | undefined, numPages: number) => {
+    const pageNumber = page ? parseInt(page) : 1;
+    if (page === "1" || Number.isNaN(pageNumber) || pageNumber < 1 || (pageNumber - 1) * itemsPerPage >= numPages) {
+        return undefined;
+    }
+
+    return pageNumber;
+};
+
 async function init() {
     const pages = await getPages();
     const pagesWithTags = pages.filter(pageHasTags);
 
     // Pages without tags are internal (for example "about") and not supposed to be listed
-    app.get("/", (req, res) =>
-        respondHTML(
-            res,
-            req.path,
-            <ListPage
-                path="/latest"
-                tags={tagLabels}
-                title="Latest Posts"
-                description="A chronological list of posts on this blog"
-                pages={pagesWithTags}
-                pageNumber={1}
-            />
-        )
-    );
+    app.get("/", (req, res) => respondHTML(res, req.path, <HomePage pages={pagesWithTags} />));
     app.get("/all.html", (req, res) => respondHTML(res, req.path, <ListAllPage pages={pagesWithTags} />));
     app.get("/search.html", (req, res) => respondHTML(res, req.path, <SearchPage pages={pagesWithTags} />));
 
-    app.get("/latest/:page.html", (req, res) => {
+    app.get("/latest/:page?.html", (req, res) => {
         const { page } = req.params;
-        const pageNumber = page ? parseInt(page) : 1;
+        const pageNumber = validatePage(page, pagesWithTags.length);
 
-        if (Number.isNaN(pageNumber) || pageNumber < 2 || (pageNumber - 1) * itemsPerPage >= pagesWithTags.length) {
+        if (!pageNumber) {
             return respond404(req, res);
         }
 
@@ -101,16 +98,12 @@ async function init() {
     // fixme: implement infinite scrolling?
     app.get("/tag/:tag/:page?.html", (req, res) => {
         const { tag, page } = req.params;
-        const pageNumber = page ? parseInt(page) : 1;
         const tagLabel = tagSlugToLabel[tag] ?? tag;
         const filteredPages = pages.filter((p) => p.tags.includes(tagLabel));
 
-        if (
-            page === "1" ||
-            Number.isNaN(pageNumber) ||
-            pageNumber < 1 ||
-            (pageNumber - 1) * itemsPerPage >= filteredPages.length
-        ) {
+        const pageNumber = validatePage(page, filteredPages.length);
+
+        if (!pageNumber) {
             return respond404(req, res);
         }
 

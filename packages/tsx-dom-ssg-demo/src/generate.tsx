@@ -5,6 +5,7 @@ import { ComponentChildren } from "tsx-dom-ssr";
 import NotFoundPage from "./pages/site/404.page";
 import { DynamicPage } from "./utils/DynamicPage";
 import { getAllFiles } from "./utils/fileUtils";
+import { HomePage } from "./utils/HomePage";
 import { ListAllPage } from "./utils/ListAllPage";
 import { itemsPerPage, ListPage } from "./utils/ListPage";
 import { MarkdownPage } from "./utils/MarkdownPage";
@@ -79,8 +80,9 @@ async function createFiles() {
     await Promise.all([
         copyAssets(),
         writeHTML("/404.html", <NotFoundPage />),
+        writeHTML("/index.html", <HomePage pages={pagesWithTags} />),
         writeHTML(
-            "/index.html",
+            "/latest.html",
             <ListPage
                 path="/latest"
                 tags={tagLabels}

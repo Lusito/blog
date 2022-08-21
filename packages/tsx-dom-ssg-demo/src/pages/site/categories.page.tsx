@@ -18,7 +18,7 @@ export const frontMatter: FrontMatter = {
 };
 
 // eslint-disable-next-line func-names
-export default async function () {
+export default function () {
     return (
         <DefaultLayout pageTitle={frontMatter.title}>
             <article>

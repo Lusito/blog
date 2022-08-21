@@ -14,7 +14,7 @@ type BoxProps = BaseProps & {
 export const Box = withCss(classes, ({ href, title, date, children }: BoxProps) => (
     <article class={classes.box}>
         <h2>
-            <LinkButton href={href}>
+            <LinkButton href={href} class={classes.boxLink}>
                 <span class={classes.label}>{title}</span>
                 {date && <DateTime date={date} />}
             </LinkButton>

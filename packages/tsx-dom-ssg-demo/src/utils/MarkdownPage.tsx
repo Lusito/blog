@@ -13,7 +13,7 @@ type MarkdownPageProps = {
     page: PageInfoMd;
 };
 
-export async function MarkdownPage({ page }: MarkdownPageProps) {
+export const MarkdownPage = ({ page }: MarkdownPageProps) => {
     const { title, body, tags, description, hideDate, hideSynopsis } = page;
 
     const [mainTitle, subTitle] = title.split(":");
@@ -46,4 +46,4 @@ export async function MarkdownPage({ page }: MarkdownPageProps) {
             </article>
         </DefaultLayout>
     );
-}
+};

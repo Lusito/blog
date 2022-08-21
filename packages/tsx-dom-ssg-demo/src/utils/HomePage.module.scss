@@ -1,0 +1,22 @@
+.homepage {
+    .heading {
+        border-bottom: 1px solid var(--color-main-contrast);
+    }
+
+    .link-button-full-width {
+        display: block;
+        text-align: center;
+        margin-right: 0;
+    }
+}
+
+.bottom-links {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1rem;
+
+    > a {
+        flex-grow: 1;
+    }
+}

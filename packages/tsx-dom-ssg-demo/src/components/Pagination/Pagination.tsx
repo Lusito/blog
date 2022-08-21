@@ -13,11 +13,7 @@ type LinkProps = {
 const Link = ({ path, label, ariaLabel, ariaCurrent, page, disabled }: LinkProps) => {
     let href: string | undefined;
     if (!disabled) {
-        if (page === 1) {
-            href = path === "/latest" ? "/" : `${path}.html`;
-        } else {
-            href = `${path}/${page}.html`;
-        }
+        href = page === 1 ? `${path}.html` : `${path}/${page}.html`;
     }
 
     return (

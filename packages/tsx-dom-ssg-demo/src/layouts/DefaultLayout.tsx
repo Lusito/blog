@@ -9,7 +9,7 @@ import { siteTitle } from "../utils/config";
 import { SideBar } from "../components/SideBar/SideBar";
 
 interface DefaultLayoutProps extends BaseProps {
-    pageTitle: string;
+    pageTitle?: string;
 }
 
 export const DefaultLayout = withCss(classes, ({ children, pageTitle }: DefaultLayoutProps) => (
@@ -22,16 +22,12 @@ export const DefaultLayout = withCss(classes, ({ children, pageTitle }: DefaultL
             <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png" />
             <link rel="shortcut icon" href="/assets/favicon.ico" />
             <base href="/" />
-            <title>
-                {pageTitle} - {siteTitle}
-            </title>
+            <title>{pageTitle ? `${pageTitle} - ${siteTitle}` : siteTitle}</title>
             {reloadScript}
             <script src="/custom-elements.js" defer />
         </head>
         <body>
-            <div class="scatman-container">
-                <SideBar />
-            </div>
+            <SideBar />
             <div class={classes.mainwrapper}>
                 <Header siteTitle={siteTitle} />
                 <div class={`${classes.content} scatman-container`}>

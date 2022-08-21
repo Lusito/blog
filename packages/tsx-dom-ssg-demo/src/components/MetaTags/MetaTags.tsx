@@ -1,6 +1,6 @@
 import { BaseProps } from "tsx-dom-ssr";
 
-import { siteTitle, siteUrl } from "../../utils/config";
+import { siteTitle, siteUrl, siteUrlForSlug } from "../../utils/config";
 
 type MetaTagsBaseProps = {
     title: string;
@@ -22,7 +22,7 @@ export const MetaTags = ({ title, image, description, tags, slug, children }: Me
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
         <meta property="og:locale" content="en_US" />
-        <meta property="og:url" content={`${siteUrl}/${slug}.html`} />
+        <meta property="og:url" content={siteUrlForSlug(slug)} />
         {children}
     </head>
 );

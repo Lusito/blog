@@ -30,7 +30,7 @@ function NavItem(this: ComponentThis, { label, ariaLabel, path }: NavItemProps) 
 export const SideBarMenu = withCss(classes, () => (
     <nav role="navigation" aria-label="Main Menu">
         <ul class={classes.sideBarMenu}>
-            <NavItem path="/" label="Latest Posts" />
+            <NavItem path="/latest.html" label="Latest Posts" />
             <li>
                 <span>Top Categories</span>
                 <ul>
