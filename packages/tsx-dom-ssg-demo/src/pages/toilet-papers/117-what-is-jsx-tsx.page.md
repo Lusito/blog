@@ -5,6 +5,7 @@ description: >
     Anyone who has ever worked with React will know the file extension JSX (TSX for TypeScript) and the HTML-related syntax.
     But what lies under the hood?
 created: "2019-06-28"
+modified: "2022-08-21"
 ---
 
 ## Problem
@@ -22,7 +23,7 @@ const profile = (
 );
 ```
 
-But how does it work.. this is magic syntax is not supported by JavaScript.
+But how does it work? This magic syntax is not supported by JavaScript itself.
 
 ## Solution
 

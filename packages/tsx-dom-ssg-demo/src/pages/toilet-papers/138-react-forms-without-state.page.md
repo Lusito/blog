@@ -2,15 +2,16 @@
 tags: ["Toilet Paper", "React", "TypeScript", "JavaScript", "Web Development"]
 title: "React Forms Without State"
 description: >
-    React forms are often created with State, but this can quickly get complex and confusing,
-    especially with larger forms. Find out how to create React forms without State,
-    which organizes your codebase in a more structured way.
+    React forms are often created with state, but this can quickly get complicated and confusing,
+    especially with larger forms. Find out how to create React forms without state,
+    which can help make your code easier to reason with.
 created: "2021-02-05"
+modified: "2022-08-21"
 ---
 
 ## Problem
 
-The most common method of creating a form is with State. This is what it looks like with React Hooks:
+The most common method of creating a form is with state. This is what it looks like with React Hooks:
 
 ```tsx
 export const RegistrationForm = ({ submitForm }) => {

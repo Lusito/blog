@@ -4,6 +4,7 @@ title: "Mozilla Workshop Summary"
 description: >
     I attended a workshop at Mozillas office in London on the topic of Manifest V3 and the future of the Recommended Extensions Program.
 created: "2019-11-17"
+modified: "2022-08-21"
 ---
 
 ## Introduction

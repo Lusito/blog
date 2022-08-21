@@ -3,6 +3,7 @@ tags: []
 title: "About"
 description: "This is a blog on all the tech things I'm interested in, probably mostly focused on web- and game technologies."
 created: "2022-06-01"
+modified: "2022-08-21"
 hideDate: true
 hideSynopsis: true
 ---

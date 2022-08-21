@@ -2,9 +2,10 @@
 tags: ["Toilet Paper", "NGINX", "JavaScript", "Docker", "Web Development"]
 title: "Extending NGINX with JavaScript (NJS)"
 description: >
-    Extending NGINX with Java-Script (NJS)? The much-loved NGINX has a limited feature-set.
-    In this ToiletPaper you'll learn how to extend it with custom code.
+    The much-loved NGINX has a limited feature-set.
+    In this Toilet Paper you'll learn how to extend it with custom JavaScript code (NJS).
 created: "2021-11-12"
+modified: "2022-08-21"
 ---
 
 ## Problem

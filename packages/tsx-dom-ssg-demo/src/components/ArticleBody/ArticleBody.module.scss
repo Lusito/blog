@@ -25,7 +25,9 @@
         }
     }
 
-    p > code {
+    p code,
+    ul code,
+    ol code {
         font-family: $font-monospace;
         background: #1e1e1e;
         color: #dcdcdc;

@@ -5,12 +5,12 @@ description: >
     I've just released a 2D camera library for web games, with several camera types. Most notable one, which can get influenced by cues in the world and offsets like player movement/aim. Demo link included.
 image: "pixlcam.png"
 created: "2022-02-04"
+modified: "2022-08-21"
 ---
 
-## Recently
+## Previously on Another Project
 
-Recently I [created a Web-Port](/the-last-summoner.html) of an old game from 2016 and I talked about a camera library I was working on.
-
+Recently I [created a Web-Port](/the-last-summoner-an-exploration-game.html) of an old game from 2016 and I talked about a camera library I was working on.
 The day has come for this library to see its first release.
 
 ## What This Library Is About

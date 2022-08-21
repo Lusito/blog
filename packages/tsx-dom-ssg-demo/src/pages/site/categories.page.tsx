@@ -13,6 +13,7 @@ export const frontMatter: FrontMatter = {
     title: "All Categories",
     description: "An overview over all categories on this blog",
     created: "2022-06-01",
+    modified: new Date().toISOString().split("T")[0],
     slug: "categories",
 };
 

@@ -6,6 +6,7 @@ description: >
     Recently, I had to work on a Multi Page Application, which was rendered using a Single Page Application
     Framework. Here are my thoughts on how to do it better.
 created: "2022-06-03"
+modified: "2022-08-21"
 ---
 
 ## Introduction

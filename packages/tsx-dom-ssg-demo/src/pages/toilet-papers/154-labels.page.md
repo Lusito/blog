@@ -1,8 +1,9 @@
 ---
 tags: ["Toilet Paper", "TypeScript", "JavaScript", "Web Development"]
 title: "Labels: Forgotten JavaScript Feature"
-description: "Breaking out of deeply nested conditions and loops in JavaScript? Find out how in this ToiletPaper."
+description: "Breaking out of deeply nested conditions and loops in JavaScript? Find out how in this Toilet Paper."
 created: "2022-01-28"
+modified: "2022-08-21"
 ---
 
 ## Problem
@@ -73,10 +74,10 @@ found: if (a < b) {
 console.log("done");
 ```
 
-## When Should You Use Labels?
+## Verdict
 
 -   JS labels are not the same as GoTo statements. You do not jump to a label but bind a break or continue statement to a condition or loop. Wild jumping like in C/C++ is not possible.
--   As is often the case, it is important to use the right tool at the right time. Sometimes when writing code, there may be better solutions than using labels. But if not, labels are certainly worth considering.
+-   As is often the case, it is important to use the right tool at the right time. In most cases, there are better solutions than using labels. But if not, labels are certainly worth considering.
 
 ## Further Aspects
 

@@ -9,11 +9,12 @@ tags:
     - "Box2D"
     - "Box2D Lights"
     - "Global Game Jam"
-title: "The Last Summoner"
+title: "The Last Summoner: An Exploration Game"
 description: >
     Back in 2016, I've written a game in just 48 hours with Dennis Grass, Wladimir Kröker, and Florian Oetke. Stephen Froeber made amazing music and sound effects for it. It was a very fun weekend. Now I've ported this game from Java (Desktop) to TypeScript (Web-Technologies) and you can actually play it in your browser.
 image: "the-last-summoner.png"
 created: "2022-01-28"
+modified: "2022-08-21"
 ---
 
 ![Menu](/assets/the-last-summoner.png)

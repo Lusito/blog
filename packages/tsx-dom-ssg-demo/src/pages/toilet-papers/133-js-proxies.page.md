@@ -2,9 +2,10 @@
 tags: ["Toilet Paper", "TypeScript", "JavaScript", "Web Development"]
 title: "JavaScript Proxy Object"
 description: >
-    Need to provide an object without knowing which operations are applied to it or without writing them manually?
+    Need to provide an object without knowing which operations are applied to it and without writing them manually?
     No problem with JavaScript Proxy Object!
 created: "2020-10-23"
+modified: "2022-08-21"
 ---
 
 ## Problem
@@ -41,7 +42,7 @@ const data = { foo: 'bar' };
 const proxy = new Proxy(data, handlers);
 ```
 
-## Possible applications:
+## Possible Applications:
 
 -   Creating mocks in the field of unit testing
 -   Uncomplicated access to databases, or translating from one API to another

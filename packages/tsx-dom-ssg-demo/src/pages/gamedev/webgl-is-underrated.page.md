@@ -1,14 +1,15 @@
 ---
 tags: ["TypeScript", "JavaScript", "Web Development", "Game Development", "Box2D", "Box2D Lights", "WebGL", "Projects"]
 title: "WebGL is totally underrated"
-description: "Had some fun porting Box2D Lights (libgdx version) to TypeScript and WebGL."
+description: "I had some fun porting Box2D Lights (libgdx version) to TypeScript and WebGL."
 image: "box2d-lights.jpg"
 created: "2020-09-04"
+modified: "2022-08-21"
 ---
 
 ## Playing Around With WebGL
 
-Try pushing some marbles around in your browser: http://lusito.info/lights/
+Try pushing some marbles around in your browser: [Demo](https://lusito.github.io/box2d.ts/testbed/#/Lights#Official_Demo)
 
 ![Screenshot](/assets/box2d-lights.jpg)
 
@@ -18,3 +19,5 @@ The above is the official demo just as LibGDX showcases it. It really doesn't sh
 - https://www.youtube.com/watch?v=OVqR9vmcseo
 
 We've used the original (in Java) on a lot of student projects: https://github.com/libgdx/box2dlights
+
+**Follow-Up:** It has officially been [released](/typescript-port-of-box2d-lights.html) as part of the [@box2d](https://lusito.github.io/box2d.ts/) Eco-System!
