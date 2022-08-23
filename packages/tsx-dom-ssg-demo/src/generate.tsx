@@ -11,6 +11,7 @@ import { itemsPerPage, ListPage } from "./utils/ListPage";
 import { MarkdownPage } from "./utils/MarkdownPage";
 import { getPages, PageInfo, pageHasTags, tagSlugToLabel, tagLabels } from "./utils/pageUtils";
 import { renderHTML } from "./utils/renderHTML";
+import { renderRSS } from "./utils/renderRSS";
 import { renderSitemap, SitemapConfig } from "./utils/renderSitemap";
 import { SearchPage } from "./utils/SearchPage";
 import { tagDescriptions } from "./utils/tagDescriptions";
@@ -21,6 +22,11 @@ const destination = "dist/packages/tsx-dom-ssg-demo/out";
 async function writeSitemap(config: SitemapConfig) {
     const xml = await renderSitemap(config);
     await fs.promises.writeFile(`${destination}/sitemap.xml`, xml);
+}
+
+async function writeRSS(pages: PageInfo[]) {
+    const xml = await renderRSS(pages);
+    await fs.promises.writeFile(`${destination}/rss.xml`, xml);
 }
 
 async function writeHTML(path: string, children: ComponentChildren) {
@@ -123,6 +129,7 @@ async function createFiles() {
             return writeHTML(path, <DynamicPage component={page.body} />);
         }),
         writeSitemap({ pages, pagesWithTags }),
+        writeRSS(pages),
     ]);
 
     console.log(`Generating files took ${Date.now() - start}ms`);

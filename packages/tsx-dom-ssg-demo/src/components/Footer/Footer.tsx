@@ -8,5 +8,7 @@ export const Footer = withCss(classes, () => (
         {/* <span>
             Powered by <a href="https://github.com/lusito/tsx-dom">tsx-dom-ssr</a>
         </span> */}
+        {" - "}
+        <a href="/rss.xml">RSS Feed</a>
     </footer>
 ));

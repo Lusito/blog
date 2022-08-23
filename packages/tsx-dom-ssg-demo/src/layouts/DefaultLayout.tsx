@@ -21,6 +21,7 @@ export const DefaultLayout = withCss(classes, ({ children, pageTitle }: DefaultL
             <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png" />
             <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png" />
             <link rel="shortcut icon" href="/assets/favicon.ico" />
+            <link rel="alternate" type="application/rss+xml" title="RSS Feed for this blog" href="/rss.xml" />
             <base href="/" />
             <title>{pageTitle ? `${pageTitle} - ${siteTitle}` : siteTitle}</title>
             {reloadScript}

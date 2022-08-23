@@ -6,7 +6,7 @@ import { MetaTags } from "../components/MetaTags/MetaTags";
 import { Synopsis } from "../components/Synopsis/Synopsis";
 import { TagList } from "../components/TagList/TagList";
 import { DefaultLayout } from "../layouts/DefaultLayout";
-import { siteTitle } from "./config";
+import { siteDescription, siteTitle } from "./config";
 import { PageInfo, tagLabels } from "./pageUtils";
 import classes from "./HomePage.module.scss";
 import { withCss } from "./withCss";
@@ -17,8 +17,7 @@ type HomePageProps = {
     pages: PageInfo[];
 };
 
-const description = `This is a blog on all the tech things I'm interested in, mostly focused on web- and game technologies.
-Feel free to leave comments on blog-posts via GitHub`;
+const description = `${siteDescription} Feel free to leave comments on blog-posts via GitHub`;
 
 export const HomePage = withCss(classes, ({ pages }: HomePageProps) => (
     <DefaultLayout>

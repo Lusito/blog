@@ -14,6 +14,7 @@ import { tagDescriptions } from "./utils/tagDescriptions";
 import { renderSitemap } from "./utils/renderSitemap";
 import { SearchPage } from "./utils/SearchPage";
 import { HomePage } from "./utils/HomePage";
+import { renderRSS } from "./utils/renderRSS";
 
 // The stuff below is purely for the dev-server
 const app = express();
@@ -137,6 +138,17 @@ async function init() {
         try {
             const xml = await renderSitemap({ pages, pagesWithTags });
             res.type("application/xml");
+            res.send(xml);
+        } catch (e) {
+            console.error("Uncaught exception", e);
+            res.status(500).send(`Unknown Error ${String(e)}`);
+        }
+    });
+
+    app.get("/rss.xml", async (req, res) => {
+        try {
+            const xml = await renderRSS(pages);
+            res.type("application/rss+xml");
             res.send(xml);
         } catch (e) {
             console.error("Uncaught exception", e);
