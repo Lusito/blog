@@ -1,5 +1,5 @@
 ---
-tags: ["Toilet Paper", "TypeScript", "JavaScript", "Web Development"]
+tags: ["TypeScript", "JavaScript", "Web Development", "Toilet Paper"]
 title: "JavaScript Proxy Object"
 description: >
     Need to provide an object without knowing which operations are applied to it and without writing them manually?

@@ -1,5 +1,5 @@
 ---
-tags: ["Toilet Paper", "React", "TypeScript", "JavaScript", "Web Development"]
+tags: ["React", "TypeScript", "JavaScript", "Web Development", "Toilet Paper"]
 title: "React Forms Without State"
 description: >
     React forms are often created with state, but this can quickly get complicated and confusing,

@@ -1,5 +1,5 @@
 ---
-tags: ["TypeScript", "JavaScript", "Web Development", "Game Development", "Box2D", "Box2D Lights", "WebGL", "Projects"]
+tags: ["Box2D Lights", "Box2D", "WebGL", "TypeScript", "JavaScript", "Web Development", "Game Development", "Projects"]
 title: "TypeScript Port of Box2D Lights"
 description: "I love working on the TypeScript version of Box2D Lights."
 image: "box2d-lights-draw-world.jpg"

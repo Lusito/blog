@@ -1,5 +1,5 @@
 ---
-tags: ["TypeScript", "JavaScript", "Web Development", "Game Development", "Box2D", "Box2D Lights", "WebGL", "Projects"]
+tags: ["WebGL", "Box2D Lights", "Box2D", "Game Development", "TypeScript", "JavaScript", "Web Development", "Projects"]
 title: "WebGL is totally underrated"
 description: "I had some fun porting Box2D Lights (libgdx version) to TypeScript and WebGL."
 image: "box2d-lights.jpg"

@@ -1,5 +1,5 @@
 ---
-tags: ["Toilet Paper", "React", "JSX/TSX", "TypeScript", "JavaScript", "Web Development"]
+tags: ["JSX/TSX", "React", "TypeScript", "JavaScript", "Web Development", "Toilet Paper"]
 title: "What Is Jsx / TSX?"
 description: >
     Anyone who has ever worked with React will know the file extension JSX (TSX for TypeScript) and the HTML-related syntax.
