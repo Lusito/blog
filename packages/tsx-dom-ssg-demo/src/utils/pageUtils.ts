@@ -94,3 +94,26 @@ export async function getPages() {
 export function pageHasTags(page: PageInfo) {
     return page.tags.length > 0;
 }
+
+export function getLatestLastModified(pages: PageInfo[]) {
+    let latestLastmod: Date | undefined;
+    for (const page of pages) {
+        const lastmod = page.modified ?? page.created;
+        if (lastmod && (!latestLastmod || lastmod > latestLastmod)) {
+            latestLastmod = lastmod;
+        }
+    }
+
+    return latestLastmod;
+}
+
+export function getLatestCreated(pages: PageInfo[]) {
+    let latestCreated: Date | undefined;
+    for (const { created } of pages) {
+        if (created && (!latestCreated || created > latestCreated)) {
+            latestCreated = created;
+        }
+    }
+
+    return latestCreated;
+}

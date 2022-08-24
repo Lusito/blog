@@ -129,7 +129,7 @@ async function createFiles() {
             return writeHTML(path, <DynamicPage component={page.body} />);
         }),
         writeSitemap({ pages, pagesWithTags }),
-        writeRSS(pages),
+        writeRSS(pagesWithTags),
     ]);
 
     console.log(`Generating files took ${Date.now() - start}ms`);

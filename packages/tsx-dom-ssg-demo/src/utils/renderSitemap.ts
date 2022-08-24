@@ -1,5 +1,5 @@
 import { siteUrl } from "./config";
-import { PageInfo } from "./pageUtils";
+import { getLatestLastModified, PageInfo } from "./pageUtils";
 
 export type SitemapEntry = {
     loc: string;
@@ -12,18 +12,11 @@ export type SitemapConfig = {
 };
 
 export function renderSitemap({ pages, pagesWithTags }: SitemapConfig) {
-    // eslint-disable-next-line no-undef-init
-    let newestLastmod: Date | undefined = undefined;
-    for (const page of pagesWithTags) {
-        const lastmod = page.modified ?? page.created;
-        if (lastmod && (!newestLastmod ||lastmod > newestLastmod)) {
-            newestLastmod = lastmod;
-        }
-    }
+    const latestLastmod = getLatestLastModified(pagesWithTags);
 
     const entries: SitemapEntry[] = [];
-    entries.push({ loc: "/", lastmod: newestLastmod });
-    entries.push({ loc: "/all.html", lastmod: newestLastmod });
+    entries.push({ loc: "/", lastmod: latestLastmod });
+    entries.push({ loc: "/all.html", lastmod: latestLastmod });
     for (const page of pages) {
         entries.push({
             loc: `/${page.slug}.html`,

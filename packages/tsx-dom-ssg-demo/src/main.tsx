@@ -147,7 +147,7 @@ async function init() {
 
     app.get("/rss.xml", async (req, res) => {
         try {
-            const xml = await renderRSS(pages);
+            const xml = await renderRSS(pagesWithTags);
             res.type("application/rss+xml");
             res.send(xml);
         } catch (e) {
