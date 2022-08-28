@@ -15,5 +15,5 @@
       }
     }
   },
-  "defaultProject": "tsx-dom-ssr-demo"
+  "defaultProject": "tsx-dom-ssg-demo"
 }

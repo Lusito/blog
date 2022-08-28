@@ -3,7 +3,7 @@ import { addAbortSignal, ComponentChildren, toDom } from "tsx-dom-ssr";
 import { domHelmet } from "dom-helmet";
 import { Window } from "happy-dom";
 import imageSize from "image-size";
-import type { ISizeCalculationResult } from 'image-size/dist/types/interface';
+import type { ISizeCalculationResult } from "image-size/dist/types/interface";
 
 import { siteUrl } from "./config";
 import highlightCss from "../style/highlight.module.scss";
