@@ -7,6 +7,7 @@ description: >
     which can help make your code easier to reason with.
 created: "2021-02-05"
 modified: "2022-08-21"
+originalSource: "https://jambit.com/aktuelles/toilet-papers/react-formulare-ohne-state/"
 ---
 
 ## Problem

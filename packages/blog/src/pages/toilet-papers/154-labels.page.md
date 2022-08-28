@@ -4,6 +4,7 @@ title: "Labels: Forgotten JavaScript Feature"
 description: "Breaking out of deeply nested conditions and loops in JavaScript? Find out how in this Toilet Paper."
 created: "2022-01-28"
 modified: "2022-08-21"
+originalSource: "https://jambit.com/aktuelles/toilet-papers/vergessenes-javascript-feature-labels/"
 ---
 
 ## Problem

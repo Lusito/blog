@@ -7,6 +7,7 @@ description: >
     because they don't know the browser’s full potential.
 created: "2019-05-17"
 modified: "2022-08-21"
+originalSource: "https://jambit.com/aktuelles/toilet-papers/das-ganze-potential-des-browsers-nutzen/"
 ---
 
 ## Possible Problems

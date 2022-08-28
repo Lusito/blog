@@ -5,6 +5,7 @@ description: "I had some fun porting Box2D Lights (libgdx version) to TypeScript
 image: "box2d-lights.jpg"
 created: "2020-09-04"
 modified: "2022-08-21"
+originalSource: "https://www.linkedin.com/posts/santo-pfingsten_webgl-is-totally-underrated-had-some-fun-activity-6705414063314223104-A3hn"
 ---
 
 ## Playing Around With WebGL

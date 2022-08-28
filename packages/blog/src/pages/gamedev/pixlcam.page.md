@@ -6,6 +6,7 @@ description: >
 image: "pixlcam.png"
 created: "2022-02-04"
 modified: "2022-08-21"
+originalSource: "https://www.linkedin.com/pulse/pixlcam-2d-camera-library-santo-pfingsten/"
 ---
 
 ## Previously on Another Project

@@ -14,7 +14,7 @@ type MarkdownPageProps = {
 };
 
 export const MarkdownPage = ({ page }: MarkdownPageProps) => {
-    const { title, body, tags, description, hideDate, hideSynopsis } = page;
+    const { title, body, tags, description, hideDate, hideSynopsis, originalSource } = page;
 
     const [mainTitle, subTitle] = title.split(": ");
 
@@ -36,6 +36,11 @@ export const MarkdownPage = ({ page }: MarkdownPageProps) => {
                     {description && !hideSynopsis && <Synopsis>{description}</Synopsis>}
                     {tags.length > 0 && <TagList tags={tags} />}
                     <MarkdownArticleBody markdown={body} />
+                    {originalSource && (
+                        <p>
+                            This post was originally published <a href={originalSource}>here.</a>
+                        </p>
+                    )}
                     {tags.length > 0 && (
                         <>
                             <TagList tags={tags} />

@@ -6,6 +6,7 @@ description: >
     But what lies under the hood?
 created: "2019-06-28"
 modified: "2022-08-21"
+originalSource: "https://jambit.com/aktuelles/toilet-papers/was-ist-eigentlich-jsx-tsx/"
 ---
 
 ## Problem

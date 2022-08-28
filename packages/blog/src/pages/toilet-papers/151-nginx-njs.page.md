@@ -6,6 +6,7 @@ description: >
     In this Toilet Paper you'll learn how to extend it with custom JavaScript code (NJS).
 created: "2021-11-12"
 modified: "2022-08-21"
+originalSource: "https://jambit.com/aktuelles/toilet-papers/nginx-mit-javascript-njs-erweitern/"
 ---
 
 ## Problem

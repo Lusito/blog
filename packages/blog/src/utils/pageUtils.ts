@@ -13,6 +13,7 @@ export type FrontMatter = {
     description: string;
     created: string;
     modified?: string;
+    originalSource?: string;
     /** optional, usually generated from title */
     slug?: string;
     hideSynopsis?: boolean;
@@ -27,6 +28,7 @@ export type PageInfoBase = {
     description: string;
     created: Date;
     modified?: Date;
+    originalSource?: string;
     slug: string;
     hideSynopsis?: boolean;
     hideDate?: boolean;
@@ -60,6 +62,7 @@ function createPageInfoBase(fm: FrontMatter, body: string | Component): PageInfo
         slug: fm.slug ?? slugify(fm.title),
         hideDate: fm.hideDate,
         hideSynopsis: fm.hideSynopsis,
+        originalSource: fm.originalSource,
         body,
     } as PageInfo;
 }

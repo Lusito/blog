@@ -15,6 +15,7 @@ description: >
 image: "the-last-summoner.png"
 created: "2022-01-28"
 modified: "2022-08-21"
+originalSource: "https://www.linkedin.com/pulse/last-summoner-santo-pfingsten/"
 ---
 
 ![Menu](/assets/the-last-summoner.png)

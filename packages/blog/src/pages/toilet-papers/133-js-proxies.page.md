@@ -6,6 +6,7 @@ description: >
     No problem with JavaScript Proxy Object!
 created: "2020-10-23"
 modified: "2022-08-21"
+originalSource: "https://jambit.com/aktuelles/toilet-papers/javascript-proxy-object/"
 ---
 
 ## Problem

@@ -6,6 +6,7 @@ description: >
     It is, however, possible to control HMR manually. How and why is shown in this Toilet Paper.
 created: "2022-02-18"
 modified: "2022-08-21"
+originalSource: "https://jambit.com/aktuelles/toilet-papers/hot-module-replacement-api-manuell-ansprechen/"
 ---
 
 ## Problem
