@@ -1,6 +1,6 @@
 {
   "extends": "nx/presets/core.json",
-  "npmScope": "tsx-dom-monorepo",
+  "npmScope": "lusitos-tech-blog",
   "affected": {
     "defaultBase": "main"
   },
@@ -15,5 +15,5 @@
       }
     }
   },
-  "defaultProject": "tsx-dom-ssg-demo"
+  "defaultProject": "blog"
 }

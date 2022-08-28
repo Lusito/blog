@@ -1,11 +1,11 @@
 {
-  "name": "tsx-dom-monorepo",
+  "name": "lusitos-tech-blog",
   "version": "0.0.0",
   "private": true,
   "license": "MIT",
   "author": "Santo Pfingsten",
   "scripts": {
-    "build": "nx build tsx-dom-ssg-demo --skip-nx-cache",
+    "build": "nx build --skip-nx-cache",
     "lint": "npm run lint:es && npm run lint:scss && npm run lint:package && npm run lint:style",
     "lint:es": "nx run-many --all --target=lint",
     "lint:es:fix": "npm run lint:es -- --fix",
@@ -17,7 +17,7 @@
     "lint:style": "npm run lint:style:base -- --check",
     "lint:style:base": "prettier \"packages/*/src/**/*.{ts,tsx,js,json,scss}\" \"packages/*/*.{ts,tsx,js,json,scss}\"",
     "lint:style:fix": "npm run lint:style:base -- --write",
-    "start": "nx run-many --target=serve --projects=tsx-dom-ssg-demo,tsx-dom-ssg-demo-elements",
+    "start": "nx run-many --target=serve --projects=blog,custom-elements",
     "test": "nx run-many --target=test --all"
   },
   "dependencies": {

@@ -65,7 +65,7 @@ function createPageInfoBase(fm: FrontMatter, body: string | Component): PageInfo
 }
 
 export async function getPages() {
-    const rootPath = path.join("packages", "tsx-dom-ssg-demo", "src", "pages");
+    const rootPath = path.join("packages", "blog", "src", "pages");
     const pages = getAllFiles(rootPath, /\.page\.(md|tsx)$/, []);
 
     const list = await Promise.all(

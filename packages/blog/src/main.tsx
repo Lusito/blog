@@ -41,10 +41,10 @@ if (process.env.NODE_ENV !== "production") {
     });
 }
 
-app.use("/assets", express.static("dist/packages/tsx-dom-ssg-demo/assets", { index: false, redirect: false }));
+app.use("/assets", express.static("dist/packages/blog/assets", { index: false, redirect: false }));
 
 app.get("/custom-elements.js", async (req, res) => {
-    let filePath = "./dist/packages/tsx-dom-ssg-demo-elements/main.esm.js";
+    let filePath = "./dist/packages/custom-elements/main.esm.js";
     if (!fs.existsSync(filePath)) {
         filePath = filePath.replace(/\.esm\.js$/, ".js");
     }

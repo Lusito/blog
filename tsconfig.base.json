@@ -16,7 +16,7 @@
     "noImplicitOverride": true,
     "baseUrl": ".",
     "paths": {
-      "tsx-dom-ssg-demo-elements": ["packages/tsx-dom-ssg-demo-elements/src/index.ts"]
+      "custom-elements": ["packages/custom-elements/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

@@ -1,7 +1,7 @@
 {
   "version": 2,
   "projects": {
-    "tsx-dom-ssg-demo": "packages/tsx-dom-ssg-demo",
-    "tsx-dom-ssg-demo-elements": "packages/tsx-dom-ssg-demo-elements"
+    "blog": "packages/blog",
+    "custom-elements": "packages/custom-elements"
   }
 }

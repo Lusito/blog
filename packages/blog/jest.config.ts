@@ -1,5 +1,5 @@
 module.exports = {
-    displayName: "tsx-dom-ssg-demo",
+    displayName: "blog",
     preset: "../../jest.preset.ts",
     globals: {
         "ts-jest": {
@@ -11,5 +11,5 @@ module.exports = {
         "^.+\\.[tj]s$": "ts-jest",
     },
     moduleFileExtensions: ["ts", "js", "html"],
-    coverageDirectory: "../../coverage/packages/tsx-dom-ssg-demo",
+    coverageDirectory: "../../coverage/packages/blog",
 };

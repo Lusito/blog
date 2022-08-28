@@ -16,8 +16,8 @@ import { renderSitemap, SitemapConfig } from "./utils/renderSitemap";
 import { SearchPage } from "./utils/SearchPage";
 import { tagDescriptions } from "./utils/tagDescriptions";
 
-const assets = "dist/packages/tsx-dom-ssg-demo/assets";
-const destination = "dist/packages/tsx-dom-ssg-demo/out";
+const assets = "dist/packages/blog/assets";
+const destination = "dist/packages/blog/out";
 
 async function writeSitemap(config: SitemapConfig) {
     const xml = await renderSitemap(config);
@@ -71,7 +71,7 @@ async function copyAssets() {
         })
     );
     await fs.promises.copyFile(
-        "dist/packages/tsx-dom-ssg-demo-elements/main.esm.js",
+        "dist/packages/custom-elements/main.esm.js",
         `${destination}/custom-elements.js`
     );
 }

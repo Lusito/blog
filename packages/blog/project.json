@@ -1,16 +1,16 @@
 {
-  "sourceRoot": "packages/tsx-dom-ssg-demo/src",
+  "sourceRoot": "packages/blog/src",
   "projectType": "application",
   "targets": {
     "core": {
       "executor": "@nrwl/node:webpack",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/packages/tsx-dom-ssg-demo",
-        "main": "packages/tsx-dom-ssg-demo/src/main.tsx",
-        "tsConfig": "packages/tsx-dom-ssg-demo/tsconfig.app.json",
-        "assets": ["packages/tsx-dom-ssg-demo/src/assets"],
-        "webpackConfig": "packages/tsx-dom-ssg-demo/webpack.config.js"
+        "outputPath": "dist/packages/blog",
+        "main": "packages/blog/src/main.tsx",
+        "tsConfig": "packages/blog/tsconfig.app.json",
+        "assets": ["packages/blog/src/assets"],
+        "webpackConfig": "packages/blog/webpack.config.js"
       },
       "dependsOn": [
         {
@@ -22,10 +22,10 @@
     "build": {
       "executor": "@nrwl/node:node",
       "options": {
-        "buildTarget": "tsx-dom-ssg-demo:core",
+        "buildTarget": "blog:core",
         "buildTargetOptions": {
           "optimization": true,
-          "main": "packages/tsx-dom-ssg-demo/src/generate.tsx"
+          "main": "packages/blog/src/generate.tsx"
         },
         "watch": false
       }
@@ -33,21 +33,21 @@
     "serve": {
       "executor": "@nrwl/node:node",
       "options": {
-        "buildTarget": "tsx-dom-ssg-demo:core"
+        "buildTarget": "blog:core"
       }
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["packages/tsx-dom-ssg-demo/**/*.{ts,tsx}"]
+        "lintFilePatterns": ["packages/blog/**/*.{ts,tsx}"]
       }
     },
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/packages/tsx-dom-ssg-demo"],
+      "outputs": ["coverage/packages/blog"],
       "options": {
-        "jestConfig": "packages/tsx-dom-ssg-demo/jest.config.ts",
+        "jestConfig": "packages/blog/jest.config.ts",
         "passWithNoTests": true
       }
     }

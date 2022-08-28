@@ -16,7 +16,7 @@ const imageSizes: Record<string, ISizeCalculationResult> = {};
 function cachedImageSize(assetPath: string) {
     let result = imageSizes[assetPath];
     if (!result) {
-        result = imageSize(`./dist/packages/tsx-dom-ssg-demo${assetPath}`);
+        result = imageSize(`./dist/packages/blog${assetPath}`);
         imageSizes[assetPath] = result;
     }
     return result;
