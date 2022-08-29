@@ -2,7 +2,7 @@
 
 .synopsis {
     margin: 2em 0;
-    padding: 0.25em;
+    padding: 1em;
     position: relative;
     background: linear-gradient(
         75deg,
@@ -11,8 +11,22 @@
         var(--color-main) 75%,
         var(--color-synopsis-border)
     );
+    display: flex;
+    flex-direction: column;
+
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        margin: 0.25em;
+        background: var(--color-main);
+    }
 
     @include from("small") {
+        flex-direction: row;
         background: linear-gradient(
             45deg,
             var(--color-synopsis-border),
@@ -22,9 +36,25 @@
         );
     }
 
+    > img {
+        border-radius: 2.5rem;
+        width: 5rem;
+        height: 5rem;
+        margin: 0 0 1rem 0;
+        align-self: center;
+
+        @include from("small") {
+            margin: 0 1rem 0 0;
+        }
+    }
+
+    > * {
+        position: relative;
+        z-index: 1;
+    }
+
     > p {
         margin: 0;
-        padding: 1em;
-        background: var(--color-main);
+        align-self: center;
     }
 }
