@@ -12,5 +12,11 @@ export const Footer = withCss(classes, () => (
         <span>
             Powered by <a href="https://github.com/lusito/tsx-dom">tsx-dom-ssr</a>
         </span>
+        <span>
+            <a href="/legal-notice.html">Legal Notice</a>
+        </span>
+        <span>
+            <a href="/privacy-policy.html">Privacy Policy</a>
+        </span>
     </footer>
 ));
