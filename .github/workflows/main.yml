@@ -25,4 +25,4 @@ jobs:
         user: ${{ secrets.FTP_USERNAME }}
         password: ${{ secrets.FTP_PASSWORD }}
         localDir: "./dist/packages/blog/out/"
-        options: "--dry-run --delete --exclude=\".htaccess\""
+        options: "--delete --exclude=\".htaccess\""
