@@ -1,5 +1,5 @@
-@import "../../style/fonts.scss";
-@import "../../style/breakpoints.scss";
+@import "../../style/fonts";
+@import "../../style/breakpoints";
 
 .article-body {
     margin-bottom: 2rem;
@@ -8,10 +8,12 @@
     > h2 {
         border-bottom: 1px solid var(--color-main-contrast);
     }
+
     figure {
         width: 100%;
         table-layout: fixed;
     }
+
     img {
         // fixme: what about small images, like icons? they should not be full-width
         width: calc(100% + 2rem);

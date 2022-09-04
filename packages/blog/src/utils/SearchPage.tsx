@@ -15,7 +15,7 @@ type SearchPageProps = {
 const title = "Search";
 const description = "Search this blog";
 
-export const SearchPage = withCss(classes, async ({ pages }: SearchPageProps) => (
+export const SearchPage = withCss(classes, ({ pages }: SearchPageProps) => (
     <DefaultLayout pageTitle={title}>
         <article>
             <MetaTags description={description} slug="all" title={title} tags={tagLabels} />

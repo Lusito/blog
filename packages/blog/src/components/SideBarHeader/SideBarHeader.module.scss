@@ -1,11 +1,13 @@
-@import "../../style/fonts.scss";
+@import "../../style/fonts";
 
 .side-bar-header {
     text-decoration: none;
+
     &,
     &:visited {
         color: var(--color-main-contrast);
     }
+
     &:hover {
         text-decoration: underline;
     }

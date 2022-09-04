@@ -1,5 +1,5 @@
-@import "../../style/breakpoints.scss";
-@import "../../style/fonts.scss";
+@import "../../style/breakpoints";
+@import "../../style/fonts";
 
 .footer {
     background: var(--color-dark);
@@ -11,6 +11,7 @@
 
     a {
         color: var(--color-dark-link);
+
         &:visited {
             color: var(--color-dark-link-visited);
         }
@@ -18,6 +19,7 @@
 
     @include from("small") {
         display: block;
+
         > span + span::before {
             content: " - ";
         }

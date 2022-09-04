@@ -1,6 +1,6 @@
-@import "../../style/breakpoints.scss";
-@import "../../style/sizes.scss";
-@import "../../style/fonts.scss";
+@import "../../style/breakpoints";
+@import "../../style/sizes";
+@import "../../style/fonts";
 
 .side-bar-menu,
 .side-bar-menu ul {
@@ -16,18 +16,22 @@
         display: list-item;
         font-size: 1.25rem;
         font-weight: bold;
+
         > a,
         > span {
             display: block;
             padding: 0.75rem;
             text-decoration: none;
         }
+
         > a:not(:hover, :focus) {
             color: var(--color-main-contrast);
         }
+
         > span {
             pointer-events: none;
         }
+
         > a:hover,
         > a:focus {
             display: block;
@@ -38,10 +42,12 @@
             text-decoration: none;
         }
     }
+
     li.selected > a,
     li.selected > span {
         text-decoration: underline;
     }
+
     li:hover,
     li:focus-within {
         > span {
@@ -51,10 +57,12 @@
         }
     }
 
+    /* stylelint-disable no-descending-specificity */
     > li > ul > li {
         > a,
         > span {
             padding-left: 1.75rem;
         }
     }
+    /* stylelint-enable no-descending-specificity */
 }

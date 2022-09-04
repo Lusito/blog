@@ -18,8 +18,7 @@ export const frontMatter: FrontMatter = {
     created: "2022-08-29",
 };
 
-// eslint-disable-next-line func-names
-export default async function () {
+export default async function PrivacyPolicyPage() {
     const markdownDe = await fs.promises.readFile(`${currentDir}/privacy-policy-de.md`);
     const markdownEn = await fs.promises.readFile(`${currentDir}/privacy-policy-en.md`);
 

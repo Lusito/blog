@@ -15,6 +15,7 @@ import { renderSitemap } from "./utils/renderSitemap";
 import { SearchPage } from "./utils/SearchPage";
 import { HomePage } from "./utils/HomePage";
 import { renderRSS } from "./utils/renderRSS";
+import { getCustomElementsFile } from "./utils/buildUtils";
 
 // The stuff below is purely for the dev-server
 const app = express();
@@ -44,11 +45,7 @@ if (process.env.NODE_ENV !== "production") {
 app.use("/assets", express.static("dist/packages/blog/assets", { index: false, redirect: false }));
 
 app.get("/custom-elements.js", async (req, res) => {
-    let filePath = "./dist/packages/custom-elements/main.esm.js";
-    if (!fs.existsSync(filePath)) {
-        filePath = filePath.replace(/\.esm\.js$/, ".js");
-    }
-    res.sendFile(filePath, { root: process.cwd() });
+    res.sendFile(getCustomElementsFile(), { root: process.cwd() });
 });
 
 const respond404 = (req: Request, res: Response) => {

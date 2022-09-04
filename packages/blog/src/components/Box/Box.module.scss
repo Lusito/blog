@@ -1,4 +1,4 @@
-@import "../../style/breakpoints.scss";
+@import "../../style/breakpoints";
 
 .box {
     margin: 2rem -1rem;
@@ -15,7 +15,7 @@
         padding: 0;
         margin: 0;
 
-        > .boxLink {
+        > .box-link {
             display: flex;
             flex-direction: column;
             margin: 0;

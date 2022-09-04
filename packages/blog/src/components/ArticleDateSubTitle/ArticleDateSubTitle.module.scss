@@ -1,18 +1,18 @@
-@import "../../style/breakpoints.scss";
+@import "../../style/breakpoints";
 
 .article-date-sub-title {
     line-height: 2rem;
     color: var(--color-dark-contrast);
     background: var(--color-dark);
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    flex-flow: row wrap;
     text-align: center;
     justify-content: space-between;
 
     > span {
         padding: 0 1rem;
         flex-grow: 1;
+
         &::first-letter {
             text-transform: uppercase;
         }

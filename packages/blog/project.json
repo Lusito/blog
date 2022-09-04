@@ -28,7 +28,13 @@
           "main": "packages/blog/src/generate.tsx"
         },
         "watch": false
-      }
+      },
+      "dependsOn": [
+        {
+          "target": "build",
+          "projects": "dependencies"
+        }
+      ]
     },
     "serve": {
       "executor": "@nrwl/node:node",
@@ -41,14 +47,6 @@
       "outputs": ["{options.outputFile}"],
       "options": {
         "lintFilePatterns": ["packages/blog/**/*.{ts,tsx}"]
-      }
-    },
-    "test": {
-      "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/packages/blog"],
-      "options": {
-        "jestConfig": "packages/blog/jest.config.ts",
-        "passWithNoTests": true
       }
     }
   },

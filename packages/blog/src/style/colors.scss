@@ -1,14 +1,16 @@
+@use "sass:color";
+
 $color-gray-900: black;
-$color-gray-500: lighten(black, 16%);
-$color-gray-400: lighten(black, 33%);
-$color-gray-200: lighten(black, 71%);
-$color-gray-100: lighten(black, 96%);
+$color-gray-500: color.adjust(black, $lightness: 16%);
+$color-gray-400: color.adjust(black, $lightness: 33%);
+$color-gray-200: color.adjust(black, $lightness: 71%);
+$color-gray-100: color.adjust(black, $lightness: 96%);
 $color-accent-base: #063e66;
-$color-accent-900: darken($color-accent-base, 15%);
+$color-accent-900: color.adjust($color-accent-base, $lightness: -15%);
 $color-accent-700: $color-accent-base;
-$color-accent-600: lighten($color-accent-base, 5%);
-$color-accent-500: lighten($color-accent-base, 15%);
-$color-accent-100: lighten($color-accent-base, 50%);
+$color-accent-600: color.adjust($color-accent-base, $lightness: 5%);
+$color-accent-500: color.adjust($color-accent-base, $lightness: 15%);
+$color-accent-100: color.adjust($color-accent-base, $lightness: 50%);
 
 :root {
     --color-dark: #{$color-gray-900};
@@ -29,7 +31,6 @@ $color-accent-100: lighten($color-accent-base, 50%);
     --color-disabled-contrast: #{$color-gray-100};
     --color-overlay: #{fade-out($color-gray-900, 0.5)};
     --color-synopsis-border: #{$color-accent-700};
-    --color-test: #{lighten($color-gray-900, 96%)};
 }
 
 @media (prefers-color-scheme: dark) {

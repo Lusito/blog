@@ -1,6 +1,6 @@
 @use "sass:math";
-@import "../../style/breakpoints.scss";
-@import "../../style/sizes.scss";
+@import "../../style/breakpoints";
+@import "../../style/sizes";
 
 $transition-time: 0.5s;
 
@@ -27,21 +27,6 @@ $transition-time: 0.5s;
     background: var(--color-main);
     box-sizing: border-box;
 
-    &:hover,
-    &:focus-within {
-        left: 0;
-
-        > .trigger > div {
-            right: 0;
-        }
-
-        + .side-bar-overlay {
-            background: var(--color-overlay);
-            right: 0;
-            transition: right 0s linear, background-color $transition-time ease-in-out;
-        }
-    }
-
     .trigger {
         position: absolute;
         top: 0;
@@ -49,6 +34,7 @@ $transition-time: 0.5s;
         right: 0;
         width: $menu-grip-width;
         background: var(--color-dark);
+
         > div {
             transition: all $transition-time ease;
             position: absolute;
@@ -68,6 +54,21 @@ $transition-time: 0.5s;
                 background: var(--color-dark-contrast);
                 box-sizing: border-box;
             }
+        }
+    }
+
+    &:hover,
+    &:focus-within {
+        left: 0;
+
+        > .trigger > div {
+            right: 0;
+        }
+
+        + .side-bar-overlay {
+            background: var(--color-overlay);
+            right: 0;
+            transition: right 0s linear, background-color $transition-time ease-in-out;
         }
     }
 

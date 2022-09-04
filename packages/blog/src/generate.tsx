@@ -3,6 +3,7 @@ import { basename } from "path";
 import { ComponentChildren } from "tsx-dom-ssr";
 
 import NotFoundPage from "./pages/site/404.page";
+import { getCustomElementsFile } from "./utils/buildUtils";
 import { DynamicPage } from "./utils/DynamicPage";
 import { getAllFiles } from "./utils/fileUtils";
 import { HomePage } from "./utils/HomePage";
@@ -70,10 +71,7 @@ async function copyAssets() {
             return fs.promises.copyFile(file, target);
         })
     );
-    await fs.promises.copyFile(
-        "dist/packages/custom-elements/main.esm.js",
-        `${destination}/custom-elements.js`
-    );
+    await fs.promises.copyFile(getCustomElementsFile(), `${destination}/custom-elements.js`);
 }
 
 async function createFiles() {

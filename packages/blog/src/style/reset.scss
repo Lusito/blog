@@ -83,10 +83,11 @@
         margin: 0;
         padding: 0;
         border: 0;
-        font-size: 100%;
         font: inherit;
+        font-size: 100%;
         vertical-align: baseline;
     }
+
     /* HTML5 display-role reset for older browsers */
     article,
     aside,
@@ -101,32 +102,34 @@
     section {
         display: block;
     }
+
     body {
         line-height: 1.5;
     }
-    ol,
-    ul {
-        list-style: none;
-    }
+
     blockquote,
     q {
         quotes: none;
     }
-    blockquote:before,
-    blockquote:after,
-    q:before,
-    q:after {
+
+    blockquote::before,
+    blockquote::after,
+    q::before,
+    q::after {
         content: "";
         content: none;
     }
+
     strong,
     b {
         font-weight: bold;
     }
+
     em,
     i {
         font-style: italic;
     }
+
     p,
     figure {
         margin: 1em 0;
@@ -142,7 +145,7 @@
         quotes: "\201C""\201D""\2018""\2019";
     }
 
-    blockquote:before {
+    blockquote::before {
         color: var(--color-disabled);
         content: open-quote;
         font-size: 4em;
@@ -165,6 +168,7 @@
     ol {
         overflow: hidden;
         padding-left: 2.5em;
+        list-style: none;
     }
 
     ul {
@@ -230,6 +234,7 @@
             background: var(--color-dark);
             color: var(--color-dark-contrast);
         }
+
         th,
         td {
             border: 1px solid var(--color-dark);

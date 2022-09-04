@@ -63,14 +63,6 @@
       "options": {
         "lintFilePatterns": ["packages/custom-elements/**/*.ts"]
       }
-    },
-    "test": {
-      "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/packages/custom-elements"],
-      "options": {
-        "jestConfig": "packages/custom-elements/jest.config.ts",
-        "passWithNoTests": true
-      }
     }
   }
 }
