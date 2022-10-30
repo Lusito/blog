@@ -1,3 +1,22 @@
 {
-  "extends": "./tsconfig.base.json"
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "target": "es2019",
+    "module": "esnext",
+    "lib": ["ESNext", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "strict": true,
+    "noImplicitOverride": true,
+    "jsx": "react-jsx",
+    "jsxImportSource": "tsx-dom-ssr",
+    "esModuleInterop": true
+  },
+  "exclude": ["node_modules", "tmp"]
 }

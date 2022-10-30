@@ -1,0 +1,48 @@
+@use "@fontsource/source-serif-pro/scss/mixins" as Serif;
+@use "@fontsource/source-sans-pro/scss/mixins" as Sans;
+@use "@fontsource/source-code-pro/scss/mixins" as Monospace;
+@import "../style/colors";
+@import "../style/breakpoints";
+@import "../style/reset";
+@import "../style/sizes";
+@import "../style/fonts";
+
+@include Serif.fontFace;
+@include Serif.fontFace($weight: 600);
+@include Sans.fontFace;
+@include Sans.fontFace($style: italic);
+@include Sans.fontFace($weight: 600);
+@include Sans.fontFace($weight: 600, $style: italic);
+@include Monospace.fontFace;
+@include Monospace.fontFace($style: italic);
+@include Monospace.fontFace($weight: 600);
+@include Monospace.fontFace($weight: 600, $style: italic);
+
+.mainwrapper {
+    transition: all 0.5s ease;
+    height: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+
+    @include from("small") {
+        width: calc(100% - $menu-grip-width);
+        margin-left: $menu-grip-width;
+    }
+    @include from("large") {
+        width: calc(100% - $menu-width);
+        margin-left: $menu-width;
+    }
+}
+
+.content {
+    overflow-y: auto;
+    overflow-x: hidden;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+
+    > main {
+        flex-grow: 1;
+    }
+}

@@ -1,7 +1,0 @@
-{
-  "version": 2,
-  "projects": {
-    "blog": "packages/blog",
-    "custom-elements": "packages/custom-elements"
-  }
-}
