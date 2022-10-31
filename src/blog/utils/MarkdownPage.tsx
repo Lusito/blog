@@ -1,8 +1,9 @@
-import { MarkdownArticleBody } from "../components/ArticleBody/ArticleBody";
+import { ArticleBody } from "../components/ArticleBody/ArticleBody";
 import { ArticleDateSubTitle } from "../components/ArticleDateSubTitle/ArticleDateSubTitle";
 import { ArticleHeader } from "../components/ArticleHeader/ArticleHeader";
 import { Container } from "../components/Container/Container";
 import { Discussions } from "../components/Discussions/Discussions";
+import { MarkdownContent } from "../components/MarkdownContent/MarkdownContent";
 import { MetaTagsArticle } from "../components/MetaTags/MetaTags";
 import { Synopsis } from "../components/Synopsis/Synopsis";
 import { TagList } from "../components/TagList/TagList";
@@ -35,7 +36,9 @@ export const MarkdownPage = ({ page }: MarkdownPageProps) => {
                 <Container>
                     {description && !hideSynopsis && <Synopsis>{description}</Synopsis>}
                     {tags.length > 0 && <TagList tags={tags} />}
-                    <MarkdownArticleBody markdown={body} />
+                    <ArticleBody>
+                        <MarkdownContent html={body} />
+                    </ArticleBody>
                     {originalSource && (
                         <p>
                             This post was originally published <a href={originalSource}>here.</a>

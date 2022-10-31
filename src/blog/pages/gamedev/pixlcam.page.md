@@ -22,7 +22,7 @@ The main idea of that camera is, that you can let it be influenced by relative o
 
 ## Watch It In Action or Try It Yourself
 
-![Screenshot](/assets/pixlcam.png)
+![Screenshot](pixlcam.png)
 
 [Check out the demo video on LinkedIn](https://www.linkedin.com/posts/santo-pfingsten_gamedevelopment-2dcamera-ugcPost-6896029825153187840-HLBS?utm_source=linkedin_share&utm_medium=member_desktop_web) or give it a try: [online demo](https://lusito.github.io/pixlcam/example/), not made for mobile.
 

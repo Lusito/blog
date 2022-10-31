@@ -1,5 +1,6 @@
-import "./pirates/scss-modules";
-import "./pirates/images";
+import "../pirates/scss-modules";
+import "../pirates/images";
+import "../pirates/markdown";
 import fs from "fs";
 import { basename } from "path";
 import { ComponentChildren } from "tsx-dom-ssr";

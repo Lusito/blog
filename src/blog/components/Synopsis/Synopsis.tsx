@@ -6,7 +6,7 @@ import logo from "../SideBarHeader/logo.webp";
 
 export const Synopsis = withCss(classes, ({ children }: BaseProps) => (
     <div class={classes.synopsis}>
-        <img src={`/${logo}`} alt="My head as a vector graphic" />
+        <img src={logo} alt="My head as a vector graphic" />
         <p>{children}</p>
     </div>
 ));

@@ -18,13 +18,13 @@ modified: "2022-08-21"
 originalSource: "https://www.linkedin.com/pulse/last-summoner-santo-pfingsten/"
 ---
 
-![Menu](/assets/the-last-summoner.png)
+![Menu](the-last-summoner.png)
 
 ## Previously on a GlobalGameJam
 
 Back in 2016 I joined a GlobalGameJam event in Trier. In just 48 hours, we (me, [Dennis Grass](https://github.com/Kinggrass), [Wladimir Kröker](https://github.com/compix) and [Florian Oetke](https://github.com/lowkey42)) created this neat little exploration game called [The Last Summoner](https://globalgamejam.org/2016/games/last-summoner). This was written in Java back then and we used some creative-commons pixel art from [Kingel](https://forums.tigsource.com/index.php?topic=14166.0). Last, but not least, [Stephen Froeber](https://stephenfroeber.com/) created amazing music, ambience sounds and sound effects to make this world feel more alive.
 
-![Ingame Screenshot 1](/assets/the-last-summoner-ingame1.png)
+![Ingame Screenshot 1](the-last-summoner-ingame1.png)
 
 ## Porting It to Web Technologies
 
@@ -36,7 +36,7 @@ Keep in mind, this won't work on a mobile device. Use arrow keys, Q, E and SPACE
 
 It's using a couple of libraries I'm working on, like [typed-ecstasy](https://lusito.github.io/typed-ecstasy/) as Entity Component System, [sounts](https://lusito.github.io/sounts/) for audio and [@box2d](https://lusito.github.io/box2d.ts/) for physics and [physics based lighting](https://lusito.github.io/box2d.ts/testbed/#/Lights#Draw_World):
 
-![Ingame Screenshot 2](/assets/the-last-summoner-ingame2.png)
+![Ingame Screenshot 2](the-last-summoner-ingame2.png)
 
 ## Camera Library
 

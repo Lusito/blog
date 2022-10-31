@@ -7,7 +7,7 @@ import { siteTitle } from "../../utils/config";
 export const SideBarHeader = withCss(classes, () => (
     <a href="/" aria-label="Homepage" class={classes.sideBarHeader}>
         <header>
-            <img src={`/${logo}`} alt="My head as a vector graphic" />
+            <img src={logo} alt="My head as a vector graphic" />
             <h3>{siteTitle}</h3>
         </header>
     </a>

@@ -1,9 +1,9 @@
 import { setupHook } from "scss-modules";
 
-import { hashFile } from "./utils";
+import { copyAsset } from "./utils";
 
 setupHook({
     mapFileUrl(fileUrl) {
-        return `assets/${hashFile(fileUrl)}`;
+        return copyAsset(fileUrl);
     },
 });

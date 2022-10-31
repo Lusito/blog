@@ -12,7 +12,7 @@ originalSource: "https://www.linkedin.com/posts/santo-pfingsten_webgl-is-totally
 
 Try pushing some marbles around in your browser: [Demo](https://lusito.github.io/box2d.ts/testbed/#/Lights#Official_Demo)
 
-![Screenshot](/assets/box2d-lights.jpg)
+![Screenshot](box2d-lights.jpg)
 
 The above is the official demo just as LibGDX showcases it. It really doesn't show the full potential. Check out youtube to see what people can do with it:
 - https://www.youtube.com/watch?v=rkJph0hQGys

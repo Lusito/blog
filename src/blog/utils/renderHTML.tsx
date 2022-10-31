@@ -4,9 +4,6 @@ import { domHelmet } from "dom-helmet";
 import { Window } from "happy-dom";
 import imageSize from "image-size";
 import type { ISizeCalculationResult } from "image-size/dist/types/interface";
-import { copyFile } from "fs/promises";
-import { join } from "path";
-import { existsSync } from "fs";
 
 import { siteUrl } from "./config";
 import globalCss from "../style/global.scss";
@@ -66,14 +63,6 @@ export async function renderHTML(path: string, children: ComponentChildren) {
         // eslint-disable-next-line no-underscore-dangle
         style.innerHTML = cssModule.__CSS;
         head.appendChild(style);
-
-        // eslint-disable-next-line no-await-in-loop
-        await Promise.all(
-            // eslint-disable-next-line no-underscore-dangle
-            cssModule.__FILES
-                .filter(({ source }) => existsSync(source))
-                .map(({ source, destination }) => copyFile(source, join(process.cwd(), "dist", destination)))
-        );
     }
 
     wrapper.querySelectorAll("a").forEach((link) => {

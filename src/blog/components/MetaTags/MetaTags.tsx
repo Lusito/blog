@@ -18,7 +18,7 @@ export const MetaTags = ({ title, image, description, tags, slug, children }: Me
         <meta name="description" content={description} />
         <meta name="keywords" content={tags.join(", ")} />
         <meta property="og:site_name" content={siteTitle} />
-        {image && <meta property="og:image" content={`${siteUrl}/assets/${image}`} />}
+        {image && <meta property="og:image" content={`${siteUrl}${image}`} />}
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
         <meta property="og:locale" content="en_US" />

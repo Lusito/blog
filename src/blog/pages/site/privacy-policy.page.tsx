@@ -1,12 +1,13 @@
-import fs from "fs";
-
-import { MarkdownArticleBody } from "../../components/ArticleBody/ArticleBody";
+import { ArticleBody } from "../../components/ArticleBody/ArticleBody";
 import { ArticleHeader } from "../../components/ArticleHeader/ArticleHeader";
 import { Container } from "../../components/Container/Container";
+import { MarkdownContent } from "../../components/MarkdownContent/MarkdownContent";
 import { MetaTags } from "../../components/MetaTags/MetaTags";
 import { Synopsis } from "../../components/Synopsis/Synopsis";
 import { DefaultLayout } from "../../layouts/DefaultLayout";
 import { FrontMatter, tagLabels } from "../../utils/pageUtils";
+import policyEn from "./privacy-policy-en.md";
+import policyDe from "./privacy-policy-de.md";
 
 export const frontMatter: FrontMatter = {
     tags: [],
@@ -16,10 +17,7 @@ export const frontMatter: FrontMatter = {
     created: "2022-08-29",
 };
 
-export default async function PrivacyPolicyPage() {
-    const markdownDe = await fs.promises.readFile(`${__dirname}/privacy-policy-de.md`);
-    const markdownEn = await fs.promises.readFile(`${__dirname}/privacy-policy-en.md`);
-
+export default function PrivacyPolicyPage() {
     return (
         <DefaultLayout pageTitle={frontMatter.title}>
             <article>
@@ -37,9 +35,9 @@ export default async function PrivacyPolicyPage() {
                         <a href="./privacy-policy.html#german">German</a>
                     </Synopsis>
                     <a name="english"></a>
-                    <MarkdownArticleBody markdown={markdownEn.toString()} />
+                    <MarkdownContent html={policyEn.html} />
                     <a name="german"></a>
-                    <MarkdownArticleBody markdown={markdownDe.toString()} />
+                    <MarkdownContent html={policyDe.html} />
                 </Container>
             </article>
         </DefaultLayout>

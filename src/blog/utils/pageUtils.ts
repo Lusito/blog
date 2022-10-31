@@ -1,10 +1,9 @@
-import fs from "fs";
-import path from "path";
-import frontMatter from "front-matter";
+import { join, relative, resolve } from "path";
 import { Component } from "tsx-dom-ssr";
 import slugify from "slug";
 
 import { getAllFiles } from "./fileUtils";
+import { MarkdownModule } from "../../pirates/markdown";
 
 export type FrontMatter = {
     tags: string[];
@@ -67,21 +66,20 @@ function createPageInfoBase(fm: FrontMatter, body: string | Component): PageInfo
     } as PageInfo;
 }
 
-const rootPath = path.join("src", "blog", "pages");
+const rootPath = join("src", "blog", "pages");
 export async function getPages() {
     const pages = getAllFiles(rootPath, /\.page\.(md|tsx)$/, []);
 
     const list = await Promise.all(
         pages.map(async (file): Promise<PageInfo> => {
+            const relativePath = relative(__dirname, resolve(process.cwd(), file));
             if (file.endsWith(".md")) {
-                const data = await fs.promises.readFile(file, "utf-8");
-                const result = frontMatter(data);
+                const data: MarkdownModule = await import(relativePath);
 
-                return createPageInfoBase(result.attributes as FrontMatter, result.body);
+                return createPageInfoBase(data.frontMatter as FrontMatter, data.html);
             }
 
-            const relativePath = path.relative(rootPath, file).replace(/\.page\.tsx$/, "");
-            const page: TsxPage = await import(`../pages/${relativePath}.page`);
+            const page: TsxPage = await import(relativePath.replace(/\.page\.tsx$/, ".page"));
             if (!page?.frontMatter || !page?.default) throw new Error("Invalid page export");
 
             return createPageInfoBase(page.frontMatter, page.default);

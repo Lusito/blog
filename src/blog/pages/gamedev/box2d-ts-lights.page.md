@@ -12,7 +12,7 @@ originalSource: "https://www.linkedin.com/posts/santo-pfingsten_typescript-box2d
 
 I've been working on a TypeScript port of [Box2D Lights](https://github.com/libgdx/box2dlights).
 
-![Screenshot](/assets/box2d-lights-draw-world.jpg)
+![Screenshot](box2d-lights-draw-world.jpg)
 
 Hopefully this will soon be on Github for everyone to use, including a full Box2D eco-system with particles, LiquidFun and more. Stay tuned. WebGL is awesome.
 
