@@ -19,7 +19,7 @@
     "lint:style": "npm run lint:style:base -- --check",
     "lint:style:base": "prettier \"src/**/*.{ts,tsx,js,json}\" \"./*.{ts,tsx,js,json}\"",
     "lint:style:fix": "npm run lint:style:base -- --write",
-    "start": "nodemon --exec \"npm run build && npm run dev-server\" -i dist -e '*'"
+    "start": "nodemon -i dist -e '*' --exec \"npm run build && npm run dev-server\""
   },
   "dependencies": {
     "@fastify/static": "^6.5.0",
