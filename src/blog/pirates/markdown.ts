@@ -30,7 +30,7 @@ function copyButtonPlugin(md: MarkdownIt) {
                 el.setAttribute("aria-title", title);
                 el.setAttribute("enhancedClass", classes.enhancedCopyButton);
 
-                return html.replace("</pre>", `${el.outerHTML}</pre>`);
+                return html.replace("</pre>", () => `${el.outerHTML}</pre>`);
             };
         }
     }
