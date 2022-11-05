@@ -1,4 +1,3 @@
-import { ArticleBody } from "../../components/ArticleBody/ArticleBody";
 import { ArticleHeader } from "../../components/ArticleHeader/ArticleHeader";
 import { Container } from "../../components/Container/Container";
 import { MarkdownContent } from "../../components/MarkdownContent/MarkdownContent";

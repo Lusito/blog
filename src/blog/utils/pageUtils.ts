@@ -1,9 +1,9 @@
 import { join, relative, resolve } from "path";
 import { Component } from "tsx-dom-ssr";
 import slugify from "slug";
+import { MarkdownModule } from "@lusito/require-libs";
 
 import { getAllFiles } from "./fileUtils";
-import { MarkdownModule } from "../../pirates/markdown";
 
 export type FrontMatter = {
     tags: string[];

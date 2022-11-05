@@ -1,11 +1,9 @@
-import "../pirates/scss-modules";
-import "../pirates/images";
-import "../pirates/markdown";
+import "./pirates";
 import fs from "fs";
 import { basename } from "path";
 import { ComponentChildren } from "tsx-dom-ssr";
 import { build } from "esbuild";
-import { CssModule } from "scss-modules";
+import { CssModule } from "@lusito/require-libs";
 
 import NotFoundPage from "./pages/site/404.page";
 import { DynamicPage } from "./utils/DynamicPage";

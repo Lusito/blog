@@ -1,4 +1,4 @@
-import { CssModule } from "scss-modules";
+import { CssModule } from "@lusito/require-libs";
 import { Component } from "tsx-dom-ssr";
 
 export function withCss<T>(cssModule: CssModule, factory: Component<T>): Component<T> {

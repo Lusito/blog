@@ -26,6 +26,7 @@
     "@fontsource/source-code-pro": "^4.5.12",
     "@fontsource/source-sans-pro": "^4.5.11",
     "@fontsource/source-serif-pro": "^4.5.9",
+    "@lusito/require-libs": "file:../require-hooks/lusito-require-libs-0.8.0.tgz",
     "@types/compression": "^1.7.2",
     "classnames": "^2.3.1",
     "cross-env": "^7.0.3",
@@ -42,7 +43,6 @@
     "pirates": "^4.0.5",
     "rimraf": "^3.0.2",
     "scatman": "^0.8.0",
-    "scss-modules": "file:../scss-modules/scss-modules-0.8.0.tgz",
     "slug": "^8.0.0",
     "tsx-dom-ssr": "^0.8.0"
   },

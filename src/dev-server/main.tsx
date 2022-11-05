@@ -1,5 +1,3 @@
-// eslint-disable-next-line import/no-unresolved
-import "scss-modules/preset";
 import fastify from "fastify";
 import fastifyStatic from "@fastify/static";
 import { join } from "path";
