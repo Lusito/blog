@@ -67,10 +67,16 @@ export async function renderHTML(path: string, children: ComponentChildren) {
 
     wrapper.querySelectorAll("a").forEach((link) => {
         const href = link.getAttribute("href");
-        const rel = link.getAttribute("rel");
+        if (href && protocolPattern.test(href) && !href.startsWith(siteUrl)) {
+            const rel = link.getAttribute("rel");
+            if (!rel) {
+                link.setAttribute("rel", "noopener nofollow");
+            }
 
-        if (href && !rel && protocolPattern.test(href) && (!siteUrl || !href.startsWith(siteUrl))) {
-            link.setAttribute("rel", "noopener nofollow");
+            const target = link.getAttribute("target");
+            if (!target) {
+                link.setAttribute("target", "_blank");
+            }
         }
     });
 
