@@ -8,6 +8,7 @@ import type { ISizeCalculationResult } from "image-size/dist/types/interface";
 import { siteUrl } from "./config";
 import globalCss from "../style/global.scss";
 import highlightCss from "../style/highlight.scss";
+import markdownClasses from "../components/MarkdownContent/MarkdownContent.module.scss";
 
 const window = new Window();
 const document = window.document as unknown as Document;
@@ -91,6 +92,10 @@ export async function renderHTML(path: string, children: ComponentChildren) {
             if (width && height) {
                 img.setAttribute("width", width.toString());
                 img.setAttribute("height", height.toString());
+
+                if (width >= 800) {
+                    img.classList.add(markdownClasses.largeImage);
+                }
             }
         }
     });

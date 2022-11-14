@@ -25,9 +25,10 @@ function copyButtonPlugin(md: MarkdownIt) {
 
                 const title = "Copy the code snippet to the clipboard";
                 const el = createElement("code-copy-button");
+                el.setAttribute("role", "button");
                 el.setAttribute("code", content);
                 el.setAttribute("title", title);
-                el.setAttribute("aria-title", title);
+                el.setAttribute("aria-label", title);
                 el.setAttribute("enhancedClass", classes.enhancedCopyButton);
 
                 return html.replace("</pre>", () => `${el.outerHTML}</pre>`);
