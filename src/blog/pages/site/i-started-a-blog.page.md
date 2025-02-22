@@ -2,9 +2,9 @@
 tags: ["Web Development", "Progressive Enhancement", "JSX/TSX", "TypeScript", "JavaScript", "Projects"]
 title: "I Started a Blog"
 description: >
-    Recently, I wrote a rant about using the right tools for the job.
-    This sparked some ideas and I needed a project to try it on.
-    I had been writing posts from time to time, so it seemed like a good time to start my own blog.
+  Recently, I wrote a rant about using the right tools for the job.
+  This sparked some ideas and I needed a project to try it on.
+  I had been writing posts from time to time, so it seemed like a good time to start my own blog.
 created: "2022-08-21"
 ---
 
@@ -12,14 +12,14 @@ created: "2022-08-21"
 
 Hi, my name is Santo Pfingsten, also known as [Lusito](https://github.com/lusito/).
 
-Recently, I wrote [Toilet Paper](/tag/toilet-paper.html) about [using the right tools for the job](/dont-drink-so-much-reducing-frontend-code.html).
+Recently, I wrote [Toilet Paper](https://blog.lusito.info/tag/toilet-paper.html) about [using the right tools for the job](https://blog.lusito.info/dont-drink-so-much-reducing-frontend-code.html).
 This sparked a couple of ideas I wanted to try on a new project and I ended up creating this blog.
 You'll notice a couple of posts that predate this one. I've written them before on various platforms and now copied (and in some cases translated) them here.
 
 ## The Technology Behind This Blog
 
-The ideas mentioned above included a new way to generate HTML using Server-Side-Rendering and Static-Site-Generation. 
-My project [tsx-dom](https://github.com/lusito/tsx-dom) would serve as a starting point, as I liked the [JSX/TSX Syntax](/what-is-jsx-tsx.html), but I didn't want to use React. tsx-dom did not support async code, so I had to create a new project from it, which will be released as open-source soon (stay tuned).
+The ideas mentioned above included a new way to generate HTML using Server-Side-Rendering and Static-Site-Generation.
+My project [tsx-dom](https://github.com/lusito/tsx-dom) would serve as a starting point, as I liked the [JSX/TSX Syntax](https://blog.lusito.info/what-is-jsx-tsx.html), but I didn't want to use React. tsx-dom did not support async code, so I had to create a new project from it, which will be released as open-source soon (stay tuned).
 
 Since I didn't want to create a full Next.js clone all by myself, I used [nx](https://nx.dev) to help with the project setup. Here are some measurements I did:
 
@@ -31,10 +31,10 @@ While there is room for improvement on the startup time using nx, I'm quite happ
 
 ## Getting All Lighthouse Scores to 100
 
-As wrote in [Don't Drink So Much](/dont-drink-so-much-reducing-frontend-code.html), a Multi-Page-Application should focus on fast page layout and good SEO values. A good starting point for this is creating a [Lighthouse Report](https://web.dev/measure/).
+As wrote in [Don't Drink So Much](https://blog.lusito.info/dont-drink-so-much-reducing-frontend-code.html), a Multi-Page-Application should focus on fast page layout and good SEO values. A good starting point for this is creating a [Lighthouse Report](https://web.dev/measure/).
 
 When I finished the initial code for my blog, I was curious, how well it would perform and what i'd have to change to get all scores to 100.
-After all, getting even small improvements on the scores of the React based news-website I talked about in [the rant](dont-drink-so-much-reducing-frontend-code.html) took a lot of effort.
+After all, getting even small improvements on the scores of the React based news-website I talked about in [the rant](https://blog.lusito.info/dont-drink-so-much-reducing-frontend-code.html) took a lot of effort.
 
 I expected it to be less work here, but I didn't expect it to be this easy:
 
@@ -54,7 +54,7 @@ The above results show how easy it can be to optimize your webpage if you follow
 There's actually very little client-side code on this blog:
 
 - A "Copy Code" button on the code snippets
-- The search functionality (see [search](/search.html))
+- The search functionality (see [search](https://blog.lusito.info/search.html))
 - Faster navigation by intercepting link clicks, fetching and merging the HTML of those links. Try navigating the pages on this blog. It's blazing fast!
 - Support for comments using [giscus](https://giscus.app/) (feel free to leave a comment below).
 

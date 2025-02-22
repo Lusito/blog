@@ -1,5 +1,5 @@
-@import "../style/breakpoints";
-@import "../style/sizes";
+@use "../style/breakpoints";
+@use "../style/sizes";
 
 .mainwrapper {
     transition: all 0.5s ease;
@@ -8,19 +8,19 @@
     display: flex;
     flex-direction: column;
 
-    @include from("small") {
-        width: calc(100% - $menu-grip-width);
-        margin-left: $menu-grip-width;
+    @include breakpoints.from("small") {
+        width: calc(100% - sizes.$menu-grip-width);
+        margin-left: sizes.$menu-grip-width;
     }
-    @include from("large") {
-        width: calc(100% - $menu-width);
-        margin-left: $menu-width;
+
+    @include breakpoints.from("large") {
+        width: calc(100% - sizes.$menu-width);
+        margin-left: sizes.$menu-width;
     }
 }
 
 .content {
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: hidden auto;
     flex-grow: 1;
     display: flex;
     flex-direction: column;

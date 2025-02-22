@@ -5,7 +5,7 @@ import { Window } from "happy-dom";
 import imageSize from "image-size";
 import type { ISizeCalculationResult } from "image-size/dist/types/interface";
 
-import { siteUrl } from "./config";
+import { productionSiteUrl } from "./config";
 import globalCss from "../style/global.scss";
 import highlightCss from "../style/highlight.scss";
 import markdownClasses from "../components/MarkdownContent/MarkdownContent.module.scss";
@@ -49,11 +49,7 @@ export async function renderHTML(path: string, children: ComponentChildren) {
     }
 
     const head = wrapper.querySelector("html > head") as HTMLHeadElement;
-    domHelmet({
-        html: wrapper.querySelector("html")!,
-        head,
-        body: wrapper.querySelector("html > body")!,
-    });
+    domHelmet({ html: wrapper.querySelector("html")!, head, body: wrapper.querySelector("html > body")! });
 
     if (wrapper.querySelector("code.hljs")) {
         cssModules.push(highlightCss);
@@ -68,7 +64,10 @@ export async function renderHTML(path: string, children: ComponentChildren) {
 
     wrapper.querySelectorAll("a").forEach((link) => {
         const href = link.getAttribute("href");
-        if (href && protocolPattern.test(href) && !href.startsWith(siteUrl)) {
+        if (!href) return;
+        if (href.startsWith(productionSiteUrl)) {
+            link.setAttribute("href", href.substring(productionSiteUrl.length));
+        } else if (protocolPattern.test(href)) {
             const rel = link.getAttribute("rel");
             if (!rel) {
                 link.setAttribute("rel", "noopener nofollow");

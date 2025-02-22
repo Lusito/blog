@@ -1,4 +1,4 @@
-@import "../../style/breakpoints";
+@use "../../style/breakpoints";
 
 .synopsis {
     margin: 2em 0;
@@ -17,15 +17,12 @@
     &::before {
         content: "";
         position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
+        inset: 0 0 0 0;
         margin: 0.25em;
         background: var(--color-main);
     }
 
-    @include from("small") {
+    @include breakpoints.from("small") {
         flex-direction: row;
         background: linear-gradient(
             45deg,
@@ -43,7 +40,7 @@
         margin: 0 0 1rem 0;
         align-self: center;
 
-        @include from("small") {
+        @include breakpoints.from("small") {
             margin: 0 1rem 0 0;
         }
     }

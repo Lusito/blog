@@ -1,9 +1,9 @@
-@import "../../style/fonts";
+@use "../../style/fonts";
 
 .link-button,
 .link-button-disabled {
     display: inline-block;
-    font-family: $font-sans-serif;
+    font-family: fonts.$sans-serif;
     font-weight: bold;
     margin-right: 0.5rem;
     margin-bottom: 0.5rem;

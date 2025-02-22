@@ -2,8 +2,8 @@
 tags: ["JSX/TSX", "React", "TypeScript", "JavaScript", "Web Development", "Toilet Paper"]
 title: "What Is Jsx / TSX?"
 description: >
-    Anyone who has ever worked with React will know the file extension JSX (TSX for TypeScript) and the HTML-related syntax.
-    But what lies under the hood?
+  Anyone who has ever worked with React will know the file extension JSX (TSX for TypeScript) and the HTML-related syntax.
+  But what lies under the hood?
 created: "2019-06-28"
 modified: "2022-08-21"
 originalSource: "https://jambit.com/aktuelles/toilet-papers/was-ist-eigentlich-jsx-tsx/"
@@ -17,10 +17,10 @@ Example:
 
 ```tsx
 const profile = (
-    <div>
-        <img src={u.avatar} className="profile" alt={`Pic of ${u.firstName}`} />
-        <h3>{[u.firstName, u.lastName].join(" ")}</h3>
-    </div>
+  <div>
+    <img src={u.avatar} className="profile" alt={`Pic of ${u.firstName}`} />
+    <h3>{[u.firstName, u.lastName].join(" ")}</h3>
+  </div>
 );
 ```
 
@@ -32,17 +32,17 @@ A **transpiler** (e.g. **babel** or **tsc**) converts JSX/TSX into pure JavaScri
 
 ```js
 const profile = React.createElement(
-    "div",
-    null,
-    React.createElement("img", { src: u.avatar, className: "profile", alt: `Pic of ${u.firstName}` }),
-    React.createElement("h3", null, [u.firstName, u.lastName].join(" "))
+  "div",
+  null,
+  React.createElement("img", { src: u.avatar, className: "profile", alt: `Pic of ${u.firstName}` }),
+  React.createElement("h3", null, [u.firstName, u.lastName].join(" ")),
 );
 ```
 
--   The function `React.createElement` gets as first parameter either a tag name or a component.
-    -   If the **tag name** in the JSX is lowercase, e.g. <button>, the parameter will become a **string**. Otherwise (e.g. <Button>) it is a assumed to be a **function** or a **class** (which must be present in the scope with the same name).
--   The second parameter is an **object with all properties** assigned to the tag. If no properties have been assigned, this parameter is null.
--   The remaining parameters are the **children** that have been inserted into the tag.
+- The function `React.createElement` gets as first parameter either a tag name or a component.
+  - If the **tag name** in the JSX is lowercase, e.g. <button>, the parameter will become a **string**. Otherwise (e.g. <Button>) it is a assumed to be a **function** or a **class** (which must be present in the scope with the same name).
+- The second parameter is an **object with all properties** assigned to the tag. If no properties have been assigned, this parameter is null.
+- The remaining parameters are the **children** that have been inserted into the tag.
 
 ## Example
 
@@ -50,13 +50,13 @@ You can easily write a replacement for React which, instead of a Virtual DOM, cr
 
 ```js
 function h(tag, props, ...children) {
-    if (typeof tag === "function") return tag({ ...props, children });
+  if (typeof tag === "function") return tag({ ...props, children });
 
-    const element = document.createElement(tag);
-    if (props) setAllAttributes(element, props);
+  const element = document.createElement(tag);
+  if (props) setAllAttributes(element, props);
 
-    applyChildren(element, children);
-    return element;
+  applyChildren(element, children);
+  return element;
 }
 ```
 
@@ -64,8 +64,8 @@ This function can be called instead of calling `React.createElement`. This very 
 
 ## Further Aspects
 
--   Babel: https://babeljs.io/docs/en/6.26.3/babel-plugin-transform-react-jsx
--   TypeScript: https://www.typescriptlang.org/docs/handbook/jsx.html
--   The last example in TypeScript a bit more in detail: https://github.com/Lusito/tsx-dom
--   React without JSX: https://reactjs.org/docs/react-without-jsx.html
--   Why JSX in React: https://reactjs.org/docs/introducing-jsx.html
+- Babel: https://babeljs.io/docs/babel-plugin-transform-react-jsx
+- TypeScript: https://www.typescriptlang.org/docs/handbook/jsx.html
+- The last example in TypeScript a bit more in detail: https://github.com/Lusito/tsx-dom
+- React without JSX: https://reactjs.org/docs/react-without-jsx.html
+- Why JSX in React: https://reactjs.org/docs/introducing-jsx.html

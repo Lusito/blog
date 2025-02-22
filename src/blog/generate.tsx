@@ -58,9 +58,9 @@ async function writePages(path: string, tags: string[], title: string, descripti
                     description={description}
                     pages={pages}
                     pageNumber={index + 2}
-                />
-            )
-        )
+                />,
+            ),
+        ),
     );
 }
 
@@ -71,7 +71,7 @@ async function copyAssets() {
         files.map((file) => {
             const target = `${destination}/assets/${basename(file)}`;
             return fs.promises.copyFile(file, target);
-        })
+        }),
     );
 
     const result = await build({
@@ -109,7 +109,7 @@ async function createFiles() {
                 description="A chronological list of posts on this blog"
                 pages={pagesWithTags}
                 pageNumber={1}
-            />
+            />,
         ),
         writeHTML("/all.html", <ListAllPage pages={pagesWithTags} />),
         writeHTML("/search.html", <SearchPage pages={pagesWithTags} />),
@@ -130,7 +130,7 @@ async function createFiles() {
                             description={description}
                             pages={filteredPages}
                             pageNumber={1}
-                        />
+                        />,
                     ),
                     writePages(`/tag/${tag}`, [tagLabel], tagLabel, description, filteredPages),
                 ];

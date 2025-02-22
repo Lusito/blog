@@ -83,7 +83,7 @@ export async function getPages() {
             if (!page?.frontMatter || !page?.default) throw new Error("Invalid page export");
 
             return createPageInfoBase(page.frontMatter, page.default);
-        })
+        }),
     );
 
     tagLabels.push(...Object.values(tagSlugToLabel));

@@ -1,4 +1,4 @@
-@import "../../style/breakpoints";
+@use "../../style/breakpoints";
 
 .article-date-sub-title {
     line-height: 2rem;
@@ -18,7 +18,7 @@
         }
     }
 
-    @include from("small") {
+    @include breakpoints.from("small") {
         display: block;
         width: max-content;
         margin: 0 auto;

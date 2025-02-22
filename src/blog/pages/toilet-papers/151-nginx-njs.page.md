@@ -2,8 +2,8 @@
 tags: ["NGINX", "JavaScript", "Docker", "Web Development", "Toilet Paper"]
 title: "Extending NGINX with JavaScript (NJS)"
 description: >
-    The much-loved NGINX has a limited feature-set.
-    In this Toilet Paper you'll learn how to extend it with custom JavaScript code (NJS).
+  The much-loved NGINX has a limited feature-set.
+  In this Toilet Paper you'll learn how to extend it with custom JavaScript code (NJS).
 created: "2021-11-12"
 modified: "2022-08-21"
 originalSource: "https://jambit.com/aktuelles/toilet-papers/nginx-mit-javascript-njs-erweitern/"
@@ -27,7 +27,7 @@ First, it needs a JavaScript file. SinceNJS is a subset of JS, you must partly w
 
 ```js
 function hello(r) {
-    r.return(200, "Hello world!");
+  r.return(200, "Hello world!");
 }
 
 export default { hello };
@@ -69,6 +69,6 @@ The load_module statement unfortunately has to be part of the root nginx.conf be
 
 ## Further Aspects
 
--   Documentation: https://nginx.org/en/docs/njs/index.html,
--   Video: https://www.youtube.com/watch?v=Jc_L6UffFOs
--   Example accept-language https://gist.github.com/SantoJambit/2fdcf696645dc7ef72ca0e70ebbd7b4a
+- Documentation: https://nginx.org/en/docs/njs/index.html,
+- Video: https://www.youtube.com/watch?v=Jc_L6UffFOs
+- Example accept-language https://gist.github.com/SantoJambit/2fdcf696645dc7ef72ca0e70ebbd7b4a

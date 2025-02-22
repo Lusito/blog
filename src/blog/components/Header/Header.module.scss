@@ -1,15 +1,15 @@
-@import "../../style/breakpoints";
-@import "../../style/sizes";
-@import "../../style/fonts";
+@use "../../style/breakpoints";
+@use "../../style/sizes";
+@use "../../style/fonts";
 
 .header {
-    font-family: $font-sans-serif;
+    font-family: fonts.$sans-serif;
     font-weight: bold;
     background: var(--color-dark);
     color: var(--color-dark-contrast);
     font-size: 1.5rem;
-    padding: 0 0.5rem 0 #{$menu-grip-width + 0.5rem};
-    line-height: $header-height;
+    padding: 0 0.5rem 0 #{sizes.$menu-grip-width + 0.5rem};
+    line-height: sizes.$header-height;
     flex-shrink: 0;
     position: relative;
     display: flex;
@@ -18,11 +18,11 @@
     white-space: nowrap;
     text-overflow: ellipsis;
 
-    @include from("small") {
+    @include breakpoints.from("small") {
         padding-left: 0.5rem;
     }
 
-    @include from("large") {
-        margin-top: -$header-height;
+    @include breakpoints.from("large") {
+        margin-top: -(sizes.$header-height);
     }
 }

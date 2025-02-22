@@ -2,8 +2,8 @@
 tags: ["Hot Module Replacement", "JavaScript", "TypeScript", "Web Development", "Game Development", "Toilet Paper"]
 title: "Hot Module Replacement: How to Use It Manually"
 description: >
-    HMR works automagically in almost all popular frontend frameworks.
-    It is, however, possible to control HMR manually. How and why is shown in this Toilet Paper.
+  HMR works automagically in almost all popular frontend frameworks.
+  It is, however, possible to control HMR manually. How and why is shown in this Toilet Paper.
 created: "2022-02-18"
 modified: "2022-08-21"
 originalSource: "https://jambit.com/aktuelles/toilet-papers/hot-module-replacement-api-manuell-ansprechen/"
@@ -37,26 +37,26 @@ export default value;
 
 // module.hot is only present in dev server
 if (module.hot) {
-    // Accept updates
-    module.hot.accept();
+  // Accept updates
+  module.hot.accept();
 
-    // Transfer of information
-    // to the updated version:
-    module.hot.dispose((data) => {
-        data.value = value;
+  // Transfer of information
+  // to the updated version:
+  module.hot.dispose((data) => {
+    data.value = value;
+  });
+
+  // Was information transferred
+  // from the old version?
+  const oldValue = module.hot.data?.value;
+  if (oldValue) {
+    console.log("On-Update", {
+      oldValue,
+      value,
     });
-
-    // Was information transferred
-    // from the old version?
-    const oldValue = module.hot.data?.value;
-    if (oldValue) {
-        console.log("On-Update", {
-            oldValue,
-            value,
-        });
-    } else {
-        console.log("On-Create", { value });
-    }
+  } else {
+    console.log("On-Create", { value });
+  }
 }
 ```
 
@@ -72,5 +72,5 @@ In my case, I was developing a video game. For that, I wrote a dependency inject
 
 ## Further Aspects
 
--   Summary on HMR: https://webpack.js.org/concepts/hot-module-replacement/
--   API: https://webpack.js.org/api/hot-module-replacement/
+- Summary on HMR: https://webpack.js.org/concepts/hot-module-replacement/
+- API: https://webpack.js.org/api/hot-module-replacement/

@@ -1,5 +1,5 @@
-@import "../../style/fonts";
-@import "../../style/breakpoints";
+@use "../../style/fonts";
+@use "../../style/breakpoints";
 
 .markdown-content {
     word-break: break-word;
@@ -18,7 +18,7 @@
         height: auto;
         margin: 0 -1rem;
 
-        @include from("small") {
+        @include breakpoints.from("small") {
             width: auto;
             max-width: 100%;
             margin: 0;
@@ -28,7 +28,7 @@
     p code,
     ul code,
     ol code {
-        font-family: $font-monospace;
+        font-family: fonts.$monospace;
         background: #dcdcdc;
         color: #1e1e1e;
         border-radius: 0.25rem;
@@ -41,9 +41,9 @@
         > code {
             border-radius: 0;
             margin: 1rem -1rem;
-            font-family: $font-monospace;
+            font-family: fonts.$monospace;
 
-            @include from("small") {
+            @include breakpoints.from("small") {
                 border-radius: 0.5rem;
                 margin: 1rem 0;
             }

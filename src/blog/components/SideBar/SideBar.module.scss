@@ -1,17 +1,16 @@
 @use "sass:math";
-@import "../../style/breakpoints";
-@import "../../style/sizes";
+@use "../../style/breakpoints";
+@use "../../style/sizes";
 
 $transition-time: 0.5s;
 
 .side-bar-overlay {
     background: transparent;
-    transition: right 0s $transition-time linear, background-color $transition-time ease-in-out;
+    transition:
+        right 0s $transition-time linear,
+        background-color $transition-time ease-in-out;
     position: fixed;
-    top: 0;
-    right: 100vw;
-    bottom: 0;
-    left: 0;
+    inset: 0 100vw 0 0;
     z-index: 199;
 }
 
@@ -19,10 +18,10 @@ $transition-time: 0.5s;
     position: absolute;
     top: 0;
     bottom: 0;
-    left: -$menu-width;
-    width: $menu-width;
+    left: -(sizes.$menu-width);
+    width: sizes.$menu-width;
     z-index: 200;
-    padding-right: $menu-grip-width;
+    padding-right: sizes.$menu-grip-width;
     transition: all $transition-time ease;
     background: var(--color-main);
     box-sizing: border-box;
@@ -32,7 +31,7 @@ $transition-time: 0.5s;
         top: 0;
         bottom: 0;
         right: 0;
-        width: $menu-grip-width;
+        width: sizes.$menu-grip-width;
         background: var(--color-dark);
 
         > div {
@@ -40,9 +39,9 @@ $transition-time: 0.5s;
             position: absolute;
             left: auto;
             top: 0;
-            right: -$menu-grip-width;
-            width: $menu-grip-width;
-            height: $header-height;
+            right: -(sizes.$menu-grip-width);
+            width: sizes.$menu-grip-width;
+            height: sizes.$header-height;
             padding: 0.25rem;
             box-sizing: border-box;
             display: flex;
@@ -68,16 +67,18 @@ $transition-time: 0.5s;
         + .side-bar-overlay {
             background: var(--color-overlay);
             right: 0;
-            transition: right 0s linear, background-color $transition-time ease-in-out;
+            transition:
+                right 0s linear,
+                background-color $transition-time ease-in-out;
         }
     }
 
-    @include from("small") {
-        left: -#{$menu-width - $menu-grip-width};
+    @include breakpoints.from("small") {
+        left: -#{sizes.$menu-width - sizes.$menu-grip-width};
 
         .trigger > div {
-            left: calc(50% - #{math.div($menu-grip-width, 2)});
-            top: calc(50% - #{math.div($header-height, 2)});
+            left: calc(50% - #{math.div(sizes.$menu-grip-width, 2)});
+            top: calc(50% - #{math.div(sizes.$header-height, 2)});
             right: auto;
 
             > div {
@@ -86,21 +87,23 @@ $transition-time: 0.5s;
         }
     }
 
-    @include from("large") {
+    @include breakpoints.from("large") {
         left: 0;
-        padding-right: $menu-separator-width;
+        padding-right: sizes.$menu-separator-width;
 
         &:hover,
         &:focus-within {
             + .side-bar-overlay {
                 background: transparent;
                 right: 100vw;
-                transition: right 0s $transition-time linear, background-color $transition-time ease-in-out;
+                transition:
+                    right 0s $transition-time linear,
+                    background-color $transition-time ease-in-out;
             }
         }
 
         .trigger {
-            width: $menu-separator-width;
+            width: sizes.$menu-separator-width;
 
             > div {
                 display: none;
@@ -111,13 +114,10 @@ $transition-time: 0.5s;
 
 .content {
     position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: $menu-grip-width;
+    inset: 0 sizes.$menu-grip-width 0 0;
     overflow-y: auto;
 
-    @include from("large") {
-        right: $menu-separator-width;
+    @include breakpoints.from("large") {
+        right: sizes.$menu-separator-width;
     }
 }

@@ -1,10 +1,8 @@
-@import "../../style/breakpoints";
-@import "../../style/sizes";
-@import "../../style/fonts";
+@use "../../style/fonts";
 
 .side-bar-menu,
 .side-bar-menu ul {
-    font-family: $font-sans-serif;
+    font-family: fonts.$sans-serif;
     width: 100%;
     list-style-type: none;
     padding: 0;

@@ -1,4 +1,4 @@
-@import "../../style/breakpoints";
+@use "../../style/breakpoints";
 
 .box {
     margin: 2rem -1rem;
@@ -6,7 +6,7 @@
     border: 1px solid var(--color-dark);
     border-width: 0 0 1px 0;
 
-    @include from("small") {
+    @include breakpoints.from("small") {
         border-width: 0 1px 1px 1px;
         margin: 2rem 0;
     }
@@ -33,7 +33,7 @@
                 padding: 0.5rem 0 0 0;
             }
 
-            @include from("small") {
+            @include breakpoints.from("small") {
                 flex-direction: row;
                 align-items: center;
 

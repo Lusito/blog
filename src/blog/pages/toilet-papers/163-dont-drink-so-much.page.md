@@ -1,10 +1,19 @@
 ---
-tags: ["Progressive Enhancement", "Partial Hydration", "React", "JavaScript", "TypeScript", "Web Development", "Toilet Paper"]
+tags:
+  [
+    "Progressive Enhancement",
+    "Partial Hydration",
+    "React",
+    "JavaScript",
+    "TypeScript",
+    "Web Development",
+    "Toilet Paper",
+  ]
 title: "Don't Drink So Much: Reducing Frontend Code"
 description: >
-    Some developers keep using the tools they are used to, rather than the best tool for the job.
-    Recently, I had to work on a Multi Page Application, which was rendered using a Single Page Application
-    Framework. Here are my thoughts on how to do it better.
+  Some developers keep using the tools they are used to, rather than the best tool for the job.
+  Recently, I had to work on a Multi Page Application, which was rendered using a Single Page Application
+  Framework. Here are my thoughts on how to do it better.
 created: "2022-06-03"
 modified: "2022-08-21"
 ---
@@ -54,16 +63,16 @@ Helpful search-terms are **partial hydration** and **progressive enhancement**.
 
 ## Interesting Tools & Frameworks
 
--   https://astro.build/ is a build-tool, which can be used with the popular SPA frameworks, but you have an opt-in process.
-    In my opinion, this doesn't go far enough though. SPA frameworks are not made for this and can never be as fast as something made for the job.
--   https://nanojsx.io/ is more like what I imagine: A new lightweight framework based on the JSX syntax.
-    It still seems to be in the early stages of development though.
--   https://stimulus.hotwired.dev/ takes a completely different approach and ignores how you create the HTML.
-    Instead it focuses on how to make the HTML interactive again. Obviously, you'll need to figure out how to create the HTML now.
-    This approach is easily combined with https://turbo.hotwired.dev/, which improves the page-change performance of mostly static websites.
--   Purists can use custom-elements to connect existing HTML with JavaScript code. In this case you probably want to avoid the Shadow-Dom,
-    so that the website still shows correctly even without JavaScript.
--   React will soon get **server components**.. it's been dragging on for quite some time though and there are still some open questions,
-    for example if (and how) this works with CDNs. Initially, this will not be supported directly by React, but by separate projects like Next.js:
-    https://reactjs.org/blog/2020/12/21/data-fetching-with-react-server-components.html
--   https://remix.run/ looks promising, even if it currently ignores the problem of partial hydration, it still fits the category **progressive enhancement**.
+- https://astro.build/ is a build-tool, which can be used with the popular SPA frameworks, but you have an opt-in process.
+  In my opinion, this doesn't go far enough though. SPA frameworks are not made for this and can never be as fast as something made for the job.
+- https://nanojsx.io/ is more like what I imagine: A new lightweight framework based on the JSX syntax.
+  It still seems to be in the early stages of development though.
+- https://stimulus.hotwired.dev/ takes a completely different approach and ignores how you create the HTML.
+  Instead it focuses on how to make the HTML interactive again. Obviously, you'll need to figure out how to create the HTML now.
+  This approach is easily combined with https://turbo.hotwired.dev/, which improves the page-change performance of mostly static websites.
+- Purists can use custom-elements to connect existing HTML with JavaScript code. In this case you probably want to avoid the Shadow-Dom,
+  so that the website still shows correctly even without JavaScript.
+- React will soon get **server components**.. it's been dragging on for quite some time though and there are still some open questions,
+  for example if (and how) this works with CDNs. Initially, this will not be supported directly by React, but by separate projects like Next.js:
+  https://reactjs.org/blog/2020/12/21/data-fetching-with-react-server-components.html
+- https://remix.run/ looks promising, even if it currently ignores the problem of partial hydration, it still fits the category **progressive enhancement**.

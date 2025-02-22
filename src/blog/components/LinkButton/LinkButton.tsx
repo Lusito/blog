@@ -1,4 +1,3 @@
-import classNames from "classnames";
 import { BaseProps } from "tsx-dom-ssr";
 
 import { withCss } from "../../utils/withCss";
@@ -13,7 +12,7 @@ type LinkButtonProps = BaseProps & {
 };
 export const LinkButton = withCss(classes, (props: LinkButtonProps) => {
     const { href, children, ariaLabel, ariaCurrent, title } = props;
-    const clazz = classNames(href ? classes.linkButton : classes.linkButtonDisabled, props.class);
+    const clazz = [href ? classes.linkButton : classes.linkButtonDisabled, props.class];
 
     if (!href) {
         return (

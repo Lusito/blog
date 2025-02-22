@@ -1,5 +1,4 @@
-@import "../../style/breakpoints";
-@import "../../style/fonts";
+@use "../../style/breakpoints";
 
 .footer {
     background: var(--color-dark);
@@ -17,7 +16,7 @@
         }
     }
 
-    @include from("small") {
+    @include breakpoints.from("small") {
         display: block;
 
         > span + span::before {

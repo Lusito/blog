@@ -1,4 +1,4 @@
-@import "../../style/fonts";
+@use "../../style/fonts";
 
 .side-bar-header {
     text-decoration: none;
@@ -25,7 +25,7 @@
         }
 
         > h3 {
-            font-family: $font-sans-serif;
+            font-family: fonts.$sans-serif;
             margin: 0.5rem 0 0 0;
         }
     }

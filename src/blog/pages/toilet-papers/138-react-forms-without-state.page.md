@@ -2,9 +2,9 @@
 tags: ["React", "TypeScript", "JavaScript", "Web Development", "Toilet Paper"]
 title: "React Forms Without State"
 description: >
-    React forms are often created with state, but this can quickly get complicated and confusing,
-    especially with larger forms. Find out how to create React forms without state,
-    which can help make your code easier to reason with.
+  React forms are often created with state, but this can quickly get complicated and confusing,
+  especially with larger forms. Find out how to create React forms without state,
+  which can help make your code easier to reason with.
 created: "2021-02-05"
 modified: "2022-08-21"
 originalSource: "https://jambit.com/aktuelles/toilet-papers/react-formulare-ohne-state/"
@@ -16,21 +16,21 @@ The most common method of creating a form is with state. This is what it looks l
 
 ```tsx
 export const RegistrationForm = ({ submitForm }) => {
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-    return (
-        <form onSubmit={() => submitForm(name, email)}>
-            <label>
-                <b>Name: </b>
-                <input value={name} onChange={(e) => setName(e.currentTarget.value)} />
-            </label>
-            <label>
-                <b>E-Mail: </b>
-                <input value={email} onChange={(e) => setEmail(e.currentTarget.value)} />
-            </label>
-            <button type="submit">Submit</button>
-        </form>
-    );
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  return (
+    <form onSubmit={() => submitForm(name, email)}>
+      <label>
+        <b>Name: </b>
+        <input value={name} onChange={(e) => setName(e.currentTarget.value)} />
+      </label>
+      <label>
+        <b>E-Mail: </b>
+        <input value={email} onChange={(e) => setEmail(e.currentTarget.value)} />
+      </label>
+      <button type="submit">Submit</button>
+    </form>
+  );
 };
 ```
 
@@ -59,4 +59,4 @@ By adding additional name attributes, you can identify them in the FormData obje
 
 ## Further Aspects
 
--   FormData documentation: https://developer.mozilla.org/en-US/docs/Web/API/FormData
+- FormData documentation: https://developer.mozilla.org/en-US/docs/Web/API/FormData

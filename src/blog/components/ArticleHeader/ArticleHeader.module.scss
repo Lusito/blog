@@ -1,11 +1,11 @@
-@import "../../style/sizes";
-@import "../../style/colors";
+@use "../../style/sizes";
+@use "../../style/colors";
 
 .article-header {
     position: relative;
     text-align: center;
     padding: 4rem 0;
-    background: radial-gradient(ellipse at center, $color-accent-700 0%, $color-accent-900 100%);
+    background: radial-gradient(ellipse at center, colors.$color-accent-700 0%, colors.$color-accent-900 100%);
     color: var(--color-highlight-contrast);
     text-shadow: 0 0 1em var(--color-dark);
     justify-content: center;
@@ -16,10 +16,7 @@
     &::before {
         content: "";
         position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
+        inset: 0 0 0 0;
         background-repeat: no-repeat;
         background-size: cover;
         background-position: top center;
@@ -32,7 +29,7 @@
     }
 
     h1 {
-        max-width: $content-width;
+        max-width: sizes.$content-width;
         padding: 0 1.5rem;
         box-sizing: border-box;
         margin: 0;
