@@ -8,6 +8,7 @@ tags:
     "TypeScript",
     "Web Development",
     "Toilet Paper",
+    "Bad Choices",
   ]
 title: "Don't Drink So Much: Reducing Frontend Code"
 description: >

@@ -24,4 +24,8 @@ export const tagDescriptions: Record<string, string> = {
     "Web Development": "Anything that is related to web development. Be it frontend, backend, tooling, etc.",
     JavaScript: "The main language for developing code on the web.",
     TypeScript: "A superset of JavaScript, which adds static typing.",
+    Performance:
+        "How well does your application perform on low-end devices? Better performance also means less energy consumption and thus benefits a greener footprint.",
+    "Bad Choices":
+        "There's a lot of talk about how to do things right, but pointing out failures is equally important. You learn most when failing!",
 };
