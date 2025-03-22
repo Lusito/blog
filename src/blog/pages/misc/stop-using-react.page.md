@@ -13,7 +13,7 @@ So the title might sound like click-bait, but it actually isn't. And I'm not som
 
 To a lot of people, especially at my current employer, I am "the react guy".
 
-I started working with react professionally in february 2019, which was when hooks have just been released.
+I started working with react professionally in February 2019, which was when hooks have just been released.
 This was quite exciting, as I haven't been a fan of the class-based approach of earlier React versions.
 
 In fact, I was so excited about this, that I started a whole meetup series with 7 presentations from project setup to testing and various libraries in the ecosystem. That was so well received, that I offered a 3 days React live-coding training course within my company 3 years in a row with roughly 14 participants each time. I only stopped when I ran out of people to teach.
@@ -44,7 +44,7 @@ I can find negative points on all of the statements above:
 - **Lots of frontend developers have this skill in their portfolio**\
   Correct, but only very few actually know how to use it properly:
   - You have to keep a lot of things in mind if you want to avoid issues and still have a well-performing application.
-  - In code-reviews you'l have to focus even more on these things, as it's easy to miss dependencies in a diff-view.
+  - In code-reviews you'll have to focus even more on these things, as it's easy to miss dependencies in a diff-view.
   - Especially beginners, but also experienced devs with a non-frontend background easily fall into traps.
 - **There's a huge ecosystem of libraries, tools and frameworks**\
   A huge ecosystem is nice. You have lots of choices, but:
@@ -74,7 +74,7 @@ Granted, a news-page (or rather a Multi-Page-Application) is not the ideal use-c
 
 ## Problems With Memoization
 
-React performance is difficult. I still remember when I opened the customers news-page on a medium-level Android device for the first time and had to wait over half a minute before I could use the menu.
+React performance is difficult to get right. I remember when I opened the customers news-page on a medium-level Android device for the first time and had to wait over half a minute before I could use the menu.
 
 With React, you'll always have to consider performance manually and keep a lot of things in mind while doing so:
 
@@ -167,7 +167,7 @@ It gets even more interesting when I change the dependencies array of both `useM
 
 - The React-Compiler does some weird magic, which completely ignores the dependencies array.
   - So it thinks it knows better than you.
-  - This might even fix some bugs, as people easily make mistakes here, but in other cases this might not desired. Mostly though, this is not what you would expect it to do!
+  - This might even fix some bugs, as people easily make mistakes here, but in other cases this might not be desired. Mostly though, this is not what you would expect it to do!
 - Even though the React-Compiler recalculated values in `useMemo` (which causes new object instances), this does not cause the `Button` component to rerender.
   - So after the value is recalculated, react does a deep comparison, which prevents a rerender.
   - This even works if the calculated value is or contains a function. Even though you can't easily compare functions in JavaScript (keep closures in mind).
@@ -184,7 +184,7 @@ So, how do we continue from here on?
 
 I can't recommend React to any project or customer anymore. Even before my current customer project, which we inherited from another company of very inexperienced react developers, I noticed the issues above. This new project just proved my fears.
 
-You can't say it any nicer: You can only write stable, well-performing React code if you have a team of exclusively experienced React developers. Once you introduce less experienced devs (which will happen at some point in any long running project), wou will face the issues listed above. So if anyone wants to start a new project with React, tell them `No!` and tell them why. Using almost any other modern alternative, you will save time, money and nerves, even if you haven't used them before.
+You can't say it any nicer: You can only write stable, well-performing React code if you have a team of exclusively experienced React developers. Once you introduce less experienced devs (which will happen at some point in any long running project), you will face the issues listed above. So if anyone wants to start a new project with React, tell them `No!` and tell them why. Using almost any other modern alternative, you will save time, money and nerves, even if you haven't used them before.
 
 ## Alternatives
 
@@ -202,7 +202,7 @@ If you want me to name a few candidates I find promising: [Vue](https://vuejs.or
 
 ### Multi Page Applications
 
-If you have a use-case of mostly static content, like news-pages, wikipedia or similar, then a SPA framework is the worst choice you can make. No matter which one you choose. The best you can do is generate most of the content completely static and only sprinkle in some JavaScript for the few dynamic parts. Ideally your website works for the most part completely without JavaScript (think [progressive enhancement](https://blog.lusito.info/tag/progressive-enhancement.html)).
+If you have a use-case of mostly static content, like news-pages, Wikipedia or similar, then an SPA framework is the worst choice you can make. No matter which one you choose. The best you can do is generate most of the content completely static and only sprinkle in some JavaScript for the few dynamic parts. Ideally your website works for the most part completely without JavaScript (think [progressive enhancement](https://blog.lusito.info/tag/progressive-enhancement.html)).
 
 One framework I currently find interesting for exactly that reason is [Astro](https://astro.build). You have zero JavaScript delivered to the client by default and it's easy to learn since most of it is native web technology. If you need to write a more complex part like an on-page chat, you can do so in another framework and easily include it on-demand. Astro helps you with that!
 
