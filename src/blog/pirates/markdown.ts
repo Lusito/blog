@@ -45,6 +45,8 @@ const markdownHandler = createMarkdownHandler({
         if (isFrontMatter(frontMatter) && frontMatter.image) {
             frontMatter.image = copyAsset(join(dir, frontMatter.image));
         }
+
+        return undefined;
     },
     setup(md) {
         md.use(copyButtonPlugin);

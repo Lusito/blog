@@ -1,5 +1,5 @@
 import { join, relative, resolve } from "path";
-import { Component } from "tsx-dom-ssr";
+import { FC } from "tsx-dom-ssr";
 import slugify from "slug";
 import { MarkdownModule } from "@lusito/require-libs";
 
@@ -18,7 +18,7 @@ export type FrontMatter = {
     hideSynopsis?: boolean;
     hideDate?: boolean;
 };
-export type TsxPage = { frontMatter: FrontMatter; default: Component };
+export type TsxPage = { frontMatter: FrontMatter; default: FC };
 
 export type PageInfoBase = {
     tags: string[];
@@ -33,7 +33,7 @@ export type PageInfoBase = {
     hideDate?: boolean;
 };
 export type PageInfoMd = PageInfoBase & { type: "md"; body: string };
-export type PageInfoTsx = PageInfoBase & { type: "tsx"; body: Component };
+export type PageInfoTsx = PageInfoBase & { type: "tsx"; body: FC };
 export type PageInfo = PageInfoMd | PageInfoTsx;
 
 export const tagSlugToLabel: Record<string, string> = {};
@@ -45,7 +45,7 @@ function parseDate(date: string) {
     return new Date(`${date}T12:00:00.000Z`);
 }
 
-function createPageInfoBase(fm: FrontMatter, body: string | Component): PageInfo {
+function createPageInfoBase(fm: FrontMatter, body: string | FC): PageInfo {
     for (const tag of fm.tags) {
         tagSlugToLabel[slugify(tag)] = tag;
     }

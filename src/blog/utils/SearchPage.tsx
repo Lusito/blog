@@ -24,7 +24,7 @@ export const SearchPage = withCss(classes, ({ pages }: SearchPageProps) => (
                 <search-container searchField={classes.searchField} searchItem={classes.searchItem}>
                     <label class={classes.searchFieldWrapper}>
                         <span>Search: </span>
-                        <input type="search" autoFocus class={classes.searchField} />
+                        <input type="search" autofocus class={classes.searchField} />
                     </label>
                     {pages.map((page) => (
                         <div class={classes.searchItem}>

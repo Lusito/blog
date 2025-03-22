@@ -8,8 +8,8 @@
     "build": "rimraf dist && node -r ./esbuild-register.js src/blog/generate.tsx",
     "build:prod": "cross-env NODE_ENV=production npm run build",
     "dev-server": "node -r ./esbuild-register.js src/dev-server/main.tsx",
-    "lint": "mono-lint --src=\"src/**\" --pkg=.",
-    "lint:fix": "npm run lint -- --fix",
+    "lint": "tsc --noEmit && mono-lint --src=\"src/**\" --pkg=.",
+    "lint:fix": "tsc --noEmit && npm run lint -- --fix",
     "start": "nodemon -i dist -e '*' --exec \"npm run build && npm run dev-server\""
   },
   "dependencies": {

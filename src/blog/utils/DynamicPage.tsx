@@ -1,7 +1,7 @@
-import { Component, createElement } from "tsx-dom-ssr";
+import { FC, createElement } from "tsx-dom-ssr";
 
 type DynamicPageProps = {
-    component: Component;
+    component: FC;
 };
 
 export const DynamicPage = ({ component }: DynamicPageProps) => createElement(component, {});
