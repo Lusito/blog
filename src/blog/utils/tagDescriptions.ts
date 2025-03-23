@@ -26,6 +26,9 @@ export const tagDescriptions: Record<string, string> = {
     TypeScript: "A superset of JavaScript, which adds static typing.",
     Performance:
         "How well does your application perform on low-end devices? Better performance also means less energy consumption and thus benefits a greener footprint.",
+    Git: "Git is probably the most popular versioning tool for developers right now.",
+    "Mono Repository": "Multiple projects within one repository can speed up development.",
+    "Technical Debt": "Technical debt is present in almost every project. It's important to know how to tackle it.",
     "Bad Choices":
         "There's a lot of talk about how to do things right, but pointing out failures is equally important. You learn most when failing!",
 };

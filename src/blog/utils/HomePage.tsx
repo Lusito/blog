@@ -27,7 +27,7 @@ export const HomePage = withCss(classes, ({ pages }: HomePageProps) => (
             <Container>
                 <Synopsis>{description}</Synopsis>
                 <h2 class={classes.heading}>Latest Post</h2>
-                {pages.slice(0, 1).map((page) => (
+                {pages.slice(0, 3).map((page) => (
                     <Box href={`/${page.slug}.html`} title={page.title} date={page.created}>
                         <div>{page.description}</div>
                         <TagList tags={page.tags} />
