@@ -14,6 +14,10 @@ app.get("/hot-sse", (req, reply) => {
     reply.raw.setHeader("content-type", "text/event-stream");
     reply.raw.write(`data: ${startupTime}\n\n`);
 });
+app.get("/health", (req, reply) => {
+    reply.status(200);
+    reply.send(JSON.stringify("ready"));
+});
 
 app.register(fastifyStatic, {
     root: join(process.cwd(), "dist"),
@@ -28,7 +32,7 @@ app.setNotFoundHandler((req, reply) => {
 const start = async () => {
     try {
         await app.listen({ port: 3000 });
-        console.log(`Example app listening on port ${port}`);
+        console.log(`dev-server ready: http://localhost:${port}`);
     } catch (err) {
         console.error(err);
         process.exit(1);

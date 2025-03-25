@@ -1,5 +1,4 @@
 function initSSE() {
-    let delay = 500;
     let lastId = "";
     function connect() {
         const evtSource = new EventSource("/hot-sse");
@@ -11,13 +10,32 @@ function initSSE() {
         };
         evtSource.onerror = () => {
             evtSource.close();
-            setTimeout(connect, delay);
-            if (delay < 3000) {
-                delay *= 2;
-            }
+            connectWhenReady();
         };
     }
-    connect();
+
+    async function connectWhenReady(delayAfterError = 500) {
+        const controller = new AbortController();
+        const timeout = setTimeout(() => {
+            controller.abort(new Error("timeout"));
+        }, 100);
+        try {
+            const response = await fetch("/health", { signal: controller.signal });
+            if (!response.ok) throw new Error("Not ready yet");
+            const message = await response.json();
+            if (message === "ready") return connect();
+        } catch {
+            // ignore
+        } finally {
+            clearTimeout(timeout);
+        }
+        await new Promise((resolve) => {
+            setTimeout(resolve, delayAfterError);
+        });
+
+        return connectWhenReady(Math.min(3000, delayAfterError * 2));
+    }
+    connectWhenReady();
 }
 
 export const reloadScript =
