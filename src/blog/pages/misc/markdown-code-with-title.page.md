@@ -85,9 +85,11 @@ Nice!
 
 This worked great:
 
-- Markdown is readable
+- Markdown is readable.
 - It's readable when passed through a renderer that doesn't support the special title syntax.
-- It looks nice when special rendering is enabled
+- It looks nice when special rendering is enabled.
+
+You can check out the [raw markdown file](https://github.com/Lusito/blog/blob/main/src/blog/pages/misc/markdown-code-with-title.page.md?plain=1) for this blog post. Though I have to admit, that writing markdown within markdown code blocks isn't the nicest thing, this is not something you usually do.
 
 ### Adding Tabs
 
