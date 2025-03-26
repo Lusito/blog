@@ -28,9 +28,10 @@ export async function renderHTML(path: string, children: ComponentChildren) {
     const cssModules = [globalCss];
     const abortController = new AbortController();
 
+    const thisArg = addAbortSignal({ path, cssModules }, abortController);
     let dom: DocumentFragment;
     try {
-        dom = await toDom(document, children, addAbortSignal({ path, cssModules }, abortController));
+        dom = await toDom(document, children, thisArg);
     } catch (e) {
         if (!abortController.signal.aborted) abortController.abort();
         throw e;
@@ -98,6 +99,46 @@ export async function renderHTML(path: string, children: ComponentChildren) {
             }
         }
     });
+
+    // Merge code blocks with their title
+    const codeBlocks = Array.from(wrapper.querySelectorAll("pre > code.hljs"));
+    if (codeBlocks.length) {
+        const codeBlockTemplate = (
+            await toDom(
+                document,
+                <code-block>
+                    <code-block-tabs role="tablist" aria-label="Code tabs">
+                        <button role="tab" aria-selected="true" />
+                    </code-block-tabs>
+                    <code-block-panels />
+                </code-block>,
+                thisArg,
+            )
+        ).children[0];
+
+        for (const el of codeBlocks) {
+            const pre = el.parentElement;
+            const parent = pre?.parentElement;
+            const previousSibling = pre?.previousElementSibling;
+            if (!parent || !previousSibling || !previousSibling.matches("p") || previousSibling.children.length !== 1)
+                continue;
+
+            const code = previousSibling.children[0];
+            if (!code.matches("code") || !code.textContent) continue;
+
+            // We have a named code block, clone the template and adjust it
+            const codeBlock = codeBlockTemplate.cloneNode(true) as HTMLElement;
+            pre.parentElement!.insertBefore(codeBlock, pre);
+
+            const tab = codeBlock.querySelector("code-block-tabs > button")!;
+            tab.textContent = code.textContent;
+
+            codeBlock.querySelector("code-block-panels")!.appendChild(pre);
+
+            // Remove the paragraph containing the tab name
+            previousSibling.remove();
+        }
+    }
 
     return `<!DOCTYPE html>${wrapper.innerHTML}`;
 }

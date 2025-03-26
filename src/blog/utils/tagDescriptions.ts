@@ -24,6 +24,7 @@ export const tagDescriptions: Record<string, string> = {
     "Web Development": "Anything that is related to web development. Be it frontend, backend, tooling, etc.",
     JavaScript: "The main language for developing code on the web.",
     TypeScript: "A superset of JavaScript, which adds static typing.",
+    Markdown: "Markdown is a lightweight markup language for creating formatted text using a plain-text editor.",
     Performance:
         "How well does your application perform on low-end devices? Better performance also means less energy consumption and thus benefits a greener footprint.",
     Git: "Git is probably the most popular versioning tool for developers right now.",

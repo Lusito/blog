@@ -1,3 +1,5 @@
+import type { CustomElementProps } from "tsx-dom-ssr";
+
 function debounce(func: () => void, timeout = 300) {
     let timer: ReturnType<typeof setTimeout>;
     return () => {
@@ -52,7 +54,13 @@ class SearchContainer extends HTMLElement {
 
 customElements.define("search-container", SearchContainer);
 
-export type SearchContainerProps = {
+type SearchContainerProps = {
     searchField: string;
     searchItem: string;
 };
+
+declare module "tsx-dom-ssr" {
+    interface CustomElementsHTML {
+        "search-container": CustomElementProps<SearchContainerProps, "div">;
+    }
+}

@@ -13,6 +13,7 @@ First, we need to define the **source repositories** and the **target repository
 ## Keeping Things Simple
 
 For simplicity, assume the following:
+
 - My example **source repo** is named `foo`. It will receive the `_foo` suffix. Change it to whatever your source is.
 - The main deveopment branch of my **source repositories** is `develop`. Adjust that as well if your setup is different.
 - We create **a new target repository**. If you decide to use an existing repo as target, look further below for adjusted instructions.
