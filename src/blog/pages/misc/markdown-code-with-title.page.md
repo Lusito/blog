@@ -60,7 +60,7 @@ So, now we have something that is readable in markdown and is readable in a norm
 
 ## Server Side Enhancement
 
-The next step it to make it look good in my blog. This can be done in parts on my server.
+The next step is to make it look good in my blog. This can be done in parts on my server.
 So I'll inspect the DOM of the rendered HTML and loop over all elements. In pseudo code, this looks something like this:
 
 ```ts
