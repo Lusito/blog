@@ -65,7 +65,7 @@ On the day of the relaunch the landing page served an initial HTML document whic
 - The landing page had over 100 teasers to articles. At that time, the JSON-data for each teaser was the whole article.
 - Even though the teasers where completely static, the JSON had to be included, so that react could rerender them during hydration. Using [partial hydration](https://blog.lusito.info/tag/partial-hydration.html) here didn't work because of the way Arc XP worked.
 - To improve the situation, we had to rewrite the code, so that the JSON would only contain relevant content. This wasn't a simple Task. Teasers are the most complex thing in this project. They have lots of variations, each requiring different properties.
-- We formed a team of 3 experienced developers who focused solely on SEO and performance for about 9 months in order to get to a point where the values had been acceptable (keep in mind, that 20 other devs where pushing more features during that time).
+- We formed a team of 3 experienced developers plus a junior who focused solely on SEO and performance for about 9 months in order to get to a point where the values had been acceptable (keep in mind, that 20 other devs where pushing more features during that time).
 - The initial HTML of the landing page had shrunk to about 1MB by then, which is still way too much in my opinion.
 
 **In short:** You need to be very careful what you send to the client and when you work with an untyped API like Arc-XP, It's easy to miss that some object might contain more data than what you think. You need to actively think about this, as otherwise it will be automatically shipped to the client.
