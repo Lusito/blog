@@ -483,6 +483,20 @@ function MyComponent() {
 `Solution 6.B`
 
 ```ts
+function MyComponent() {
+  const foo = useSelector((store) => store.foo);
+  // By separating the values, we can use shallowEqual again:
+  const todoIds = useSelector(
+    (store) => store.todos.map((v) => v.id),
+    shallowEqual,
+  );
+  // ...
+}
+```
+
+`Solution 6.C`
+
+```ts
 // Using createSelector from the reselect project you can
 // avoid useMemo. Redux Toolkit also exports it!
 const selectFooAndTodos = createSelector(
@@ -507,10 +521,10 @@ function MyComponent() {
 }
 ```
 
-`Solution 6.C`
+`Solution 6.D`
 
 ```ts
-// For more comments, see Solution 6.B
+// For more comments, see Solution 6.C
 const selectFooAndTodos = createSelector(
   [
     (store: RootState) => store.foo,
@@ -521,10 +535,10 @@ const selectFooAndTodos = createSelector(
     todoIds: todos.map((v) => v.id),
   }),
   {
-    // By adding a result equality check,
-    // we only rerender if the ids change!
+    // By adding a custom result equality check,
+    // we can only rerender if the ids change!
     memoizeOptions: {
-      resultEqualityCheck: shallowEqual,
+      resultEqualityCheck: customEqual,
     },
   },
 );
@@ -535,7 +549,8 @@ function MyComponent() {
 }
 ```
 
-Granted, solution `6.C` is a lot more code, so you need to decide if the performance benefits are worth the complexity.
+- Solution `6.B` would be the simplest solution that works
+- Solution `6.D` is a lot more code, but might also be worth a shot depending on your use-case.
 
 ## Using React Context As an Alternative to Redux
 
