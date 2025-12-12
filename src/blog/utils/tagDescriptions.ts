@@ -7,6 +7,7 @@ export const tagDescriptions: Record<string, string> = {
     "Hot Module Replacement":
         "HMR allows you to update code in your development server and seeing changes in the browser without losing state.",
     React: "React is a popular UI framework for JavaScript and TypeScript.",
+    Redux: "Global state management (not just) for React",
     "JSX/TSX":
         "JSX is the HTML-like syntax react uses to define components. TSX is just the TypeScript variant of it. Both are not necessarily linked to React.",
     NGINX: "A popular web server that can also be used as a reverse proxy, load balancer, mail proxy and HTTP cache",
@@ -23,7 +24,7 @@ export const tagDescriptions: Record<string, string> = {
     "Game Development": "Anything related to game development.",
     "Web Development": "Anything that is related to web development. Be it frontend, backend, tooling, etc.",
     JavaScript: "The main language for developing code on the web.",
-    TypeScript: "A superset of JavaScript, which adds static typing.",
+    TypeScript: "A superset of JavaScript, which adds static typing and a better developer experience.",
     Markdown: "Markdown is a lightweight markup language for creating formatted text using a plain-text editor.",
     Performance:
         "How well does your application perform on low-end devices? Better performance also means less energy consumption and thus benefits a greener footprint.",
