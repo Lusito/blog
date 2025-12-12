@@ -24,6 +24,15 @@ function cachedImageSize(assetPath: string) {
     return result;
 }
 
+const getNameBlock = (el: Element) => {
+    if (el.matches("p") && el.children.length === 1 && el.childNodes.length === 1) {
+        const code = el.children[0];
+        return code?.matches("code") ? code.textContent?.trim() : null;
+    }
+
+    return null;
+};
+
 export async function renderHTML(path: string, children: ComponentChildren) {
     const cssModules = [globalCss];
     const abortController = new AbortController();
@@ -120,18 +129,17 @@ export async function renderHTML(path: string, children: ComponentChildren) {
             const pre = el.parentElement;
             const parent = pre?.parentElement;
             const previousSibling = pre?.previousElementSibling;
-            if (!parent || !previousSibling || !previousSibling.matches("p") || previousSibling.children.length !== 1)
-                continue;
+            if (!parent || !previousSibling) continue;
 
-            const code = previousSibling.children[0];
-            if (!code.matches("code") || !code.textContent) continue;
+            const name = getNameBlock(previousSibling);
+            if (!name) continue;
 
             // We have a named code block, clone the template and adjust it
             const codeBlock = codeBlockTemplate.cloneNode(true) as HTMLElement;
             pre.parentElement!.insertBefore(codeBlock, pre);
 
             const tab = codeBlock.querySelector("code-block-tabs > button")!;
-            tab.textContent = code.textContent;
+            tab.textContent = name;
 
             codeBlock.querySelector("code-block-panels")!.appendChild(pre);
 
