@@ -1,5 +1,10 @@
 ---
-tags: ["NGINX", "JavaScript", "Docker", "Web Development", "Toilet Paper"]
+tags:
+  - "NGINX"
+  - "JavaScript"
+  - "Docker"
+  - "Web Development"
+  - "Toilet Paper"
 title: "Extending NGINX with JavaScript (NJS)"
 description: >
   The much-loved NGINX has a limited feature-set.

@@ -1,5 +1,11 @@
 ---
-tags: ["React", "Performance", "JavaScript", "TypeScript", "Web Development", "Bad Choices"]
+tags:
+  - "React"
+  - "Performance"
+  - "JavaScript"
+  - "TypeScript"
+  - "Web Development"
+  - "Bad Choices"
 title: "Stop Using and Recommending React"
 description: >
   I have used React for a long time. Trust me when I tell you: There is no reason to use it and a lot of reasons against it.
@@ -133,8 +139,16 @@ function App() {
 
   return (
     <>
-      <Button text="foo" data={fooData} onClick={increaseFoo} />
-      <Button text="bar" data={barData} onClick={increaseBar} />
+      <Button
+        text="foo"
+        data={fooData}
+        onClick={increaseFoo}
+      />
+      <Button
+        text="bar"
+        data={barData}
+        onClick={increaseBar}
+      />
     </>
   );
 }

@@ -1,5 +1,11 @@
 ---
-tags: ["Hot Module Replacement", "JavaScript", "TypeScript", "Web Development", "Game Development", "Toilet Paper"]
+tags:
+  - "Hot Module Replacement"
+  - "JavaScript"
+  - "TypeScript"
+  - "Web Development"
+  - "Game Development"
+  - "Toilet Paper"
 title: "Hot Module Replacement: How to Use It Manually"
 description: >
   HMR works automagically in almost all popular frontend frameworks.

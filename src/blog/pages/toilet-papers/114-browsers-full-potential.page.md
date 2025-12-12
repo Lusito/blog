@@ -1,5 +1,10 @@
 ---
-tags: ["Web-Extensions", "TypeScript", "JavaScript", "Web Development", "Toilet Paper"]
+tags:
+  - "Web-Extensions"
+  - "TypeScript"
+  - "JavaScript"
+  - "Web Development"
+  - "Toilet Paper"
 title: "Using the Browser’s Full Potential"
 description: >
   Everyone knows how to use a browser to perform certain tasks.

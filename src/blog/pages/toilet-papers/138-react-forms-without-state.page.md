@@ -1,5 +1,10 @@
 ---
-tags: ["React", "TypeScript", "JavaScript", "Web Development", "Toilet Paper"]
+tags:
+  - "React"
+  - "TypeScript"
+  - "JavaScript"
+  - "Web Development"
+  - "Toilet Paper"
 title: "React Forms Without State"
 description: >
   React forms are often created with state, but this can quickly get complicated and confusing,
@@ -22,11 +27,17 @@ export const RegistrationForm = ({ submitForm }) => {
     <form onSubmit={() => submitForm(name, email)}>
       <label>
         <b>Name: </b>
-        <input value={name} onChange={(e) => setName(e.currentTarget.value)} />
+        <input
+          value={name}
+          onChange={(e) => setName(e.currentTarget.value)}
+        />
       </label>
       <label>
         <b>E-Mail: </b>
-        <input value={email} onChange={(e) => setEmail(e.currentTarget.value)} />
+        <input
+          value={email}
+          onChange={(e) => setEmail(e.currentTarget.value)}
+        />
       </label>
       <button type="submit">Submit</button>
     </form>

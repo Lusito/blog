@@ -1,5 +1,11 @@
 ---
-tags: ["JSX/TSX", "React", "TypeScript", "JavaScript", "Web Development", "Toilet Paper"]
+tags:
+  - "JSX/TSX"
+  - "React"
+  - "TypeScript"
+  - "JavaScript"
+  - "Web Development"
+  - "Toilet Paper"
 title: "What Is Jsx / TSX?"
 description: >
   Anyone who has ever worked with React will know the file extension JSX (TSX for TypeScript) and the HTML-related syntax.
@@ -18,7 +24,11 @@ Example:
 ```tsx
 const profile = (
   <div>
-    <img src={u.avatar} className="profile" alt={`Pic of ${u.firstName}`} />
+    <img
+      src={u.avatar}
+      className="profile"
+      alt={`Pic of ${u.firstName}`}
+    />
     <h3>{[u.firstName, u.lastName].join(" ")}</h3>
   </div>
 );
@@ -34,8 +44,16 @@ A **transpiler** (e.g. **babel** or **tsc**) converts JSX/TSX into pure JavaScri
 const profile = React.createElement(
   "div",
   null,
-  React.createElement("img", { src: u.avatar, className: "profile", alt: `Pic of ${u.firstName}` }),
-  React.createElement("h3", null, [u.firstName, u.lastName].join(" ")),
+  React.createElement("img", {
+    src: u.avatar,
+    className: "profile",
+    alt: `Pic of ${u.firstName}`,
+  }),
+  React.createElement(
+    "h3",
+    null,
+    [u.firstName, u.lastName].join(" "),
+  ),
 );
 ```
 
@@ -50,7 +68,8 @@ You can easily write a replacement for React which, instead of a Virtual DOM, cr
 
 ```js
 function h(tag, props, ...children) {
-  if (typeof tag === "function") return tag({ ...props, children });
+  if (typeof tag === "function")
+    return tag({ ...props, children });
 
   const element = document.createElement(tag);
   if (props) setAllAttributes(element, props);

@@ -1,5 +1,7 @@
 ---
-tags: ["TypeScript", "Web Development"]
+tags:
+  - "TypeScript"
+  - "Web Development"
 title: "Making the Types of an NPM Package Configurable"
 description: >
   Sometimes you need to allow users to configure the types of your NPM package.
@@ -142,13 +144,19 @@ Since all the configuration options in `tsx-dom` are enabled by default (fallbac
 
 ```ts
 // Returns TIF if T is specified as true in TsxConfig, otherwise TELSE
-type IfTsxConfig<T extends string, TIF, TELSE> = TsxConfig[T] extends false ? TELSE : TIF;
+type IfTsxConfig<
+  T extends string,
+  TIF,
+  TELSE,
+> = TsxConfig[T] extends false ? TELSE : TIF;
 ```
 
 And now I can use it like this:
 
 ```ts
-type Element = IfTsxConfig<"html", HTMLElement, never> | IfTsxConfig<"svg", SVGElement, never>;
+type Element =
+  | IfTsxConfig<"html", HTMLElement, never>
+  | IfTsxConfig<"svg", SVGElement, never>;
 
 // If both html and svg options are set to true (or have not been configured), this evaluates to:
 type Element = HTMLElement | SVGElement;
@@ -173,11 +181,16 @@ Explanation:
 The above was a union-type example. This can be used with intersections as well. Just use unknown instead of never:
 
 ```ts
-type IntrinsicElementsCombined = IfTsxConfig<"html", IntrinsicElementsHTML, unknown> &
+type IntrinsicElementsCombined = IfTsxConfig<
+  "html",
+  IntrinsicElementsHTML,
+  unknown
+> &
   IfTsxConfig<"svg", IntrinsicElementsSVG, unknown>;
 
 // If both html and svg options are set to true (or have not been configured), this evaluates to:
-type IntrinsicElementsCombined = IntrinsicElementsHTML & IntrinsicElementsSVG;
+type IntrinsicElementsCombined = IntrinsicElementsHTML &
+  IntrinsicElementsSVG;
 
 // If html was set to false, but svg to true, this evaluates to:
 type IntrinsicElementsCombined = IntrinsicElementsSVG;

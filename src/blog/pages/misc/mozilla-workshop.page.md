@@ -1,5 +1,7 @@
 ---
-tags: ["Web-Extensions", "Web Development"]
+tags:
+  - "Web-Extensions"
+  - "Web Development"
 title: "Mozilla Workshop Summary"
 description: >
   I attended a workshop at Mozillas office in London on the topic of Manifest V3 and the future of the Recommended Extensions Program.

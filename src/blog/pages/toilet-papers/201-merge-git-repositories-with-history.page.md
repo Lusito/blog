@@ -1,5 +1,8 @@
 ---
-tags: ["Git", "Mono Repository", "Toilet Paper"]
+tags:
+  - "Git"
+  - "Mono Repository"
+  - "Toilet Paper"
 title: "Merging Git Repositories Including Their Histories"
 description: >
   Some of you know the problem: You want to merge multiple repositories into a single mono-repo. But how can you do that without losing the history of one of them? The solution is actually quite simple!

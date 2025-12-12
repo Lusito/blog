@@ -1,5 +1,9 @@
 ---
-tags: ["Markdown", "Web Development", "Progressive Enhancement", "Performance"]
+tags:
+  - "Markdown"
+  - "Web Development"
+  - "Progressive Enhancement"
+  - "Performance"
 title: "Markdown Code Blocks With a Title / Filename"
 description: >
   Learn what progressive enhancement is based on a real world example within this blog post.

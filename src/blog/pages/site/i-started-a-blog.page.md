@@ -1,5 +1,11 @@
 ---
-tags: ["Web Development", "Progressive Enhancement", "JSX/TSX", "TypeScript", "JavaScript", "Projects"]
+tags:
+  - "Web Development"
+  - "Progressive Enhancement"
+  - "JSX/TSX"
+  - "TypeScript"
+  - "JavaScript"
+  - "Projects"
 title: "I Started a Blog"
 description: >
   Recently, I wrote a rant about using the right tools for the job.

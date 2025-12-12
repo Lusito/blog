@@ -1,5 +1,10 @@
 ---
-tags: ["Technical Debt", "JavaScript", "TypeScript", "Web Development", "Toilet Paper"]
+tags:
+  - "Technical Debt"
+  - "JavaScript"
+  - "TypeScript"
+  - "Web Development"
+  - "Toilet Paper"
 title: "Dead Code Removal With Knip"
 description: >
   We all know the problem: The codebase keeps growing and you end up with lots of code that isn't actively used anymore. Find out how to manage this easily.

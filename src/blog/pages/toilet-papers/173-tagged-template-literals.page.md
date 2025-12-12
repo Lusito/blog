@@ -1,5 +1,9 @@
 ---
-tags: ["JavaScript", "TypeScript", "Web Development", "Toilet Paper"]
+tags:
+  - "JavaScript"
+  - "TypeScript"
+  - "Web Development"
+  - "Toilet Paper"
 title: "Tagged Template Literals"
 description: >
   A lot of you might have already stumbled over a tagged template literal.
