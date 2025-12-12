@@ -10,7 +10,7 @@ title: "React Performance Issues And Solutions"
 description: >
   Working on projects that have a wide range of skill-levels, I regularly find things that cause performance issues.
   This article shows some problems and possible solutions.
-created: "2025-12-10"
+created: "2025-12-13"
 ---
 
 While I do stand by my statement, that you should [stop using React](https://blog.lusito.info/stop-using-and-recommending-react.html),
